@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Tipos de Piel — Melasblock BB Cream · Skindoctors CR</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --cream:   #FBF5EF;
+  --beige:   #E0C3AE;
+  --peach:   #FFAF83;
+  --coral:   #FF7671;
+  --earth:   #8F6149;
+  --earth-lt:#B07D62;
+  --dark:    #231F20;
+  --text:    #231F20;
+  --muted:   #7A6558;
+  --border:  #EDD9C8;
+  --silver:  #C4C4C4;
+  /* aliases */
+  --sand:    #E0C3AE;
+  --sand-lt: #F0DDD0;
+  --brown:   #8F6149;
+  --brown-lt:#B07D62;
+  --serif:   'Noto Serif Display',Georgia,serif;
+  --sans:    'Quicksand',system-ui,sans-serif;
+}
+
+html{background:#ddd0c4}
+body{font-family:var(--sans);color:var(--text);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+
+/* ── PÁGINA ── */
+.page{
+  width:794px;
+  min-height:1123px;
+  margin:0 auto 32px;
+  background:var(--cream);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 60px rgba(0,0,0,.15);
+  display:flex;
+  flex-direction:column;
+}
+@media print{
+  html{background:white}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+}
+
+/* Decoración de fondo */
+.page::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,144,106,.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.page::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,94,60,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* ── HEADER ── */
+.header{
+  padding:28px 52px 22px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  position:relative;z-index:1;
+}
+.header::after{
+  content:'';position:absolute;bottom:0;left:52px;right:52px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(196,196,196,.5),rgba(200,144,106,.4),rgba(196,196,196,.5),transparent);
+}
+.brand-name{font-family:var(--serif);font-size:1.15rem;color:var(--dark);letter-spacing:.04em}
+.brand-name span{color:var(--brown);font-style:italic}
+.brand-tag{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);opacity:.6;margin-top:.15rem}
+.header-right{text-align:right}
+.product-name{font-family:var(--serif);font-size:.88rem;color:var(--brown)}
+.product-sub{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.55;margin-top:.15rem}
+
+/* ── TÍTULO ── */
+.title-block{padding:22px 52px 16px;position:relative;z-index:1}
+.eyebrow-line{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--brown);opacity:.7;margin-bottom:.45rem;
+}
+.eyebrow-line::before{content:'';width:18px;height:1.5px;background:var(--brown)}
+.title-main{font-family:var(--serif);font-size:1.75rem;font-weight:300;color:var(--text);line-height:1.12}
+.title-main strong{font-weight:600;color:var(--brown)}
+.title-intro{
+  margin-top:.6rem;font-size:.76rem;line-height:1.68;color:var(--muted);max-width:580px;
+}
+
+/* ── ESCALA ── */
+.scale-row{
+  margin:8px 52px 16px;
+  position:relative;z-index:1;
+}
+.scale-label-txt{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;opacity:.6}
+.scale-track{
+  display:flex;height:6px;border-radius:50px;overflow:hidden;gap:2px;
+  box-shadow:0 1px 6px rgba(0,0,0,.08);
+}
+.scale-track div{flex:1;border-radius:50px}
+.s1{background:#FAF0E0}.s2{background:#EDD8BE}.s3{background:#D9A878}
+.s4{background:#F4E0E0}.s5{background:#E8C0C0}.s6{background:#D09090}
+.s7{background:#A86060}.s8{background:#805050}
+.scale-ends{display:flex;justify-content:space-between;margin-top:.3rem;font-size:.54rem;color:var(--muted);opacity:.5;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+
+/* ── GRID PRINCIPAL ── */
+.main-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;padding:0 52px;
+  flex:1;position:relative;z-index:1;
+}
+.main-grid::after{
+  content:'';position:absolute;top:0;bottom:0;
+  left:calc(50% + 8px);width:1px;
+  background:linear-gradient(180deg,transparent,var(--border) 10%,var(--border) 90%,transparent);
+  pointer-events:none;
+}
+
+/* ── COLUMNA TEMP ── */
+.temp-col{display:flex;flex-direction:column}
+.temp-header{
+  border-radius:8px 8px 0 0;
+  padding:8px 14px;
+  text-align:center;
+  margin-bottom:0;
+}
+.temp-header.calida{background:linear-gradient(135deg,#FFAF83,#F0DDD0)}
+.temp-header.fria  {background:linear-gradient(135deg,#B8A8D0,#DDD0E8)}
+.temp-header-title{
+  font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(26,20,16,.85);display:block;
+}
+.temp-header-sub{
+  font-size:.52rem;font-weight:400;opacity:.6;margin-top:.1rem;letter-spacing:.05em;display:block;
+}
+.temp-body{
+  border:1px solid var(--border);border-top:none;
+  border-radius:0 0 8px 8px;overflow:hidden;
+  flex:1;
+}
+
+/* ── FILA DE TONO ── */
+.tono-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;
+  border-bottom:1px solid rgba(232,213,188,.5);
+  background:#fff;
+  transition:background .15s;
+}
+.tono-row:last-child{border-bottom:none}
+.tono-row:hover{background:var(--cream)}
+
+/* ── FOTO ── */
+.photo-wrap{
+  width:64px;height:80px;
+  border-radius:8px;
+  overflow:hidden;
+  flex-shrink:0;
+  position:relative;
+  box-shadow:0 3px 12px rgba(0,0,0,.14),0 0 0 1.5px rgba(196,196,196,.35);
+}
+.photo-wrap img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 15%;
+  display:block;
+}
+/* Shimmer de luz sobre la foto */
+.photo-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 50%);
+  pointer-events:none;
+}
+/* Badge del código */
+.photo-code{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:.2rem;
+  font-size:.52rem;font-weight:700;letter-spacing:.06em;text-align:center;
+  color:#fff;line-height:1;
+}
+.calida .photo-code{background:rgba(143,97,73,.85)}
+.fria   .photo-code{background:rgba(80,60,130,.82)}
+
+/* ── TEXTO TONO ── */
+.tono-text{flex:1;min-width:0}
+.tono-code-label{
+  font-size:.8rem;font-weight:700;color:var(--text);
+  display:block;margin-bottom:.18rem;
+}
+.tono-name{
+  font-family:var(--serif);font-size:.82rem;color:var(--brown);
+  font-style:italic;display:block;margin-bottom:.22rem;
+}
+.tono-desc{font-size:.68rem;line-height:1.5;color:var(--muted)}
+
+/* ── B1N ── */
+.b1n-section{
+  margin:12px 52px 0;
+  border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  position:relative;z-index:1;
+}
+.b1n-header{
+  background:linear-gradient(135deg,#F0E4D0,#E8D4B4);
+  padding:7px 16px;
+  display:flex;align-items:center;gap:.6rem;
+}
+.b1n-header-txt{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brown)}
+.b1n-header-line{flex:1;height:1px;background:rgba(139,94,60,.18)}
+.b1n-body{
+  display:flex;align-items:center;gap:16px;
+  padding:12px 16px;background:#fff;
+}
+.b1n-photo{
+  width:58px;height:72px;
+  border-radius:8px;overflow:hidden;flex-shrink:0;
+  box-shadow:0 3px 12px rgba(0,0,0,.12),0 0 0 1.5px rgba(196,196,196,.3);
+  position:relative;
+}
+.b1n-photo img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
+.b1n-photo .photo-code{background:rgba(42,26,14,.72)}
+.b1n-info{flex:1}
+.b1n-title{font-family:var(--serif);font-size:.9rem;color:var(--text);margin-bottom:.25rem}
+.b1n-desc{font-size:.7rem;line-height:1.58;color:var(--muted)}
+.b1n-badge{
+  padding:.55rem .9rem;background:rgba(200,144,106,.1);
+  border:1px solid rgba(200,144,106,.22);border-radius:8px;
+  text-align:center;flex-shrink:0;
+}
+.b1n-badge span{font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brown);display:block}
+.b1n-badge strong{font-family:var(--serif);font-size:.95rem;color:var(--text);display:block;margin-top:.2rem}
+
+/* ── GUIDE BAR ── */
+.guide-bar{
+  margin:10px 52px;
+  padding:10px 16px;
+  border-radius:8px;
+  background:rgba(200,144,106,.08);
+  border:1px solid rgba(200,144,106,.2);
+  display:flex;align-items:flex-start;gap:.7rem;
+  position:relative;z-index:1;
+}
+.guide-icon{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.guide-text{font-size:.68rem;line-height:1.62;color:var(--muted)}
+.guide-text strong{color:var(--text)}
+
+/* ── FOOTER ── */
+.footer-bar{
+  margin-top:auto;
+  padding:12px 52px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  position:relative;z-index:1;
+}
+.footer-bar::before{
+  content:'';position:absolute;top:0;left:52px;right:52px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(196,196,196,.4),rgba(200,144,106,.3),rgba(196,196,196,.4),transparent);
+}
+.footer-brand{font-family:var(--serif);font-size:.78rem;color:var(--muted);opacity:.55}
+.footer-brand span{color:var(--brown);font-style:italic}
+.footer-credit{font-size:.54rem;color:var(--muted);opacity:.4;letter-spacing:.08em;text-transform:uppercase;text-align:right}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="brand-name">Skin<span>doctors</span> CR</div>
+      <div class="brand-tag">Ciencia aplicada a la belleza</div>
+    </div>
+    <div class="header-right">
+      <div class="product-name">Melasblock BB Cream SPF 50</div>
+      <div class="product-sub">Corrector facial con color y protección solar</div>
+    </div>
+  </div>
+
+  <!-- Título -->
+  <div class="title-block">
+    <div class="eyebrow-line">Guía de tonos · BB Cream</div>
+    <div class="title-main">Cómo elegir tu <strong>TONO DE BB-CREAM</strong></div>
+    <p class="title-intro">
+      Ahora que conocés la temperatura de tu piel, podés elegir el tono de BB Cream Melasblock. Si aún no lo sabés, podés usar los tres rangos e identificar el que más se parece al tono de tu piel.
+    </p>
+  </div>
+
+  <!-- Escala -->
+  <div class="scale-row">
+    <div class="scale-label-txt">Escala de tonos disponibles</div>
+    <div class="scale-track">
+      <div class="s1"></div><div class="s2"></div><div class="s3"></div>
+      <div class="s4"></div><div class="s5"></div><div class="s6"></div>
+      <div class="s7"></div><div class="s8"></div>
+    </div>
+    <div class="scale-ends"><span>← Claro</span><span>Oscuro →</span></div>
+  </div>
+
+  <!-- Grid temperatura -->
+  <div class="main-grid">
+
+    <!-- CÁLIDA -->
+    <div class="temp-col calida">
+      <div class="temp-header calida">
+        <span class="temp-header-title">🌅 Temperatura Cálida</span>
+        <span class="temp-header-sub">Venas verdosas · Subtono dorado / amarillo</span>
+      </div>
+      <div class="temp-body">
+
+        <div class="tono-row">
+          <div class="photo-wrap">
+            <img src="c1a.jpg" alt="Tono C1A — Clara cálida"/>
+            <div class="photo-code">C1A</div>
+          </div>
+          <div class="tono-text">
+            <span class="tono-code-label">C1A</span>
+            <span class="tono-name">Clara cálida</span>
+            <span class="tono-desc">Color claro con tendencia a pieles amarillas. Ideal para pieles muy blancas con subtono dorado.</span>
+          </div>
+        </div>
+
+        <div class="tono-row">
+          <div class="photo-wrap">
+            <img src="m1a.jpg" alt="Tono M1A — Media cálida"/>
+            <div class="photo-code">M1A</div>
+          </div>
+          <div class="tono-text">
+            <span class="tono-code-label">M1A</span>
+            <span class="tono-name">Media cálida</span>
+            <span class="tono-desc">Color medio con tendencia a pieles amarillas. El tono más popular en Costa Rica.</span>
+          </div>
+        </div>
+
+        <div class="tono-row">
+          <div class="photo-wrap">
+            <img src="o3a.jpg" alt="Tono O3A — Oscura cálida"/>
+            <div class="photo-code">O3A</div>
+          </div>
+          <div class="tono-text">
+            <span class="tono-code-label">O3A</span>
+            <span class="tono-name">Oscura cálida</span>
+            <span class="tono-desc">Color oscuro con tendencia a pieles amarillas. Para pieles morenas con subtono dorado.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FRÍA -->
+    <div class="temp-col fria">
+      <div class="temp-header fria">
+        <span class="temp-header-title">❄️ Temperatura Fría</span>
+        <span class="temp-header-sub">Venas azul-moradas · Subtono rosado / frío</span>
+      </div>
+      <div class="temp-body">
+
+        <div class="tono-row">
+          <div class="photo-wrap">
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=250&fit=crop&crop=face,top&q=80" alt="Tono C1 — Clara fría"/>
+            <div class="photo-code">C1</div>
+          </div>
+          <div class="tono-text">
+            <span class="tono-code-label">C1</span>
+            <span class="tono-name">Clara fría</span>
+            <span class="tono-desc">Color claro con tendencia a pieles rosáceas. Pieles blancas con subtono rosado o azulado.</span>
+          </div>
+        </div>
+
+        <div class="tono-row">
+          <div class="photo-wrap">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=250&fit=crop&crop=face,top&q=80" alt="Tono M1 — Media fría"/>
+            <div class="photo-code">M1</div>
+          </div>
+          <div class="tono-text">
+            <span class="tono-code-label">M1</span>
+            <span class="tono-name">Media fría</span>
+            <span class="tono-desc">Color medio con tendencia a pieles rosáceas. Muy común en Latinoamérica.</span>
+          </div>
+        </div>
+
+        <div class="tono-row">
+          <div class="photo-wrap">
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=250&fit=crop&crop=face,top&q=80&sat=-20&bri=-10" alt="Tono O3 — Oscura fría"/>
+            <div class="photo-code">O3</div>
+          </div>
+          <div class="tono-text">
+            <span class="tono-code-label">O3</span>
+            <span class="tono-name">Oscura fría</span>
+            <span class="tono-desc">Color oscuro con tendencia a pieles rosáceas. Para pieles morenas con subtono frío.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- B1N Neutro -->
+  <div class="b1n-section">
+    <div class="b1n-header">
+      <span class="b1n-header-txt">⚪ B1N · Tono neutro — El más claro de la línea</span>
+      <div class="b1n-header-line"></div>
+    </div>
+    <div class="b1n-body">
+      <div class="b1n-photo">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=250&fit=crop&crop=face,top&q=80" alt="Tono B1N — Neutro"/>
+        <div class="photo-code">B1N</div>
+      </div>
+      <div class="b1n-info">
+        <div class="b1n-title">El tono más claro de la línea</div>
+        <div class="b1n-desc">Si no podés identificar si tus venas son verdes o azuladas, o si tu piel es muy clara, el B1N neutro es tu mejor opción. Funciona para ambas temperaturas sin marcar un subtono específico.</div>
+      </div>
+      <div class="b1n-badge">
+        <span>Elegí B1N si</span>
+        <strong>No sé mi<br>subtono</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guía -->
+  <div class="guide-bar">
+    <span class="guide-icon">✋</span>
+    <div class="guide-text">
+      <strong>¿Cómo identificar tu temperatura?</strong> Mirá las venas de tu muñeca bajo luz natural: <strong>verdosas → cálida (A)</strong> · <strong>azul / moradas → fría</strong> · No podés distinguirlas → elegí <strong>B1N neutro</strong>. ¿Dudas? Escribinos al WhatsApp y te ayudamos.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-bar">
+    <div class="footer-brand">Skin<span>doctors</span> CR — Ciencia aplicada a la belleza</div>
+    <div class="footer-credit">Apex Cloud Works · Cartago, CR · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
