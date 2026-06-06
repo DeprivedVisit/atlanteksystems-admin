@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cierre Skindoctors · Apex Cloud Works · INTERNO</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF5EF;--beige:#E0C3AE;--peach:#FFAF83;--coral:#FF7671;
+  --earth:#8F6149;--dark:#231F20;--muted:#7A6558;--border:#EDD9C8;
+  --green:#2E8B57;--red:#D04040;--yellow:#D4A020;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:#0f0d0c;color:var(--beige);min-height:100vh}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#0f0d0c 0%,#1c1410 100%);
+  border-bottom:1px solid rgba(224,195,174,.12);
+  padding:2rem 3rem;
+}
+.header-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.internal-badge{
+  font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  background:rgba(255,118,113,.15);border:1px solid rgba(255,118,113,.3);
+  color:var(--coral);padding:.2rem .7rem;border-radius:4px;margin-bottom:.4rem;display:inline-block;
+}
+.doc-title{font-family:var(--serif);font-size:2rem;font-weight:300;color:#fff}
+.doc-title strong{color:var(--peach);font-weight:600}
+.header-right{text-align:right}
+.deadline-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.25rem}
+.deadline-val{font-family:var(--serif);font-size:1.5rem;color:var(--coral);font-weight:600}
+.deadline-days{font-size:.75rem;color:rgba(255,118,113,.6);margin-top:.1rem}
+
+/* WRAP */
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem 4rem}
+
+/* DEAL BOX */
+.deal-box{
+  background:linear-gradient(135deg,rgba(143,97,73,.15),rgba(224,195,174,.08));
+  border:1px solid rgba(224,195,174,.2);border-radius:16px;
+  padding:1.8rem 2rem;margin-bottom:2rem;
+  display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
+}
+.deal-amount{text-align:center}
+.deal-num{font-family:var(--serif);font-size:3.5rem;font-weight:600;color:#fff;line-height:1}
+.deal-label{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.deal-breakdown{flex:1;display:flex;flex-direction:column;gap:.5rem}
+.deal-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;border-radius:8px;background:rgba(255,255,255,.04)}
+.deal-row-label{font-size:.8rem;color:rgba(255,255,255,.65)}
+.deal-row-val{font-size:.8rem;font-weight:700;color:var(--beige)}
+.deal-row.total{background:rgba(143,97,73,.2);border:1px solid rgba(143,97,73,.3)}
+.deal-row.total .deal-row-label{color:#fff;font-weight:700}
+.deal-row.total .deal-row-val{color:var(--peach);font-size:.95rem}
+.deal-note{font-size:.72rem;color:var(--muted);line-height:1.55;flex-basis:100%}
+
+/* SECTION */
+.section{margin-bottom:2rem}
+.sec-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(224,195,174,.1)}
+.sec-icon{font-size:1rem;line-height:1}
+.sec-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--earth)}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:.55rem}
+.check-item{
+  display:flex;align-items:flex-start;gap:.85rem;
+  background:rgba(255,255,255,.03);border:1px solid rgba(224,195,174,.1);
+  border-radius:10px;padding:.8rem 1rem;cursor:pointer;
+  transition:background .15s;user-select:none;
+}
+.check-item:hover{background:rgba(255,255,255,.05)}
+.check-item.done{background:rgba(46,139,87,.07);border-color:rgba(46,139,87,.2)}
+.check-box{
+  width:20px;height:20px;border-radius:5px;flex-shrink:0;
+  border:2px solid rgba(224,195,174,.3);margin-top:.1rem;
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;
+  transition:all .15s;
+}
+.check-item.done .check-box{background:var(--green);border-color:var(--green);color:#fff}
+.check-item.done .check-box::after{content:'✓';font-weight:700}
+.check-content{flex:1}
+.check-title{font-size:.84rem;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:.15rem}
+.check-item.done .check-title{color:rgba(46,139,87,.9);text-decoration:line-through;text-decoration-color:rgba(46,139,87,.4)}
+.check-desc{font-size:.72rem;line-height:1.52;color:var(--muted)}
+.check-tag{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .55rem;border-radius:4px;flex-shrink:0;margin-top:.12rem}
+.tag-urgente{background:rgba(255,118,113,.15);color:var(--coral);border:1px solid rgba(255,118,113,.25)}
+.tag-hoy{background:rgba(255,175,131,.12);color:var(--peach);border:1px solid rgba(255,175,131,.2)}
+.tag-semana{background:rgba(143,97,73,.15);color:var(--earth);border:1px solid rgba(143,97,73,.25)}
+.tag-listo{background:rgba(46,139,87,.12);color:var(--green);border:1px solid rgba(46,139,87,.2)}
+
+/* PROGRESO */
+.progress-wrap{margin-bottom:2rem}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.progress-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.progress-pct{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--peach)}
+.progress-track{height:8px;background:rgba(255,255,255,.06);border-radius:50px;overflow:hidden}
+.progress-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--peach),var(--coral));transition:width 1s ease}
+
+/* SCRIPT VENTA */
+.script-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(224,195,174,.1);
+  border-left:3px solid var(--peach);border-radius:0 10px 10px 0;
+  padding:1rem 1.2rem;margin-bottom:.7rem;
+}
+.script-who{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--earth);margin-bottom:.3rem}
+.script-text{font-size:.82rem;line-height:1.65;color:rgba(255,255,255,.75)}
+.script-text strong{color:var(--peach)}
+
+/* OBJECIONES */
+.objection{
+  background:rgba(255,255,255,.03);border:1px solid rgba(224,195,174,.08);
+  border-radius:10px;padding:1rem 1.2rem;margin-bottom:.6rem;
+}
+.obj-q{font-size:.8rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.obj-q::before{content:'"';color:var(--muted)}
+.obj-q::after{content:'"';color:var(--muted)}
+.obj-a{font-size:.78rem;line-height:1.6;color:var(--muted)}
+.obj-a strong{color:var(--beige)}
+
+/* PIPELINE */
+.pipeline{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.pipe-stage{
+  flex:1;min-width:120px;padding:.8rem 1rem;border-radius:10px;text-align:center;
+  border:1px solid rgba(224,195,174,.1);background:rgba(255,255,255,.03);
+}
+.pipe-stage.active{background:rgba(143,97,73,.15);border-color:rgba(143,97,73,.35)}
+.pipe-stage.done{background:rgba(46,139,87,.08);border-color:rgba(46,139,87,.2)}
+.pipe-dot{width:8px;height:8px;border-radius:50%;margin:0 auto .5rem;background:rgba(224,195,174,.2)}
+.pipe-stage.active .pipe-dot{background:var(--peach)}
+.pipe-stage.done .pipe-dot{background:var(--green)}
+.pipe-label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pipe-stage.active .pipe-label{color:var(--peach)}
+.pipe-stage.done .pipe-label{color:var(--green)}
+
+/* DATOS CLAVE */
+.data-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;margin-bottom:2rem}
+.data-card{background:rgba(255,255,255,.03);border:1px solid rgba(224,195,174,.1);border-radius:10px;padding:.85rem 1rem}
+.data-label{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.data-val{font-size:.85rem;font-weight:700;color:var(--beige)}
+.data-sub{font-size:.68rem;color:var(--muted);margin-top:.1rem}
+
+/* FOOTER */
+.doc-footer{text-align:center;padding:1.5rem 0 0;font-size:.65rem;color:var(--muted);opacity:.45;border-top:1px solid rgba(224,195,174,.08);margin-top:2rem}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="internal-badge">⚠ USO INTERNO — APEX CLOUD WORKS</div>
+      <div class="doc-title">Cierre <strong>Skindoctors</strong></div>
+    </div>
+    <div class="header-right">
+      <div class="deadline-label">Deadline de cierre</div>
+      <div class="deadline-val">15 Junio 2026</div>
+      <div class="deadline-days" id="countdown">Calculando días...</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- DEAL -->
+  <div class="deal-box">
+    <div class="deal-amount">
+      <div class="deal-num">$450</div>
+      <div class="deal-label">Deal objetivo</div>
+    </div>
+    <div class="deal-breakdown">
+      <div class="deal-row">
+        <span class="deal-row-label">Setup inicial</span>
+        <span class="deal-row-val">$350 USD</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-row-label">Landing Melasblock (principal)</span>
+        <span class="deal-row-val">incluida</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-row-label">Guía de tonos imprimible</span>
+        <span class="deal-row-val">incluida</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-row-label">Landing CBD Balance (bonus)</span>
+        <span class="deal-row-val">incluida</span>
+      </div>
+      <div class="deal-row total">
+        <span class="deal-row-label">Total acordado</span>
+        <span class="deal-row-val">$450 USD</span>
+      </div>
+    </div>
+    <div class="deal-note">⚠ Hablar comisión con Andrés antes del primer cobro. Sábado 7 junio — no dejar pasar. La comisión de referido no estaba acordada antes del proyecto.</div>
+  </div>
+
+  <!-- PROGRESO -->
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span class="progress-label">Progreso del cierre</span>
+      <span class="progress-pct" id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="pipeline">
+    <div class="pipe-stage done"><div class="pipe-dot"></div><div class="pipe-label">Landing live</div></div>
+    <div class="pipe-stage done"><div class="pipe-dot"></div><div class="pipe-label">Demo lista</div></div>
+    <div class="pipe-stage active"><div class="pipe-dot"></div><div class="pipe-label">Reunión / Demo</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Contrato</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Cobro $450</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Cerrado</div></div>
+  </div>
+
+  <!-- CHECKLIST PRE-REUNIÓN -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">📋</div>
+      <div class="sec-label">Checklist · Antes de la reunión</div>
+    </div>
+    <div class="checklist" id="checklist">
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Landing Melasblock live en CloudFront</div>
+          <div class="check-desc">d3suiaystvdco4.cloudfront.net/melasblock/ — desktop y mobile funcionando</div>
+        </div>
+        <span class="check-tag tag-listo">Listo</span>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Guía de tonos (tipos.html) subida y con CTA WhatsApp</div>
+          <div class="check-desc">Imprimible, formatos cálido/frío, botón WA al final</div>
+        </div>
+        <span class="check-tag tag-listo">Listo</span>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">og:image corregido — WhatsApp muestra el frasco</div>
+          <div class="check-desc">Compartir el link por WhatsApp ahora muestra la imagen del producto correctamente</div>
+        </div>
+        <span class="check-tag tag-listo">Listo</span>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Logo SVG Skindoctors en navbar y footer</div>
+          <div class="check-desc">Reemplazó el texto plano — ahora tiene el ícono de sol + wordmark serif</div>
+        </div>
+        <span class="check-tag tag-listo">Listo</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Hablar comisión con Andrés (sábado 7 junio)</div>
+          <div class="check-desc">Definir si hay comisión por referido antes del primer cobro. Acordarlo de palabra o por escrito antes de presentar al cliente.</div>
+        </div>
+        <span class="check-tag tag-urgente">Urgente</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Agendar reunión de demo con Skindoctors (antes del 10 junio)</div>
+          <div class="check-desc">Coordinar con Andrés para presentar la landing al cliente. Idealmente presencial en Plaza Cristal, Curridabat, o videollamada.</div>
+        </div>
+        <span class="check-tag tag-urgente">Urgente</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Preparar presentación de 10 minutos para la reunión</div>
+          <div class="check-desc">Mostrar: (1) landing en vivo en celular, (2) lo que se hizo vs antes, (3) el plan trimestral, (4) cierre de $450 hoy.</div>
+        </div>
+        <span class="check-tag tag-hoy">Hoy</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Generar contrato con monto y condiciones</div>
+          <div class="check-desc">Contrato simple: $450 USD por setup, 2 revisiones incluidas, entrega completada. Incluir cláusula de pago. Firmar antes o en la reunión.</div>
+        </div>
+        <span class="check-tag tag-semana">Esta semana</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Preparar métodos de pago</div>
+          <div class="check-desc">SINPE Móvil +506 6314-4171 · Transferencia IBAN · PayPal si aplica. Tener los datos listos para enviar en la reunión.</div>
+        </div>
+        <span class="check-tag tag-semana">Esta semana</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Cambiar número WhatsApp por el de Skindoctors</div>
+          <div class="check-desc">Actualmente la landing tiene +506 6314-4171 (Garett). Cuando el cliente firme, cambiar al número oficial de Skindoctors CR y re-deployar.</div>
+        </div>
+        <span class="check-tag tag-semana">Al firmar</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Cobrar $450 USD</div>
+          <div class="check-desc">50% al firmar ($225) + 50% en 15 días. O el total al momento si aceptan. Preferir pago completo.</div>
+        </div>
+        <span class="check-tag tag-urgente">Antes 15 jun</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DATOS TÉCNICOS -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">⚙️</div>
+      <div class="sec-label">Datos técnicos del proyecto</div>
+    </div>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="data-label">URL live</div>
+        <div class="data-val" style="font-size:.74rem;word-break:break-all">d3suiaystvdco4.cloudfront.net/melasblock/</div>
+      </div>
+      <div class="data-card">
+        <div class="data-label">S3 Bucket</div>
+        <div class="data-val">skindoctors-cr-landings</div>
+        <div class="data-sub">us-east-2</div>
+      </div>
+      <div class="data-card">
+        <div class="data-label">CloudFront ID</div>
+        <div class="data-val" style="font-family:var(--mono);font-size:.78rem">E31U5V9IA0JXSZ</div>
+      </div>
+      <div class="data-card">
+        <div class="data-label">WA actual (Garett)</div>
+        <div class="data-val">+506 6314-4171</div>
+        <div class="data-sub">Cambiar al de Skindoctors al cerrar</div>
+      </div>
+      <div class="data-card">
+        <div class="data-label">GitHub</div>
+        <div class="data-val" style="font-size:.78rem">apexcloudworkscompany</div>
+        <div class="data-sub">Mover a repo propio del cliente</div>
+      </div>
+      <div class="data-card">
+        <div class="data-label">Score actual</div>
+        <div class="data-val">81 / 100</div>
+        <div class="data-sub">Subió 3 pts con fixes de hoy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT DE VENTA -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">🎯</div>
+      <div class="sec-label">Script de presentación — 10 min</div>
+    </div>
+
+    <div class="script-card">
+      <div class="script-who">Apertura (1 min)</div>
+      <div class="script-text">
+        "Andrés, antes de hablar de números — mirá esto en el celular."<br>
+        <strong>[Abrir d3suiaystvdco4.cloudfront.net/melasblock/ en el teléfono de ellos]</strong><br>
+        Dejar que lo exploren solos 30 segundos. No hablar. Dejar que la página hable.
+      </div>
+    </div>
+
+    <div class="script-card">
+      <div class="script-who">Lo que se hizo (3 min)</div>
+      <div class="script-text">
+        "Esto es una landing page de alta conversión construida sobre el Brand Book 2025 de ustedes —
+        usamos los Pantone oficiales, las tipografías que Skindoctors definió, y el tono de voz de la marca.
+        <strong>No es un template genérico. Es su producto, su identidad, su guía de tonos.</strong>
+        Mirá — cuando alguien comparte este link por WhatsApp, ahora aparece la foto del frasco."
+      </div>
+    </div>
+
+    <div class="script-card">
+      <div class="script-who">La propuesta (3 min)</div>
+      <div class="script-text">
+        "El precio es <strong>$450 USD por todo lo entregado</strong>: la landing de Melasblock, la guía de tonos imprimible, el deploy en AWS con HTTPS, y la landing de CBD Balance que ya está avanzada.
+        Incluye 2 rondas de cambios que quieran hacer después de hoy.<br><br>
+        Si quieren continuar con el plan trimestral, <strong>$900 USD cada 3 meses</strong> cubre: 2 landings nuevas, campañas de temporada, analíticas y prioridad de atención."
+      </div>
+    </div>
+
+    <div class="script-card">
+      <div class="script-who">Cierre (2 min)</div>
+      <div class="script-text">
+        "¿Qué les parece si hoy cerramos el setup y el lunes arrancamos con los cambios que quieran?
+        Les mando el contrato ahora mismo al WhatsApp y pueden hacer el SINPE cuando quieran.
+        <strong>¿Lo hacemos?</strong>"
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJECIONES FRECUENTES -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">💬</div>
+      <div class="sec-label">Objeciones y respuestas</div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-q">Está caro, $450 es mucho</div>
+      <div class="obj-a">
+        <strong>Respuesta:</strong> "Una agencia costarricense tradicional cobra entre $1,500 y $3,000 por esto.
+        Nosotros lo hacemos por $450 porque trabajamos más rápido y con tecnología más moderna.
+        Ya está deployada — solo están pagando por lo que ya recibieron."
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-q">Tenemos que consultar con el dueño / jefe</div>
+      <div class="obj-a">
+        <strong>Respuesta:</strong> "Perfecto. ¿Cuándo podrían darme respuesta? La oferta de $450 es válida
+        hasta el 15 de junio porque tengo otro proyecto entrando. Después del 15 el precio vuelve a $600."
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-q">¿Y si queremos cambiar algo?</div>
+      <div class="obj-a">
+        <strong>Respuesta:</strong> "Dos cambios incluidos en el precio. Y si tienen el plan trimestral,
+        cambios ilimitados durante 3 meses. ¿Qué cambiarían primero?"
+        <strong>[Empezar a hablar del plan trimestral]</strong>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-q">¿Tenemos el código fuente?</div>
+      <div class="obj-a">
+        <strong>Respuesta:</strong> "Sí, totalmente. El código es de ustedes. Les entrego todo:
+        el HTML, las imágenes, los accesos a AWS. No quedan atados a nosotros."
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    Documento interno · Apex Cloud Works · Garett Barrantes · Junio 2026<br>
+    No compartir con el cliente
+  </div>
+
+</div>
+
+<script>
+// Countdown al deadline
+function updateCountdown() {
+  const deadline = new Date('2026-06-15T23:59:59');
+  const now = new Date();
+  const diff = deadline - now;
+  if (diff <= 0) { document.getElementById('countdown').textContent = '⚠ Deadline vencido'; return; }
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  document.getElementById('countdown').textContent = days + ' días · ' + hours + 'h restantes';
+}
+updateCountdown();
+
+// Toggle checklist items
+function toggle(item) {
+  item.classList.toggle('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const items = document.querySelectorAll('.check-item');
+  const done = document.querySelectorAll('.check-item.done').length;
+  const pct = Math.round((done / items.length) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+updateProgress();
+</script>
+</body>
+</html>
