@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Audit Log — Melasblock Landing · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF5EF;--beige:#E0C3AE;--peach:#FFAF83;--coral:#FF7671;
+  --earth:#8F6149;--dark:#231F20;--muted:#7A6558;--border:#EDD9C8;
+  --green:#2E8B57;--yellow:#D4A020;--red:#D04040;--silver:#C4C4C4;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+
+.header{
+  background:linear-gradient(135deg,var(--dark) 0%,var(--earth) 100%);
+  padding:2.5rem 3rem 2rem;color:#fff;
+}
+.header-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.brand-line{font-family:var(--serif);font-size:1rem;color:var(--beige);opacity:.7;margin-bottom:.25rem}
+.brand-line span{color:var(--peach);font-style:italic}
+.doc-title{font-family:var(--serif);font-size:1.9rem;font-weight:300}
+.doc-title strong{font-weight:600;color:var(--peach)}
+.header-right{text-align:right;font-size:.68rem;opacity:.5;letter-spacing:.1em;text-transform:uppercase}
+
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem}
+
+/* STATS ROW */
+.stats-row{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.stat-box{flex:1;min-width:140px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;text-align:center}
+.stat-num{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
+.stat-num.coral{color:var(--coral)}
+.stat-num.earth{color:var(--earth)}
+.stat-num.green{color:var(--green)}
+.stat-num.yellow{color:var(--yellow)}
+.stat-lbl{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+
+/* FILTROS */
+.filters{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{padding:.35rem 1rem;border-radius:50px;font-family:var(--sans);font-size:.72rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+.filter-btn.active,.filter-btn:hover{background:var(--earth);color:#fff;border-color:var(--earth)}
+.filter-btn.f-fix.active{background:var(--green);border-color:var(--green)}
+.filter-btn.f-new.active{background:var(--coral);border-color:var(--coral)}
+.filter-btn.f-brand.active{background:var(--earth);border-color:var(--earth)}
+.filter-btn.f-warn.active{background:var(--yellow);border-color:var(--yellow)}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:.4rem;top:.5rem;bottom:.5rem;width:2px;background:linear-gradient(180deg,var(--peach),var(--beige),transparent)}
+
+.session{margin-bottom:2.5rem}
+.session-header{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1rem;margin-left:-2rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+}
+.session-dot{width:16px;height:16px;border-radius:50%;background:var(--earth);border:3px solid var(--cream);flex-shrink:0}
+.session-date{color:var(--earth)}
+.session-time{color:var(--muted);font-weight:400}
+
+.entry{
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:.85rem 1.1rem;margin-bottom:.6rem;
+  display:flex;align-items:flex-start;gap:.9rem;
+  position:relative;
+}
+.entry:last-child{margin-bottom:0}
+.entry-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.35rem;
+}
+.e-fix .entry-dot{background:var(--green)}
+.e-new .entry-dot{background:var(--coral)}
+.e-brand .entry-dot{background:var(--earth)}
+.e-audit .entry-dot{background:var(--yellow)}
+.e-warn .entry-dot{background:var(--yellow)}
+
+.entry-body{flex:1}
+.entry-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.28rem;flex-wrap:wrap}
+.entry-tag{font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px}
+.tag-fix{background:rgba(46,139,87,.1);color:var(--green)}
+.tag-new{background:rgba(255,118,113,.1);color:var(--coral)}
+.tag-brand{background:rgba(143,97,73,.1);color:var(--earth)}
+.tag-audit{background:rgba(212,160,32,.1);color:var(--yellow)}
+.tag-warn{background:rgba(212,160,32,.08);color:var(--yellow)}
+.entry-file{font-family:var(--mono);font-size:.64rem;color:var(--muted);background:rgba(0,0,0,.04);padding:.15rem .5rem;border-radius:4px}
+.entry-title{font-size:.84rem;font-weight:700;color:var(--dark);margin-bottom:.2rem}
+.entry-desc{font-size:.74rem;line-height:1.55;color:var(--muted)}
+.entry-diff{
+  margin-top:.4rem;padding:.4rem .7rem;
+  background:rgba(0,0,0,.03);border-radius:6px;
+  font-family:var(--mono);font-size:.62rem;color:var(--muted);
+  line-height:1.6;
+}
+.diff-del{color:var(--red)}
+.diff-add{color:var(--green)}
+
+.footer-bar{text-align:center;padding:1.5rem 0 2rem;font-size:.7rem;color:var(--muted);opacity:.5}
+.footer-bar span{color:var(--earth);opacity:1}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-line">Skin<span>doctors</span> CR · Melasblock</div>
+      <div class="doc-title">Audit <strong>Log</strong></div>
+    </div>
+    <div class="header-right">
+      Registro de cambios<br>
+      index.html · brand-book.html · tipos.html
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num coral">12</div><div class="stat-lbl">Fixes CSS</div></div>
+    <div class="stat-box"><div class="stat-num earth">4</div><div class="stat-lbl">Archivos creados</div></div>
+    <div class="stat-box"><div class="stat-num green">3</div><div class="stat-lbl">Features nuevos</div></div>
+    <div class="stat-box"><div class="stat-num yellow">6</div><div class="stat-lbl">Pendientes</div></div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filtrar('todo')">Todos</button>
+    <button class="filter-btn f-fix" onclick="filtrar('e-fix')">✓ Fixes</button>
+    <button class="filter-btn f-new" onclick="filtrar('e-new')">+ Nuevos</button>
+    <button class="filter-btn f-brand" onclick="filtrar('e-brand')">◈ Marca</button>
+    <button class="filter-btn f-warn" onclick="filtrar('e-warn')">⚠ Pendientes</button>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+
+    <!-- SESIÓN 1 — 04 JUN 2026 -->
+    <div class="session" data-session="1">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <span class="session-date">04 junio 2026</span>
+        <span class="session-time">— Sesión de trabajo principal</span>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">melasblock/index.html</span></div>
+          <div class="entry-title">Creación landing Melasblock desde cero</div>
+          <div class="entry-desc">Landing page completa con hero, beneficios, protección UV, guía de tonos, ingredientes, cómo usar, sección género, reviews, CTA y FAQ. Single-file HTML con CSS inline.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">melasblock/brand-book.html</span></div>
+          <div class="entry-title">Libro de marca Melasblock — 6 páginas A4</div>
+          <div class="entry-desc">Portada, paleta oficial, tipografía, uso de logo, tono de voz y errores de marca a evitar. Formato imprimible (794px).</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">melasblock/tipos.html</span></div>
+          <div class="entry-title">Guía visual de tonos — Remasterización Tipos.png</div>
+          <div class="entry-desc">Recreación en HTML del flyer de tipos de piel. Fotos reales de modelos (c1a.jpg, m1a.jpg, o3a.jpg) + Unsplash para tonos fríos. Formato A4 imprimible con escala de tonos, headers de temperatura y B1N neutro.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">cbd-balance/index.html</span></div>
+          <div class="entry-title">Creación landing CBD Oil Balance</div>
+          <div class="entry-desc">Landing completa del segundo producto. Paleta verde (teal/botanical). Fix de rutas de imagen (Espuma-Facial-CBD.png, Fondo principal.png). Remoción del dev banner.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">cbd-balance/brand-book.html</span></div>
+          <div class="entry-title">Libro de marca CBD Oil Balance — 6 páginas A4</div>
+          <div class="entry-desc">Mismo formato que Melasblock pero con paleta verde del CBD. Incluye regla "no asociar CBD con cannabis recreativo".</div>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Marca</span><span class="entry-file">index.html · brand-book.html · tipos.html</span></div>
+          <div class="entry-title">Auditoría con Brand Book 2025 — Corrección paleta completa</div>
+          <div class="entry-desc">Lectura del PDF oficial (27 páginas). Paleta anterior era del packaging del frasco. Paleta correcta es la del Brand Book 2025 con Pantone oficiales.</div>
+          <div class="entry-diff">
+            <span class="diff-del">- --sand: #C8906A (nude frasco)</span><br>
+            <span class="diff-add">+ --beige: #E0C3AE (P4675C — primario oficial)</span><br>
+            <span class="diff-del">- --mauve: #7A5245 (mauve inventado)</span><br>
+            <span class="diff-add">+ --earth: #8F6149 (P7525C — oficial)</span><br>
+            <span class="diff-add">+ --peach: #FFAF83 (P7410C — oficial)</span><br>
+            <span class="diff-add">+ --coral: #FF7671 (P805C — oficial, para CTAs)</span><br>
+            <span class="diff-del">- --dark: #1C1A18 (negro inventado)</span><br>
+            <span class="diff-add">+ --dark: #231F20 (Pantone Neutral Black C)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Fix</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">12 colores hardcodeados reemplazados por vars oficiales</div>
+          <div class="entry-desc">trust-pill, chip.spf/.gen, sun-art, temp-header.calida, neutral-header, gender gradient, howto-tip, formula-note, subtono-guide, faq-icon, cta-store, ing-dot.b</div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Fix</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">--gold corregido — separado de --peach</div>
+          <div class="entry-desc">--gold apuntaba a #FFAF83 (peach) y se usaba para estrellas de reviews. Corregido a #E8A050 (dorado propio para stars/ratings).</div>
+          <div class="entry-diff">
+            <span class="diff-del">- --gold: #FFAF83 (era alias de peach — incorrecto)</span><br>
+            <span class="diff-add">+ --gold: #E8A050 (dorado independiente para estrellas)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Fix</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Imagen CTA corregida (img/product.jpeg → melasblock.png)</div>
+          <div class="entry-desc">El CTA de producto apuntaba a img/product.jpeg que no existía. Corregido a melasblock.png con object-fit:contain.</div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Fix</span><span class="entry-file">cbd-balance/index.html</span></div>
+          <div class="entry-title">3 fixes en landing CBD: imágenes, dev banner, robots</div>
+          <div class="entry-desc">img/espuma-3d.png → Espuma-Facial-CBD.png · img/fondo-principal.png → Fondo principal.png · noindex → index,follow · Remoción de dev banner visible al cliente.</div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Fix</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Botón "Ver en tienda online" eliminado del CTA</div>
+          <div class="entry-desc">Solo queda el botón de WhatsApp en la sección de compra. Reduces opciones = menos fricción.</div>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Mejora</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Espaciado ampliado a estándar Brand Book (Limpieza)</div>
+          <div class="entry-desc">Brand Book 2025 especifica "espacios blancos generosos". Aplicado: secciones 5rem → 7rem, hero padding 4rem → 5-6rem, sec-header 2.75rem → 3.5rem, benefit cards padding aumentado.</div>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Mejora</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Línea plateada degradada en navbar (elemento gris del frasco)</div>
+          <div class="entry-desc">El gris/plateado del frasco (#C4C4C4) ahora aparece como línea degradada bajo el navbar y como anillo exterior del hero. Integra el packaging en el diseño web.</div>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Mejora</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Guía de tonos rehecha — fiel al Tipos.png original</div>
+          <div class="entry-desc">Reemplaza los swatches simples con una guía en dos columnas (Temperatura Cálida / Fría), tarjetas interactivas con círculos de piel y B1N neutro separado. Tooltip activo al hacer clic.</div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Mejora UX</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Zoom hover en frasco (hero + CTA) y en íconos de beneficios</div>
+          <div class="entry-desc">Hero: scale(1.06) con cubic-bezier suave + sombra reforzada. CTA: scale(1.05). Íconos benefit: scale(1.12). Todos con transition 0.4s.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PENDIENTES -->
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot" style="background:var(--yellow)"></div>
+        <span class="session-date" style="color:var(--yellow)">Pendiente</span>
+        <span class="session-time">— Próximas iteraciones</span>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Formulario pre-WhatsApp + integración Google Sheets</div>
+          <div class="entry-desc">Capturar: nombre, tono elegido, zona de entrega. Enviar a Sheets via Apps Script. WhatsApp pre-llenado con los datos. Solicitado por cliente.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Pixel Meta Ads + Google Analytics 4</div>
+          <div class="entry-desc">Insertar pixel antes del cierre </head>. Configurar evento "contact" en clic al botón WhatsApp.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">melasblock.png</span></div>
+          <div class="entry-title">Convertir PNG a WebP y comprimir</div>
+          <div class="entry-desc">El frasco PNG puede reducirse 40-60% a WebP sin pérdida visual. Usar cwebp o squoosh.app.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">tipos.html</span></div>
+          <div class="entry-title">Fotos propias para tonos C1, M1, O3, B1N</div>
+          <div class="entry-desc">Actualmente usa Unsplash CDN para temperaturas frías. Reemplazar con fotos propias de Skindoctors cuando estén disponibles.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Logo PNG/SVG oficial de Skindoctors en navbar</div>
+          <div class="entry-desc">Navbar usa CSS texto. Pedir archivo de logo vectorial a Skindoctors CR para reemplazar.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Baja</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Canonical URL al dominio final de producción</div>
+          <div class="entry-desc">Actualmente apunta a S3 staging. Actualizar a URL definitiva antes del go-live.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    Audit Log generado por <span>Apex Cloud Works</span> · Cartago, Costa Rica · 2026
+  </div>
+</div>
+
+<script>
+function filtrar(tipo) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.entry').forEach(e => {
+    if (tipo === 'todo') { e.style.display = ''; return; }
+    e.style.display = e.classList.contains(tipo) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

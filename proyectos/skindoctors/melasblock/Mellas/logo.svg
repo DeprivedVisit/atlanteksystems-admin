@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 40" role="img" aria-label="Skindoctors CR">
+  <title>Skindoctors CR</title>
+  <!-- Sun icon -->
+  <circle cx="19" cy="20" r="14" fill="none" stroke="#E0C3AE" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="19" cy="20" r="5.5" fill="#E0C3AE"/>
+  <g stroke="#E0C3AE" stroke-linecap="round">
+    <line x1="19" y1="4"  x2="19" y2="2"  stroke-width="1.3"/>
+    <line x1="19" y1="36" x2="19" y2="38" stroke-width="1.3"/>
+    <line x1="4"  y1="20" x2="2"  y2="20" stroke-width="1.3"/>
+    <line x1="34" y1="20" x2="36" y2="20" stroke-width="1.3"/>
+    <line x1="9.1"  y1="10.1" x2="7.7"  y2="8.7"  stroke-width="1.1" opacity="0.6"/>
+    <line x1="28.9" y1="10.1" x2="30.3" y2="8.7"  stroke-width="1.1" opacity="0.6"/>
+    <line x1="9.1"  y1="29.9" x2="7.7"  y2="31.3" stroke-width="1.1" opacity="0.6"/>
+    <line x1="28.9" y1="29.9" x2="30.3" y2="31.3" stroke-width="1.1" opacity="0.6"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="44" y="24" font-family="Georgia,'Noto Serif Display',serif" font-size="17" font-weight="600" fill="#FFFFFF">Skin</text>
+  <text x="80" y="24" font-family="Georgia,'Noto Serif Display',serif" font-size="17" font-style="italic" fill="#E0C3AE">doctors</text>
+  <!-- Tagline -->
+  <text x="44" y="35" font-family="Arial,system-ui,sans-serif" font-size="5.8" letter-spacing="1.5" fill="rgba(255,255,255,0.35)">CIENCIA APLICADA A LA BELLEZA</text>
+</svg>
