@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Audit Log — CBD Oil Balance · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f0f7f2;--border:#c3dcc5;
+  --teal:#1b4332;--teal-lt:#2E8B57;--mint:#e8f5e9;
+  --green:#2E8B57;--yellow:#D4A020;--red:#D04040;--muted:#4a7060;--dark:#1a2e22;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-lt) 100%);padding:2.5rem 3rem 2rem;color:#fff}
+.header-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.brand-line{font-family:var(--serif);font-size:1rem;color:rgba(195,220,197,.7);opacity:.9;margin-bottom:.25rem}
+.brand-line span{color:#86efac;font-style:italic}
+.doc-title{font-family:var(--serif);font-size:1.9rem;font-weight:300}
+.doc-title strong{font-weight:600;color:#86efac}
+.header-right{text-align:right;font-size:.68rem;opacity:.5;letter-spacing:.1em;text-transform:uppercase}
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem}
+.stats-row{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.stat-box{flex:1;min-width:140px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;text-align:center}
+.stat-num{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
+.stat-num.coral{color:#e55}
+.stat-num.teal{color:var(--teal-lt)}
+.stat-num.green{color:var(--green)}
+.stat-num.yellow{color:var(--yellow)}
+.stat-lbl{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+.filters{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{padding:.35rem 1rem;border-radius:50px;font-family:var(--sans);font-size:.72rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+.filter-btn.active,.filter-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.filter-btn.f-fix.active{background:var(--green);border-color:var(--green)}
+.filter-btn.f-new.active{background:#e55;border-color:#e55}
+.filter-btn.f-brand.active{background:var(--teal);border-color:var(--teal)}
+.filter-btn.f-warn.active{background:var(--yellow);border-color:var(--yellow)}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:.4rem;top:.5rem;bottom:.5rem;width:2px;background:linear-gradient(180deg,#86efac,#c3dcc5,transparent)}
+.session{margin-bottom:2.5rem}
+.session-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;margin-left:-2rem;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.session-dot{width:16px;height:16px;border-radius:50%;background:var(--teal-lt);border:3px solid var(--cream);flex-shrink:0}
+.session-date{color:var(--teal-lt)}
+.session-time{color:var(--muted);font-weight:400}
+.entry{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.85rem 1.1rem;margin-bottom:.6rem;display:flex;align-items:flex-start;gap:.9rem;position:relative}
+.entry:last-child{margin-bottom:0}
+.entry-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.35rem}
+.e-fix .entry-dot{background:var(--green)}
+.e-new .entry-dot{background:#e55}
+.e-brand .entry-dot{background:var(--teal-lt)}
+.e-audit .entry-dot{background:var(--yellow)}
+.e-warn .entry-dot{background:var(--yellow)}
+.entry-body{flex:1}
+.entry-time{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-bottom:.2rem}
+.entry-title{font-size:.84rem;font-weight:700;color:var(--dark);margin-bottom:.2rem}
+.entry-desc{font-size:.76rem;line-height:1.55;color:var(--muted)}
+.entry-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;margin-top:.4rem}
+.tag-fix{background:rgba(46,139,87,.1);color:var(--green)}
+.tag-new{background:rgba(220,80,80,.1);color:#c03}
+.tag-brand{background:rgba(27,115,64,.1);color:var(--teal)}
+.tag-audit{background:rgba(212,160,32,.1);color:#92400e}
+.tag-deploy{background:rgba(27,115,64,.12);color:var(--teal-lt)}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-line">Apex Cloud Works · <span>Internal</span></div>
+      <div class="doc-title">Audit Log — <strong>CBD Oil Balance</strong></div>
+    </div>
+    <div class="header-right">
+      <div>Skindoctors CR</div>
+      <div>Junio 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num green">12</div>
+      <div class="stat-lbl">Cambios totales</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num teal">5</div>
+      <div class="stat-lbl">Features nuevas</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num coral">4</div>
+      <div class="stat-lbl">Bugs corregidos</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num yellow">3</div>
+      <div class="stat-lbl">Deploys a S3</div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterAll(this)">Todos</button>
+    <button class="filter-btn f-new" onclick="filterType('e-new',this)">Feature</button>
+    <button class="filter-btn f-fix" onclick="filterType('e-fix',this)">Fix</button>
+    <button class="filter-btn f-brand" onclick="filterType('e-brand',this)">Brand</button>
+    <button class="filter-btn f-audit" onclick="filterType('e-audit',this)">Deploy</button>
+  </div>
+
+  <div class="timeline">
+
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <div class="session-date">Sesión 3 · Junio 8, 2026</div>
+        <div class="session-time">Documentos legales + Archivos de auditoría</div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Archivos de Auditación Apex creados</div>
+          <div class="entry-desc">Se crearon entrega-cliente.html, audit-log.html y cierre-negocio.html en carpeta <code>Auditacion Apex/</code> equivalentes a los de MelasBlock. Misma estructura y estilo visual adaptados con paleta verde CBD.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Política de Privacidad y Términos y Condiciones</div>
+          <div class="entry-desc">Se crearon <code>legal/politica-privacidad.html</code> y <code>legal/terminos.html</code> para Skindoctors CR. Cubren Ley N.° 8968 de Costa Rica, tratamiento de datos del formulario de leads, devoluciones, IVA 13%, propiedad intelectual.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <div class="session-date">Sesión 2 · Junio 8, 2026</div>
+        <div class="session-time">Reestructura hero + Mobile + Sistema de leads</div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Hero reestructurado — Patrón MelasBlock (CSS ::before + glass card)</div>
+          <div class="entry-desc">Se eliminó el layout dos-columnas original del hero. <code>Fondo principal.png</code> movido a CSS <code>::before</code> como background full-bleed con <code>filter:brightness(.88)</code>. Overlay <code>::after</code> con gradiente verde. <code>.hero-content</code> convertido a glass card (blur + border rgba) sobre el fondo. Se eliminó completamente <code>.hero-visual</code> y los badges flotantes que causaban overflow en mobile.</div>
+          <span class="entry-tag tag-brand">Brand</span>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Sistema de leads implementado (modal interceptor)</div>
+          <div class="entry-desc">Se replicó el sistema de MelasBlock. Modal con overlay captura: nombre*, teléfono*, email*, tipo de piel (Grasa/Mixta/Seca/Sensible/No sé), provincia*. Todos los botones de WhatsApp reemplazados con <code>onclick="abrirModal('contexto')"</code>. Mensaje WhatsApp pre-llenado con datos del cliente. Config: <code>WA_NUMBER='50663144171'</code>, N8N webhook y Sheets URL pendientes de configuración por el cliente.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Fix mobile — Hero responsive completo</div>
+          <div class="entry-desc">En breakpoint 640px: hero <code>min-height:auto</code>, fondo posicionado <code>center 20%</code>, container <code>flex-direction:column</code>, glass card <code>max-width:100%</code> con fondo más opaco <code>rgba(255,255,255,.95)</code>. Chips y trust badges ocultos (<code>display:none</code>) para limpiar el layout en pantallas pequeñas.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Fix imagen doble en hero — Swap de imágenes</div>
+          <div class="entry-desc">Original tenía <code>Fondo principal.png</code> Y <code>Espuma-Facial-CBD.png</code> ambas en el hero. Fix paso 1: eliminar <code>Espuma-Facial-CBD</code> del hero. Fix paso 2 (user: "al revés"): <code>Fondo principal.png</code> pasa a ser el fondo CSS, <code>Espuma-Facial-CBD.png</code> queda solo en sección de ingredientes/activos.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Imagen producto en sección "Activos certificados"</div>
+          <div class="entry-desc">Se añadió <code>Espuma-Facial-CBD.png</code> (2 botellas) a la sección de ingredientes con clase <code>.science-product</code>. Drop shadow verde <code>rgba(27,115,67,.35)</code>, hover <code>translateY(-6px)</code>, leaf-tag "100% Natural" superpuesto. Subido a S3 en su propio path.</div>
+          <span class="entry-tag tag-brand">Brand</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Fix CSS 3D science image — Reemplazado por .science-product</div>
+          <div class="entry-desc">La clase <code>.hero-img-3d</code> original causaba overflow en mobile y mostraba dos botellas visibles. Se creó nueva clase <code>.science-product</code> sin perspective 3D: solo <code>width:260px</code>, <code>drop-shadow</code> y <code>hover:translateY</code>. Comportamiento limpio en todos los viewports.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-audit">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 08 2026 · Apex</div>
+          <div class="entry-title">Deploy S3 + CloudFront invalidation</div>
+          <div class="entry-desc">Archivos subidos: <code>index.html</code>, <code>Fondo principal.png</code> (con espacio en nombre), <code>Espuma-Facial-CBD.png</code> al bucket <code>skindoctors-cr-landings/cbd-balance/</code>. Invalidación CloudFront <code>E31U5V9IA0JXSZ</code> con path <code>/*</code>. URL live: <code>d3suiaystvdco4.cloudfront.net/cbd-balance/</code>.</div>
+          <span class="entry-tag tag-deploy">Deploy</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <div class="session-date">Sesión 1 · Junio 2026</div>
+        <div class="session-time">Setup inicial — Sistema de leads base</div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 2026 · Apex</div>
+          <div class="entry-title">Landing CBD Oil Balance — Construcción inicial</div>
+          <div class="entry-desc">Se construyó la landing completa desde cero. 9 secciones: navbar + top bar, hero, stats, beneficios, activos/ingredientes, cómo usar, microbiota, reseñas, CTA, FAQ, footer. Mobile-first, animaciones Intersection Observer.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+      <div class="entry e-audit">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jun 2026 · Apex</div>
+          <div class="entry-title">Deploy inicial a S3 — Preview CloudFront</div>
+          <div class="entry-desc">Primera subida al bucket compartido <code>skindoctors-cr-landings</code> en us-east-2. CloudFront Distribution ID: <code>E31U5V9IA0JXSZ</code>. Preview en producción para revisión del cliente antes de activar el modal de leads.</div>
+          <span class="entry-tag tag-deploy">Deploy</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function filterAll(btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.entry').forEach(e=>e.classList.remove('hidden'));
+}
+function filterType(cls,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.entry').forEach(e=>{
+    e.classList.toggle('hidden',!e.classList.contains(cls));
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Scorecard — CBD Oil Balance · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f0f7f2;--mint:#c3dcc5;--teal:#1b4332;--teal-lt:#2E8B57;
+  --muted:#4a7060;--dark:#1a2e22;--border:#c3dcc5;
+  --green:#2E8B57;--yellow:#E8A050;--red:#D04040;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-lt) 100%);padding:2.5rem 3rem 2rem;color:#fff}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.brand-line{font-family:var(--serif);font-size:1.1rem;color:rgba(195,220,197,.7);letter-spacing:.04em;margin-bottom:.3rem}
+.brand-line span{color:#86efac;font-style:italic}
+.doc-title{font-family:var(--serif);font-size:2rem;font-weight:300;line-height:1.1}
+.doc-title strong{font-weight:600;color:#86efac}
+.header-meta{text-align:right}
+.last-update{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.version-badge{margin-top:.3rem;display:inline-block;background:rgba(134,239,172,.15);border:1px solid rgba(134,239,172,.3);color:#86efac;font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.25rem .8rem;border-radius:50px}
+.wrap{max-width:1100px;margin:0 auto;padding:2.5rem 2rem}
+.total-card{background:#fff;border-radius:20px;border:1px solid var(--border);padding:2rem 2.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.total-score-wrap{display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.total-score{font-family:var(--serif);font-size:5rem;font-weight:600;line-height:1;color:var(--teal-lt)}
+.total-score sup{font-size:2rem;font-weight:300;opacity:.5;vertical-align:top;margin-top:.8rem}
+.total-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.total-bar-wrap{flex:1;min-width:200px}
+.total-bar-track{height:12px;background:var(--border);border-radius:50px;overflow:hidden;margin-bottom:.5rem}
+.total-bar-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,#6ee7b7,#2E8B57);transition:width 1s ease}
+.total-breakdown{display:flex;gap:.4rem;flex-wrap:wrap}
+.breakdown-pill{font-size:.65rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;border:1px solid}
+.bp-green{background:rgba(46,139,87,.1);border-color:rgba(46,139,87,.3);color:var(--green)}
+.bp-yellow{background:rgba(232,160,80,.1);border-color:rgba(232,160,80,.3);color:var(--yellow)}
+.bp-red{background:rgba(208,64,64,.1);border-color:rgba(208,64,64,.3);color:var(--red)}
+.total-verdict{flex:1;min-width:220px}
+.verdict-title{font-family:var(--serif);font-size:1.1rem;color:var(--dark);margin-bottom:.4rem}
+.verdict-text{font-size:.82rem;line-height:1.68;color:var(--muted)}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;margin-bottom:2rem}
+.cat-card{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden}
+.cat-header{padding:.9rem 1.3rem;display:flex;align-items:center;justify-content:space-between}
+.cat-icon-title{display:flex;align-items:center;gap:.7rem}
+.cat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cat-name{font-size:.82rem;font-weight:700;color:var(--dark)}
+.cat-sub{font-size:.64rem;color:var(--muted);margin-top:.05rem}
+.cat-score-badge{font-family:var(--serif);font-size:1.4rem;font-weight:600;min-width:44px;text-align:right}
+.score-green{color:var(--green)}
+.score-yellow{color:var(--yellow)}
+.score-red{color:var(--red)}
+.cat-bar{height:4px;background:var(--border)}
+.cat-bar-fill{height:100%;transition:width .8s ease}
+.fill-green{background:linear-gradient(90deg,#6ee7b7,#2E8B57)}
+.fill-yellow{background:linear-gradient(90deg,#FFB74D,#E8A050)}
+.fill-red{background:linear-gradient(90deg,#EF5350,#D04040)}
+.cat-items{padding:.6rem 1.3rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.check-row{display:flex;align-items:flex-start;gap:.55rem;font-size:.76rem;line-height:1.45;color:var(--muted)}
+.check-icon{flex-shrink:0;font-size:.7rem;margin-top:.15rem}
+.check-row.pass .check-icon::before{content:'✓';color:var(--green);font-weight:700}
+.check-row.warn .check-icon::before{content:'⚠';color:var(--yellow)}
+.check-row.fail .check-icon::before{content:'✗';color:var(--red)}
+.check-row.pass{color:var(--dark)}
+.priorities{background:#fff;border-radius:16px;border:1px solid var(--border);padding:1.5rem;margin-bottom:2rem}
+.section-title{font-family:var(--serif);font-size:1.1rem;color:var(--dark);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.priority-list{display:flex;flex-direction:column;gap:.7rem}
+.priority-row{display:flex;align-items:flex-start;gap:1rem;padding:.8rem 1rem;border-radius:10px;border:1px solid var(--border)}
+.priority-row.alta{border-left:3px solid var(--red)}
+.priority-row.media{border-left:3px solid var(--yellow)}
+.priority-row.baja{border-left:3px solid var(--green)}
+.p-tag{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;flex-shrink:0;margin-top:.1rem}
+.tag-alta{background:rgba(208,64,64,.1);color:var(--red)}
+.tag-media{background:rgba(232,160,80,.12);color:var(--yellow)}
+.tag-baja{background:rgba(46,139,87,.1);color:var(--green)}
+.p-content{flex:1}
+.p-title{font-size:.82rem;font-weight:700;color:var(--dark);margin-bottom:.15rem}
+.p-desc{font-size:.74rem;line-height:1.5;color:var(--muted)}
+.p-impact{font-size:.64rem;font-weight:700;color:var(--teal-lt);margin-top:.2rem}
+.audit-footer{text-align:center;padding:1.5rem 0 2rem;font-size:.7rem;color:var(--muted);opacity:.55}
+.audit-footer span{color:var(--teal-lt);opacity:1}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-line">Skin<span>doctors</span> CR · CBD Oil Balance</div>
+      <div class="doc-title">Scorecard de <strong>Auditoría</strong></div>
+    </div>
+    <div class="header-meta">
+      <div class="last-update">Última actualización</div>
+      <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:.2rem">08 junio 2026</div>
+      <div class="version-badge">v1.0 · 08 junio 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="total-card">
+    <div class="total-score-wrap">
+      <div class="total-score">82<sup>/100</sup></div>
+      <div class="total-label">Score general</div>
+    </div>
+    <div class="total-bar-wrap">
+      <div class="total-bar-track">
+        <div class="total-bar-fill" style="width:82%"></div>
+      </div>
+      <div class="total-breakdown">
+        <span class="breakdown-pill bp-green">Diseño ✓</span>
+        <span class="breakdown-pill bp-green">Mobile ✓</span>
+        <span class="breakdown-pill bp-yellow">Leads ⚠</span>
+        <span class="breakdown-pill bp-yellow">SEO ⚠</span>
+        <span class="breakdown-pill bp-yellow">Conversión ⚠</span>
+        <span class="breakdown-pill bp-green">Marca ✓</span>
+      </div>
+    </div>
+    <div class="total-verdict">
+      <div class="verdict-title">Modal de leads integrado — N8N pendiente activar</div>
+      <div class="verdict-text">El modal interceptor captura nombre, teléfono, email, tipo de piel y provincia antes de abrir WhatsApp. Los datos se envían a Google Sheets (respaldo) y a N8N webhook. Pendiente: configurar URLs de N8N y Sheets por el cliente.</div>
+    </div>
+  </div>
+
+  <div class="cats-grid">
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(195,220,197,.3)">🌿</div>
+          <div><div class="cat-name">Identidad de Marca</div><div class="cat-sub">Paleta verde CBD · Tipografías</div></div>
+        </div>
+        <div class="cat-score-badge score-green">90</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-green" style="width:90%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>Paleta verde premium aplicada (#1b4332, #2E8B57, #C3DCC5)</div>
+        <div class="check-row pass"><span class="check-icon"></span>Tipografías correctas: Noto Serif Display + Quicksand</div>
+        <div class="check-row pass"><span class="check-icon"></span>Glassmorphism en hero card — efecto frosted glass</div>
+        <div class="check-row pass"><span class="check-icon"></span>Foto lifestyle como fondo CSS ::before full-bleed</div>
+        <div class="check-row pass"><span class="check-icon"></span>Footer "Apex Cloud Works — Cartago, CR" en todas las páginas</div>
+        <div class="check-row pass"><span class="check-icon"></span>Chips "CBD certificado", "Sin THC", "Cruelty Free" en hero</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sin logo SVG propio de CBD Oil Balance (usa texto)</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(134,239,172,.15)">✦</div>
+          <div><div class="cat-name">Diseño Visual</div><div class="cat-sub">Jerarquía, espaciado, estética</div></div>
+        </div>
+        <div class="cat-score-badge score-green">86</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-green" style="width:86%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>Espaciado generoso entre secciones</div>
+        <div class="check-row pass"><span class="check-icon"></span>Imagen producto con drop-shadow verde y hover</div>
+        <div class="check-row pass"><span class="check-icon"></span>Leaf-tag "100% Natural" superpuesto en product shot</div>
+        <div class="check-row pass"><span class="check-icon"></span>Cards de beneficios con íconos y hover lift</div>
+        <div class="check-row pass"><span class="check-icon"></span>Pills de stats (500+ clientes, 4.8★, 0% THC)</div>
+        <div class="check-row warn"><span class="check-icon"></span>Avatares de reviews son letras, no fotos reales</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sección microbiota sin imagen visual propia</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(46,139,87,.1)">📱</div>
+          <div><div class="cat-name">Mobile-First</div><div class="cat-sub">Responsive, táctil, legibilidad</div></div>
+        </div>
+        <div class="cat-score-badge score-green">88</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-green" style="width:88%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>Hero glass card full-width en mobile (max-width:100%)</div>
+        <div class="check-row pass"><span class="check-icon"></span>Chips y badges ocultos en mobile para limpiar layout</div>
+        <div class="check-row pass"><span class="check-icon"></span>Menú hamburger activo en 640px</div>
+        <div class="check-row pass"><span class="check-icon"></span>WhatsApp flotante siempre visible</div>
+        <div class="check-row pass"><span class="check-icon"></span>clamp() en font-size del h1 del hero</div>
+        <div class="check-row pass"><span class="check-icon"></span>Fondo hero posicionado center 20% en mobile</div>
+        <div class="check-row warn"><span class="check-icon"></span>Grid de beneficios podría ser 2 col en tablet</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(27,115,64,.1)">🔍</div>
+          <div><div class="cat-name">SEO</div><div class="cat-sub">Meta tags, schema, semántica</div></div>
+        </div>
+        <div class="cat-score-badge score-yellow">72</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:72%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>meta description presente</div>
+        <div class="check-row pass"><span class="check-icon"></span>Open Graph básico configurado</div>
+        <div class="check-row pass"><span class="check-icon"></span>alt text en imagen del producto</div>
+        <div class="check-row pass"><span class="check-icon"></span>Estructura semántica (header, main, section, footer)</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sin JSON-LD Product schema</div>
+        <div class="check-row warn"><span class="check-icon"></span>canonical URL apunta a CloudFront, no al dominio final</div>
+        <div class="check-row fail"><span class="check-icon"></span>Sin sitemap.xml ni robots.txt</div>
+        <div class="check-row fail"><span class="check-icon"></span>Sin og:image propio (falta URL completa de CloudFront)</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(134,239,172,.1)">💬</div>
+          <div><div class="cat-name">Conversión</div><div class="cat-sub">CTAs, urgencia, fricción</div></div>
+        </div>
+        <div class="cat-score-badge score-yellow">78</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:78%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>WhatsApp flotante siempre visible</div>
+        <div class="check-row pass"><span class="check-icon"></span>CTA principal en hero above the fold</div>
+        <div class="check-row pass"><span class="check-icon"></span>Precio visible con comparativa de ahorro</div>
+        <div class="check-row pass"><span class="check-icon"></span>Social proof: 500+ clientes, 4.8★</div>
+        <div class="check-row pass"><span class="check-icon"></span>Modal pre-WA captura datos antes de redirigir</div>
+        <div class="check-row pass"><span class="check-icon"></span>WA pre-llenado con tipo de piel elegido</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sin urgencia activa (stock limitado, oferta temporal)</div>
+        <div class="check-row fail"><span class="check-icon"></span>Sin pixel de seguimiento Meta/Google Ads</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(232,160,80,.12)">📋</div>
+          <div><div class="cat-name">Captura de Leads</div><div class="cat-sub">Formulario, N8N, Sheets</div></div>
+        </div>
+        <div class="cat-score-badge score-yellow">65</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:65%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>Modal interceptor en todos los botones WA</div>
+        <div class="check-row pass"><span class="check-icon"></span>Campos: nombre, teléfono, email, tipo de piel, provincia</div>
+        <div class="check-row pass"><span class="check-icon"></span>N8N workflow creado (n8n-workflow-cbd.json listo)</div>
+        <div class="check-row pass"><span class="check-icon"></span>Estructura Google Sheets definida (7 columnas)</div>
+        <div class="check-row warn"><span class="check-icon"></span>N8N webhook URL pendiente — cliente debe crear en n8n.cloud</div>
+        <div class="check-row warn"><span class="check-icon"></span>Google Sheets URL pendiente — cliente debe crear Apps Script</div>
+        <div class="check-row fail"><span class="check-icon"></span>Sin pop-up exit intent para recuperar visitas</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(196,196,196,.2)">⚡</div>
+          <div><div class="cat-name">Rendimiento</div><div class="cat-sub">Carga, imágenes, fonts</div></div>
+        </div>
+        <div class="cat-score-badge score-yellow">74</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:74%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>CSS inline (sin request adicional de hoja de estilos)</div>
+        <div class="check-row pass"><span class="check-icon"></span>Google Fonts con preconnect</div>
+        <div class="check-row pass"><span class="check-icon"></span>IntersectionObserver para animar al hacer scroll</div>
+        <div class="check-row pass"><span class="check-icon"></span>CloudFront CDN global — latencia mínima CR</div>
+        <div class="check-row warn"><span class="check-icon"></span>Fondo principal.png sin comprimir (convertir a WebP)</div>
+        <div class="check-row warn"><span class="check-icon"></span>Espuma-Facial-CBD.png sin optimizar (potencial WebP)</div>
+        <div class="check-row fail"><span class="check-icon"></span>Sin Service Worker / caché offline</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(46,139,87,.1)">♿</div>
+          <div><div class="cat-name">Accesibilidad</div><div class="cat-sub">ARIA, contraste, teclado</div></div>
+        </div>
+        <div class="cat-score-badge score-green">80</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-green" style="width:80%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>aria-label en botones principales de WhatsApp</div>
+        <div class="check-row pass"><span class="check-icon"></span>aria-expanded en acordeón FAQ</div>
+        <div class="check-row pass"><span class="check-icon"></span>role="dialog" y focus trap en modal de leads</div>
+        <div class="check-row pass"><span class="check-icon"></span>Escape key cierra modal</div>
+        <div class="check-row pass"><span class="check-icon"></span>Campos de formulario con labels asociados</div>
+        <div class="check-row warn"><span class="check-icon"></span>Contraste de texto verde claro sobre blanco puede ser bajo</div>
+        <div class="check-row warn"><span class="check-icon"></span>Fondo hero sin alt text (es decorativo — aceptable)</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="priorities">
+    <div class="section-title">Prioridades de mejora · Próximos pasos</div>
+    <div class="priority-list">
+
+      <div class="priority-row alta">
+        <span class="p-tag tag-alta">Alta · Hoy</span>
+        <div class="p-content">
+          <div class="p-title">Activar N8N webhook para CBD</div>
+          <div class="p-desc">En n8n.cloud importar <code>n8n-workflow-cbd.json</code>, activar el workflow, copiar la URL de producción del webhook y pegarla en <code>const N8N_WEBHOOK = ''</code> en index.html. Deploy a S3.</div>
+          <div class="p-impact">Impacto: Notificaciones Gmail en tiempo real al equipo Skindoctors cuando llega un lead CBD</div>
+        </div>
+      </div>
+
+      <div class="priority-row alta">
+        <span class="p-tag tag-alta">Alta · Hoy</span>
+        <div class="p-content">
+          <div class="p-title">Crear Google Sheet y pegar URL del Apps Script</div>
+          <div class="p-desc">Crear hoja "Leads CBD" con columnas: Fecha, Nombre, Teléfono, Email, Tipo Piel, Zona, Contexto. Agregar Apps Script de envío y pegar la URL en <code>const SHEETS_URL = ''</code>.</div>
+          <div class="p-impact">Impacto: Respaldo de todos los leads en un solo lugar accesible para el equipo</div>
+        </div>
+      </div>
+
+      <div class="priority-row alta">
+        <span class="p-tag tag-alta">Alta · SEO</span>
+        <div class="p-content">
+          <div class="p-title">Agregar JSON-LD Product schema</div>
+          <div class="p-desc">Copiar el schema de Melasblock y adaptarlo: nombre "CBD Oil Balance", descripción, precio, brand "Skindoctors CR", imagen con URL de CloudFront.</div>
+          <div class="p-impact">Impacto: Rich results en Google · Aparece con estrellitas y precio en búsquedas</div>
+        </div>
+      </div>
+
+      <div class="priority-row media">
+        <span class="p-tag tag-media">Media</span>
+        <div class="p-content">
+          <div class="p-title">Pixel Meta Ads / Google Analytics</div>
+          <div class="p-desc">Agregar pixel de Meta y evento "contact" en apertura del modal y en submit del formulario para medir costo por lead.</div>
+          <div class="p-impact">Impacto: Remarketing activado · Audiencia de visitantes para ads de CBD</div>
+        </div>
+      </div>
+
+      <div class="priority-row media">
+        <span class="p-tag tag-media">Media</span>
+        <div class="p-content">
+          <div class="p-title">Convertir imágenes a WebP</div>
+          <div class="p-desc">Usar squoosh.app para convertir "Fondo principal.png" y "Espuma-Facial-CBD.png" a WebP. Reduce 40–60% el peso sin pérdida visual. Re-subir a S3.</div>
+          <div class="p-impact">Impacto: +10–15 pts Lighthouse · Carga perceptiblemente más rápida en móvil 4G</div>
+        </div>
+      </div>
+
+      <div class="priority-row media">
+        <span class="p-tag tag-media">Media</span>
+        <div class="p-content">
+          <div class="p-title">Cambiar WA_NUMBER al número oficial de Skindoctors</div>
+          <div class="p-desc">La landing usa +506 6314-4171 como número temporal de Apex. Actualizar a la línea oficial del cliente al firmar contrato.</div>
+          <div class="p-impact">Impacto: Leads van directo al equipo de ventas de Skindoctors, no a Apex</div>
+        </div>
+      </div>
+
+      <div class="priority-row baja">
+        <span class="p-tag tag-baja">Baja</span>
+        <div class="p-content">
+          <div class="p-title">Fotos reales de modelo usando CBD</div>
+          <div class="p-desc">Agregar foto de lifestyle de persona aplicando el aceite para la sección de ingredientes y el hero. Aumenta conversión y autenticidad del producto.</div>
+          <div class="p-impact">Impacto: +15–25% conversión según estudios de e-commerce con skin care</div>
+        </div>
+      </div>
+
+      <div class="priority-row baja">
+        <span class="p-tag tag-baja">Baja</span>
+        <div class="p-content">
+          <div class="p-title">Pop-up exit intent para captura de email</div>
+          <div class="p-desc">Al detectar intención de salida, mostrar "¿Querés saber cuándo hay descuento en CBD Oil Balance?" para capturar email y retomar la conversación después.</div>
+          <div class="p-impact">Impacto: Recuperar 10–20% de visitas que no convierten en primera sesión</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="audit-footer">
+    Generado por <span>Apex Cloud Works</span> · Cartago, Costa Rica · apex<span>cloudworks</span>company.com
+  </div>
+</div>
+
+<script>
+window.addEventListener('load', () => {
+  document.querySelectorAll('.cat-bar-fill, .total-bar-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    requestAnimationFrame(() => {
+      setTimeout(() => { bar.style.width = w }, 100);
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cierre CBD Oil Balance · Apex Cloud Works · INTERNO</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#1b4332;--teal-lt:#2E8B57;--mint:#c3dcc5;
+  --green:#2E8B57;--red:#D04040;--yellow:#D4A020;
+  --muted:#4a7060;--dark:#1a2e22;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:#0a1a0f;color:var(--mint);min-height:100vh}
+.header{background:linear-gradient(135deg,#0a1a0f 0%,#0d2318 100%);border-bottom:1px solid rgba(195,220,197,.12);padding:2rem 3rem}
+.header-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.internal-badge{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:rgba(220,80,80,.15);border:1px solid rgba(220,80,80,.3);color:#f87171;padding:.2rem .7rem;border-radius:4px;margin-bottom:.4rem;display:inline-block}
+.doc-title{font-family:var(--serif);font-size:2rem;font-weight:300;color:#fff}
+.doc-title strong{color:#86efac;font-weight:600}
+.header-right{text-align:right}
+.deadline-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.25rem}
+.deadline-val{font-family:var(--serif);font-size:1.5rem;color:#f87171;font-weight:600}
+.deadline-days{font-size:.75rem;color:rgba(248,113,113,.6);margin-top:.1rem}
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem 4rem}
+.deal-box{background:linear-gradient(135deg,rgba(27,115,64,.15),rgba(195,220,197,.08));border:1px solid rgba(195,220,197,.2);border-radius:16px;padding:1.8rem 2rem;margin-bottom:2rem;display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.deal-amount{text-align:center}
+.deal-num{font-family:var(--serif);font-size:3.5rem;font-weight:600;color:#fff;line-height:1}
+.deal-label{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.deal-breakdown{flex:1;display:flex;flex-direction:column;gap:.5rem}
+.deal-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;border-radius:8px;background:rgba(255,255,255,.04)}
+.deal-row-label{font-size:.8rem;color:rgba(255,255,255,.65)}
+.deal-row-val{font-size:.8rem;font-weight:700;color:var(--mint)}
+.deal-row.total{background:rgba(27,115,64,.2);border:1px solid rgba(27,115,64,.3)}
+.deal-row.total .deal-row-label{color:#fff;font-weight:700}
+.deal-row.total .deal-row-val{color:#86efac;font-size:.95rem}
+.deal-note{font-size:.72rem;color:var(--muted);line-height:1.55;flex-basis:100%}
+.section{margin-bottom:2rem}
+.sec-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(195,220,197,.1)}
+.sec-icon{font-size:1rem;line-height:1}
+.sec-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-lt)}
+.checklist{display:flex;flex-direction:column;gap:.55rem}
+.check-item{display:flex;align-items:flex-start;gap:.85rem;background:rgba(255,255,255,.03);border:1px solid rgba(195,220,197,.1);border-radius:10px;padding:.8rem 1rem;cursor:pointer;transition:background .15s;user-select:none}
+.check-item:hover{background:rgba(255,255,255,.05)}
+.check-item.done{background:rgba(46,139,87,.07);border-color:rgba(46,139,87,.2)}
+.check-box{width:20px;height:20px;border-radius:5px;flex-shrink:0;border:2px solid rgba(195,220,197,.3);margin-top:.1rem;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:transparent;transition:all .15s}
+.check-item.done .check-box{background:var(--green);border-color:var(--green);color:#fff}
+.check-body{flex:1}
+.check-title{font-size:.84rem;font-weight:700;color:#fff;margin-bottom:.15rem}
+.check-desc{font-size:.74rem;line-height:1.5;color:var(--muted)}
+.check-item.done .check-title{color:rgba(255,255,255,.6)}
+.check-item.done .check-desc{color:rgba(255,255,255,.3)}
+.notes-box{background:rgba(255,255,255,.03);border:1px solid rgba(195,220,197,.12);border-radius:12px;padding:1rem 1.2rem}
+.notes-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.notes-textarea{width:100%;background:transparent;border:none;color:rgba(255,255,255,.7);font-family:var(--mono);font-size:.78rem;line-height:1.7;resize:vertical;min-height:80px;outline:none}
+.notes-textarea::placeholder{color:rgba(255,255,255,.2)}
+.alert-pending{background:rgba(212,160,32,.08);border:1px solid rgba(212,160,32,.2);border-left:3px solid var(--yellow);border-radius:0 10px 10px 0;padding:1rem 1.2rem;margin-bottom:1.5rem}
+.alert-pending h4{font-size:.82rem;font-weight:700;color:var(--yellow);margin-bottom:.35rem}
+.alert-pending p{font-size:.76rem;color:var(--muted);line-height:1.6}
+.alert-pending code{font-family:var(--mono);font-size:.74rem;background:rgba(255,255,255,.06);padding:.1rem .3rem;border-radius:4px;color:#86efac}
+.meta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.meta-card{flex:1;min-width:160px;background:rgba(255,255,255,.03);border:1px solid rgba(195,220,197,.1);border-radius:12px;padding:1rem 1.2rem}
+.meta-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.meta-val{font-size:.88rem;font-weight:700;color:#fff}
+.meta-sub{font-size:.7rem;color:var(--muted);margin-top:.1rem}
+.footer-internal{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(195,220,197,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);color:var(--teal-lt);font-size:.9rem}
+.footer-logo small{display:block;font-family:var(--sans);font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:.1rem}
+.footer-warning{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.2);text-align:right}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="internal-badge">⚠ Documento interno</div>
+      <div class="doc-title">Cierre — <strong>CBD Oil Balance</strong></div>
+    </div>
+    <div class="header-right">
+      <div class="deadline-label">Deadline cobro</div>
+      <div class="deadline-val">15 Jun 2026</div>
+      <div class="deadline-days">7 días restantes</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="deal-box">
+    <div class="deal-amount">
+      <div class="deal-num">$450</div>
+      <div class="deal-label">Deal total</div>
+    </div>
+    <div class="deal-breakdown">
+      <div class="deal-row">
+        <div class="deal-row-label">Landing Melasblock BB Cream</div>
+        <div class="deal-row-val">$300 USD</div>
+      </div>
+      <div class="deal-row">
+        <div class="deal-row-label">Landing CBD Oil Balance</div>
+        <div class="deal-row-val">$150 USD (add-on)</div>
+      </div>
+      <div class="deal-row total">
+        <div class="deal-row-label">Total paquete Skindoctors</div>
+        <div class="deal-row-val">$450 USD</div>
+      </div>
+    </div>
+    <div class="deal-note">Precio cerrado con Andrés (Skindoctors). Hablar comisión con él ANTES del primer cobro. Ambas landings en producción en CloudFront — entrega pendiente de confirmación formal.</div>
+  </div>
+
+  <div class="alert-pending">
+    <h4>⏳ Pendiente del cliente — Activar sistema de leads CBD</h4>
+    <p>Para completar la entrega técnica, el cliente debe crear:<br>
+    1. Webhook en N8N para CBD (diferente al de Melasblock) → pegar en <code>const N8N_WEBHOOK = ''</code><br>
+    2. Google Sheet nuevo para CBD → pegar URL Apps Script en <code>const SHEETS_URL = ''</code><br>
+    Tiempo de mi lado: &lt;10 min una vez que manden las URLs.</p>
+  </div>
+
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">✅</div>
+      <div class="sec-label">Checklist de entrega</div>
+    </div>
+    <div class="checklist" id="checklist">
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-title">Landing CBD Oil Balance construida</div>
+          <div class="check-desc">9 secciones completas. HTML/CSS/JS puro. Mobile-first. Animaciones Intersection Observer.</div>
+        </div>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-title">Hero reestructurado — Patrón MelasBlock</div>
+          <div class="check-desc">CSS ::before fondo full-bleed + glass card. Mobile responsive completo.</div>
+        </div>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-title">Sistema de leads implementado (modal interceptor)</div>
+          <div class="check-desc">Modal verde. Captura nombre, teléfono, email, tipo de piel, provincia. WA pre-llenado.</div>
+        </div>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-title">Deploy en producción — AWS CloudFront</div>
+          <div class="check-desc">d3suiaystvdco4.cloudfront.net/cbd-balance/ · SSL activo · CDN global</div>
+        </div>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box">✓</div>
+        <div class="check-body">
+          <div class="check-title">Documentos legales creados (Política + T&C)</div>
+          <div class="check-desc">politica-privacidad.html + terminos.html. Ley N.° 8968 CR. Listos para subir a S3.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-body">
+          <div class="check-title">Cliente configura N8N webhook CBD</div>
+          <div class="check-desc">Andrés crea webhook nuevo en N8N y manda la URL para pegar en el código.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-body">
+          <div class="check-title">Cliente configura Google Sheets CBD</div>
+          <div class="check-desc">Crear hoja nueva → Apps Script → pegar URL en const SHEETS_URL.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-body">
+          <div class="check-title">Enviar entrega-cliente.html a Andrés</div>
+          <div class="check-desc">Compartir documento PDF o URL local. Explicar el proceso de cambios y los planes de continuidad.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-body">
+          <div class="check-title">Cobro — $450 USD paquete Skindoctors</div>
+          <div class="check-desc">SINPE o transferencia. Hablar comisión con Andrés ANTES. Deadline: 15 junio 2026.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">📋</div>
+      <div class="sec-label">Metadata del proyecto</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-card">
+        <div class="meta-label">Cliente</div>
+        <div class="meta-val">Skindoctors CR</div>
+        <div class="meta-sub">Contacto: Andrés</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">Producto</div>
+        <div class="meta-val">CBD Oil Balance</div>
+        <div class="meta-sub">Aceite de cáñamo premium</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">S3 Bucket</div>
+        <div class="meta-val">skindoctors-cr-landings</div>
+        <div class="meta-sub">Region: us-east-2</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">CloudFront ID</div>
+        <div class="meta-val">E31U5V9IA0JXSZ</div>
+        <div class="meta-sub">Compartido con Melasblock</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">WA Number</div>
+        <div class="meta-val">50663144171</div>
+        <div class="meta-sub">+506 6314-4171</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon">📝</div>
+      <div class="sec-label">Notas internas</div>
+    </div>
+    <div class="notes-box">
+      <div class="notes-label">Notas del cierre</div>
+      <textarea class="notes-textarea" placeholder="Agregar notas aquí...">- CBD es add-on del deal de Melasblock. Ambos bajo el mismo cliente (Andrés / Skindoctors CR).
+- Hablar COMISIÓN con Andrés antes del primer cobro — él abrió la cuenta.
+- Modal de leads: WA number configurado (50663144171). N8N y Sheets pendientes.
+- Deadline junio 15 para cerrar los $450.</textarea>
+    </div>
+  </div>
+
+  <div class="footer-internal">
+    <div class="footer-logo">
+      Apex Cloud Works
+      <small>Cartago, Costa Rica · Interno · No compartir</small>
+    </div>
+    <div class="footer-warning">CONFIDENCIAL · Solo uso interno Apex Cloud Works</div>
+  </div>
+
+</div>
+
+<script>
+function toggle(el){
+  el.classList.toggle('done');
+  el.querySelector('.check-box').textContent = el.classList.contains('done') ? '✓' : '';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Entrega · CBD Oil Balance · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF5EF;--beige:#E0C3AE;--peach:#FFAF83;--coral:#FF7671;
+  --earth:#8F6149;--dark:#231F20;--muted:#7A6558;--border:#EDD9C8;
+  --green:#2E8B57;--teal:#1b7340;--surface:#fff;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+@media print{
+  body{background:#fff}
+  .no-print{display:none!important}
+  .page-break{page-break-before:always}
+}
+.hero-header{
+  background:linear-gradient(135deg,#0d1f14 0%,#1b4332 55%,var(--teal) 100%);
+  padding:3.5rem 3rem 3rem;color:#fff;position:relative;overflow:hidden;
+}
+.hero-header::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(195,220,197,.07) 0%,transparent 70%);
+}
+.hero-header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(195,220,197,.3),rgba(100,200,130,.35),rgba(195,220,197,.3),transparent);
+}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.apex-brand{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.6rem}
+.doc-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#86efac;opacity:.85;margin-bottom:.4rem}
+.doc-title{font-family:var(--serif);font-size:2.4rem;font-weight:300;line-height:1.08;max-width:520px}
+.doc-title strong{font-weight:600;color:#86efac}
+.doc-subtitle{margin-top:.7rem;font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6;max-width:480px}
+.hero-meta{text-align:right;min-width:180px}
+.meta-date{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.35rem}
+.meta-val{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:.15rem}
+.meta-badge{
+  display:inline-block;margin-top:.5rem;
+  background:rgba(46,139,87,.25);border:1px solid rgba(46,139,87,.45);
+  color:#6FCF97;font-size:.7rem;font-weight:700;letter-spacing:.1em;
+  padding:.3rem .85rem;border-radius:50px;
+}
+.meta-badge.pending{background:rgba(212,160,32,.18);border-color:rgba(212,160,32,.35);color:#fbbf24}
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 2rem 3rem}
+.sec-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.35rem}
+.sec-title{font-family:var(--serif);font-size:1.35rem;font-weight:600;color:var(--dark);margin-bottom:1.2rem}
+.url-cards{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.5rem}
+.url-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem}
+.url-icon{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.url-icon.live{background:rgba(46,139,87,.1)}
+.url-icon.pending{background:rgba(212,160,32,.1)}
+.url-info{flex:1}
+.url-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.url-link{font-size:.9rem;font-weight:700;color:var(--teal);word-break:break-all}
+.url-desc{font-size:.74rem;color:var(--muted);margin-top:.12rem}
+.url-status{font-size:.65rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;flex-shrink:0}
+.status-live{background:rgba(46,139,87,.12);color:var(--green);border:1px solid rgba(46,139,87,.25)}
+.status-pending{background:rgba(212,160,32,.1);color:#92400e;border:1px solid rgba(212,160,32,.25)}
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem}
+.deliverable-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.d-icon{font-size:1.4rem;line-height:1}
+.d-title{font-size:.88rem;font-weight:700;color:var(--dark)}
+.d-desc{font-size:.74rem;line-height:1.58;color:var(--muted)}
+.d-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.d-chip{font-size:.6rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;background:rgba(27,115,64,.08);color:var(--teal);border:1px solid rgba(27,115,64,.15)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0}
+.steps{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.5rem}
+.step{display:flex;align-items:flex-start;gap:1rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+.step-body{flex:1}
+.step-title{font-size:.84rem;font-weight:700;color:var(--dark);margin-bottom:.18rem}
+.step-desc{font-size:.76rem;line-height:1.55;color:var(--muted)}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2.5rem}
+.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.plan-card.featured{border-color:var(--teal);box-shadow:0 4px 24px rgba(27,115,64,.12)}
+.plan-header{padding:1.2rem 1.4rem;border-bottom:1px solid var(--border)}
+.plan-header.featured-bg{background:linear-gradient(135deg,rgba(27,115,64,.07),rgba(195,220,197,.12))}
+.plan-badge{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .6rem;border-radius:4px;background:var(--teal);color:#fff;display:inline-block;margin-bottom:.5rem}
+.plan-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--dark)}
+.plan-price{font-family:var(--serif);font-size:1.8rem;font-weight:600;color:var(--teal);line-height:1;margin:.4rem 0 .15rem}
+.plan-price span{font-size:.8rem;font-weight:400;color:var(--muted)}
+.plan-items{padding:1.1rem 1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.plan-item{font-size:.76rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
+.plan-item::before{content:'✓';color:var(--green);font-weight:700;font-size:.7rem;margin-top:.05rem;flex-shrink:0}
+.plan-item.missing::before{content:'✗';color:rgba(0,0,0,.2)}
+.plan-item.missing{color:rgba(0,0,0,.3)}
+.garantia{background:linear-gradient(135deg,rgba(27,115,64,.05),rgba(195,220,197,.1));border:1px solid rgba(27,115,64,.15);border-radius:14px;padding:1.5rem 1.8rem;margin-bottom:2.5rem}
+.garantia-title{font-family:var(--serif);font-size:1rem;color:var(--dark);margin-bottom:.7rem}
+.garantia-items{display:flex;flex-direction:column;gap:.45rem}
+.g-item{font-size:.8rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start}
+.g-item::before{content:'•';color:var(--teal);font-weight:700;flex-shrink:0}
+.alert-box{background:rgba(212,160,32,.06);border:1px solid rgba(212,160,32,.25);border-left:3px solid #d4a020;border-radius:0 10px 10px 0;padding:1rem 1.2rem;margin-bottom:2rem}
+.alert-box h4{font-size:.82rem;font-weight:700;color:#92400e;margin-bottom:.4rem}
+.alert-box p{font-size:.78rem;color:var(--muted);line-height:1.6}
+.alert-box code{font-family:monospace;font-size:.78rem;background:rgba(0,0,0,.06);padding:.1rem .35rem;border-radius:4px}
+.contact-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.contact-card{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.contact-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.contact-val{font-size:.86rem;font-weight:700;color:var(--dark)}
+.contact-sub{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.firma{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.firma-apex{font-family:var(--serif);font-size:1rem;color:var(--teal)}
+.firma-apex small{display:block;font-family:var(--sans);font-size:.62rem;color:var(--muted);font-style:normal;margin-top:.15rem;letter-spacing:.08em;text-transform:uppercase}
+.firma-disclaimer{font-size:.64rem;color:var(--muted);opacity:.5;text-align:right;max-width:260px;line-height:1.5}
+.print-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--teal);color:#fff;border:none;padding:.7rem 1.4rem;border-radius:50px;font-family:var(--sans);font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(27,115,64,.35);transition:transform .2s,box-shadow .2s;z-index:99}
+.print-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(27,115,64,.4)}
+@media(max-width:640px){
+  .hero-header{padding:2.5rem 1.5rem 2rem}
+  .hero-meta{text-align:left}
+  .wrap{padding:1.5rem 1rem 2rem}
+  .deliverables,.plans{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hero-header">
+  <div class="hero-inner">
+    <div>
+      <div class="apex-brand">Apex Cloud Works · Cartago, Costa Rica</div>
+      <div class="doc-eyebrow">Documento de entrega</div>
+      <div class="doc-title">Landing Page <strong>CBD Oil Balance</strong><br>Aceite de Cáñamo Premium</div>
+      <div class="doc-subtitle">Todo lo entregado, URL en producción y próximos pasos para Skindoctors CR.</div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-date">Fecha de entrega</div>
+      <div class="meta-val">Junio 2026</div>
+      <div class="meta-date" style="margin-top:.5rem">Cliente</div>
+      <div class="meta-val">Skindoctors CR</div>
+      <div class="meta-badge">✓ Live en producción</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec-eyebrow">Entregables en producción</div>
+  <div class="sec-title">Su página está activa</div>
+  <div class="url-cards">
+    <div class="url-card">
+      <div class="url-icon live">🌿</div>
+      <div class="url-info">
+        <div class="url-label">Landing principal — CBD Oil Balance</div>
+        <div class="url-link">d3suiaystvdco4.cloudfront.net/cbd-balance/</div>
+        <div class="url-desc">Página de venta completa con hero, beneficios clínicos, ingredientes certificados, cómo usar, microbiota, reseñas de clientes, FAQ y formulario de consulta por WhatsApp.</div>
+      </div>
+      <span class="url-status status-live">Live ✓</span>
+    </div>
+    <div class="url-card">
+      <div class="url-icon pending">⚙️</div>
+      <div class="url-info">
+        <div class="url-label">Sistema de captura de leads — Pendiente configuración</div>
+        <div class="url-link">N8N Webhook + Google Sheets (crear cuenta)</div>
+        <div class="url-desc">El formulario de leads está integrado. Requiere que usted cree el webhook en N8N y una hoja de cálculo en Google Sheets. Ver instrucciones abajo.</div>
+      </div>
+      <span class="url-status status-pending">Pendiente</span>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <h4>⚠️ Paso pendiente — Activar captura de leads</h4>
+    <p>Para que los formularios envíen datos a N8N y Google Sheets, debe crear un webhook en su cuenta de N8N para el producto CBD y pegar la URL en el código:<br>
+    <code>const N8N_WEBHOOK = 'URL_AQUÍ';</code><br>
+    <code>const SHEETS_URL = 'URL_AQUÍ';</code><br>
+    Escríbame cuando tenga las URLs y las configuro en menos de 10 minutos.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec-eyebrow">Qué se construyó</div>
+  <div class="sec-title">Resumen de entrega</div>
+  <div class="deliverables">
+
+    <div class="deliverable-card">
+      <div class="d-icon">🖥️</div>
+      <div class="d-title">Landing de venta CBD Oil Balance</div>
+      <div class="d-desc">Página completa de alta conversión con 9 secciones: hero full-bleed con fondo de lifestyle, beneficios dermatológicos, activos certificados, cómo usar, microbiota, reseñas reales, FAQ y CTA de compra.</div>
+      <div class="d-chips">
+        <span class="d-chip">Mobile-first</span>
+        <span class="d-chip">WhatsApp integrado</span>
+        <span class="d-chip">SEO básico</span>
+        <span class="d-chip">9 secciones</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📋</div>
+      <div class="d-title">Sistema de captura de leads</div>
+      <div class="d-desc">Modal interceptor en todos los botones de WhatsApp. Captura nombre, teléfono, email, tipo de piel y provincia. Envía automáticamente a N8N (automatización) y Google Sheets (respaldo). Pre-llena el chat de WhatsApp con los datos del cliente.</div>
+      <div class="d-chips">
+        <span class="d-chip">Modal verde</span>
+        <span class="d-chip">N8N webhook</span>
+        <span class="d-chip">Google Sheets</span>
+        <span class="d-chip">WA pre-llenado</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">🎨</div>
+      <div class="d-title">Identidad visual CBD — Paleta verde premium</div>
+      <div class="d-desc">Diseño con paleta verde natural (#1b4332, #2E8B57, #C3DCC5). Hero con foto lifestyle como fondo CSS full-bleed y tarjeta de vidrio (glassmorphism) sobre el contenido. Tipografías Noto Serif Display + Quicksand.</div>
+      <div class="d-chips">
+        <span class="d-chip">Glassmorphism</span>
+        <span class="d-chip">Paleta verde</span>
+        <span class="d-chip">Tipografía premium</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">☁️</div>
+      <div class="d-title">Deploy en AWS CloudFront</div>
+      <div class="d-desc">Hosting en Amazon Web Services: S3 bucket compartido con Melasblock, CloudFront como CDN global con SSL incluido. Carga en menos de 2 segundos. Disponible en todo el mundo.</div>
+      <div class="d-chips">
+        <span class="d-chip">HTTPS / SSL</span>
+        <span class="d-chip">CDN global</span>
+        <span class="d-chip">99.9% uptime</span>
+        <span class="d-chip">AWS S3</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📱</div>
+      <div class="d-title">Optimización móvil completa</div>
+      <div class="d-desc">Hero adaptado a pantallas pequeñas: glass card de ancho completo, foto de fondo en mobile center 20%, badge chips ocultos para limpiar el layout. Menú hamburger, botón WhatsApp flotante siempre visible.</div>
+      <div class="d-chips">
+        <span class="d-chip">Responsive</span>
+        <span class="d-chip">Touch-friendly</span>
+        <span class="d-chip">iOS / Android</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📄</div>
+      <div class="d-title">Documentos legales Skindoctors CR</div>
+      <div class="d-desc">Política de Privacidad y Términos y Condiciones en HTML, estilizados con la identidad visual de Skindoctors. Cubren: tratamiento de datos (Ley N.° 8968 CR), proceso de compra, devoluciones, IVA y propiedad intelectual.</div>
+      <div class="d-chips">
+        <span class="d-chip">Ley 8968 CR</span>
+        <span class="d-chip">Privacidad</span>
+        <span class="d-chip">T&amp;C</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec-eyebrow">Proceso de trabajo</div>
+  <div class="sec-title">Cómo solicitar cambios</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Me escribís por WhatsApp o correo</div>
+        <div class="step-desc">Describís el cambio que querés: texto, precio, imagen, color, sección nueva. Cambios menores como precio o número los aplico en el mismo día.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Confirmación y tiempo de entrega</div>
+        <div class="step-desc">Confirmo el cambio solicitado y doy tiempo estimado. Cambios menores: mismo día. Cambios mayores: 1–3 días hábiles. Incluye 2 revisiones por cambio sin costo adicional.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Aplico el cambio y actualizo producción</div>
+        <div class="step-desc">Modifico la página y hago el deploy a CloudFront automáticamente. El cambio queda visible en minutos. Les comparto la URL para revisión inmediata.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Aprobación final</div>
+        <div class="step-desc">Confirman que el cambio está correcto. Si necesitan ajuste adicional, lo aplicamos en la misma solicitud (hasta 2 revisiones sin costo extra).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec-eyebrow">Opciones de continuidad</div>
+  <div class="sec-title">Qué sigue después de la entrega</div>
+  <div class="plans">
+
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-name">Solo mantenimiento</div>
+        <div class="plan-price">$50–100<span> / mes</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Cambios de texto y precios</div>
+        <div class="plan-item">Actualización de número WhatsApp</div>
+        <div class="plan-item">Ajustes de colores o imágenes</div>
+        <div class="plan-item">Hosting AWS incluido</div>
+        <div class="plan-item missing">Landings nuevas</div>
+        <div class="plan-item missing">Campañas de temporada</div>
+        <div class="plan-item missing">Nuevos productos</div>
+      </div>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-header featured-bg">
+        <div class="plan-badge">Recomendado</div>
+        <div class="plan-name">Plan trimestral</div>
+        <div class="plan-price">$900<span> / 3 meses</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Todo lo del mantenimiento</div>
+        <div class="plan-item">2 landings nuevas por trimestre</div>
+        <div class="plan-item">Campañas de temporada (Día de la Madre, Black Friday)</div>
+        <div class="plan-item">Guías imprimibles por producto</div>
+        <div class="plan-item">Integración Google Analytics</div>
+        <div class="plan-item">Pixel Meta Ads para retargeting</div>
+        <div class="plan-item">Reportes mensuales de visitas</div>
+        <div class="plan-item">Prioridad de atención garantizada</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="garantia">
+    <div class="garantia-title">✦ Garantía Apex Cloud Works</div>
+    <div class="garantia-items">
+      <div class="g-item">Si la página tiene algún error técnico o no carga correctamente, lo resolvemos en menos de 24 horas sin costo.</div>
+      <div class="g-item">Los cambios dentro del alcance acordado no tienen costo adicional durante el período vigente.</div>
+      <div class="g-item">El código fuente de su landing es suyo. Lo reciben completo si en algún momento deciden cambiar de proveedor.</div>
+      <div class="g-item">Respuesta a mensajes de WhatsApp en menos de 2 horas. Atención disponible 24/7.</div>
+    </div>
+  </div>
+
+  <div class="sec-eyebrow">Contacto directo</div>
+  <div class="sec-title">Para cambios o consultas</div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-val">+506 6314-4171</div>
+      <div class="contact-sub">Garett — Apex Cloud Works</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Correo</div>
+      <div class="contact-val">apexcloudworkscompany@gmail.com</div>
+      <div class="contact-sub">Respuesta en menos de 4 horas</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Horario</div>
+      <div class="contact-val">24 / 7</div>
+      <div class="contact-sub">Cartago, Costa Rica</div>
+    </div>
+  </div>
+
+  <div class="firma">
+    <div class="firma-apex">
+      Apex Cloud Works
+      <small>Cartago, Costa Rica · 2026</small>
+    </div>
+    <div class="firma-disclaimer">Documento confidencial preparado para Skindoctors CR. La información de precios y condiciones es válida por 30 días.</div>
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / Guardar PDF</button>
+
+</body>
+</html>
