@@ -3,22 +3,19 @@ const SHEET_CITAS = "Citas";
 const SHEET_BLOQUEOS = "Bloqueos";
 
 function doGet(e) {
-  // Verificación para evitar el error al ejecutar manualmente en el editor
   if (!e || !e.parameter) {
     return ContentService.createTextOutput("Error: No se detectaron parámetros. El script está activo pero debe ser invocado como Aplicación Web.");
   }
 
   const action = e.parameter.action;
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  
+
   if (action === 'getBookings') {
     const sheet = ss.getSheetByName(SHEET_CITAS);
     if (!sheet) return JSONResponse([]);
-    
     const data = sheet.getDataRange().getDisplayValues();
     const headers = data.shift();
     if (!headers || data.length === 0) return JSONResponse([]);
-
     const json = data.map(row => {
       let obj = {};
       headers.forEach((h, i) => obj[h.toLowerCase()] = row[i]);
@@ -26,17 +23,12 @@ function doGet(e) {
     });
     return JSONResponse(json);
   }
-  
+
   if (action === 'getBlocked') {
     const sheet = ss.getSheetByName(SHEET_BLOQUEOS);
     if (!sheet) return JSONResponse({ days: [], slots: [] });
-
     const data = sheet.getDataRange().getDisplayValues();
-    // Asumimos encabezado en la primera fila: Col A = type, Col B = value
-    // - type = "day"  value = "YYYY-MM-DD"
-    // - type = "slot" value = "YYYY-MM-DD|HH:MM"
     data.shift();
-
     const days = [];
     const slots = [];
     data.forEach(row => {
@@ -46,13 +38,10 @@ function doGet(e) {
       if(type === 'day') days.push(value);
       if(type === 'slot') slots.push(value);
     });
-
-    // Compatibilidad: si la hoja todavía tiene el formato antiguo (una sola columna con days)
     if(days.length === 0 && slots.length === 0) {
       const flat = data.flat().map(v => (v||'').toString().trim()).filter(Boolean);
       return JSONResponse({ days: flat, slots: [] });
     }
-
     return JSONResponse({ days, slots });
   }
 }
@@ -78,7 +67,19 @@ function doPost(e) {
     const vals = sheet.getDataRange().getValues();
     for (let i = 1; i < vals.length; i++) {
       if (vals[i][0] === data.id) {
-        sheet.getRange(i + 1, 12).setValue('cancelada'); 
+        sheet.getRange(i + 1, 12).setValue('cancelada');
+        break;
+      }
+    }
+    return JSONResponse({ ok: true });
+  }
+
+  if (action === 'completeBooking') {
+    const sheet = ss.getSheetByName(SHEET_CITAS);
+    const vals = sheet.getDataRange().getValues();
+    for (let i = 1; i < vals.length; i++) {
+      if (vals[i][0] === data.id) {
+        sheet.getRange(i + 1, 12).setValue('completada');
         break;
       }
     }
@@ -87,7 +88,6 @@ function doPost(e) {
 
   if (action === 'blockDate') {
     const sheet = ss.getSheetByName(SHEET_BLOQUEOS);
-    // Formato nuevo: type + value
     sheet.appendRow(['day', data.date]);
     return JSONResponse({ ok: true });
   }
@@ -96,7 +96,6 @@ function doPost(e) {
     const sheet = ss.getSheetByName(SHEET_BLOQUEOS);
     const vals = sheet.getDataRange().getValues();
     for (let i = vals.length - 1; i >= 1; i--) {
-      // soporte legacy: en formato antiguo era columna A = date
       const type = (vals[i][0] || '').toString();
       const value = (vals[i][1] || '').toString();
       const legacyDate = (vals[i][0] || '').toString();
@@ -109,7 +108,6 @@ function doPost(e) {
 
   if (action === 'blockSlot') {
     const sheet = ss.getSheetByName(SHEET_BLOQUEOS);
-    // slotId = "YYYY-MM-DD|HH:MM"
     const slotId = data.date + '|' + data.slot;
     sheet.appendRow(['slot', slotId]);
     return JSONResponse({ ok: true });

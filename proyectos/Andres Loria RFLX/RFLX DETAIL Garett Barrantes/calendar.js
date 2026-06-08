@@ -11,6 +11,13 @@ const CONFIG = {
   sheetsUrl: "https://script.google.com/macros/s/AKfycbxaTAhYv33Q_xg9_W8x_K5lEZagIF4p1KqlqHKedMfn2H8j9uQVk7POJVNXTQ_VQYF1/exec",
 };
 
+/* Escapa HTML — previene XSS en el panel admin */
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
 const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
 const DAYS_LONG=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
@@ -81,7 +88,6 @@ const Store = {
         this.sheetsGet('getBlocked'),
       ]);
       if(bookingsRes && Array.isArray(bookingsRes)){
-        // Preserve local-only fields (_note) when merging
         const localMap = {};
         (this._bookings||[]).forEach(b=>{ if(b._note) localMap[b.id] = b._note; });
         this._bookings = bookingsRes.map(b => localMap[b.id] ? {...b, _note: localMap[b.id]} : b);
@@ -331,7 +337,7 @@ const BookingForm = {
       ...d, createdAt:new Date().toISOString(), status:'confirmada',
     };
     await Store.add(b); Modal.show(b);
-    btn.disabled=false; btn.textContent='CONFIRMAR CITA →';
+    btn.disabled=false; btn.textContent='CONFIRMAR CITA — ₡5.000 →';
     renderCal(); if(selDate) renderHours(selDate);
   },
 };
@@ -365,7 +371,6 @@ const Admin = {
   _tab: 'citas',
   _audio: new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'),
 
-  // Price lookup for revenue calculation
   _prices: {
     'Reflex Essential Wash':       { sedan:15000, suv:17000, xl:19000, moto:8000  },
     'Reflex Plus Wash':            { sedan:18000, suv:20000, xl:22000, moto:10000 },
@@ -394,9 +399,14 @@ const Admin = {
     setTimeout(()=>document.getElementById('admin-pass-input').focus(), 100);
   },
 
-  checkPassword(){
+  // Generar hash de tu contraseña en consola del navegador:
+  // crypto.subtle.digest('SHA-256',new TextEncoder().encode('TuContraseña')).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+  // Reemplazá HASH_AQUI con el valor obtenido
+  async checkPassword(){
     const val = document.getElementById('admin-pass-input').value;
-    if(val === 'RFLX2024'){
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+    const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === 'HASH_AQUI'){
       document.getElementById('admin-login-view').style.display = 'none';
       document.getElementById('admin-dashboard-view').style.display = 'block';
       this.startDashboard();
@@ -423,12 +433,10 @@ const Admin = {
       if(status) status.textContent = '(Actualizado: ' + new Date().toLocaleTimeString() + ')';
     }, 30000);
 
-    // Tab buttons
     document.querySelectorAll('.admin-tab').forEach(btn=>{
       btn.addEventListener('click', ()=> this.switchTab(btn.dataset.tab));
     });
 
-    // Filter controls
     ['filter-status','filter-service','filter-from','filter-to','filter-search'].forEach(id=>{
       document.getElementById(id)?.addEventListener('input', ()=> this.renderTable());
       document.getElementById(id)?.addEventListener('change', ()=> this.renderTable());
@@ -442,7 +450,6 @@ const Admin = {
     });
     document.getElementById('admin-export-btn')?.addEventListener('click', ()=> this.exportCSV());
 
-    // Tbody delegation (citas tab)
     const tb = document.getElementById('admin-tbody');
     if(tb && !tb.dataset.delegated){
       tb.dataset.delegated = '1';
@@ -483,14 +490,11 @@ const Admin = {
     else if(this._tab==='bloqueos') this.renderBloqueos();
   },
 
-  /* ── Stats cards ── */
   renderStats(){
     const all = Store.bookings();
     const todayKey = toKey(today.getFullYear(), today.getMonth(), today.getDate());
-
     const startOfWeek = new Date(today);
     startOfWeek.setDate(today.getDate() - today.getDay());
-
     const hoy       = all.filter(b=> b.date===todayKey && b.status!=='cancelada').length;
     const semana    = all.filter(b=> b.status!=='cancelada' && new Date(b.date+'T12:00:00')>=startOfWeek).length;
     const pendientes= all.filter(b=> b.status==='confirmada').length;
@@ -500,7 +504,6 @@ const Admin = {
       const p = this._prices[b.service];
       return sum + (p ? (p[this._vehKey(b.vehicle)]||15000) : 15000);
     }, 0);
-
     this._setCard('astat-hoy',        hoy,                       'Citas hoy');
     this._setCard('astat-semana',     semana,                    'Esta semana');
     this._setCard('astat-pendientes', pendientes,                'Pendientes');
@@ -513,14 +516,12 @@ const Admin = {
     if(el) el.innerHTML = `<div class="astat-num">${val}</div><div class="astat-label">${label}</div>`;
   },
 
-  /* ── Filtered bookings ── */
   _getFiltered(){
     const status  = document.getElementById('filter-status')?.value  || 'all';
     const service = document.getElementById('filter-service')?.value || '';
     const from    = document.getElementById('filter-from')?.value    || '';
     const to      = document.getElementById('filter-to')?.value      || '';
     const search  = (document.getElementById('filter-search')?.value || '').toLowerCase();
-
     return Store.bookings()
       .filter(b=>{
         if(status!=='all' && b.status!==status) return false;
@@ -533,48 +534,44 @@ const Admin = {
       .sort((a,b)=> a.date.localeCompare(b.date)||a.slot.localeCompare(b.slot));
   },
 
-  /* ── Citas table ── */
   renderTable(){
     const bookings = this._getFiltered();
     const tb = document.getElementById('admin-tbody');
     if(!tb) return;
-
     if(!bookings.length){
       tb.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#666;padding:1.5rem">Sin citas</td></tr>`;
       return;
     }
-
     tb.innerHTML = bookings.map(b=>`
       <tr style="opacity:${b.status==='cancelada'?.4:1}">
         <td style="font-weight:bold;color:var(--yellow);white-space:nowrap;font-size:.75rem">${b.id}</td>
-        <td>${b.name}</td>
-        <td style="white-space:nowrap">${b.phone}</td>
+        <td>${esc(b.name)}</td>
+        <td style="white-space:nowrap">${esc(b.phone)}</td>
         <td style="white-space:nowrap;font-size:.78rem">${dateDisplay(b.date)}</td>
         <td>${b.time}</td>
-        <td style="font-size:.78rem;max-width:130px">${b.service}</td>
+        <td style="font-size:.78rem;max-width:130px">${esc(b.service)}</td>
         <td><span class="status-pill status-${b.status}">${b.status}</span></td>
         <td>
           <div style="display:flex;gap:.25rem;flex-wrap:wrap;align-items:center">
             <button class="aaction-btn wa-btn"
-              data-action="wa" data-phone="${b.phone}" data-name="${b.name}"
-              data-date="${b.date}" data-time="${b.time}" data-service="${b.service}"
+              data-action="wa" data-phone="${esc(b.phone)}" data-name="${esc(b.name)}"
+              data-date="${b.date}" data-time="${b.time}" data-service="${esc(b.service)}"
               title="Mensaje WA">💬</button>
             <button class="aaction-btn remind-btn"
-              data-action="reminder" data-phone="${b.phone}" data-name="${b.name}"
-              data-date="${b.date}" data-time="${b.time}" data-service="${b.service}"
+              data-action="reminder" data-phone="${esc(b.phone)}" data-name="${esc(b.name)}"
+              data-date="${b.date}" data-time="${b.time}" data-service="${esc(b.service)}"
               title="Recordatorio WA">🔔</button>
             ${b.status==='confirmada'?`
             <button class="aaction-btn complete-btn" data-action="complete" data-id="${b.id}" title="Marcar completada">✅</button>
             <button class="aaction-btn cancel-btn" data-action="cancel" data-id="${b.id}" title="Cancelar">❌</button>`:''}
             <button class="aaction-btn note-btn" data-action="note" data-id="${b.id}" title="Nota interna">${b._note?'📝':'🗒️'}</button>
           </div>
-          ${b._note?`<div class="admin-note-text">${b._note}</div>`:''}
+          ${b._note?`<div class="admin-note-text">${esc(b._note)}</div>`:''}
         </td>
       </tr>
     `).join('');
   },
 
-  /* ── Hoy tab ── */
   renderHoy(){
     const todayKey = toKey(today.getFullYear(), today.getMonth(), today.getDate());
     const bookings = Store.bookings()
@@ -591,23 +588,23 @@ const Admin = {
     el.innerHTML = `
       <table class="admin-table">
         <thead><tr><th>Hora</th><th>Nombre</th><th>Teléfono</th><th>Vehículo</th><th>Servicio</th><th>Estado</th><th>Acciones</th></tr></thead>
-        <tbody>
+        <tbody id="hoy-tbody">
         ${bookings.map(b=>`
           <tr style="opacity:${b.status==='cancelada'?.4:1}">
             <td style="font-weight:bold;color:var(--yellow)">${b.time}</td>
-            <td>${b.name}</td>
-            <td>${b.phone}</td>
-            <td>${b.vehicle}</td>
-            <td style="font-size:.78rem">${b.service}</td>
+            <td>${esc(b.name)}</td>
+            <td>${esc(b.phone)}</td>
+            <td>${esc(b.vehicle)}</td>
+            <td style="font-size:.78rem">${esc(b.service)}</td>
             <td><span class="status-pill status-${b.status}">${b.status}</span></td>
             <td>
               <div style="display:flex;gap:.25rem">
                 <button class="aaction-btn wa-btn"
-                  data-action="wa" data-phone="${b.phone}" data-name="${b.name}"
-                  data-date="${b.date}" data-time="${b.time}" data-service="${b.service}">💬</button>
+                  data-action="wa" data-phone="${esc(b.phone)}" data-name="${esc(b.name)}"
+                  data-date="${b.date}" data-time="${b.time}" data-service="${esc(b.service)}">💬</button>
                 <button class="aaction-btn remind-btn"
-                  data-action="reminder" data-phone="${b.phone}" data-name="${b.name}"
-                  data-date="${b.date}" data-time="${b.time}" data-service="${b.service}">🔔</button>
+                  data-action="reminder" data-phone="${esc(b.phone)}" data-name="${esc(b.name)}"
+                  data-date="${b.date}" data-time="${b.time}" data-service="${esc(b.service)}">🔔</button>
                 ${b.status==='confirmada'?`
                 <button class="aaction-btn complete-btn" data-action="complete" data-id="${b.id}">✅</button>
                 <button class="aaction-btn cancel-btn" data-action="cancel" data-id="${b.id}">❌</button>`:''}
@@ -619,19 +616,22 @@ const Admin = {
       </table>
     `;
 
-    // Delegation for hoy tab
-    el.addEventListener('click', async e=>{
-      const btn = e.target.closest('[data-action]');
-      if(!btn) return;
-      const { action, id, phone, name, date, time, service } = btn.dataset;
-      if(action==='cancel'   && confirm('¿Cancelar?'))          { await Store.cancel(id);   this.renderAll(); renderCal(); }
-      if(action==='complete' && confirm('¿Marcar completada?')) { await Store.complete(id); this.renderAll(); renderCal(); }
-      if(action==='wa')       this.sendWA(phone, name, date, time, service);
-      if(action==='reminder') this.sendReminder(phone, name, date, time, service);
-    }, { once: true });
+    // Delegación persistente — sin { once: true } para que funcione en cada re-render
+    const hoyTbody = document.getElementById('hoy-tbody');
+    if(hoyTbody && !hoyTbody.dataset.delegated){
+      hoyTbody.dataset.delegated = '1';
+      hoyTbody.addEventListener('click', async e=>{
+        const btn = e.target.closest('[data-action]');
+        if(!btn) return;
+        const { action, id, phone, name, date, time, service } = btn.dataset;
+        if(action==='cancel'   && confirm('¿Cancelar?'))          { await Store.cancel(id);   this.renderAll(); renderCal(); }
+        if(action==='complete' && confirm('¿Marcar completada?')) { await Store.complete(id); this.renderAll(); renderCal(); }
+        if(action==='wa')       this.sendWA(phone, name, date, time, service);
+        if(action==='reminder') this.sendReminder(phone, name, date, time, service);
+      });
+    }
   },
 
-  /* ── Clientes tab ── */
   renderClientes(){
     const el = document.getElementById('tab-clientes');
     if(!el) return;
@@ -650,13 +650,10 @@ const Admin = {
     const q = (document.getElementById('client-search-input')?.value||'').toLowerCase().trim();
     const out = document.getElementById('client-results');
     if(!q){ out.innerHTML='<p style="color:#666;font-size:.82rem">Ingresá un nombre o teléfono.</p>'; return; }
-
     const all = Store.bookings()
       .filter(b=> b.name?.toLowerCase().includes(q)||b.phone?.includes(q))
       .sort((a,b)=> b.date.localeCompare(a.date));
-
     if(!all.length){ out.innerHTML='<p style="color:#666;font-size:.82rem">Sin resultados.</p>'; return; }
-
     const valid = all.filter(b=>b.status!=='cancelada').length;
     out.innerHTML = `
       <p style="font-size:.78rem;color:#888;margin-bottom:.8rem">${all.length} citas encontradas · ${valid} no canceladas</p>
@@ -666,8 +663,8 @@ const Admin = {
           ${all.map(b=>`
             <tr style="opacity:${b.status==='cancelada'?.4:1}">
               <td style="white-space:nowrap;font-size:.78rem">${dateDisplay(b.date)}</td>
-              <td>${b.time}</td><td>${b.name}</td><td>${b.phone}</td>
-              <td style="font-size:.78rem">${b.service}</td><td>${b.vehicle}</td>
+              <td>${b.time}</td><td>${esc(b.name)}</td><td>${esc(b.phone)}</td>
+              <td style="font-size:.78rem">${esc(b.service)}</td><td>${esc(b.vehicle)}</td>
               <td><span class="status-pill status-${b.status}">${b.status}</span></td>
             </tr>
           `).join('')}
@@ -676,7 +673,6 @@ const Admin = {
     `;
   },
 
-  /* ── Bloqueos tab ── */
   renderBloqueos(){
     const el = document.getElementById('tab-bloqueos');
     if(!el) return;
@@ -701,7 +697,6 @@ const Admin = {
         <button class="admin-btn" id="admin-block-slot-btn">🔒 Bloquear hora</button>
         <button class="admin-btn danger" id="admin-unblock-slot-btn">🔓 Desbloquear hora</button>
       </div>
-
       <div style="margin-top:1.5rem">
         <p class="admin-bloqueos-heading">Días bloqueados (${blocked.length})</p>
         <div class="admin-tag-list">
@@ -746,7 +741,6 @@ const Admin = {
     alert('Horario desbloqueado.');
   },
 
-  /* ── WhatsApp / Recordatorio ── */
   sendWA(phone, name, date, time, service){
     const clean = phone.replace(/\D/g,'');
     const num = clean.startsWith('506') ? clean : '506'+clean;
@@ -760,7 +754,6 @@ const Admin = {
     window.open(`https://wa.me/${num}?text=${encodeURIComponent(txt)}`, '_blank');
   },
 
-  /* ── Nota interna ── */
   async editNote(id){
     const b = Store.bookings().find(b=>b.id===id);
     const nota = prompt('Nota interna (solo visible en este panel):', b?._note||'');
@@ -769,7 +762,6 @@ const Admin = {
     this.renderTable();
   },
 
-  /* ── Exportar CSV ── */
   exportCSV(){
     const all = Store.bookings(); if(!all.length){ alert('No hay citas.'); return; }
     const h = ['ID','Nombre','Teléfono','Dirección','Vehículo','Servicio','Equipo','Fecha','Hora','Notas','Nota Interna','Estado','Creado'];
@@ -787,7 +779,6 @@ const Admin = {
 document.addEventListener('DOMContentLoaded', async ()=>{
   renderCal();
 
-  // 5 clics en el logo para mostrar el botón de admin
   let logoClicks = 0, clickTimer;
   document.querySelector('.logo-img')?.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -820,7 +811,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('admin-pass-input')?.addEventListener('keypress',e=>{ if(e.key==='Enter') Admin.checkPassword(); });
   document.getElementById('admin-login-cancel')?.addEventListener('click',()=>Admin.close());
 
-  // Scroll animations
   const obs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
   },{ threshold:.12 });
