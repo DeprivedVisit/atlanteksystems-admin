@@ -414,6 +414,19 @@
     .return-svc { font-size:.78rem; color:var(--gray); margin-top:.3rem; }
     #change-data { background:none; border:none; color:var(--gray); font-size:.75rem; text-decoration:underline; margin-top:.6rem; padding:0; }
 
+    /* Service-specific forms */
+    .svc-form-section { margin:1.2rem 0 .5rem; }
+    .svc-form-divider {
+      display:flex; align-items:center; gap:.8rem; margin-bottom:1rem;
+    }
+    .svc-form-divider::before, .svc-form-divider::after {
+      content:''; flex:1; height:1px; background:var(--border);
+    }
+    .svc-form-divider span {
+      font-size:.7rem; color:var(--gray); text-transform:uppercase;
+      letter-spacing:.1em; white-space:nowrap;
+    }
+
     /* Dom check */
     .dom-chk { display:flex; align-items:center; gap:.6rem; margin:.8rem 0; font-size:.87rem; cursor:pointer; }
     .dom-chk input { width:17px; height:17px; accent-color:var(--gold); }
@@ -447,10 +460,42 @@
       width:56px; height:56px; border-radius:50%;
       background:#25D366; display:flex; align-items:center; justify-content:center;
       box-shadow:0 4px 20px rgba(0,0,0,.25); text-decoration:none;
-      transition:transform .2s;
+      transition:transform .2s; cursor:pointer; border:none;
     }
     .wa-float:hover { transform:scale(1.1); }
     .wa-float svg { width:30px; height:30px; fill:#fff; }
+    /* WA popup */
+    .wa-popup {
+      display:none; position:fixed; bottom:5.5rem; right:1.5rem; z-index:151;
+      background:#fff; border-radius:16px; padding:1.2rem 1.3rem;
+      box-shadow:0 8px 32px rgba(0,0,0,.15); width:240px;
+      border:1px solid var(--border);
+      animation:popIn .2s ease;
+    }
+    .wa-popup.open { display:block; }
+    @keyframes popIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .wa-popup::after {
+      content:''; position:absolute; bottom:-7px; right:22px;
+      width:14px; height:14px; background:#fff;
+      border-right:1px solid var(--border); border-bottom:1px solid var(--border);
+      transform:rotate(45deg);
+    }
+    .wa-popup-title { font-family:var(--r); font-size:1rem; color:var(--ink); margin-bottom:.3rem; }
+    .wa-popup-sub   { font-size:.75rem; color:var(--gray); margin-bottom:.9rem; line-height:1.4; }
+    .wa-popup-form-btn {
+      display:block; width:100%; padding:.7rem;
+      background:linear-gradient(135deg,var(--purple),var(--purple-d));
+      color:#fff; border:none; border-radius:10px;
+      font-size:.83rem; font-weight:500; cursor:pointer; text-align:center;
+      text-decoration:none; margin-bottom:.5rem;
+      transition:opacity .2s;
+    }
+    .wa-popup-form-btn:hover { opacity:.88; }
+    .wa-popup-wa-link {
+      display:block; text-align:center; font-size:.75rem;
+      color:var(--gray); text-decoration:none; padding:.3rem 0;
+    }
+    .wa-popup-wa-link:hover { color:#25D366; }
 
     /* ─ Footer ─ */
     footer { background:var(--dark); text-align:center; padding:3rem 1.4rem 2rem; position:relative; overflow:hidden; }
@@ -886,6 +931,87 @@
           </div>
         </div>
 
+        <!-- Service-specific fields -->
+        <div id="svc-specific-fields" style="display:none">
+          <div class="svc-form-section">
+            <div class="svc-form-divider"><span>Sobre tu servicio</span></div>
+          </div>
+
+          <!-- Uñas -->
+          <div id="svc-form-unas" class="svc-form-block" style="display:none">
+            <div class="form-f">
+              <label class="form-lbl">Largo de uñas deseado</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-nail-len" id="sf-nl-c" value="Corto"><label class="chip-lbl" for="sf-nl-c">Corto</label>
+                <input class="chip-input" type="radio" name="sf-nail-len" id="sf-nl-m" value="Medio"><label class="chip-lbl" for="sf-nl-m">Medio</label>
+                <input class="chip-input" type="radio" name="sf-nail-len" id="sf-nl-l" value="Largo"><label class="chip-lbl" for="sf-nl-l">Largo</label>
+                <input class="chip-input" type="radio" name="sf-nail-len" id="sf-nl-xl" value="XL"><label class="chip-lbl" for="sf-nl-xl">XL</label>
+              </div>
+            </div>
+            <div class="form-f">
+              <label class="form-lbl">¿Tenés diseño o color en mente?</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-diseno" id="sf-d-si" value="Sí"><label class="chip-lbl" for="sf-d-si">Sí, tengo referencia</label>
+                <input class="chip-input" type="radio" name="sf-diseno" id="sf-d-no" value="No"><label class="chip-lbl" for="sf-d-no">Lo decidimos ahí</label>
+              </div>
+            </div>
+            <div class="form-f" id="sf-diseno-ref" style="display:none">
+              <label class="form-lbl" for="sf-ref-unas">Descripción del diseño</label>
+              <input class="finput" id="sf-ref-unas" type="text" placeholder="Ej: nude con flores, francés clásico, ombre...">
+            </div>
+          </div>
+
+          <!-- Color y Tratamientos -->
+          <div id="svc-form-color" class="svc-form-block" style="display:none">
+            <div class="form-f">
+              <label class="form-lbl">Largo actual de tu cabello</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-hair-len" id="sf-hl-c" value="Corto"><label class="chip-lbl" for="sf-hl-c">Corto</label>
+                <input class="chip-input" type="radio" name="sf-hair-len" id="sf-hl-m" value="Medio"><label class="chip-lbl" for="sf-hl-m">Medio</label>
+                <input class="chip-input" type="radio" name="sf-hair-len" id="sf-hl-l" value="Largo"><label class="chip-lbl" for="sf-hl-l">Largo</label>
+              </div>
+            </div>
+            <div class="form-f">
+              <label class="form-lbl">¿Tenés color actualmente?</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-has-color" id="sf-hc-si" value="Sí"><label class="chip-lbl" for="sf-hc-si">Sí</label>
+                <input class="chip-input" type="radio" name="sf-has-color" id="sf-hc-no" value="No, natural"><label class="chip-lbl" for="sf-hc-no">No, natural</label>
+              </div>
+            </div>
+            <div class="form-f">
+              <label class="form-lbl">¿Tenés decoloración previa?</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-deco" id="sf-dc-si" value="Sí"><label class="chip-lbl" for="sf-dc-si">Sí</label>
+                <input class="chip-input" type="radio" name="sf-deco" id="sf-dc-no" value="No"><label class="chip-lbl" for="sf-dc-no">No</label>
+              </div>
+            </div>
+            <div class="form-f">
+              <label class="form-lbl" for="sf-tono">Tono deseado (opcional)</label>
+              <input class="finput" id="sf-tono" type="text" placeholder="Ej: castaño oscuro, rubio miel, balayage...">
+            </div>
+          </div>
+
+          <!-- Cabello -->
+          <div id="svc-form-cabello" class="svc-form-block" style="display:none">
+            <div class="form-f">
+              <label class="form-lbl">Largo actual de tu cabello</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-cab-len" id="sf-cl-c" value="Corto"><label class="chip-lbl" for="sf-cl-c">Corto</label>
+                <input class="chip-input" type="radio" name="sf-cab-len" id="sf-cl-m" value="Medio"><label class="chip-lbl" for="sf-cl-m">Medio</label>
+                <input class="chip-input" type="radio" name="sf-cab-len" id="sf-cl-l" value="Largo"><label class="chip-lbl" for="sf-cl-l">Largo</label>
+              </div>
+            </div>
+            <div class="form-f">
+              <label class="form-lbl">Estilo final deseado</label>
+              <div class="chip-group">
+                <input class="chip-input" type="radio" name="sf-estilo" id="sf-es-l" value="Liso"><label class="chip-lbl" for="sf-es-l">Liso</label>
+                <input class="chip-input" type="radio" name="sf-estilo" id="sf-es-o" value="Ondulado"><label class="chip-lbl" for="sf-es-o">Ondulado</label>
+                <input class="chip-input" type="radio" name="sf-estilo" id="sf-es-n" value="Natural"><label class="chip-lbl" for="sf-es-n">Natural</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Shared fields -->
         <div id="shared-fields" style="display:none">
           <label class="dom-chk">
@@ -925,10 +1051,18 @@
   <p class="foot-apex">Desarrollado por <a href="https://apexcloudworkscompany.com" target="_blank">Apex Cloud Works</a> — Cartago, CR</p>
 </footer>
 
+<!-- WA popup -->
+<div class="wa-popup" id="wa-popup">
+  <p class="wa-popup-title">¿Querés una cita? 💛</p>
+  <p class="wa-popup-sub">Agendá directo aquí — confirmación inmediata, sin esperar respuesta.</p>
+  <a href="#agendar" class="wa-popup-form-btn" id="wa-popup-form">Llenar el formulario →</a>
+  <a href="https://wa.me/50663144171" class="wa-popup-wa-link" target="_blank" rel="noopener">o escribir por WhatsApp</a>
+</div>
+
 <!-- WA float -->
-<a href="https://wa.me/50663144171" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+<button class="wa-float" id="wa-float-btn" aria-label="Contacto">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+</button>
 
 <!-- ─ Confirm Modal ─ -->
 <div class="overlay" id="confirm-modal">
@@ -1095,6 +1229,26 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Uñas: mostrar campo referencia si tienen diseño en mente
+  document.querySelectorAll('input[name="sf-diseno"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('sf-diseno-ref').style.display =
+        document.querySelector('input[name="sf-diseno"]:checked')?.value === 'Sí' ? 'block' : 'none';
+    });
+  });
+
+  // WA float popup
+  const waBtn   = document.getElementById('wa-float-btn');
+  const waPopup = document.getElementById('wa-popup');
+  waBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    waPopup.classList.toggle('open');
+  });
+  document.addEventListener('click', () => waPopup.classList.remove('open'));
+  document.getElementById('wa-popup-form').addEventListener('click', () => {
+    waPopup.classList.remove('open');
+  });
 
   // Nav dropdown
   const menuBtn = document.getElementById('nav-menu-btn');

@@ -85,7 +85,6 @@ function addBooking(b) {
     b.domicilio ? 'Sí' : 'No', b.address || '', b.notes || '',
     'confirmada', b.createdAt
   ]);
-  sh.autoResizeColumns(1, 15);
 }
 
 function updateStatus(id, status) {

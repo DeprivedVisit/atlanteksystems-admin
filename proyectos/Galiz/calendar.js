@@ -99,7 +99,7 @@ const Store = {
   },
   async sheetsPost(body){
     if(!this.sheetsReady()) return;
-    try{ await fetch(CONFIG.sheetsUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),mode:'no-cors'}); }
+    try{ await fetch(CONFIG.sheetsUrl,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body),redirect:'follow'}); }
     catch(e){ console.warn('POST:',e); }
   },
 
@@ -192,6 +192,46 @@ function setDot(active){
   }
 }
 
+/* ═══ Service form helpers ═══ */
+function showSvcForm(cat) {
+  const map = {
+    'Uñas':                 'svc-form-unas',
+    'Color y Tratamientos': 'svc-form-color',
+    'Cabello':              'svc-form-cabello',
+  };
+  document.querySelectorAll('.svc-form-block').forEach(el => el.style.display = 'none');
+  const id = map[cat];
+  if (id) document.getElementById(id).style.display = 'block';
+}
+
+function getSvcNotes() {
+  const cat = selService?.category;
+  const parts = [];
+  if (cat === 'Uñas') {
+    const nailLen = document.querySelector('input[name="sf-nail-len"]:checked')?.value;
+    const diseno  = document.querySelector('input[name="sf-diseno"]:checked')?.value;
+    const ref     = document.getElementById('sf-ref-unas')?.value.trim();
+    if (nailLen) parts.push(`Largo uñas: ${nailLen}`);
+    if (diseno)  parts.push(`Diseño: ${diseno}`);
+    if (diseno === 'Sí' && ref) parts.push(`Ref: ${ref}`);
+  } else if (cat === 'Color y Tratamientos') {
+    const hairLen = document.querySelector('input[name="sf-hair-len"]:checked')?.value;
+    const hasClr  = document.querySelector('input[name="sf-has-color"]:checked')?.value;
+    const deco    = document.querySelector('input[name="sf-deco"]:checked')?.value;
+    const tono    = document.getElementById('sf-tono')?.value.trim();
+    if (hairLen) parts.push(`Largo: ${hairLen}`);
+    if (hasClr)  parts.push(`Color actual: ${hasClr}`);
+    if (deco)    parts.push(`Decoloración: ${deco}`);
+    if (tono)    parts.push(`Tono deseado: ${tono}`);
+  } else if (cat === 'Cabello') {
+    const hairLen = document.querySelector('input[name="sf-cab-len"]:checked')?.value;
+    const estilo  = document.querySelector('input[name="sf-estilo"]:checked')?.value;
+    if (hairLen) parts.push(`Largo: ${hairLen}`);
+    if (estilo)  parts.push(`Estilo: ${estilo}`);
+  }
+  return parts.join(' · ');
+}
+
 /* ═══ Services section picker ═══ */
 const Picker = {
   init(){
@@ -221,6 +261,7 @@ const Picker = {
         const bar=document.getElementById('sel-bar');
         bar.innerHTML=`<span>✓ ${svc.name}</span><span>${svc.price} · ${durLabel(svc.duration)}</span>`;
         bar.style.display='flex';
+        showSvcForm(cat);
         stepShow('step-2'); stepHide('step-3'); stepHide('step-4'); setDot(2);
         renderCal();
         document.getElementById('step-2').scrollIntoView({behavior:'smooth',block:'start'});
@@ -340,12 +381,16 @@ const Client = {
       document.getElementById('client-return').style.display='block';
       document.getElementById('client-new').style.display='none';
       document.getElementById('shared-fields').style.display='block';
+      document.getElementById('svc-specific-fields').style.display='block';
+      showSvcForm(selService?.category||'');
     } else {
       this.found=null;
       document.getElementById('f-name').value='';
       document.getElementById('client-return').style.display='none';
       document.getElementById('client-new').style.display='block';
       document.getElementById('shared-fields').style.display='block';
+      document.getElementById('svc-specific-fields').style.display='block';
+      showSvcForm(selService?.category||'');
       document.getElementById('f-name').focus();
     }
   },
@@ -362,6 +407,7 @@ const Client = {
     document.getElementById('client-return').style.display='none';
     document.getElementById('client-new').style.display='block';
     document.getElementById('shared-fields').style.display='block';
+    document.getElementById('svc-specific-fields').style.display='none';
     document.getElementById('f-phone').value='';
     document.getElementById('f-name').value='';
     document.getElementById('f-phone').focus();
@@ -371,10 +417,13 @@ const Client = {
     const dom=document.getElementById('f-domicilio')?.checked;
     const hairLen=document.querySelector('input[name="hair-len"]:checked')?.value||this.found?.hairLength||'';
     const hasColor=document.querySelector('input[name="has-color"]:checked')?.value||this.found?.hasColor||'';
+    const svcNotes  = getSvcNotes();
+    const userNotes = document.getElementById('f-notes').value.trim();
+    const notes = [svcNotes, userNotes].filter(Boolean).join(' | ');
     return {
       phone:    document.getElementById('f-phone').value.trim(),
       name:     document.getElementById('f-name').value.trim(),
-      notes:    document.getElementById('f-notes').value.trim(),
+      notes,
       domicilio: dom,
       address:  dom ? document.getElementById('f-address').value.trim() : '',
       hairLength: hairLen,
@@ -446,6 +495,7 @@ const ConfirmModal = {
     document.getElementById('client-return').style.display='none';
     document.getElementById('client-new').style.display='none';
     document.getElementById('shared-fields').style.display='none';
+    document.getElementById('svc-specific-fields').style.display='none';
     document.getElementById('f-phone').value='';
     document.getElementById('f-name').value='';
     Client.found=null;
