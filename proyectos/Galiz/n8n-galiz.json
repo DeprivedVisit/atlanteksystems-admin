@@ -1,0 +1,101 @@
+{
+  "name": "Galiz CR — Sistema de Citas",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": { "item": [{ "mode": "everyMinute" }] },
+        "documentId": { "__rl": true, "value": "1Xtb2o4Ww8gP16M4BpmOhZP1AeoPvkrxEU46jdbyt72w", "mode": "id" },
+        "sheetName":  { "__rl": true, "value": "Citas", "mode": "list" },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "id": "ga-01",
+      "name": "Google Sheets — Nueva cita",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 4,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            { "id":"a01", "name":"id",           "value":"={{ $json.ID }}",              "type":"string" },
+            { "id":"a02", "name":"nombre",        "value":"={{ $json.Nombre }}",           "type":"string" },
+            { "id":"a03", "name":"whatsapp",      "value":"={{ $json.WhatsApp }}",         "type":"string" },
+            { "id":"a04", "name":"fecha",         "value":"={{ $json.Fecha }}",            "type":"string" },
+            { "id":"a05", "name":"hora",          "value":"={{ $json.Hora }}",             "type":"string" },
+            { "id":"a06", "name":"servicio",      "value":"={{ $json.Servicio }}",         "type":"string" },
+            { "id":"a07", "name":"duracion",      "value":"={{ $json['Duración(min)'] }}", "type":"string" },
+            { "id":"a08", "name":"precio",        "value":"={{ $json.Precio }}",           "type":"string" },
+            { "id":"a09", "name":"domicilio",     "value":"={{ $json.Domicilio }}",        "type":"string" },
+            { "id":"a10", "name":"direccion",     "value":"={{ $json.Dirección }}",        "type":"string" },
+            { "id":"a11", "name":"estado",        "value":"={{ $json.Estado }}",           "type":"string" },
+            { "id":"a12", "name":"recordatorio",  "value":"={{ DateTime.fromISO($json.Fecha + 'T' + $json.Hora.replace(' PM','').replace(' AM',''), {zone:'America/Costa_Rica'}).minus({hours:24}).toISO() }}", "type":"string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ga-02",
+      "name": "Formatear datos",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "apexcloudworkscompany@gmail.com",
+        "subject": "=💛 Nueva cita — {{ $json.nombre }} · {{ $json.fecha }} {{ $json.hora }}",
+        "emailType": "html",
+        "message": "=<div style=\"font-family:Arial,sans-serif;max-width:540px\">\n  <h2 style=\"color:#C9A84C;margin-bottom:4px\">💛 Nueva cita agendada</h2>\n  <p style=\"color:#666;margin-top:0;font-size:13px\">{{ $json.id }}</p>\n  <table style=\"border-collapse:collapse;width:100%;margin:16px 0\">\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold;width:120px\">Clienta</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.nombre }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">WhatsApp</td><td style=\"padding:9px 12px;border:1px solid #eee\"><a href=\"https://wa.me/506{{ $json.whatsapp }}\">{{ $json.whatsapp }}</a></td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Fecha</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.fecha }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Hora</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.hora }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Servicio</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.servicio }} ({{ $json.duracion }} min)</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Precio</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.precio }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Domicilio</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.domicilio }}{{ $json.direccion ? ' — ' + $json.direccion : '' }}</td></tr>\n  </table>\n  <a href=\"https://wa.me/506{{ $json.whatsapp }}?text=Hola+{{ $json.nombre }}!+Tu+cita+con+Galiz+está+confirmada+para+el+{{ $json.fecha }}+a+las+{{ $json.hora }}\" style=\"display:inline-block;background:#25d366;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold\">💬 Confirmar por WhatsApp →</a>\n</div>",
+        "options": {}
+      },
+      "id": "ga-03",
+      "name": "Gmail — Notificar a Galiz",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "days",
+        "options": {
+          "resumeDate": "={{ $json.recordatorio }}"
+        }
+      },
+      "id": "ga-04",
+      "name": "Esperar 24h antes",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [920, 300],
+      "webhookId": "galiz-reminder-wait"
+    },
+    {
+      "parameters": {
+        "sendTo": "apexcloudworkscompany@gmail.com",
+        "subject": "=🔔 Recordatorio — Cita mañana: {{ $json.nombre }} a las {{ $json.hora }}",
+        "emailType": "html",
+        "message": "=<div style=\"font-family:Arial,sans-serif;max-width:540px\">\n  <h2 style=\"color:#C9A84C\">🔔 Cita mañana</h2>\n  <p>Recordatorio automático de cita agendada para mañana.</p>\n  <table style=\"border-collapse:collapse;width:100%;margin:16px 0\">\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold;width:120px\">Clienta</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.nombre }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">WhatsApp</td><td style=\"padding:9px 12px;border:1px solid #eee\"><a href=\"https://wa.me/506{{ $json.whatsapp }}\">{{ $json.whatsapp }}</a></td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Hora</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.hora }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Servicio</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.servicio }}</td></tr>\n    <tr><td style=\"padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold\">Domicilio</td><td style=\"padding:9px 12px;border:1px solid #eee\">{{ $json.domicilio }}{{ $json.direccion ? ' — ' + $json.direccion : '' }}</td></tr>\n  </table>\n  <a href=\"https://wa.me/506{{ $json.whatsapp }}?text=Hola+{{ $json.nombre }}!+Te+recordamos+tu+cita+con+Galiz+mañana+a+las+{{ $json.hora }}.\" style=\"display:inline-block;background:#25d366;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold\">💬 Enviar recordatorio por WA →</a>\n</div>",
+        "options": {}
+      },
+      "id": "ga-05",
+      "name": "Gmail — Recordatorio 24h",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1160, 300]
+    }
+  ],
+  "connections": {
+    "Google Sheets — Nueva cita": { "main": [[{ "node":"Formatear datos",        "type":"main", "index":0 }]] },
+    "Formatear datos":            { "main": [[{ "node":"Gmail — Notificar a Galiz","type":"main", "index":0 }]] },
+    "Gmail — Notificar a Galiz":  { "main": [[{ "node":"Esperar 24h antes",       "type":"main", "index":0 }]] },
+    "Esperar 24h antes":          { "main": [[{ "node":"Gmail — Recordatorio 24h","type":"main", "index":0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": ["galiz","booking","automatizacion"]
+}

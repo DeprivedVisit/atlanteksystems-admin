@@ -114,7 +114,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
     <div class="header-meta">
       <div class="last-update">Última actualización</div>
       <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:.2rem">04 junio 2026</div>
-      <div class="version-badge">v2.0 · 06 junio 2026</div>
+      <div class="version-badge">v3.0 · 06 junio 2026</div>
     </div>
   </div>
 </div>
@@ -124,25 +124,25 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
   <!-- Score Total -->
   <div class="total-card">
     <div class="total-score-wrap">
-      <div class="total-score">81<sup>/100</sup></div>
+      <div class="total-score">85<sup>/100</sup></div>
       <div class="total-label">Score general</div>
     </div>
     <div class="total-bar-wrap">
       <div class="total-bar-track">
-        <div class="total-bar-fill" style="width:81%"></div>
+        <div class="total-bar-fill" style="width:85%"></div>
       </div>
       <div class="total-breakdown">
         <span class="breakdown-pill bp-green">Diseño ✓</span>
         <span class="breakdown-pill bp-green">Marca ✓</span>
         <span class="breakdown-pill bp-yellow">Conversión ⚠</span>
         <span class="breakdown-pill bp-yellow">SEO ⚠</span>
-        <span class="breakdown-pill bp-red">Captura leads ✗</span>
+        <span class="breakdown-pill bp-yellow">Captura leads ⚠</span>
         <span class="breakdown-pill bp-green">Mobile ✓</span>
       </div>
     </div>
     <div class="total-verdict">
-      <div class="verdict-title">Página sólida, conversión incompleta</div>
-      <div class="verdict-text">El diseño y la identidad de marca son fuertes y alineados con el Brand Book 2025. El cuello de botella principal está en la captura de leads: todos los CTAs van directo a WhatsApp sin pasar primero por un formulario que registre el interés.</div>
+      <div class="verdict-title">Formulario + Sheets + N8N integrados</div>
+      <div class="verdict-text">Formulario pre-WhatsApp capturando nombre, tono, zona y email. Los datos van a Google Sheets via Apps Script y al webhook de N8N Cloud para notificación al equipo en tiempo real. Pendiente: activar URL del webhook y pixel de seguimiento Meta/Google.</div>
     </div>
   </div>
 
@@ -241,17 +241,17 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
           <div class="cat-icon" style="background:rgba(255,118,113,.12)">💬</div>
           <div><div class="cat-name">Conversión</div><div class="cat-sub">CTAs, urgencia, fricción</div></div>
         </div>
-        <div class="cat-score-badge score-yellow">68</div>
+        <div class="cat-score-badge score-yellow">78</div>
       </div>
-      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:68%"></div></div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:78%"></div></div>
       <div class="cat-items">
         <div class="check-row pass"><span class="check-icon"></span>WhatsApp flotante siempre visible</div>
         <div class="check-row pass"><span class="check-icon"></span>CTA principal en hero above the fold</div>
         <div class="check-row pass"><span class="check-icon"></span>Precio visible con comparativa de ahorro</div>
         <div class="check-row pass"><span class="check-icon"></span>Social proof: 500+ clientes, 4.9★</div>
-        <div class="check-row warn"><span class="check-icon"></span>Sin urgencia (stock limitado, oferta temporal)</div>
-        <div class="check-row warn"><span class="check-icon"></span>Botón WA abre chat directo sin pre-llenar tono</div>
-        <div class="check-row fail"><span class="check-icon"></span>Sin formulario de captura de leads</div>
+        <div class="check-row pass"><span class="check-icon"></span>Formulario modal pre-WA (nombre, tono, zona, email)</div>
+        <div class="check-row pass"><span class="check-icon"></span>WA pre-llenado con tono elegido en la guía</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sin urgencia activa (stock limitado, oferta temporal)</div>
         <div class="check-row fail"><span class="check-icon"></span>Sin pixel de seguimiento (Meta/Google)</div>
       </div>
     </div>
@@ -260,18 +260,19 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
     <div class="cat-card">
       <div class="cat-header">
         <div class="cat-icon-title">
-          <div class="cat-icon" style="background:rgba(208,64,64,.1)">📋</div>
+          <div class="cat-icon" style="background:rgba(232,160,80,.12)">📋</div>
           <div><div class="cat-name">Captura de Leads</div><div class="cat-sub">Formulario, datos, CRM</div></div>
         </div>
-        <div class="cat-score-badge score-red">20</div>
+        <div class="cat-score-badge score-yellow">70</div>
       </div>
-      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:20%"></div></div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-yellow" style="width:70%"></div></div>
       <div class="cat-items">
-        <div class="check-row fail"><span class="check-icon"></span>Sin formulario pre-WhatsApp</div>
-        <div class="check-row fail"><span class="check-icon"></span>Sin integración Google Sheets / CRM</div>
-        <div class="check-row fail"><span class="check-icon"></span>Sin pop-up de captura email / exit intent</div>
-        <div class="check-row fail"><span class="check-icon"></span>Sin guardado de tono seleccionado por usuario</div>
-        <div class="check-row warn"><span class="check-icon"></span>WhatsApp capta contacto pero no estructura datos</div>
+        <div class="check-row pass"><span class="check-icon"></span>Modal pre-WhatsApp captura nombre, tel, email, tono, zona</div>
+        <div class="check-row pass"><span class="check-icon"></span>Integración Google Sheets via Apps Script activa</div>
+        <div class="check-row pass"><span class="check-icon"></span>N8N webhook integrado — rutas a Sheets + notificación WA</div>
+        <div class="check-row pass"><span class="check-icon"></span>Tono seleccionado se pre-llena en formulario y en WA</div>
+        <div class="check-row warn"><span class="check-icon"></span>N8N webhook URL pendiente de configurar en n8n Cloud</div>
+        <div class="check-row fail"><span class="check-icon"></span>Sin pop-up exit intent para captura de email</div>
       </div>
     </div>
 
@@ -325,11 +326,11 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
     <div class="priority-list">
 
       <div class="priority-row alta">
-        <span class="p-tag tag-alta">Alta</span>
+        <span class="p-tag tag-alta">Alta · Hoy</span>
         <div class="p-content">
-          <div class="p-title">Formulario pre-WhatsApp + Google Sheets</div>
-          <div class="p-desc">Capturar nombre, tono elegido y zona antes de abrir el chat. Conectar a Google Sheets via Apps Script. WhatsApp se pre-llena con los datos del formulario.</div>
-          <div class="p-impact">Impacto: +40% leads registrados · Datos estructurados del cliente</div>
+          <div class="p-title">Activar URL del webhook N8N Cloud</div>
+          <div class="p-desc">En n8n.cloud crear nodo Webhook (POST), copiar la URL de producción y pegarla en <code>const N8N_WEBHOOK</code> en index.html. Hacer deploy a S3.</div>
+          <div class="p-impact">Impacto: Notificaciones en tiempo real al equipo Skindoctors cuando llega un lead</div>
         </div>
       </div>
 
@@ -337,26 +338,17 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
         <span class="p-tag tag-alta">Alta</span>
         <div class="p-content">
           <div class="p-title">Pixel Meta / Google Analytics</div>
-          <div class="p-desc">Agregar pixel de Meta Ads para retargeting y pixel de Google para medir conversiones reales a WhatsApp.</div>
-          <div class="p-impact">Impacto: Poder hacer remarketing · Medir costo por lead real</div>
+          <div class="p-desc">Agregar pixel de Meta Ads para retargeting. Configurar evento "contact" en clic al modal del formulario y en apertura de WhatsApp.</div>
+          <div class="p-impact">Impacto: Remarketing activado · Medir costo real por lead</div>
         </div>
       </div>
 
       <div class="priority-row alta">
-        <span class="p-tag tag-alta">Alta</span>
+        <span class="p-tag tag-alta">Alta · SEO</span>
         <div class="p-content">
-          <div class="p-title">Corregir canonical URL al dominio final</div>
-          <div class="p-desc">El canonical apunta a S3. Debe apuntar al dominio de producción de Skindoctors CR una vez deployado.</div>
-          <div class="p-impact">Impacto: SEO — evita contenido duplicado penalizado por Google</div>
-        </div>
-      </div>
-
-      <div class="priority-row media">
-        <span class="p-tag tag-media">Media</span>
-        <div class="p-content">
-          <div class="p-title">Logo PNG real de Skindoctors en navbar</div>
-          <div class="p-desc">El logo actual es CSS texto. Reemplazar con el SVG/PNG oficial del Brand Book para máxima fidelidad de marca.</div>
-          <div class="p-impact">Impacto: Coherencia visual total con otros materiales de marca</div>
+          <div class="p-title">Canonical URL al dominio final de producción</div>
+          <div class="p-desc">El canonical apunta a S3. Actualizar al dominio definitivo de Skindoctors CR antes del go-live para evitar penalización por contenido duplicado.</div>
+          <div class="p-impact">Impacto: Indexación correcta en Google desde día uno</div>
         </div>
       </div>
 
@@ -364,8 +356,8 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
         <span class="p-tag tag-media">Media</span>
         <div class="p-content">
           <div class="p-title">Convertir melasblock.png a WebP + comprimir</div>
-          <div class="p-desc">El PNG actual puede ser 300-500KB. WebP reduce eso 40-60% sin pérdida visible de calidad.</div>
-          <div class="p-impact">Impacto: +10-15 puntos Lighthouse Performance</div>
+          <div class="p-desc">El PNG actual puede ser 300–500 KB. WebP reduce eso 40–60% sin pérdida visible. Usar squoosh.app o cwebp.</div>
+          <div class="p-impact">Impacto: +10–15 puntos Lighthouse · Carga más rápida en 4G</div>
         </div>
       </div>
 
@@ -373,26 +365,35 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
         <span class="p-tag tag-media">Media</span>
         <div class="p-content">
           <div class="p-title">Fotos reales para temperaturas frías (C1, M1, O3)</div>
-          <div class="p-desc">La guía de tonos usa Unsplash para la columna fría. Reemplazar con fotos propias de Skindoctors una vez disponibles.</div>
-          <div class="p-impact">Impacto: Identidad visual 100% propia · Sin dependencia CDN externo</div>
+          <div class="p-desc">La guía de tonos usa Unsplash para la columna fría. Reemplazar con fotos propias de Skindoctors cuando estén disponibles.</div>
+          <div class="p-impact">Impacto: Identidad 100% propia · Independencia de CDN externo</div>
+        </div>
+      </div>
+
+      <div class="priority-row media">
+        <span class="p-tag tag-media">Media</span>
+        <div class="p-content">
+          <div class="p-title">Cambiar número WhatsApp al de Skindoctors CR</div>
+          <div class="p-desc">La landing usa +506 6314-4171 (Garett/Apex) como número temporal. Cambiar la constante WA_NUMBER al número oficial del cliente al firmar contrato.</div>
+          <div class="p-impact">Impacto: Leads van directo al equipo de ventas de Skindoctors</div>
         </div>
       </div>
 
       <div class="priority-row baja">
         <span class="p-tag tag-baja">Baja</span>
         <div class="p-content">
-          <div class="p-title">Pop-up exit intent para captura email</div>
-          <div class="p-desc">Cuando el usuario va a cerrar la página, mostrar un pop-up "¿Querés saber cuándo hay descuento en Melasblock?" para capturar email.</div>
-          <div class="p-impact">Impacto: Recuperación de usuarios que no convierten en primera visita</div>
+          <div class="p-title">Pop-up exit intent para captura de email</div>
+          <div class="p-desc">Al detectar intención de salida, mostrar "¿Querés saber cuándo hay descuento en Melasblock?" para capturar email y retomar después.</div>
+          <div class="p-impact">Impacto: Recuperar visitas que no convierten en primera sesión</div>
         </div>
       </div>
 
       <div class="priority-row baja">
         <span class="p-tag tag-baja">Baja</span>
         <div class="p-content">
-          <div class="p-title">Selector de tono que cambia la imagen del frasco</div>
-          <div class="p-desc">Al seleccionar un tono en la guía, mostrar el frasco con el tono correspondiente en el hero. Requiere imágenes individuales por tono.</div>
-          <div class="p-impact">Impacto: Experiencia inmersiva · Reduce fricción para elegir tono</div>
+          <div class="p-title">Selector de tono que cambia imagen del frasco</div>
+          <div class="p-desc">Al elegir tono en la guía, actualizar la imagen del hero con el tono correspondiente. Requiere fotos individuales por tono de parte del cliente.</div>
+          <div class="p-impact">Impacto: Experiencia inmersiva · Menos fricción para decidir tono</div>
         </div>
       </div>
 

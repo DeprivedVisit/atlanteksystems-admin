@@ -122,10 +122,10 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
 
   <!-- Stats -->
   <div class="stats-row">
-    <div class="stat-box"><div class="stat-num coral">12</div><div class="stat-lbl">Fixes CSS</div></div>
-    <div class="stat-box"><div class="stat-num earth">4</div><div class="stat-lbl">Archivos creados</div></div>
-    <div class="stat-box"><div class="stat-num green">3</div><div class="stat-lbl">Features nuevos</div></div>
-    <div class="stat-box"><div class="stat-num yellow">6</div><div class="stat-lbl">Pendientes</div></div>
+    <div class="stat-box"><div class="stat-num coral">15</div><div class="stat-lbl">Fixes</div></div>
+    <div class="stat-box"><div class="stat-num earth">9</div><div class="stat-lbl">Archivos creados</div></div>
+    <div class="stat-box"><div class="stat-num green">8</div><div class="stat-lbl">Features nuevos</div></div>
+    <div class="stat-box"><div class="stat-num yellow">4</div><div class="stat-lbl">Pendientes</div></div>
   </div>
 
   <!-- Filtros -->
@@ -299,6 +299,118 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
 
     </div>
 
+    <!-- SESIÓN 2 — 06 JUN 2026 -->
+    <div class="session" data-session="2">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <span class="session-date">06 junio 2026</span>
+        <span class="session-time">— Sesión de fixes, logo, formulario y N8N</span>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">Fix</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">og:image corregido — URL CloudFront + dimensiones</div>
+          <div class="entry-desc">og:image apuntaba a una URL externa rota. Corregido a https://d3suiaystvdco4.cloudfront.net/melasblock/melasblock.png con og:image:width/height/alt agregados.</div>
+          <div class="entry-diff">
+            <span class="diff-del">- og:image → URL externa rota (sin width/height/alt)</span><br>
+            <span class="diff-add">+ og:image → CloudFront CDN 800×800 con alt y dimensiones</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">logo.svg · logo-dark.svg</span></div>
+          <div class="entry-title">Logo SVG Skindoctors — versión light y dark</div>
+          <div class="entry-desc">Diseño propio: ícono de sol (círculo + 8 rayos en beige/earth), wordmark "Skin" (blanco/negro) + "doctors" (beige/earth, itálica Georgia), tagline tipográfica. Dos versiones: light para fondos oscuros, dark para fondos crema.</div>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Marca</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Navbar y footer reemplazados de texto CSS a logo SVG inline</div>
+          <div class="entry-desc">El texto plano "Skindoctors CR" fue reemplazado por el logo SVG incrustado en ambos lugares. Versión light en ambos (fondo oscuro/earth). CSS ajustado: flex-shrink:0, height:34px navbar, height:30px footer.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">tipos.html</span></div>
+          <div class="entry-title">CTA WhatsApp añadido al final de la guía de tonos</div>
+          <div class="entry-desc">Bloque wa-cta con gradiente verde (#e7f8ef→#d4f1e2), texto "¿Dudás cuál tono es el tuyo?" + botón WA verde. Se oculta en print (@media print). Logo dark en el header del documento imprimible.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Formulario modal pre-WhatsApp (leadForm)</div>
+          <div class="entry-desc">Modal con campos: nombre, teléfono, email, tono seleccionado (pre-llenado desde la guía), zona/provincia. El tono elegido en la guía se pre-llena automáticamente. WA se abre con mensaje pre-armado incluyendo todos los datos.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Integración Google Sheets via Apps Script</div>
+          <div class="entry-desc">enviarLead() hace POST no-cors a SHEETS_URL (Apps Script). Fire-and-forget. Guarda: nombre, teléfono, email, tono, zona, contexto, fecha.</div>
+          <div class="entry-diff">
+            <span class="diff-add">+ const SHEETS_URL = 'https://script.google.com/.../exec'</span><br>
+            <span class="diff-add">+ fetch(SHEETS_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(datos)})</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">N8N webhook integrado como canal primario de leads</div>
+          <div class="entry-desc">const N8N_WEBHOOK vacío — URL se pega cuando se crea el nodo en n8n Cloud (apexcloudworkscompany.app.n8n.cloud). enviarLead() manda primero a N8N (con CORS real) y luego a Sheets como respaldo. N8N ruteará a Sheets + notificación WA al equipo Skindoctors.</div>
+          <div class="entry-diff">
+            <span class="diff-add">+ const N8N_WEBHOOK = ''; // apexcloudworkscompany.app.n8n.cloud</span><br>
+            <span class="diff-add">+ if(N8N_WEBHOOK){ fetch(N8N_WEBHOOK, {method:'POST', body:JSON.stringify(datos)}) }</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">Auditacion Apex/</span></div>
+          <div class="entry-title">Suite de documentos internos Apex creados (4 archivos)</div>
+          <div class="entry-desc">cierre-negocio.html (dashboard de venta con countdown y checklist), entrega-cliente.html (documento HTML profesional para cliente), scorecard.html (este documento), audit-log.html (este log). Suite completa de gestión de proyecto.</div>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Pricing</span><span class="entry-file">cierre-negocio.html</span></div>
+          <div class="entry-title">Precio actualizado $450 → $550 — 3 entregables definidos</div>
+          <div class="entry-desc">Se identificó que se entregaron 3 productos (Melasblock landing + Guía tonos imprimible + CBD Balance landing). Precio $550 USD total. Breakdown: $350 setup+landing principal, $100 guía tonos, $100 CBD Balance. N8N incluida.</div>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-fix">GitHub</span><span class="entry-file">github.com/apexcloudworkscompany</span></div>
+          <div class="entry-title">Repos separados + todos los repos a privado</div>
+          <div class="entry-desc">Melasblock movido a repo privado separado (melasblock-landing). 7 repos de la organización pasados a privado: apex-cloudworks, melasblock-landing, ecpollov2, ArteVerdeVivero, Jarvis, RFLX-Detail, Ecopollo.</div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- PENDIENTES -->
     <div class="session">
       <div class="session-header">
@@ -310,9 +422,9 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
       <div class="entry e-warn">
         <div class="entry-dot"></div>
         <div class="entry-body">
-          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">index.html</span></div>
-          <div class="entry-title">Formulario pre-WhatsApp + integración Google Sheets</div>
-          <div class="entry-desc">Capturar: nombre, tono elegido, zona de entrega. Enviar a Sheets via Apps Script. WhatsApp pre-llenado con los datos. Solicitado por cliente.</div>
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta · Hoy</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Activar URL de N8N webhook en n8n Cloud</div>
+          <div class="entry-desc">Cuenta: apexcloudworkscompany.app.n8n.cloud. Crear nodo Webhook (POST), copiar URL de producción, pegarla en const N8N_WEBHOOK en index.html y hacer deploy a S3.</div>
         </div>
       </div>
 
@@ -321,7 +433,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
         <div class="entry-body">
           <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">index.html</span></div>
           <div class="entry-title">Pixel Meta Ads + Google Analytics 4</div>
-          <div class="entry-desc">Insertar pixel antes del cierre </head>. Configurar evento "contact" en clic al botón WhatsApp.</div>
+          <div class="entry-desc">Insertar pixel antes del cierre &lt;/head&gt;. Configurar evento "contact" al abrir el modal del formulario y al enviar datos.</div>
         </div>
       </div>
 
@@ -330,34 +442,16 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
         <div class="entry-body">
           <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">melasblock.png</span></div>
           <div class="entry-title">Convertir PNG a WebP y comprimir</div>
-          <div class="entry-desc">El frasco PNG puede reducirse 40-60% a WebP sin pérdida visual. Usar cwebp o squoosh.app.</div>
+          <div class="entry-desc">El frasco PNG puede reducirse 40-60% a WebP sin pérdida visual. Usar cwebp o squoosh.app antes del go-live.</div>
         </div>
       </div>
 
       <div class="entry e-warn">
         <div class="entry-dot"></div>
         <div class="entry-body">
-          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">tipos.html</span></div>
-          <div class="entry-title">Fotos propias para tonos C1, M1, O3, B1N</div>
-          <div class="entry-desc">Actualmente usa Unsplash CDN para temperaturas frías. Reemplazar con fotos propias de Skindoctors cuando estén disponibles.</div>
-        </div>
-      </div>
-
-      <div class="entry e-warn">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">index.html</span></div>
-          <div class="entry-title">Logo PNG/SVG oficial de Skindoctors en navbar</div>
-          <div class="entry-desc">Navbar usa CSS texto. Pedir archivo de logo vectorial a Skindoctors CR para reemplazar.</div>
-        </div>
-      </div>
-
-      <div class="entry e-warn">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Baja</span><span class="entry-file">index.html</span></div>
-          <div class="entry-title">Canonical URL al dominio final de producción</div>
-          <div class="entry-desc">Actualmente apunta a S3 staging. Actualizar a URL definitiva antes del go-live.</div>
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media · Cliente</span><span class="entry-file">tipos.html</span></div>
+          <div class="entry-title">Fotos propias para tonos C1, M1, O3 (columna fría)</div>
+          <div class="entry-desc">Actualmente usa Unsplash CDN para temperaturas frías. Reemplazar con fotos propias de Skindoctors cuando las entreguen.</div>
         </div>
       </div>
 
