@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EcoPollo — Pollo fresco de calidad directo a tu puerta en Costa Rica. Cotizá en línea y recibí tu pedido." />
+  <meta property="og:title" content="EcoPollo — Cotizá tu pedido de pollo fresco" />
+  <meta property="og:description" content="Pollo fresco de calidad, entrega a domicilio en Costa Rica." />
+  <meta name="theme-color" content="#1b4332" />
+  <title>EcoPollo — Cotizá tu pedido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="nav-icon">🐔</span>
+        <span class="nav-logo">EcoPollo</span>
+      </div>
+      <a class="nav-cta" href="https://wa.me/50688880000?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20EcoPollo" target="_blank" rel="noopener">
+        💬 WhatsApp
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">Distribución directa · Costa Rica</div>
+      <h1 class="hero-title reveal">Pollo fresco,<br>precio justo.</h1>
+      <p class="hero-sub reveal">Cotizá tu pedido en 60 segundos y coordinamos la entrega.</p>
+      <a class="hero-btn reveal" href="#cotizador">Cotizá ahora</a>
+      <div class="hero-products reveal">
+        <div class="hp-item">
+          <span class="hp-label">Pollo entero</span>
+          <span class="hp-price">₡1,950/kg</span>
+        </div>
+        <div class="hp-div"></div>
+        <div class="hp-item">
+          <span class="hp-label">Pechuga</span>
+          <span class="hp-price">₡3,025/kg</span>
+        </div>
+        <div class="hp-div"></div>
+        <div class="hp-item">
+          <span class="hp-label">Muslo entero</span>
+          <span class="hp-price">₡1,475/kg</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10l6 6 6-6" stroke="#f4a261" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- COTIZADOR -->
+  <section class="coti-section" id="cotizador">
+    <div class="container">
+      <div class="coti-header reveal">
+        <h2>Tu cotización</h2>
+        <p>5 pasos simples · Sin compromiso</p>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-wrap reveal">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-steps">
+          <div class="ps active" data-step="1">1</div>
+          <div class="ps" data-step="2">2</div>
+          <div class="ps" data-step="3">3</div>
+          <div class="ps" data-step="4">4</div>
+          <div class="ps" data-step="5">5</div>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="coti-card reveal">
+
+        <!-- STEP 1: Producto -->
+        <div class="step active" id="step1">
+          <div class="step-label">Paso 1 de 5</div>
+          <h3 class="step-title">¿Qué producto querés?</h3>
+          <div class="product-grid">
+            <label class="prod-card" data-key="producto" data-val="Pollo entero">
+              <input type="radio" name="producto" value="Pollo entero" />
+              <div class="prod-icon">🍗</div>
+              <div class="prod-name">Pollo entero</div>
+              <div class="prod-price">₡1,950/kg</div>
+              <div class="prod-desc">Pollo fresco sin vísceras, limpio y listo para cocinar</div>
+            </label>
+            <label class="prod-card" data-key="producto" data-val="Pechuga deshuesada">
+              <input type="radio" name="producto" value="Pechuga deshuesada" />
+              <div class="prod-icon">🥩</div>
+              <div class="prod-name">Pechuga deshuesada</div>
+              <div class="prod-price">₡3,025/kg</div>
+              <div class="prod-desc">Pechuga sin hueso, sin piel, lista para asar o cocinar</div>
+            </label>
+            <label class="prod-card" data-key="producto" data-val="Muslo entero">
+              <input type="radio" name="producto" value="Muslo entero" />
+              <div class="prod-icon">🍖</div>
+              <div class="prod-name">Muslo entero</div>
+              <div class="prod-price">₡1,475/kg</div>
+              <div class="prod-desc">Muslo con hueso y piel, ideal para hornear o a la plancha</div>
+            </label>
+          </div>
+          <button class="btn-next" id="next1" disabled>Siguiente →</button>
+        </div>
+
+        <!-- STEP 2: Cantidad -->
+        <div class="step" id="step2">
+          <div class="step-label">Paso 2 de 5</div>
+          <h3 class="step-title">¿Cuántos kg necesitás?</h3>
+          <div class="kg-wrap">
+            <div class="kg-display">
+              <span id="kgDisplay">5</span>
+              <span class="kg-unit">kg</span>
+            </div>
+            <input type="range" id="kgSlider" min="1" max="50" value="5" class="kg-slider" />
+            <div class="kg-range-labels"><span>1 kg</span><span>50 kg</span></div>
+            <div class="kg-manual">
+              <label>O ingresá el peso exacto:</label>
+              <div class="kg-input-wrap">
+                <input type="number" id="kgInput" min="1" max="1000" value="5" placeholder="5" />
+                <span>kg</span>
+              </div>
+            </div>
+          </div>
+          <div class="subtotal-preview">
+            <span>Subtotal estimado:</span>
+            <strong id="subtotalPreview">₡ 9,750</strong>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" id="back2">← Atrás</button>
+            <button class="btn-next" id="next2">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Zona -->
+        <div class="step" id="step3">
+          <div class="step-label">Paso 3 de 5</div>
+          <h3 class="step-title">¿Dónde te entregamos?</h3>
+          <div class="zone-grid">
+            <label class="zone-card" data-key="zona" data-val="Cartago">
+              <input type="radio" name="zona" value="Cartago" />
+              <div class="zone-name">📍 Cartago</div>
+              <div class="zone-note">Entrega sin costo</div>
+            </label>
+            <label class="zone-card" data-key="zona" data-val="San José">
+              <input type="radio" name="zona" value="San José" />
+              <div class="zone-name">📍 San José</div>
+              <div class="zone-note">Coordinamos flete</div>
+            </label>
+            <label class="zone-card" data-key="zona" data-val="Heredia">
+              <input type="radio" name="zona" value="Heredia" />
+              <div class="zone-name">📍 Heredia</div>
+              <div class="zone-note">Coordinamos flete</div>
+            </label>
+            <label class="zone-card" data-key="zona" data-val="Alajuela">
+              <input type="radio" name="zona" value="Alajuela" />
+              <div class="zone-name">📍 Alajuela</div>
+              <div class="zone-note">Coordinamos flete</div>
+            </label>
+            <label class="zone-card" data-key="zona" data-val="Limón">
+              <input type="radio" name="zona" value="Limón" />
+              <div class="zone-name">📍 Limón</div>
+              <div class="zone-note">Consultar disponibilidad</div>
+            </label>
+            <label class="zone-card" data-key="zona" data-val="Otra zona">
+              <input type="radio" name="zona" value="Otra zona" />
+              <div class="zone-name">📍 Otra</div>
+              <div class="zone-note">Coordinamos juntos</div>
+            </label>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" id="back3">← Atrás</button>
+            <button class="btn-next" id="next3" disabled>Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Tipo de pedido -->
+        <div class="step" id="step4">
+          <div class="step-label">Paso 4 de 5</div>
+          <h3 class="step-title">¿Qué tipo de pedido es?</h3>
+          <div class="tipo-grid">
+            <label class="tipo-card" data-key="tipo_pedido" data-val="Pedido regular">
+              <input type="radio" name="tipo_pedido" value="Pedido regular" />
+              <div class="tipo-icon">🔁</div>
+              <div class="tipo-name">Pedido regular</div>
+              <div class="tipo-desc">Compro seguido, quiero establecer una frecuencia</div>
+            </label>
+            <label class="tipo-card" data-key="tipo_pedido" data-val="Primera vez">
+              <input type="radio" name="tipo_pedido" value="Primera vez" />
+              <div class="tipo-icon">✨</div>
+              <div class="tipo-name">Primera vez</div>
+              <div class="tipo-desc">Es mi primera compra, quiero probar el producto</div>
+            </label>
+            <label class="tipo-card" data-key="tipo_pedido" data-val="Pedido para negocio">
+              <input type="radio" name="tipo_pedido" value="Pedido para negocio" />
+              <div class="tipo-icon">🏪</div>
+              <div class="tipo-name">Para mi negocio</div>
+              <div class="tipo-desc">Restaurante, soda o negocio — necesito volumen</div>
+            </label>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" id="back4">← Atrás</button>
+            <button class="btn-next" id="next4" disabled>Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Datos -->
+        <div class="step" id="step5">
+          <div class="step-label">Paso 5 de 5</div>
+          <h3 class="step-title">¿A nombre de quién va el pedido?</h3>
+          <div class="form-fields">
+            <div class="field-group">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" placeholder="Ej: María González" autocomplete="name" />
+            </div>
+            <div class="field-group">
+              <label for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" placeholder="8888-0000" autocomplete="tel" />
+            </div>
+            <div class="field-group">
+              <label for="email">Correo electrónico <span class="optional">(opcional)</span></label>
+              <input type="email" id="email" placeholder="ejemplo@gmail.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" id="back5">← Atrás</button>
+            <button class="btn-submit" id="btnSubmit" disabled>Ver cotización →</button>
+          </div>
+        </div>
+
+        <!-- RESUMEN -->
+        <div class="step" id="stepResumen">
+          <div class="resumen-header">
+            <div class="resumen-icon">🐔</div>
+            <h3>Tu cotización está lista</h3>
+          </div>
+          <div class="resumen-table" id="resumenTable"></div>
+          <div class="resumen-total">
+            <span>Total estimado</span>
+            <strong id="resumenTotal"></strong>
+          </div>
+          <p class="resumen-note">* El precio final puede variar según disponibilidad de flete. Te contactamos en menos de 2 horas.</p>
+          <div class="resumen-actions">
+            <a class="btn-wa" id="btnWA" href="#" target="_blank" rel="noopener">
+              💬 Confirmar por WhatsApp
+            </a>
+            <button class="btn-nuevo" id="btnNuevo">Hacer otro pedido</button>
+          </div>
+          <div class="resumen-sending" id="resumenSending" style="display:none">
+            <div class="spinner"></div>
+            <span>Enviando tu pedido...</span>
+          </div>
+          <div class="resumen-success" id="resumenSuccess" style="display:none">
+            <span class="success-icon">✓</span>
+            <span>Pedido registrado — te contactamos pronto</span>
+          </div>
+        </div>
+
+      </div><!-- /coti-card -->
+    </div>
+  </section>
+
+  <!-- GARANTIA -->
+  <section class="garantia-section reveal">
+    <div class="container">
+      <div class="garantia-grid">
+        <div class="g-item">
+          <div class="g-icon">❄️</div>
+          <div class="g-text">
+            <strong>Fresco garantizado</strong>
+            <span>Cadena de frío controlada desde el origen</span>
+          </div>
+        </div>
+        <div class="g-item">
+          <div class="g-icon">🚚</div>
+          <div class="g-text">
+            <strong>Entrega coordinada</strong>
+            <span>Acordamos día y horario que te convenga</span>
+          </div>
+        </div>
+        <div class="g-item">
+          <div class="g-icon">💬</div>
+          <div class="g-text">
+            <strong>Respuesta en 2h</strong>
+            <span>Confirmamos tu cotización por WhatsApp</span>
+          </div>
+        </div>
+        <div class="g-item">
+          <div class="g-icon">🏷️</div>
+          <div class="g-text">
+            <strong>Precio directo</strong>
+            <span>Sin intermediarios — distribuidor a consumidor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-brand">
+        <span class="footer-icon">🐔</span>
+        <span>EcoPollo</span>
+      </div>
+      <p class="footer-tagline">Distribución de pollo fresco · Costa Rica</p>
+      <div class="footer-links">
+        <a href="https://wa.me/50688880000" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.instagram.com/ecopollo_cr/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:ecopollo@gmail.com">Email</a>
+      </div>
+      <div class="footer-apex">
+        Desarrollado por <strong>Apex Cloud Works</strong> — Cartago, CR
+      </div>
+    </div>
+  </footer>
+
+  <!-- WA FLOAT -->
+  <a class="wa-float" href="https://wa.me/50688880000?text=Hola%2C%20me%20interesa%20hacer%20un%20pedido%20de%20EcoPollo" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
