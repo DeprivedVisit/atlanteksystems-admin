@@ -406,7 +406,7 @@ const Admin = {
     const val = document.getElementById('admin-pass-input').value;
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
     const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-    if(hex === 'HASH_AQUI'){
+    if(hex === '3482d52674d022e0b0203067772721eee78dff09732ff883abd77d31ead43265'){
       document.getElementById('admin-login-view').style.display = 'none';
       document.getElementById('admin-dashboard-view').style.display = 'block';
       this.startDashboard();

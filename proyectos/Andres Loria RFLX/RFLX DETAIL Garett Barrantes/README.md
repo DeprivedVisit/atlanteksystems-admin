@@ -19,6 +19,8 @@ Cliente: **Andrés Loria** · Auto detail premium a domicilio · CR
 
 El panel admin está accesible desde el footer del sitio (enlace oculto `#admin`).
 
+**Contraseña actual:** `rflx2026`
+
 ### Configurar contraseña
 
 La contraseña **nunca se guarda en texto plano** — solo su hash SHA-256.
