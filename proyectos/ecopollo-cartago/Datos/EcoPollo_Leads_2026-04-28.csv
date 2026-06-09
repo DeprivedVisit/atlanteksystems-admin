@@ -1,0 +1,8 @@
+Fecha,Nombre,Zona,Frecuencia,Volumen,Productos,Segmento,Descuento,Confianza
+"27/4/2026","garett","curri","esporadica","medio","EP-001 (2 kg)","Restaurantes Medianos","20%","media"
+"27/4/2026","garett","curri","esporadica","muy_bajo","EP-001 (5 kg)","Cliente Final (Hogar)","0%","baja"
+"27/4/2026","garett","curri","diaria","alto","EP-001 (7 kg)","Mayorista / Revendedor","32%","media"
+"27/4/2026","garett","curri","esporadica","bajo","EP-002 (2 kg)","Sodas / Restaurantes Pequeños","12%","media"
+"27/4/2026","garett","curri","frecuente","muy_bajo","EP-001 (2 kg)","Restaurantes Medianos","20%","baja"
+"27/4/2026","garett","curri","esporadica","muy_bajo","EP-001 (2 kg)","Cliente Final (Hogar)","0%","baja"
+"27/4/2026","garett","curri","esporadica","muy_bajo","EP-002 (2 kg)","Cliente Final (Hogar)","0%","baja"

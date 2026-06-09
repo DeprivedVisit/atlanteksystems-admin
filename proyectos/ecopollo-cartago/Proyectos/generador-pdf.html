@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EcoPollo — Generador de Listas de Precios</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#2D5A1B;--vc:#4A7C2C;--d:#F0C300;
+  --bg:#F8F5EE;--card:#fff;--gs:#EDE5D0;
+  --txt:#1A1A1A;--mid:#5a6e5f;--soft:#8a9e90;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+
+/* ── TOOLBAR ── */
+.toolbar{background:rgba(15,30,8,.95);backdrop-filter:blur(12px);padding:14px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(240,195,0,.2);}
+.tb-logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+.tb-logo img{width:36px;height:36px;border-radius:50%;border:2px solid var(--d);object-fit:cover;}
+.tb-sep{width:1px;height:28px;background:rgba(255,255,255,.15);margin:0 4px;}
+.tb-tabs{display:flex;gap:4px;flex:1;}
+.tb-tab{padding:8px 16px;border:none;border-radius:8px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);transition:all .2s;}
+.tb-tab.active{background:var(--d);color:var(--v);}
+.tb-tab:hover:not(.active){background:rgba(255,255,255,.15);color:#fff;}
+.tb-actions{display:flex;gap:8px;margin-left:auto;}
+.btn-edit{padding:8px 16px;border:1.5px solid rgba(255,255,255,.25);background:none;color:rgba(255,255,255,.7);border-radius:8px;font-family:inherit;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-edit:hover{border-color:#fff;color:#fff;}
+.btn-edit.active-edit{background:rgba(244,162,97,.15);border-color:rgba(244,162,97,.5);color:#f4a261;}
+.btn-pdf{padding:9px 20px;background:var(--d);color:var(--v);border:none;border-radius:8px;font-family:inherit;font-size:.85rem;font-weight:800;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.btn-pdf:hover{background:#e0b400;transform:translateY(-1px);box-shadow:0 4px 12px rgba(240,195,0,.3);}
+
+/* ── HEADER INFO ── */
+.page-header{max-width:980px;margin:28px auto 0;padding:0 20px;}
+.page-info{background:var(--card);border-radius:14px;border:1.5px solid var(--gs);padding:20px 24px;display:flex;align-items:center;gap:20px;}
+.pi-icon{font-size:2rem;flex-shrink:0;}
+.pi-text h2{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--v);margin-bottom:4px;}
+.pi-text p{font-size:.82rem;color:var(--mid);line-height:1.5;}
+.pi-fecha{margin-left:auto;text-align:right;flex-shrink:0;}
+.pi-fecha label{font-size:.72rem;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
+.pi-fecha input{border:1.5px solid var(--gs);border-radius:8px;padding:6px 12px;font-family:inherit;font-size:.82rem;color:var(--txt);background:var(--bg);outline:none;}
+.pi-fecha input:focus{border-color:var(--v);}
+
+/* ── TABLA ── */
+.main-wrap{max-width:980px;margin:20px auto 60px;padding:0 20px;}
+.cat-block{margin-bottom:20px;}
+.cat-title{font-family:'Fraunces',serif;font-size:.95rem;color:var(--v);padding:10px 0 8px;border-bottom:2px solid var(--gs);margin-bottom:0;display:flex;align-items:center;gap:8px;}
+.price-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:0 0 12px 12px;overflow:hidden;border:1.5px solid var(--gs);border-top:none;}
+.price-table th{background:var(--v);color:#fff;padding:10px 14px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;}
+.price-table th:last-child{text-align:right;}
+.price-table td{padding:9px 14px;font-size:.82rem;border-bottom:1px solid var(--gs);vertical-align:middle;}
+.price-table tr:last-child td{border-bottom:none;}
+.price-table tr:nth-child(even) td{background:rgba(237,229,208,.3);}
+.td-cod{color:var(--soft);font-size:.72rem;font-weight:700;width:52px;}
+.td-nombre{font-weight:600;color:var(--txt);}
+.td-unidad{color:var(--mid);font-size:.75rem;width:50px;text-align:center;}
+.td-precio{font-weight:800;color:var(--v);text-align:right;width:110px;}
+.price-input{width:90px;border:1.5px solid var(--d);border-radius:6px;padding:4px 8px;font-family:inherit;font-size:.82rem;font-weight:700;color:var(--v);text-align:right;background:rgba(240,195,0,.06);outline:none;}
+.price-input:focus{border-color:var(--v);background:#fff;}
+
+/* ── ESTADO ── */
+.save-bar{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--v);color:#fff;border-radius:50px;padding:12px 28px;font-weight:700;font-size:.88rem;box-shadow:0 8px 24px rgba(45,90,27,.35);display:flex;align-items:center;gap:10px;z-index:200;}
+.save-bar.show{display:flex;}
+.btn-save-real{background:var(--d);color:var(--v);border:none;border-radius:30px;padding:8px 20px;font-family:inherit;font-size:.82rem;font-weight:800;cursor:pointer;}
+.btn-discard{background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);border-radius:30px;padding:8px 16px;font-family:inherit;font-size:.8rem;cursor:pointer;}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body{background:#fff;font-size:10pt;}
+  .toolbar,.save-bar,.no-print{display:none!important;}
+  .page-header,.main-wrap{max-width:100%;margin:0;padding:0;}
+  .page-info{border:none;padding:0 0 12pt 0;border-bottom:2pt solid var(--v);margin-bottom:16pt;border-radius:0;}
+  .pi-fecha input{border:none;background:transparent;padding:0;}
+  .cat-block{page-break-inside:avoid;margin-bottom:14pt;}
+  .price-table{border:1pt solid #ccc;}
+  .price-table th{background:var(--v)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .price-table tr:nth-child(even) td{background:rgba(237,229,208,.4)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .price-input{border:none;background:transparent;text-align:right;font-weight:800;color:var(--v);}
+  .pi-fecha label{display:none;}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .tb-tabs{gap:2px;}
+  .tb-tab{padding:7px 10px;font-size:.74rem;}
+  .tb-actions{gap:6px;}
+  .btn-edit{padding:7px 10px;font-size:.74rem;}
+  .btn-pdf{padding:7px 14px;font-size:.78rem;}
+  .price-table td,.price-table th{padding:7px 10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="tb-logo">
+    <img src="Logo.jpg" alt="EcoPollo">
+    EcoPollo
+  </div>
+  <div class="tb-sep"></div>
+  <div class="tb-tabs">
+    <button class="tb-tab active" onclick="setCatalogo('ND-LOCAL',this)">🏪 ND-Local</button>
+    <button class="tb-tab" onclick="setCatalogo('CARNICERIA',this)">🔪 Carnicería</button>
+    <button class="tb-tab" onclick="setCatalogo('MAYORISTA',this)">🏭 Mayorista</button>
+  </div>
+  <div class="tb-actions">
+    <button class="btn-edit" id="btnEdit" onclick="toggleEdit()">✏️ Editar precios</button>
+    <button class="btn-pdf" onclick="generarPDF()">📄 Generar PDF</button>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-info">
+    <div class="pi-icon" id="piIcon">🏪</div>
+    <div class="pi-text">
+      <h2 id="piTitle">Lista de Precios — ND-Local</h2>
+      <p id="piDesc">Distribuidoras y negocios locales · Precios en colones costarricenses (₡) · Sujeto a cambios sin previo aviso</p>
+    </div>
+    <div class="pi-fecha">
+      <label>Vigencia desde</label>
+      <input type="date" id="fechaInput">
+    </div>
+  </div>
+</div>
+
+<!-- TABLA PRINCIPAL -->
+<div class="main-wrap" id="mainWrap"></div>
+
+<!-- SAVE BAR -->
+<div class="save-bar" id="saveBar">
+  <span>⚠️ Tenés cambios sin guardar</span>
+  <button class="btn-save-real" onclick="guardarCambios()">💾 Guardar</button>
+  <button class="btn-discard" onclick="descartarCambios()">✕ Descartar</button>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════
+   DATOS DE PRECIOS — editar directamente o via UI
+   ══════════════════════════════════════════════════ */
+var CATALOGOS_BASE = {
+"ND-LOCAL": [
+  {cod:"150", nombre:"Ala Entera",                 precio:2250,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"33",  nombre:"Ala Entera Emp Al Vacío",     precio:3525,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"91",  nombre:"Ala Entera Htv",              precio:3170,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"153", nombre:"Ala Entera Marinada",         precio:3350,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"154", nombre:"Centro Ala",                  precio:3700,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"146", nombre:"Cuarto De Muslo",             precio:2280,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"59400",nombre:"Cuellos",                    precio:1120,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"163", nombre:"Hígados",                     precio:1650,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"160", nombre:"Menudo Corriente",            precio:1400,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"161", nombre:"Menudo Especial",             precio:1585,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"162", nombre:"Mollejas",                    precio:2788,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"116", nombre:"Muslo Partido Htv",           precio:2175,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"143", nombre:"Muslito De Muslo",            precio:2900,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"134", nombre:"Muslito De Muslo Sin Piel",   precio:2800,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"157", nombre:"Muslo De Ala",                precio:3950,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"130", nombre:"Muslo Entero",                precio:2375,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"113", nombre:"Muslo Entero Htv",            precio:2620,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"141", nombre:"Muslo Entero Emp Al Vacío",   precio:2425,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"129", nombre:"Muslo Entero Part",           precio:1975,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"147", nombre:"Muslo Entero Unidad",         precio:830,   unidad:"UND", categ:"CORTE CON HUESO"},
+  {cod:"167", nombre:"Patas",                       precio:1023,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"62",  nombre:"Pechuga Con Hueso",           precio:3200,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"59",  nombre:"Pechuga Con Hueso Emp Al Vacío",precio:3730,unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"64",  nombre:"Pechuga Con Hueso Htv",       precio:3350,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"280", nombre:"Piel",                        precio:500,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"164", nombre:"Carcasa",                     precio:745,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"1",   nombre:"Pollo Entero",                precio:2300,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"10",  nombre:"Pollo Limpio",                precio:2950,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"24",  nombre:"Pollo Limpio Emp Al Vacío",   precio:2925,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"158", nombre:"Trocito Corriente",           precio:2250,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"35",  nombre:"Trozo Especial Bbq",          precio:1850,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"47",  nombre:"Trozo Especial Criollo",      precio:1850,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"125", nombre:"Carnitas",                    precio:4325,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"120", nombre:"Fillete",                     precio:6090,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"34",  nombre:"Fillete Emp Al Vacío",        precio:6125,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"295", nombre:"Lomitos",                     precio:4600,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"2",   nombre:"Lomitos Marinados",           precio:4560,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"135", nombre:"Muslo Deshuesado",            precio:3650,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"68",  nombre:"Muslo Deshuesado Emp Al Vacío",precio:3960, unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"124", nombre:"Palomitas",                   precio:2950,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"400", nombre:"Palomitas Marinadas",         precio:3080,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"86",  nombre:"Pechuga C/H Especial",        precio:4875,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"3",   nombre:"Pechuga Corte 3×3",           precio:4830,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"28",  nombre:"Pechuga Deshuesada Emp Al Vacío",precio:5370,unidad:"KG", categ:"CORTE DESHUESADO"},
+  {cod:"137", nombre:"Pechuga Eco Htv",             precio:5460,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"57147",nombre:"Chorizo Pollo Parrillero 360g",precio:1725,unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"731", nombre:"Tocineta Kimby 300g",         precio:2127,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"860", nombre:"Salchichón Granel",           precio:1855,  unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"59390",nombre:"Salchicha Impermeable Granel",precio:2750, unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"1442",nombre:"Mortadela Fam. Pollo 1Kg",   precio:1598,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"1156",nombre:"Jamón Kimby 250g",            precio:1184,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"57101",nombre:"Mortadela Jamonada 250g",    precio:1897,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"55845",nombre:"Paté 100g Cinta Azul",       precio:890,   unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"139", nombre:"Huevo EcoPollo",              precio:1150,  unidad:"KG",  categ:"HUEVO"},
+  {cod:"196", nombre:"Huevo Empacado",              precio:2178,  unidad:"KG",  categ:"HUEVO"},
+  {cod:"532", nombre:"Fillet Tilapia 9.5 Lb",      precio:8500,  unidad:"UND", categ:"TILAPIA"},
+  {cod:"292", nombre:'Tilapia Caja 3"–5"',          precio:10500, unidad:"UND", categ:"TILAPIA"},
+  {cod:"59375",nombre:"Papa Frita Pomclaire 1Kg",   precio:995,   unidad:"UND", categ:"PAPA"},
+  {cod:"483", nombre:"Papa Frita Pomclaire 2.5Kg",  precio:2870,  unidad:"UND", categ:"PAPA"},
+  {cod:"549", nombre:"Papa Miglio 2.5Kg",           precio:2825,  unidad:"UND", categ:"PAPA"},
+  {cod:"584", nombre:"Papa Golden River 1Kg",       precio:1200,  unidad:"UND", categ:"PAPA"},
+  {cod:"59370",nombre:"Hielo",                      precio:145,   unidad:"KG",  categ:"HIELO"},
+  {cod:"148", nombre:"Transporte",                  precio:3000,  unidad:"OS",  categ:"SERVICIO"}
+],
+"CARNICERIA": [
+  {cod:"150", nombre:"Ala Entera",                 precio:2825,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"91",  nombre:"Ala Entera Htv",             precio:2250,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"154", nombre:"Centro Ala",                 precio:3000,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"146", nombre:"Cuarto De Muslo",            precio:1500,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"163", nombre:"Hígados",                    precio:1650,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"160", nombre:"Menudo Corriente",           precio:775,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"151", nombre:"Menudo Especial",            precio:1075,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"162", nombre:"Mollejas",                   precio:2400,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"116", nombre:"Muslo Partido Htv",          precio:1875,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"143", nombre:"Muslito De Muslo",           precio:2550,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"157", nombre:"Muslo De Ala",               precio:3400,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"130", nombre:"Muslo Entero",               precio:1730,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"113", nombre:"Muslo Entero Htv",           precio:1600,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"129", nombre:"Muslo Entero Part",          precio:1975,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"167", nombre:"Patas",                      precio:850,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"62",  nombre:"Pechuga Con Hueso",          precio:2450,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"59",  nombre:"Pechuga Con Hueso Emp Al Vacío",precio:2400,unidad:"KG", categ:"CORTE CON HUESO"},
+  {cod:"78",  nombre:"Pechuga Con Hueso Htv",      precio:2500,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"280", nombre:"Piel",                       precio:450,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"164", nombre:"Carcasa",                    precio:450,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"1",   nombre:"Pollo Entero",               precio:2050,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"10",  nombre:"Pollo Limpio",               precio:2255,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"158", nombre:"Trocito Corriente",          precio:1700,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"35",  nombre:"Trozo Especial Bbq",         precio:1650,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"59363",nombre:"Trozo Marinado",            precio:1700,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"125", nombre:"Carnitas",                   precio:2750,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"4",   nombre:"Corte 3×3 Htv",             precio:4225,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"120", nombre:"Fillete",                    precio:4450,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"295", nombre:"Lomitos",                    precio:3925,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"2",   nombre:"Lomitos Marinados",          precio:4025,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"135", nombre:"Muslo Deshuesado",           precio:2650,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"142", nombre:"Muslo Deshuesado Al Vacío",  precio:2750,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"124", nombre:"Palomitas",                  precio:2575,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"86",  nombre:"Pechuga C/H Especial",       precio:3575,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"3",   nombre:"Pechuga Corte 3×3",          precio:4425,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"28",  nombre:"Pechuga Deshuesada Emp Al Vacío",precio:3875,unidad:"KG",categ:"CORTE DESHUESADO"},
+  {cod:"531", nombre:"Pechuga Deshuesada Pdt",     precio:3025,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"137", nombre:"Pechuga Eco Htv",            precio:4075,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"57147",nombre:"Chorizo Pollo Parrillero 360g",precio:1524,unidad:"UND",categ:"EMBUTIDOS"},
+  {cod:"1156",nombre:"Jamón Kimby 250g",           precio:1081,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"731", nombre:"Tocineta Kimby 300g",        precio:1963,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"860", nombre:"Salchichón Granel",          precio:1275,  unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"59402",nombre:"Mortadela Eco Pollo Granel",precio:2850,  unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"139", nombre:"Huevo EcoPollo",             precio:1050,  unidad:"KG",  categ:"HUEVO"},
+  {cod:"196", nombre:"Huevo Empacado",             precio:1750,  unidad:"KG",  categ:"HUEVO"},
+  {cod:"532", nombre:"Fillet Tilapia 9.5 Lb",     precio:8500,  unidad:"UND", categ:"TILAPIA"},
+  {cod:"292", nombre:'Tilapia Caja 3"–5"',         precio:8500,  unidad:"UND", categ:"TILAPIA"},
+  {cod:"59375",nombre:"Papa Frita Pomclaire 1Kg",  precio:1435,  unidad:"UND", categ:"PAPA"},
+  {cod:"483", nombre:"Papa Frita Pomclaire 2.5Kg", precio:2215,  unidad:"UND", categ:"PAPA"},
+  {cod:"549", nombre:"Papa Miglio 2.5Kg",          precio:2832,  unidad:"UND", categ:"PAPA"},
+  {cod:"59370",nombre:"Hielo",                     precio:145,   unidad:"KG",  categ:"HIELO"},
+  {cod:"148", nombre:"Transporte",                 precio:3000,  unidad:"OS",  categ:"SERVICIO"}
+],
+"MAYORISTA": [
+  {cod:"150", nombre:"Ala Entera",                 precio:2250,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"91",  nombre:"Ala Entera Htv",             precio:2300,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"146", nombre:"Cuarto De Muslo",            precio:1400,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"163", nombre:"Hígados",                    precio:1450,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"160", nombre:"Menudo Corriente",           precio:575,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"161", nombre:"Menudo Especial",            precio:975,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"162", nombre:"Mollejas",                   precio:2550,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"116", nombre:"Muslo Partido Htv",          precio:1480,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"143", nombre:"Muslito De Muslo",           precio:2450,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"157", nombre:"Muslo De Ala",               precio:3800,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"130", nombre:"Muslo Entero",               precio:1475,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"129", nombre:"Muslo Entero Part",          precio:1525,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"167", nombre:"Patas",                      precio:800,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"62",  nombre:"Pechuga Con Hueso",          precio:2200,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"164", nombre:"Carcasa",                    precio:500,   unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"10",  nombre:"Pollo Limpio",               precio:1960,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"35",  nombre:"Trozo Especial Bbq",         precio:1550,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"59413",nombre:"Muslo Entero Td",           precio:1425,  unidad:"KG",  categ:"CORTE CON HUESO"},
+  {cod:"125", nombre:"Carnitas",                   precio:2800,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"295", nombre:"Lomitos",                    precio:3925,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"135", nombre:"Muslo Deshuesado",           precio:2400,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"86",  nombre:"Pechuga C/H Especial",       precio:3150,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"3",   nombre:"Pechuga Corte 3×3",          precio:3725,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"531", nombre:"Pechuga Deshuesada Pdt",     precio:3175,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"137", nombre:"Pechuga Eco Htv",            precio:3875,  unidad:"KG",  categ:"CORTE DESHUESADO"},
+  {cod:"860", nombre:"Salchichón Granel",          precio:1275,  unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"59390",nombre:"Salchicha Impermeable Granel",precio:2695,unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"59402",nombre:"Mortadela Eco Pollo Granel",precio:2850,  unidad:"KG",  categ:"EMBUTIDOS"},
+  {cod:"55869",nombre:"Salchicha Pavo 380g",       precio:2100,  unidad:"UND", categ:"EMBUTIDOS"},
+  {cod:"139", nombre:"Huevo EcoPollo",             precio:950,   unidad:"KG",  categ:"HUEVO"},
+  {cod:"532", nombre:"Fillet Tilapia 9.5 Lb",     precio:8000,  unidad:"UND", categ:"TILAPIA"},
+  {cod:"292", nombre:'Tilapia Caja 3"–5"',         precio:8000,  unidad:"UND", categ:"TILAPIA"},
+  {cod:"584", nombre:"Papa Golden River 1Kg",      precio:1200,  unidad:"UND", categ:"PAPA"},
+  {cod:"549", nombre:"Papa Miglio 2.5Kg",          precio:2150,  unidad:"UND", categ:"PAPA"},
+  {cod:"59370",nombre:"Hielo",                     precio:145,   unidad:"KG",  categ:"HIELO"},
+  {cod:"148", nombre:"Transporte",                 precio:3000,  unidad:"OS",  categ:"SERVICIO"}
+]
+};
+
+var CAT_ICONS = {"CORTE CON HUESO":"🍗","CORTE DESHUESADO":"🥩","EMBUTIDOS":"🌭","HUEVO":"🥚","TILAPIA":"🐟","PAPA":"🍟","HIELO":"🧊","SERVICIO":"🚚"};
+var CAT_INFO = {
+  "ND-LOCAL":    {icon:"🏪", label:"Lista ND-Local",    desc:"Distribuidoras y negocios locales · Precios en ₡ · Sujeto a cambios"},
+  "CARNICERIA":  {icon:"🔪", label:"Lista Carnicería",  desc:"Carnicerías y negocios especializados · Precios en ₡ · Sujeto a cambios"},
+  "MAYORISTA":   {icon:"🏭", label:"Lista Mayorista",   desc:"Clientes mayoristas y distribuidores · Precios en ₡ · Sujeto a cambios"}
+};
+
+var catActiva = 'ND-LOCAL';
+var modoEdicion = false;
+var cambiosPendientes = false;
+
+/* ── LOAD / SAVE localStorage ── */
+function cargarDesdeStorage() {
+  try {
+    var s = localStorage.getItem('ep-precios');
+    if (s) {
+      var datos = JSON.parse(s);
+      Object.keys(datos).forEach(function(cat) {
+        if (CATALOGOS_BASE[cat]) {
+          var mapa = {};
+          datos[cat].forEach(function(p){ mapa[p.cod + '_' + cat] = p.precio; });
+          CATALOGOS_BASE[cat].forEach(function(p){
+            var k = p.cod + '_' + cat;
+            if (mapa[k] !== undefined) p.precio = mapa[k];
+          });
+        }
+      });
+    }
+  } catch(e){}
+}
+
+function guardarCambios() {
+  var guardado = {};
+  Object.keys(CATALOGOS_BASE).forEach(function(cat) {
+    guardado[cat] = CATALOGOS_BASE[cat].map(function(p){ return {cod:p.cod, precio:p.precio}; });
+  });
+  localStorage.setItem('ep-precios', JSON.stringify(guardado));
+  cambiosPendientes = false;
+  document.getElementById('saveBar').classList.remove('show');
+  renderTabla();
+}
+
+function descartarCambios() {
+  cargarDesdeStorage();
+  cambiosPendientes = false;
+  document.getElementById('saveBar').classList.remove('show');
+  renderTabla();
+}
+
+/* ── RENDER ── */
+function setCatalogo(cat, btn) {
+  if (cambiosPendientes) { if (!confirm('Tenés cambios sin guardar. ¿Continuar?')) return; descartarCambios(); }
+  catActiva = cat;
+  document.querySelectorAll('.tb-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  var info = CAT_INFO[cat];
+  document.getElementById('piIcon').textContent = info.icon;
+  document.getElementById('piTitle').textContent = info.label;
+  document.getElementById('piDesc').textContent = info.desc;
+  renderTabla();
+}
+
+function renderTabla() {
+  var prods = CATALOGOS_BASE[catActiva] || [];
+  var cats = {};
+  prods.forEach(function(p) {
+    var c = p.categ || 'OTROS';
+    if (!cats[c]) cats[c] = [];
+    cats[c].push(p);
+  });
+
+  var html = '';
+  var orden = ["CORTE CON HUESO","CORTE DESHUESADO","EMBUTIDOS","HUEVO","TILAPIA","PAPA","HIELO","SERVICIO"];
+  orden.forEach(function(cat) {
+    if (!cats[cat] || !cats[cat].length) return;
+    var icon = CAT_ICONS[cat] || '📦';
+    html += '<div class="cat-block">';
+    html += '<div class="cat-title">'+icon+' '+cat.charAt(0)+cat.slice(1).toLowerCase()+'</div>';
+    html += '<table class="price-table">';
+    html += '<thead><tr><th>Cód.</th><th>Producto</th><th>Unidad</th><th>Precio ₡</th></tr></thead><tbody>';
+    cats[cat].forEach(function(p) {
+      html += '<tr>';
+      html += '<td class="td-cod">'+p.cod+'</td>';
+      html += '<td class="td-nombre">'+p.nombre+'</td>';
+      html += '<td class="td-unidad">'+p.unidad+'</td>';
+      if (modoEdicion) {
+        html += '<td class="td-precio"><input class="price-input" type="number" value="'+p.precio+'" data-cod="'+p.cod+'" data-cat="'+catActiva+'" onchange="actualizarPrecio(this)" min="0" step="1"></td>';
+      } else {
+        html += '<td class="td-precio">₡ '+p.precio.toLocaleString('es-CR')+'</td>';
+      }
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+  });
+
+  document.getElementById('mainWrap').innerHTML = html;
+}
+
+function toggleEdit() {
+  modoEdicion = !modoEdicion;
+  var btn = document.getElementById('btnEdit');
+  btn.textContent = modoEdicion ? '✓ Vista normal' : '✏️ Editar precios';
+  btn.classList.toggle('active-edit', modoEdicion);
+  renderTabla();
+}
+
+function actualizarPrecio(input) {
+  var cod = input.dataset.cod;
+  var cat = input.dataset.cat;
+  var nuevo = parseInt(input.value) || 0;
+  var lista = CATALOGOS_BASE[cat] || [];
+  lista.forEach(function(p) { if (p.cod === cod) p.precio = nuevo; });
+  cambiosPendientes = true;
+  document.getElementById('saveBar').classList.add('show');
+}
+
+function generarPDF() {
+  var info = CAT_INFO[catActiva];
+  var fecha = document.getElementById('fechaInput').value;
+  var fechaStr = fecha ? new Date(fecha + 'T12:00:00').toLocaleDateString('es-CR', {year:'numeric',month:'long',day:'numeric'}) : 'Vigente';
+
+  var prods = CATALOGOS_BASE[catActiva] || [];
+  var cats = {};
+  prods.forEach(function(p){ var c=p.categ||'OTROS'; if(!cats[c])cats[c]=[]; cats[c].push(p); });
+  var orden = ["CORTE CON HUESO","CORTE DESHUESADO","EMBUTIDOS","HUEVO","TILAPIA","PAPA","HIELO","SERVICIO"];
+
+  var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">';
+  html += '<title>EcoPollo — '+info.label+'</title>';
+  html += '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">';
+  html += '<style>';
+  html += '*{margin:0;padding:0;box-sizing:border-box;}';
+  html += 'body{font-family:"DM Sans",sans-serif;background:#fff;color:#1a1a1a;font-size:9pt;padding:20pt 24pt;}';
+  html += '.header{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:12pt;border-bottom:3pt solid #2D5A1B;margin-bottom:16pt;}';
+  html += '.h-left{display:flex;align-items:center;gap:12pt;}';
+  html += '.h-logo{width:52pt;height:52pt;border-radius:50%;border:2.5pt solid #F0C300;}';
+  html += '.h-brand{font-family:"Fraunces",serif;font-size:20pt;font-weight:700;color:#2D5A1B;line-height:1;}';
+  html += '.h-sub{font-size:8pt;color:#5a6e5f;margin-top:3pt;}';
+  html += '.h-right{text-align:right;}';
+  html += '.h-tipo{font-family:"Fraunces",serif;font-size:13pt;font-weight:700;color:#2D5A1B;}';
+  html += '.h-fecha{font-size:7.5pt;color:#8a9e90;margin-top:4pt;}';
+  html += '.cat-block{margin-bottom:12pt;page-break-inside:avoid;}';
+  html += '.cat-title{font-family:"Fraunces",serif;font-size:9.5pt;color:#2D5A1B;padding:6pt 0 4pt;border-bottom:1.5pt solid #EDE5D0;margin-bottom:0;display:flex;align-items:center;gap:6pt;}';
+  html += 'table{width:100%;border-collapse:collapse;}';
+  html += 'th{background:#2D5A1B;color:#fff;padding:5pt 8pt;font-size:7pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:left;}';
+  html += 'th:last-child{text-align:right;}';
+  html += 'td{padding:4pt 8pt;font-size:8.5pt;border-bottom:.75pt solid #EDE5D0;vertical-align:middle;}';
+  html += 'tr:last-child td{border-bottom:none;}';
+  html += 'tr:nth-child(even) td{background:rgba(237,229,208,.35);}';
+  html += '.td-cod{color:#8a9e90;font-size:7pt;font-weight:700;width:40pt;}';
+  html += '.td-unidad{color:#5a6e5f;font-size:7.5pt;width:38pt;text-align:center;}';
+  html += '.td-precio{font-weight:800;color:#2D5A1B;text-align:right;width:80pt;}';
+  html += '.footer{margin-top:16pt;padding-top:10pt;border-top:1.5pt solid #EDE5D0;display:flex;align-items:center;justify-content:space-between;}';
+  html += '.ft-note{font-size:7pt;color:#8a9e90;line-height:1.5;}';
+  html += '.ft-contact{font-size:7.5pt;color:#2D5A1B;font-weight:700;text-align:right;}';
+  html += '@media print{body{padding:12pt 16pt;}@page{margin:12pt;}}';
+  html += '</style></head><body>';
+
+  // HEADER
+  html += '<div class="header"><div class="h-left">';
+  html += '<div class="h-brand">EcoPollo<div class="h-sub">Distribución de Aves y Productos Frescos · Cartago, CR</div></div>';
+  html += '</div><div class="h-right">';
+  html += '<div class="h-tipo">'+info.icon+' '+info.label+'</div>';
+  html += '<div class="h-fecha">Vigencia: '+fechaStr+'</div>';
+  html += '</div></div>';
+
+  // PRODUCTOS
+  orden.forEach(function(cat) {
+    if (!cats[cat] || !cats[cat].length) return;
+    var icon = CAT_ICONS[cat] || '';
+    html += '<div class="cat-block">';
+    html += '<div class="cat-title">'+icon+' '+cat.charAt(0)+cat.slice(1).toLowerCase()+'</div>';
+    html += '<table><thead><tr><th>Cód.</th><th>Producto</th><th>Und.</th><th>Precio ₡</th></tr></thead><tbody>';
+    cats[cat].forEach(function(p) {
+      html += '<tr>';
+      html += '<td class="td-cod">'+p.cod+'</td>';
+      html += '<td>'+p.nombre+'</td>';
+      html += '<td class="td-unidad">'+p.unidad+'</td>';
+      html += '<td class="td-precio">₡ '+p.precio.toLocaleString('es-CR')+'</td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+  });
+
+  // FOOTER
+  html += '<div class="footer">';
+  html += '<div class="ft-note">* Precios en colones costarricenses (₡) · Incluyen IVA · Sujeto a disponibilidad<br>';
+  html += '* Mínimo de compra puede aplicar según categoría<br>';
+  html += '* Lista generada el '+new Date().toLocaleDateString('es-CR',{year:"numeric",month:"long",day:"numeric"})+'</div>';
+  html += '<div class="ft-contact">📱 +506 6314-4171<br>💬 WhatsApp / llamada<br>📍 Cartago, Costa Rica</div>';
+  html += '</div>';
+  html += '</body></html>';
+
+  var ventana = window.open('', '_blank', 'width=900,height=700');
+  ventana.document.write(html);
+  ventana.document.close();
+  ventana.focus();
+  setTimeout(function(){ ventana.print(); }, 800);
+}
+
+/* ── INIT ── */
+(function() {
+  var hoy = new Date();
+  document.getElementById('fechaInput').value = hoy.toISOString().split('T')[0];
+  cargarDesdeStorage();
+  renderTabla();
+})();
+</script>
+</body>
+</html>

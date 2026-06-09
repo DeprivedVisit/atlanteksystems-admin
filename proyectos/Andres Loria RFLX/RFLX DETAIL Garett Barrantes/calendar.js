@@ -471,6 +471,14 @@ const Admin = {
     if(this._pollInterval) clearInterval(this._pollInterval);
   },
 
+  logout(){
+    if(this._pollInterval) clearInterval(this._pollInterval);
+    document.getElementById('admin-dashboard-view').style.display = 'none';
+    document.getElementById('admin-login-view').style.display = 'flex';
+    document.getElementById('admin-pass-input').value = '';
+    setTimeout(()=>document.getElementById('admin-pass-input').focus(), 100);
+  },
+
   switchTab(tab){
     this._tab = tab;
     document.querySelectorAll('.admin-tab').forEach(t=> t.classList.toggle('active', t.dataset.tab===tab));
@@ -810,6 +818,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('admin-login-btn')?.addEventListener('click',()=>Admin.checkPassword());
   document.getElementById('admin-pass-input')?.addEventListener('keypress',e=>{ if(e.key==='Enter') Admin.checkPassword(); });
   document.getElementById('admin-login-cancel')?.addEventListener('click',()=>Admin.close());
+  document.getElementById('admin-logout')?.addEventListener('click',()=>Admin.logout());
 
   const obs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
