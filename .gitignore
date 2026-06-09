@@ -6,3 +6,12 @@ node_modules/
 .env.local
 .DS_Store
 Thumbs.db
+
+# Repos independientes con su propio git
+proyectos/ArteVerde_Vivero_Web/
+proyectos/jarvis/
+proyectos/n8n/
+
+# Carpetas sin trackear
+Loop-Company.v1/
+proyectos/rflx/
