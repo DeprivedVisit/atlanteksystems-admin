@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cierre de Negocio · RFLX Detail · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#080808;--dark2:#111;--dark3:#1a1a1a;
+  --yellow:#f0c000;--yellow-l:#ffe040;--yellow-d:#c09800;
+  --white:#f2f2f2;--muted:#686868;--border:rgba(255,255,255,.08);
+  --surface:rgba(255,255,255,.03);--green:#3ab464;--red:#cc3333;
+  --serif:'Oswald',sans-serif;--sans:'Source Sans 3',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--dark);color:var(--white);min-height:100vh}
+@media print{body{background:#fff;color:#111}.no-print{display:none!important}.hero-header{background:#111!important}}
+.hero-header{
+  background:linear-gradient(135deg,#000 0%,#0f0f0f 55%,#1a1a1a 100%);
+  padding:3.5rem 3rem 3rem;position:relative;overflow:hidden;
+  border-bottom:1px solid rgba(240,192,0,.15);
+}
+.hero-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(240,192,0,.4),transparent)}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.apex-brand{font-size:.65rem;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem}
+.doc-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);opacity:.85;margin-bottom:.4rem}
+.doc-title{font-family:var(--serif);font-size:2.4rem;font-weight:300;line-height:1.08;max-width:520px}
+.doc-title strong{font-weight:600;color:var(--yellow)}
+.doc-subtitle{margin-top:.7rem;font-size:.9rem;color:rgba(255,255,255,.45);line-height:1.6;max-width:480px}
+.hero-meta{text-align:right;min-width:180px}
+.meta-date{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.3rem}
+.meta-val{font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:.15rem}
+.meta-badge{display:inline-block;margin-top:.5rem;background:rgba(240,192,0,.12);border:1px solid rgba(240,192,0,.3);color:var(--yellow);font-size:.68rem;font-weight:600;letter-spacing:.1em;padding:.28rem .8rem;border-radius:50px;text-transform:uppercase}
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 2rem 3rem}
+.sec-eyebrow{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);opacity:.7;margin-bottom:.3rem}
+.sec-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:1.2rem;letter-spacing:.04em}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0}
+
+/* Propuesta tabla */
+.proposal-table{width:100%;border-collapse:collapse;margin-bottom:2rem}
+.proposal-table th{text-align:left;padding:.7rem 1rem;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.proposal-table td{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:.84rem;vertical-align:top}
+.proposal-table tr:last-child td{border-bottom:none}
+.price-cell{color:var(--yellow);font-weight:600;font-family:var(--serif);font-size:1.1rem;white-space:nowrap}
+
+/* Total box */
+.total-box{background:rgba(240,192,0,.05);border:1px solid rgba(240,192,0,.2);border-radius:8px;padding:1.5rem 1.8rem;margin-bottom:2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.total-label{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.total-amount{font-family:var(--serif);font-size:2.2rem;font-weight:600;color:var(--yellow)}
+
+/* Checklist */
+.checklist{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
+.check-item{display:flex;align-items:flex-start;gap:.8rem;padding:.7rem .9rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.check-icon{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.check-body{flex:1}
+.check-title{font-size:.83rem;font-weight:600;color:var(--white);margin-bottom:.12rem}
+.check-desc{font-size:.72rem;color:var(--muted);line-height:1.5}
+.check-status{font-size:.6rem;font-weight:700;padding:.16rem .55rem;border-radius:3px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;margin-top:.12rem}
+.status-done{background:rgba(58,180,100,.12);color:var(--green);border:1px solid rgba(58,180,100,.25)}
+.status-pending{background:rgba(240,192,0,.08);color:var(--yellow-d);border:1px solid rgba(240,192,0,.2)}
+
+/* Objeciones */
+.objection-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.4rem;margin-bottom:.7rem}
+.obj-q{font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+.obj-a{font-size:.76rem;color:var(--muted);line-height:1.58}
+
+/* Firma CTA */
+.cta-box{background:rgba(240,192,0,.04);border:1px solid rgba(240,192,0,.18);border-radius:10px;padding:2rem;text-align:center;margin-bottom:2.5rem}
+.cta-title{font-family:var(--serif);font-size:1.4rem;color:var(--white);margin-bottom:.5rem;letter-spacing:.04em}
+.cta-sub{font-size:.83rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.6}
+.cta-btn{display:inline-block;background:var(--yellow);color:#000;font-family:var(--sans);font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.75rem 2rem;border-radius:4px;text-decoration:none;transition:background .2s}
+.cta-btn:hover{background:var(--yellow-l)}
+
+.firma{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.firma-apex{font-family:var(--serif);font-size:1rem;color:var(--yellow);letter-spacing:.06em}
+.firma-apex small{display:block;font-family:var(--sans);font-size:.6rem;color:var(--muted);font-style:normal;margin-top:.15rem;letter-spacing:.08em;text-transform:uppercase}
+.firma-disclaimer{font-size:.62rem;color:var(--muted);opacity:.4;text-align:right;max-width:260px;line-height:1.5}
+.print-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--yellow);color:#000;border:none;padding:.7rem 1.4rem;border-radius:50px;font-family:var(--sans);font-size:.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(240,192,0,.25);transition:transform .2s;z-index:99;letter-spacing:.04em;text-transform:uppercase}
+.print-btn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+
+<div class="hero-header">
+  <div class="hero-inner">
+    <div>
+      <div class="apex-brand">Apex Cloud Works · Cartago, Costa Rica</div>
+      <div class="doc-eyebrow">Propuesta comercial</div>
+      <div class="doc-title">Cierre de negocio<br><strong>RFLX Detail</strong></div>
+      <div class="doc-subtitle">Propuesta formal con desglose de costos, checklist de cierre y respuestas a objeciones.</div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-date">Fecha</div>
+      <div class="meta-val">Junio 2026</div>
+      <div class="meta-date" style="margin-top:.5rem">Para</div>
+      <div class="meta-val">Andrés Loría · RFLX Detail</div>
+      <div class="meta-badge">Pendiente firma</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROPUESTA -->
+  <div class="sec-eyebrow">Inversión</div>
+  <div class="sec-title">Desglose de la propuesta</div>
+  <table class="proposal-table">
+    <thead>
+      <tr><th>Ítem</th><th>Descripción</th><th>Precio</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Setup inicial</strong></td>
+        <td>Landing completa + sistema de citas + panel admin + deploy AWS</td>
+        <td class="price-cell">$350 USD</td>
+      </tr>
+      <tr>
+        <td><strong>Plan trimestral</strong> <span style="font-size:.72rem;color:var(--muted)">(opcional)</span></td>
+        <td>Hosting AWS · cambios de contenido · soporte directo · monitoreo</td>
+        <td class="price-cell">$300 USD</td>
+      </tr>
+      <tr>
+        <td><strong>Landings adicionales</strong> <span style="font-size:.72rem;color:var(--muted)">(si aplica)</span></td>
+        <td>Por ejemplo: landing de un servicio específico (ceramizado, etc.)</td>
+        <td class="price-cell">$150 USD</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="total-box">
+    <div>
+      <div class="total-label">Total setup inicial</div>
+      <div class="total-amount">$350 USD</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:.72rem;color:var(--muted)">Pago único · Sin mensualidad obligatoria</div>
+      <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">50% al iniciar · 50% al entregar</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CHECKLIST CIERRE -->
+  <div class="sec-eyebrow">Próximos pasos</div>
+  <div class="sec-title">Checklist de cierre</div>
+  <div class="checklist">
+    <div class="check-item">
+      <div class="check-icon">💰</div>
+      <div class="check-body">
+        <div class="check-title">Primer pago — 50% ($175 USD)</div>
+        <div class="check-desc">SINPE Móvil al +506 6314-4171 o transferencia. Confirmar por WhatsApp con comprobante.</div>
+      </div>
+      <span class="check-status status-pending">Pendiente</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon">🖼️</div>
+      <div class="check-body">
+        <div class="check-title">Assets del cliente</div>
+        <div class="check-desc">Logo en PNG/SVG · foto de perfil · 6 fotos/thumbnails de trabajos · número WhatsApp · email de contacto · credenciales de Google para Sheets.</div>
+      </div>
+      <span class="check-status status-pending">Pendiente</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon">🌐</div>
+      <div class="check-body">
+        <div class="check-title">Dominio</div>
+        <div class="check-desc">Confirmación del dominio deseado (ej: rflxdetail.com · rflxdetailcr.com). Si ya lo tiene, compartir acceso DNS. Si no, Apex lo gestiona.</div>
+      </div>
+      <span class="check-status status-pending">Pendiente</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon">✏️</div>
+      <div class="check-body">
+        <div class="check-title">Revisión de contenido</div>
+        <div class="check-desc">Confirmar precios de servicios · lista final de servicios · textos del hero y descripción · número de WhatsApp para citas.</div>
+      </div>
+      <span class="check-status status-done">Listo ✓</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon">🔐</div>
+      <div class="check-body">
+        <div class="check-title">Contraseña del panel admin</div>
+        <div class="check-desc">Definir contraseña segura para acceso al panel de administración de citas. Se implementa con hash SHA-256 (no queda en texto visible).</div>
+      </div>
+      <span class="check-status status-pending">Pendiente</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon">🚀</div>
+      <div class="check-body">
+        <div class="check-title">Deploy y segundo pago</div>
+        <div class="check-desc">Subida a producción en AWS CloudFront con dominio propio. Segundo pago ($175 USD) al confirmar que todo funciona.</div>
+      </div>
+      <span class="check-status status-pending">Al finalizar</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OBJECIONES -->
+  <div class="sec-eyebrow">Preguntas frecuentes</div>
+  <div class="sec-title">Respuestas directas</div>
+
+  <div class="objection-card">
+    <div class="obj-q">¿Por qué $350 y no menos?</div>
+    <div class="obj-a">Porque incluye sistema de citas real con Google Sheets, panel admin con estadísticas, deploy en AWS con SSL y dominio. No es una plantilla — es una herramienta de trabajo que te ahorra tiempo todos los días.</div>
+  </div>
+  <div class="objection-card">
+    <div class="obj-q">¿Qué pasa si no me convence el diseño?</div>
+    <div class="obj-a">Tenés 2 revisiones incluidas. Si la dirección general del diseño no va con tu marca antes de pagar el 50% final, lo ajustamos.</div>
+  </div>
+  <div class="objection-card">
+    <div class="obj-q">¿Tengo que pagar mensual obligatorio?</div>
+    <div class="obj-a">No. El plan trimestral es opcional. Si no lo contratás, el sitio sigue funcionando y podés actualizar precios escribiéndome directamente.</div>
+  </div>
+  <div class="objection-card">
+    <div class="obj-q">¿Y si después ya no trabajamos juntos?</div>
+    <div class="obj-a">El código es tuyo. Te entrego todo: HTML, JS, Apps Script, instrucciones de AWS. Cualquier desarrollador puede continuar.</div>
+  </div>
+  <div class="objection-card">
+    <div class="obj-q">¿En cuánto tiempo está listo?</div>
+    <div class="obj-a">5–7 días hábiles desde que recibo los assets y el primer pago. Ya tenemos la estructura base construida — solo falta personalizar con tus fotos y datos.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <div class="cta-title">¿Arrancamos?</div>
+    <div class="cta-sub">El sitio ya está construido. Solo necesito tus assets y el primer pago para afinar y publicar.<br>Escribime por WhatsApp y coordinamos.</div>
+    <a href="https://wa.me/50663144171?text=Hola%20Garett!%20Quiero%20arrancar%20con%20el%20sitio%20de%20RFLX%20Detail." class="cta-btn" target="_blank">Arrancar ahora → WhatsApp</a>
+  </div>
+
+  <div class="firma">
+    <div class="firma-apex">
+      Apex Cloud Works
+      <small>Garett Barrantes · Junio 2026</small>
+    </div>
+    <div class="firma-disclaimer">Propuesta confidencial. Válida por 30 días desde la fecha de emisión.</div>
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Scorecard · RFLX Detail · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#080808;--dark2:#111;
+  --yellow:#f0c000;--yellow-d:#c09800;
+  --white:#f2f2f2;--muted:#686868;--border:rgba(255,255,255,.08);
+  --surface:rgba(255,255,255,.03);--green:#3ab464;--red:#cc3333;--orange:#f0850a;
+  --serif:'Oswald',sans-serif;--sans:'Source Sans 3',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--dark);color:var(--white);min-height:100vh}
+@media print{body{background:#fff;color:#111}.no-print{display:none!important}.hero-header{background:#111!important}}
+.hero-header{background:linear-gradient(135deg,#000 0%,#0f0f0f 55%,#1a1a1a 100%);padding:3.5rem 3rem 3rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(240,192,0,.15)}
+.hero-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(240,192,0,.4),transparent)}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.apex-brand{font-size:.65rem;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem}
+.doc-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);opacity:.85;margin-bottom:.4rem}
+.doc-title{font-family:var(--serif);font-size:2.4rem;font-weight:300;line-height:1.08;max-width:520px}
+.doc-title strong{font-weight:600;color:var(--yellow)}
+.hero-meta{text-align:right;min-width:160px}
+.meta-date{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.3rem}
+.meta-val{font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:.15rem}
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 2rem 3rem}
+.sec-eyebrow{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);opacity:.7;margin-bottom:.3rem}
+.sec-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:1.2rem;letter-spacing:.04em}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0}
+
+/* Score general */
+.score-hero{display:flex;align-items:center;gap:2rem;padding:1.5rem 2rem;background:var(--surface);border:1px solid rgba(240,192,0,.15);border-radius:10px;margin-bottom:2rem;flex-wrap:wrap}
+.score-circle{width:88px;height:88px;border-radius:50%;background:conic-gradient(var(--yellow) 0% 84%, rgba(255,255,255,.06) 84% 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.score-circle::after{content:'';position:absolute;inset:6px;border-radius:50%;background:var(--dark2)}
+.score-num{position:relative;z-index:1;font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--yellow);line-height:1}
+.score-info{flex:1}
+.score-label{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.score-title{font-family:var(--serif);font-size:1.1rem;color:var(--white);margin-bottom:.3rem;letter-spacing:.04em}
+.score-sub{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* Categorías */
+.categories{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+@media(max-width:600px){.categories{grid-template-columns:1fr}}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.3rem}
+.cat-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.cat-name{font-size:.82rem;font-weight:600;color:var(--white)}
+.cat-score{font-family:var(--serif);font-size:1.15rem;color:var(--yellow)}
+.progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-bottom:.7rem;overflow:hidden}
+.progress-fill{height:100%;border-radius:2px;background:var(--yellow);transition:width .5s ease}
+.progress-fill.green{background:var(--green)}
+.progress-fill.orange{background:var(--orange)}
+.progress-fill.red{background:var(--red)}
+.cat-items{display:flex;flex-direction:column;gap:.3rem}
+.cat-item{font-size:.72rem;color:var(--muted);display:flex;gap:.45rem;align-items:flex-start}
+.cat-item .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.28rem}
+.dot-green{background:var(--green)}
+.dot-yellow{background:var(--yellow)}
+.dot-orange{background:var(--orange)}
+.dot-red{background:var(--red)}
+
+/* Hallazgos */
+.findings{display:flex;flex-direction:column;gap:.55rem;margin-bottom:2rem}
+.finding{display:flex;align-items:flex-start;gap:.8rem;padding:.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.sev-badge{font-size:.58rem;font-weight:700;padding:.15rem .5rem;border-radius:3px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;margin-top:.1rem;white-space:nowrap}
+.sev-critico{background:rgba(204,51,51,.15);color:var(--red);border:1px solid rgba(204,51,51,.3)}
+.sev-alto{background:rgba(240,133,10,.12);color:var(--orange);border:1px solid rgba(240,133,10,.25)}
+.sev-medio{background:rgba(240,192,0,.08);color:var(--yellow-d);border:1px solid rgba(240,192,0,.2)}
+.sev-ok{background:rgba(58,180,100,.1);color:var(--green);border:1px solid rgba(58,180,100,.25)}
+.finding-body{flex:1}
+.finding-title{font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:.12rem}
+.finding-desc{font-size:.72rem;color:var(--muted);line-height:1.5}
+.finding-fix{font-size:.7rem;color:var(--green);margin-top:.2rem;font-style:italic}
+
+.firma{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.firma-apex{font-family:var(--serif);font-size:1rem;color:var(--yellow);letter-spacing:.06em}
+.firma-apex small{display:block;font-family:var(--sans);font-size:.6rem;color:var(--muted);font-style:normal;margin-top:.15rem;letter-spacing:.08em;text-transform:uppercase}
+.print-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--yellow);color:#000;border:none;padding:.7rem 1.4rem;border-radius:50px;font-family:var(--sans);font-size:.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(240,192,0,.25);transition:transform .2s;z-index:99;letter-spacing:.04em;text-transform:uppercase}
+.print-btn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+
+<div class="hero-header">
+  <div class="hero-inner">
+    <div>
+      <div class="apex-brand">Apex Cloud Works · Cartago, Costa Rica</div>
+      <div class="doc-eyebrow">Scorecard del proyecto</div>
+      <div class="doc-title">Auditoría técnica<br><strong>RFLX Detail</strong></div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-date">Fecha auditoría</div>
+      <div class="meta-val">Junio 2026</div>
+      <div class="meta-date" style="margin-top:.5rem">Versión</div>
+      <div class="meta-val">v2.0 — Post-fixes</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- SCORE GENERAL -->
+  <div class="score-hero">
+    <div class="score-circle">
+      <div class="score-num">84</div>
+    </div>
+    <div class="score-info">
+      <div class="score-label">Score general</div>
+      <div class="score-title">Bueno — Listo para producción</div>
+      <div class="score-sub">Los 3 críticos de seguridad y los 2 bugs funcionales más importantes fueron corregidos en esta versión. Quedan mejoras de UX menores no bloqueantes.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS -->
+  <div class="sec-eyebrow">Desglose por categoría</div>
+  <div class="sec-title">Resultados por área</div>
+  <div class="categories">
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">Seguridad</div>
+        <div class="cat-score">90/100</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:90%"></div></div>
+      <div class="cat-items">
+        <div class="cat-item"><span class="dot dot-green"></span>XSS admin panel corregido (esc() en todos los campos)</div>
+        <div class="cat-item"><span class="dot dot-green"></span>Password → hash SHA-256 (no visible en código)</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>URL Google Sheets pública — riesgo residual aceptable</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">Funcionalidad</div>
+        <div class="cat-score">88/100</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:88%"></div></div>
+      <div class="cat-items">
+        <div class="cat-item"><span class="dot dot-green"></span>Booking → Google Sheets funcionando</div>
+        <div class="cat-item"><span class="dot dot-green"></span>Tab "Hoy" — fix { once: true } aplicado</div>
+        <div class="cat-item"><span class="dot dot-green"></span>completeBooking añadido al Apps Script</div>
+        <div class="cat-item"><span class="dot dot-green"></span>Texto botón submit corregido (₡5.000)</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">UX / Mobile</div>
+        <div class="cat-score">78/100</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:78%;background:var(--yellow)"></div></div>
+      <div class="cat-items">
+        <div class="cat-item"><span class="dot dot-green"></span>Hamburger menu implementado</div>
+        <div class="cat-item"><span class="dot dot-green"></span>aria-label en WA flotante y nav IG</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Validaciones aún usan alert() nativo</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Fee ₡5.000 sin instrucciones de cobro</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">SEO</div>
+        <div class="cat-score">80/100</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:80%;background:var(--yellow)"></div></div>
+      <div class="cat-items">
+        <div class="cat-item"><span class="dot dot-green"></span>Meta description implementada</div>
+        <div class="cat-item"><span class="dot dot-green"></span>Open Graph tags (preview en WA/redes)</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Sin Schema.org LocalBusiness</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Sin H1 semántico explícito en hero</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">Performance</div>
+        <div class="cat-score">82/100</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:82%;background:var(--yellow)"></div></div>
+      <div class="cat-items">
+        <div class="cat-item"><span class="dot dot-green"></span>preconnect Google Fonts implementado</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Slideshow carga 6 imágenes en inicio</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>JS inline en index.html (no bloqueante)</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">Accesibilidad</div>
+        <div class="cat-score">75/100</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill orange" style="width:75%"></div></div>
+      <div class="cat-items">
+        <div class="cat-item"><span class="dot dot-green"></span>autocomplete en inputs del formulario</div>
+        <div class="cat-item"><span class="dot dot-green"></span>aria-label en botones principales</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Botones del calendario sin aria-label</div>
+        <div class="cat-item"><span class="dot dot-yellow"></span>Contraste de texto muted podría mejorar</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- HALLAZGOS RESUELTOS -->
+  <div class="sec-eyebrow">Corregidos en v2.0</div>
+  <div class="sec-title">Fixes aplicados</div>
+  <div class="findings">
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">XSS admin panel — esc() en todos los campos de usuario</div>
+        <div class="finding-desc">renderTable(), renderHoy(), _searchClient() y data-attributes escapados con función esc().</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">Password hardcodeado → hash SHA-256</div>
+        <div class="finding-desc">checkPassword() ahora es async y compara hash. La contraseña real nunca queda en el código fuente.</div>
+        <div class="finding-fix">⚠️ Pendiente: reemplazar HASH_AQUI con el hash de la contraseña elegida por el cliente.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">Tab "Hoy" — { once: true } removido</div>
+        <div class="finding-desc">La delegación del tab Hoy ahora usa dataset.delegated para evitar listeners duplicados sin sacrificar funcionalidad.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">completeBooking faltante en Apps Script</div>
+        <div class="finding-desc">Acción completeBooking añadida al doPost(). Ahora marcar cita como completada sincroniza correctamente con Sheets.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">Texto del botón submit perdía ₡5.000</div>
+        <div class="finding-desc">Después del envío se restaura correctamente a "CONFIRMAR CITA — ₡5.000 →".</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">Meta description + Open Graph implementados</div>
+        <div class="finding-desc">WhatsApp y redes sociales ahora muestran preview con título, descripción e imagen al compartir el link.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-ok">Resuelto</span>
+      <div class="finding-body">
+        <div class="finding-title">Hamburger menu + refs muertas JS limpias</div>
+        <div class="finding-desc">Menú hamburger implementado para mobile. Referencias a hero-photo-img/placeholder eliminadas del JS.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PENDIENTES -->
+  <div class="sec-eyebrow">Mejoras restantes</div>
+  <div class="sec-title">No bloqueantes — para sprint futuro</div>
+  <div class="findings">
+    <div class="finding">
+      <span class="sev-badge sev-medio">Medio</span>
+      <div class="finding-body">
+        <div class="finding-title">Validaciones usan alert() nativo</div>
+        <div class="finding-desc">Reemplazar por mensajes de error inline bajo cada campo para mejor UX móvil.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-medio">Medio</span>
+      <div class="finding-body">
+        <div class="finding-title">Schema.org LocalBusiness</div>
+        <div class="finding-desc">Agregar JSON-LD para mejorar aparición en Google Maps y búsquedas locales.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="sev-badge sev-medio">Medio</span>
+      <div class="finding-body">
+        <div class="finding-title">Slideshow carga todas las imágenes al inicio</div>
+        <div class="finding-desc">Implementar lazy loading en slides 2–6 para mejorar LCP.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="firma">
+    <div class="firma-apex">
+      Apex Cloud Works
+      <small>Garett Barrantes · Junio 2026</small>
+    </div>
+    <div style="font-size:.62rem;color:var(--muted);opacity:.4;text-align:right">Score calculado sobre 100 puntos en 6 categorías.</div>
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>

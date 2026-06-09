@@ -137,6 +137,19 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
 .admin-bloqueos-heading { font-size:.75rem; color:#888; margin-bottom:.45rem; }
 .admin-tag-list { display:flex; flex-wrap:wrap; gap:.35rem; }
 .admin-tag-red { background:rgba(200,50,50,.1); border:1px solid rgba(200,50,50,.3); border-radius:2px; padding:.2rem .55rem; font-size:.72rem; color:#cc3333; }
+
+/* Hamburger menu */
+.nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:.3rem; color:#f2f2f2; }
+.nav-hamburger svg { display:block; }
+.nav-mobile-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(8,8,8,.97); z-index:999; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
+.nav-mobile-menu.open { display:flex; }
+.nav-mobile-menu a { font-family:'Oswald',sans-serif; font-size:1.6rem; letter-spacing:.1em; text-transform:uppercase; color:#f2f2f2; text-decoration:none; transition:color .2s; }
+.nav-mobile-menu a:hover, .nav-mobile-menu a.nav-cta { color:var(--yellow); }
+.nav-mobile-close { position:absolute; top:1.2rem; right:1.2rem; background:none; border:none; color:#686868; font-size:1.8rem; cursor:pointer; line-height:1; }
+@media (max-width: 640px) {
+  nav ul, nav .ig-link { display:none; }
+  .nav-hamburger { display:block; }
+}
 </style>
 </head>
 <body>
@@ -152,7 +165,7 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
 </div>
 
 
-<a class="wa-float" href="https://wa.me/50670352618?text=Hola%20RFLX%20Detail!%20Quiero%20agendar%20un%20servicio%20de%20auto%20detail." target="_blank">💬</a>
+<a class="wa-float" href="https://wa.me/50670352618?text=Hola%20RFLX%20Detail!%20Quiero%20agendar%20un%20servicio%20de%20auto%20detail." target="_blank" aria-label="Contactar RFLX Detail por WhatsApp">💬</a>
 
 <!-- NAV -->
 <nav>
@@ -161,15 +174,30 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#como-funciona">¿Cómo funciona?</a></li>
     <li><a href="#testimonios">Reseñas</a></li>
-<li><a href="#agendar" class="nav-cta">Agendar</a></li>
+    <li><a href="#agendar" class="nav-cta">Agendar</a></li>
   </ul>
-  <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="ig-link">
+  <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="ig-link" aria-label="RFLX Detail en Instagram">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
     </svg>
   </a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
 </nav>
+
+<!-- Mobile menu -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+  <a href="#servicios" class="nav-mobile-link">Servicios</a>
+  <a href="#como-funciona" class="nav-mobile-link">¿Cómo funciona?</a>
+  <a href="#testimonios" class="nav-mobile-link">Reseñas</a>
+  <a href="#agendar" class="nav-cta nav-mobile-link">Agendar</a>
+  <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="nav-mobile-link">@rflxdetail</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -596,11 +624,11 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
       <div class="form-row">
         <div class="form-group">
           <label for="f-name">Nombre completo</label>
-          <input id="f-name" type="text" placeholder="Ej: Juan Pérez">
+          <input id="f-name" type="text" placeholder="Ej: Juan Pérez" autocomplete="name">
         </div>
         <div class="form-group">
           <label for="f-phone">Teléfono / WhatsApp</label>
-          <input id="f-phone" type="tel" placeholder="+506 7035-2618">
+          <input id="f-phone" type="tel" placeholder="+506 7035-2618" autocomplete="tel">
         </div>
       </div>
       <div class="form-group">
@@ -616,7 +644,7 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
             </a>
           </div>
         </label>
-        <input id="f-address" type="text" placeholder="Ingresá dirección o usá el botón 📍">
+        <input id="f-address" type="text" placeholder="Ingresá dirección o usá el botón 📍" autocomplete="street-address">
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -844,14 +872,18 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
   }, 6000);
 })();
 
-// ── Photo load handler ──
-const img = document.getElementById('hero-photo-img');
-const ph  = document.getElementById('hero-photo-placeholder');
-if(img && ph){
-  img.addEventListener('load',()=>{ ph.style.display='none'; });
-  img.addEventListener('error',()=>{ img.style.display='none'; ph.style.display='flex'; });
-  if(img.complete && img.naturalWidth>0) ph.style.display='none';
-}
+// ── Hamburger menu ──
+(function(){
+  const hamburger = document.getElementById('nav-hamburger');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+  const closeBtn = document.getElementById('nav-mobile-close');
+  if(!hamburger || !mobileMenu) return;
+  hamburger.addEventListener('click', ()=> mobileMenu.classList.add('open'));
+  closeBtn?.addEventListener('click', ()=> mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('.nav-mobile-link').forEach(a=>{
+    a.addEventListener('click', ()=> mobileMenu.classList.remove('open'));
+  });
+})();
 
 // ── Precios por vehículo ──
 const PRICES = {

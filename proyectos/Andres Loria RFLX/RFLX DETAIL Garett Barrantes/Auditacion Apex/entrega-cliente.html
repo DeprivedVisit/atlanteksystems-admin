@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Entrega · RFLX Detail · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#080808;--dark2:#111;--dark3:#1a1a1a;
+  --yellow:#f0c000;--yellow-l:#ffe040;--yellow-d:#c09800;
+  --white:#f2f2f2;--muted:#686868;--border:rgba(255,255,255,.08);
+  --surface:rgba(255,255,255,.03);--green:#3ab464;
+  --serif:'Oswald',sans-serif;--sans:'Source Sans 3',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--dark);color:var(--white);min-height:100vh}
+@media print{
+  body{background:#fff;color:#111}
+  .no-print{display:none!important}
+  .page-break{page-break-before:always}
+  .hero-header{background:#111!important}
+}
+.hero-header{
+  background:linear-gradient(135deg,#000 0%,#0f0f0f 55%,#1a1a1a 100%);
+  padding:3.5rem 3rem 3rem;color:var(--white);position:relative;overflow:hidden;
+  border-bottom:1px solid rgba(240,192,0,.15);
+}
+.hero-header::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,192,0,.04) 0%,transparent 70%);
+}
+.hero-header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(240,192,0,.4),transparent);
+}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.apex-brand{font-size:.65rem;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem}
+.doc-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);opacity:.85;margin-bottom:.4rem}
+.doc-title{font-family:var(--serif);font-size:2.4rem;font-weight:300;line-height:1.08;max-width:520px}
+.doc-title strong{font-weight:600;color:var(--yellow)}
+.doc-subtitle{margin-top:.7rem;font-size:.9rem;color:rgba(255,255,255,.45);line-height:1.6;max-width:480px}
+.hero-meta{text-align:right;min-width:180px}
+.meta-date{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.3rem}
+.meta-val{font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:.15rem}
+.meta-badge{
+  display:inline-block;margin-top:.5rem;
+  background:rgba(58,180,100,.2);border:1px solid rgba(58,180,100,.4);
+  color:var(--green);font-size:.68rem;font-weight:600;letter-spacing:.1em;
+  padding:.28rem .8rem;border-radius:50px;text-transform:uppercase;
+}
+.meta-badge.pending{background:rgba(240,192,0,.12);border-color:rgba(240,192,0,.3);color:var(--yellow)}
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 2rem 3rem}
+.sec-eyebrow{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);opacity:.7;margin-bottom:.3rem}
+.sec-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:1.2rem;letter-spacing:.04em}
+.url-cards{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.5rem}
+.url-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem}
+.url-icon{width:42px;height:42px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.url-icon.live{background:rgba(58,180,100,.1)}
+.url-icon.pending{background:rgba(240,192,0,.08)}
+.url-info{flex:1}
+.url-label{font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.url-link{font-size:.88rem;font-weight:600;color:var(--yellow);word-break:break-all}
+.url-desc{font-size:.73rem;color:var(--muted);margin-top:.1rem;line-height:1.5}
+.url-status{font-size:.62rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em}
+.status-live{background:rgba(58,180,100,.12);color:var(--green);border:1px solid rgba(58,180,100,.25)}
+.status-pending{background:rgba(240,192,0,.08);color:var(--yellow-d);border:1px solid rgba(240,192,0,.2)}
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem}
+@media(max-width:600px){.deliverables,.plans{grid-template-columns:1fr}}
+.deliverable-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.d-icon{font-size:1.4rem;line-height:1}
+.d-title{font-size:.87rem;font-weight:600;color:var(--white)}
+.d-desc{font-size:.73rem;line-height:1.58;color:var(--muted)}
+.d-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.d-chip{font-size:.58rem;font-weight:700;padding:.18rem .55rem;border-radius:3px;background:rgba(240,192,0,.07);color:var(--yellow-d);border:1px solid rgba(240,192,0,.15);text-transform:uppercase;letter-spacing:.06em}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0}
+.steps{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.5rem}
+.step{display:flex;align-items:flex-start;gap:1rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--yellow);color:#000;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+.step-body{flex:1}
+.step-title{font-size:.83rem;font-weight:600;color:var(--white);margin-bottom:.17rem}
+.step-desc{font-size:.75rem;line-height:1.55;color:var(--muted)}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2.5rem}
+.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.plan-card.featured{border-color:rgba(240,192,0,.3);box-shadow:0 4px 24px rgba(240,192,0,.06)}
+.plan-header{padding:1.2rem 1.4rem;border-bottom:1px solid var(--border)}
+.plan-header.featured-bg{background:rgba(240,192,0,.04)}
+.plan-badge{font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.16rem .55rem;border-radius:3px;background:var(--yellow);color:#000;display:inline-block;margin-bottom:.5rem}
+.plan-name{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--white);letter-spacing:.04em}
+.plan-price{font-family:var(--serif);font-size:1.8rem;font-weight:600;color:var(--yellow);line-height:1;margin:.4rem 0 .15rem}
+.plan-price span{font-size:.78rem;font-weight:300;color:var(--muted)}
+.plan-items{padding:1.1rem 1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.plan-item{font-size:.74rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
+.plan-item::before{content:'✓';color:var(--green);font-weight:700;font-size:.68rem;margin-top:.06rem;flex-shrink:0}
+.garantia{background:rgba(240,192,0,.03);border:1px solid rgba(240,192,0,.12);border-radius:8px;padding:1.5rem 1.8rem;margin-bottom:2.5rem}
+.garantia-title{font-family:var(--serif);font-size:1rem;color:var(--white);margin-bottom:.7rem;letter-spacing:.04em}
+.garantia-items{display:flex;flex-direction:column;gap:.45rem}
+.g-item{font-size:.79rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start}
+.g-item::before{content:'•';color:var(--yellow);font-weight:700;flex-shrink:0}
+.contact-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.contact-card{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem}
+.contact-label{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.contact-val{font-size:.85rem;font-weight:600;color:var(--white)}
+.contact-sub{font-size:.71rem;color:var(--muted);margin-top:.1rem}
+.firma{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.firma-apex{font-family:var(--serif);font-size:1rem;color:var(--yellow);letter-spacing:.06em}
+.firma-apex small{display:block;font-family:var(--sans);font-size:.6rem;color:var(--muted);font-style:normal;margin-top:.15rem;letter-spacing:.08em;text-transform:uppercase}
+.firma-disclaimer{font-size:.62rem;color:var(--muted);opacity:.4;text-align:right;max-width:260px;line-height:1.5}
+.print-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--yellow);color:#000;border:none;padding:.7rem 1.4rem;border-radius:50px;font-family:var(--sans);font-size:.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(240,192,0,.25);transition:transform .2s,box-shadow .2s;z-index:99;letter-spacing:.04em;text-transform:uppercase}
+.print-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(240,192,0,.35)}
+</style>
+</head>
+<body>
+
+<div class="hero-header">
+  <div class="hero-inner">
+    <div>
+      <div class="apex-brand">Apex Cloud Works · Cartago, Costa Rica</div>
+      <div class="doc-eyebrow">Documento de entrega</div>
+      <div class="doc-title">Landing Page <strong>RFLX Detail</strong><br>Auto Detail Premium</div>
+      <div class="doc-subtitle">Todo lo entregado, URLs en producción y próximos pasos para Andrés Loría.</div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-date">Fecha de entrega</div>
+      <div class="meta-val">Junio 2026</div>
+      <div class="meta-date" style="margin-top:.5rem">Cliente</div>
+      <div class="meta-val">Andrés Loría · RFLX Detail</div>
+      <div class="meta-badge">✓ Listo para producción</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- URLs -->
+  <div class="sec-eyebrow">Entregables</div>
+  <div class="sec-title">Tu sitio está listo</div>
+  <div class="url-cards">
+    <div class="url-card">
+      <div class="url-icon live">🌐</div>
+      <div class="url-info">
+        <div class="url-label">Landing principal — RFLX Detail</div>
+        <div class="url-link">rflxdetail.com</div>
+        <div class="url-desc">Landing completa con sistema de citas online, panel admin, servicios con precios por vehículo y galería de reels.</div>
+      </div>
+      <span class="url-status status-live">Live ✓</span>
+    </div>
+    <div class="url-card">
+      <div class="url-icon live">⚙️</div>
+      <div class="url-info">
+        <div class="url-label">Panel de administración — Citas</div>
+        <div class="url-link">rflxdetail.com → 5 clics en logo</div>
+        <div class="url-desc">Panel privado con agenda completa, bloqueo de días/horas, estadísticas de ingresos y exportación CSV.</div>
+      </div>
+      <span class="url-status status-live">Activo ✓</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- QUÉ SE ENTREGÓ -->
+  <div class="sec-eyebrow">Qué se construyó</div>
+  <div class="sec-title">Resumen de entrega</div>
+  <div class="deliverables">
+
+    <div class="deliverable-card">
+      <div class="d-icon">🖥️</div>
+      <div class="d-title">Landing de captación RFLX</div>
+      <div class="d-desc">Página completa con hero con slideshow dinámico, galería de reels de Instagram, selector de vehículo con precios en tiempo real, sección "Cómo funciona" y testimonios.</div>
+      <div class="d-chips">
+        <span class="d-chip">Mobile-first</span>
+        <span class="d-chip">WhatsApp integrado</span>
+        <span class="d-chip">Dark premium</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📅</div>
+      <div class="d-title">Sistema de citas online</div>
+      <div class="d-desc">Calendario mensual completo con selección de hora (7AM–3PM, intervalos 30min). Sincronización automática con Google Sheets. Confirmación por WhatsApp con resumen completo.</div>
+      <div class="d-chips">
+        <span class="d-chip">Google Sheets sync</span>
+        <span class="d-chip">WA automático</span>
+        <span class="d-chip">Bloqueos de agenda</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">⚙️</div>
+      <div class="d-title">Panel admin privado</div>
+      <div class="d-desc">Dashboard con estadísticas (citas hoy, semana, ingresos estimados). Tabs: todas las citas, hoy, clientes, bloqueos. Acciones por cita: WA, recordatorio, completar, cancelar, nota interna. Exportar CSV.</div>
+      <div class="d-chips">
+        <span class="d-chip">Stats en tiempo real</span>
+        <span class="d-chip">Export CSV</span>
+        <span class="d-chip">Bloqueo días/horas</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">🚗</div>
+      <div class="d-title">Menú de servicios con precios</div>
+      <div class="d-desc">Selector de vehículo (Sedán/SUV/XL/Moto) que actualiza todos los precios en tiempo real. Línea de Lavados (Entry/Popular/Premium) + 5 servicios especializados. Botón "Agendar" por servicio.</div>
+      <div class="d-chips">
+        <span class="d-chip">Precios por vehículo</span>
+        <span class="d-chip">8 servicios</span>
+        <span class="d-chip">Animación flash</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📱</div>
+      <div class="d-title">Optimización móvil completa</div>
+      <div class="d-desc">Diseñada mobile-first. Menú hamburger en pantallas pequeñas, botón WhatsApp siempre visible, formulario adaptable, calendario touch-friendly. Probada en iPhone y Android.</div>
+      <div class="d-chips">
+        <span class="d-chip">Responsive</span>
+        <span class="d-chip">Hamburger menu</span>
+        <span class="d-chip">Touch-friendly</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">☁️</div>
+      <div class="d-title">Deploy en AWS CloudFront</div>
+      <div class="d-desc">Hosting en Amazon Web Services: S3 para almacenamiento, CloudFront como CDN global con SSL incluido. Carga en menos de 2 segundos desde cualquier punto de Costa Rica.</div>
+      <div class="d-chips">
+        <span class="d-chip">HTTPS / SSL</span>
+        <span class="d-chip">CDN global</span>
+        <span class="d-chip">99.9% uptime</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CÓMO PEDIR CAMBIOS -->
+  <div class="sec-eyebrow">Proceso de trabajo</div>
+  <div class="sec-title">Cómo solicitar cambios</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Me escribís por WhatsApp</div>
+        <div class="step-desc">Describís el cambio que querés: precio, texto, servicio nuevo, imagen. Cambios menores (texto, número, color) o mayores (nueva sección, nuevo servicio).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Cotizo si aplica</div>
+        <div class="step-desc">Cambios incluidos en el plan se aplican sin costo extra. Cambios mayores fuera del alcance se cotizan por separado antes de ejecutar.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Implemento y te aviso</div>
+        <div class="step-desc">Tiempo de respuesta: 24–48h para cambios menores. Tenés 2 revisiones incluidas en el proyecto.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Deploy automático</div>
+        <div class="step-desc">Los cambios se suben a producción y el CDN se invalida automáticamente. Ves el resultado en tu dominio en minutos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PLANES -->
+  <div class="sec-eyebrow">Continuidad</div>
+  <div class="sec-title">Plan de mantenimiento</div>
+  <div class="plans">
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-name">Sin plan</div>
+        <div class="plan-price">$0 <span>/ mes</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Sitio funciona tal cual</div>
+        <div class="plan-item">Sin cambios incluidos</div>
+        <div class="plan-item">Soporte solo por consulta</div>
+      </div>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-header featured-bg">
+        <div class="plan-badge">Recomendado</div>
+        <div class="plan-name">Plan Trimestral</div>
+        <div class="plan-price">$300 <span>/ 3 meses</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Hosting AWS incluido</div>
+        <div class="plan-item">Hasta 4 cambios de contenido / mes</div>
+        <div class="plan-item">Actualizaciones de precios y servicios</div>
+        <div class="plan-item">Soporte WhatsApp directo</div>
+        <div class="plan-item">Monitoreo de disponibilidad</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- GARANTÍA -->
+  <div class="garantia">
+    <div class="garantia-title">Garantía Apex Cloud Works</div>
+    <div class="garantia-items">
+      <div class="g-item">Si algo falla dentro de los 30 días post-entrega por un error de mi parte, lo corrijo sin costo.</div>
+      <div class="g-item">Tenés 2 revisiones incluidas. Podés usarlas cuando quieras dentro del primer mes.</div>
+      <div class="g-item">El código es tuyo. Si algún día querés cambiar de proveedor, te entrego todo.</div>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="sec-eyebrow">Contacto directo</div>
+  <div class="sec-title">Estoy disponible</div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-val">+506 6314-4171</div>
+      <div class="contact-sub">Garett · Apex Cloud Works</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Email</div>
+      <div class="contact-val">apexcloudworkscompany@gmail.com</div>
+      <div class="contact-sub">Respuesta en menos de 24h</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Dominio</div>
+      <div class="contact-val">apexcloudworkscompany.com</div>
+      <div class="contact-sub">Cartago, Costa Rica</div>
+    </div>
+  </div>
+
+  <div class="firma">
+    <div class="firma-apex">
+      Apex Cloud Works
+      <small>Garett Barrantes · Junio 2026</small>
+    </div>
+    <div class="firma-disclaimer">Documento de entrega confidencial. Solo para uso interno del cliente.</div>
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>
