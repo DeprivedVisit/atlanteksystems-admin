@@ -184,11 +184,13 @@ async function sendToWebhook() {
   sending.style.display = 'flex';
 
   try {
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    if (!WEBHOOK_URL.includes('YOUR_N8N_INSTANCE')) {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
     sending.style.display = 'none';
     success.style.display = 'flex';
   } catch {
