@@ -31,9 +31,15 @@ const WEBHOOK_URL = 'https://YOUR_N8N_INSTANCE/webhook/ecopollo-leads';
 })();
 
 const PRECIOS = {
-  'Pollo entero': 1950,
-  'Pechuga deshuesada': 3025,
-  'Muslo entero': 1475
+  'Pollo entero':        1950,
+  'Pollo limpio':        2100,
+  'Pechuga con hueso':   2800,
+  'Pechuga deshuesada':  3025,
+  'Muslo entero':        1475,
+  'Cuarto de muslo':     1800,
+  'Muslito de muslo':    2650,
+  'Ala entera':          2250,
+  'Trocito corriente':   1800
 };
 
 const WA_PHONE = '50688880000';
@@ -90,9 +96,15 @@ function updateProgress() {
 
 // ── PRODUCT PHOTO MAP ──
 const PROD_IMGS = {
-  'Pollo entero':       'fondo/pexels-hariprasad-ce-512756904-34797333.jpg',
-  'Pechuga deshuesada': 'fondo/pexels-einfoto-2209439.jpg',
-  'Muslo entero':       'fondo/pexels-goumbik-616353.jpg'
+  'Pollo entero':       'fondo/pexels-goumbik-616353.jpg',
+  'Pollo limpio':       'fondo/pexels-andres-carrera-189555109-11414300.jpg',
+  'Pechuga con hueso':  'fondo/pexels-abhijith-ts-33843905-24973405.jpg',
+  'Pechuga deshuesada': 'fondo/pexels-alleksana-6107764.jpg',
+  'Muslo entero':       'fondo/pexels-tahir-33328012.jpg',
+  'Cuarto de muslo':    'fondo/pexels-arti-tic-1675363189-34110265.jpg',
+  'Muslito de muslo':   'fondo/muslito-muslo.jpg',
+  'Ala entera':         'fondo/ala-entera.jpg',
+  'Trocito corriente':  'fondo/pexels-ivandesignx-29887688.jpg'
 };
 
 function updateProdBanner(nombre, precio) {
