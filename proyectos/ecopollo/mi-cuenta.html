@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#091509">
+<title>Mi Cuenta — EcoPollo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#f0c300; --gold-dark:#c9a200;
+  --green:#1b4332; --green-mid:#2d6a4f;
+  --bg:#091509; --bg2:#0e1f0e;
+  --glass:rgba(8,26,8,.58);
+  --glass-b:rgba(255,255,255,.11);
+  --blur:blur(22px);
+  --txt:#f0ede8; --txt-soft:rgba(240,237,232,.45);
+  --border:rgba(255,255,255,.08);
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:64px;
+  background:rgba(9,21,9,.92);backdrop-filter:var(--blur);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-brand-img{width:36px;height:36px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;}
+.nav-brand-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#fff;}
+.nav-back{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 18px;border:1px solid rgba(255,255,255,.12);border-radius:50px;
+  color:rgba(255,255,255,.65);text-decoration:none;font-size:.8rem;font-weight:600;
+  transition:all .2s;
+}
+.nav-back:hover{border-color:rgba(240,195,0,.4);color:var(--gold);}
+
+/* ── PAGE ── */
+.page{max-width:720px;margin:0 auto;padding:100px 20px 60px;}
+
+/* ── HEADER ── */
+.acc-head{
+  display:flex;align-items:center;gap:18px;
+  background:var(--glass);backdrop-filter:var(--blur);
+  border:1px solid var(--glass-b);border-radius:20px;
+  padding:24px 26px;margin-bottom:20px;
+}
+.acc-avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--green),var(--green-mid));
+  border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--gold);
+  flex-shrink:0;
+}
+.acc-info{flex:1;}
+.acc-name{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;}
+.acc-correo{font-size:.78rem;color:var(--txt-soft);margin-top:3px;}
+.acc-tel{font-size:.78rem;color:var(--txt-soft);}
+.acc-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(240,195,0,.1);border:1px solid rgba(240,195,0,.2);
+  color:var(--gold);font-size:.65rem;font-weight:700;
+  padding:3px 10px;border-radius:50px;margin-top:8px;text-transform:uppercase;letter-spacing:.07em;
+}
+.btn-logout{
+  padding:8px 18px;border:1px solid rgba(239,68,68,.2);border-radius:10px;
+  background:none;color:rgba(239,68,68,.6);font-family:inherit;font-size:.78rem;font-weight:700;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.btn-logout:hover{border-color:rgba(239,68,68,.5);color:#f87171;}
+
+/* ── SECTION ── */
+.section-card{
+  background:var(--glass);backdrop-filter:var(--blur);
+  border:1px solid var(--glass-b);border-radius:var(--r);
+  overflow:hidden;margin-bottom:16px;
+}
+.section-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.section-hd-title{
+  font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:#fff;
+}
+.section-body{padding:20px 22px;}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg.full{grid-column:1/-1;}
+.fg label{font-size:.68rem;font-weight:700;color:var(--txt-soft);text-transform:uppercase;letter-spacing:.08em;}
+.fg input,.fg select{
+  padding:11px 14px;
+  background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:10px;color:#fff;
+  font-family:inherit;font-size:.88rem;outline:none;
+  transition:border-color .2s;
+}
+.fg input:focus,.fg select:focus{border-color:var(--gold);}
+.fg select option{background:#0a180a;}
+.btn-save{
+  margin-top:16px;padding:12px 28px;
+  background:var(--gold);color:var(--green);
+  border:none;border-radius:10px;
+  font-family:inherit;font-size:.88rem;font-weight:800;
+  cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 16px rgba(240,195,0,.2);
+}
+.btn-save:hover{background:#fff;transform:translateY(-1px);}
+.form-msg{font-size:.78rem;min-height:18px;margin-top:10px;}
+.form-msg.ok{color:#86efac;}
+.form-msg.err{color:#fca5a5;}
+
+/* ── HISTORIAL ── */
+.hist-item{
+  padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05);
+}
+.hist-item:last-child{border-bottom:none;}
+.hist-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.hist-id{font-size:.68rem;color:var(--txt-soft);font-family:monospace;}
+.hist-fecha{font-size:.7rem;color:var(--txt-soft);}
+.hist-prods{font-size:.82rem;color:rgba(255,255,255,.7);margin-bottom:8px;line-height:1.5;}
+.hist-foot{display:flex;align-items:center;justify-content:space-between;}
+.hist-total{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--gold);}
+.hist-estado{display:inline-flex;align-items:center;padding:3px 10px;border-radius:50px;font-size:.68rem;font-weight:700;}
+.he-proceso{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.2);}
+.he-entregado{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2);}
+.he-camino{background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.2);}
+.he-cancelado{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.hist-zona{font-size:.72rem;color:var(--txt-soft);}
+.no-hist{text-align:center;padding:32px 0;color:var(--txt-soft);}
+.no-hist-icon{font-size:2rem;margin-bottom:8px;opacity:.5;}
+
+/* ── NO AUTH ── */
+.no-auth{text-align:center;padding:80px 20px;}
+.na-icon{font-size:3rem;margin-bottom:16px;opacity:.5;}
+.na-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.na-sub{font-size:.85rem;color:var(--txt-soft);margin-bottom:24px;}
+.btn-go-home{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;background:var(--gold);color:var(--green);
+  border-radius:12px;text-decoration:none;
+  font-family:inherit;font-size:.9rem;font-weight:800;
+}
+
+@media(max-width:580px){
+  nav{padding:0 16px;}
+  .page{padding:90px 14px 40px;}
+  .acc-head{flex-wrap:wrap;gap:14px;}
+  .form-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img class="nav-brand-img" src="logo.jpg" alt="EcoPollo" onerror="this.style.display='none'">
+    <span class="nav-brand-name">EcoPollo</span>
+  </a>
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+
+<div class="page" id="pageContent">
+  <div class="no-auth" id="noAuth" style="display:none;">
+    <div class="na-icon">🔒</div>
+    <div class="na-title">Iniciá sesión primero</div>
+    <div class="na-sub">Necesitás una cuenta para ver tu perfil e historial.</div>
+    <a href="index.html" class="btn-go-home">← Ir al inicio</a>
+  </div>
+
+  <div id="authContent" style="display:none;">
+    <!-- HEADER PERFIL -->
+    <div class="acc-head">
+      <div class="acc-avatar" id="accAvatar">G</div>
+      <div class="acc-info">
+        <div class="acc-name" id="accName">—</div>
+        <div class="acc-correo" id="accCorreo">—</div>
+        <div class="acc-tel" id="accTel">—</div>
+        <div class="acc-badge" id="accTipo">Personal</div>
+      </div>
+      <button class="btn-logout" onclick="cerrarSesion()">↩ Cerrar sesión</button>
+    </div>
+
+    <!-- DATOS PERSONALES -->
+    <div class="section-card">
+      <div class="section-hd">
+        <div class="section-hd-title">📋 Mis datos</div>
+      </div>
+      <div class="section-body">
+        <div class="form-grid">
+          <div class="fg"><label>Nombre completo</label><input type="text" id="editNombre"></div>
+          <div class="fg"><label>Teléfono</label><input type="tel" id="editTel"></div>
+          <div class="fg"><label>Zona</label>
+            <select id="editZona">
+              <option value="">Seleccioná zona</option>
+              <option>Cartago Centro</option>
+              <option>San José Centro</option>
+              <option>Heredia</option>
+              <option>Alajuela</option>
+              <option>Limón</option>
+              <option>Otra zona</option>
+            </select>
+          </div>
+          <div class="fg"><label>Tipo de cliente</label>
+            <select id="editTipo">
+              <option value="Personal">Personal</option>
+              <option value="Restaurante">Restaurante</option>
+              <option value="Sodas">Sodas</option>
+              <option value="Carnicería">Carnicería</option>
+              <option value="Mayorista">Mayorista</option>
+            </select>
+          </div>
+          <div class="fg full"><label>Dirección de entrega</label><input type="text" id="editDir" placeholder="Barrio, señas, referencia..."></div>
+        </div>
+        <button class="btn-save" onclick="guardarPerfil()">Guardar cambios</button>
+        <div class="form-msg" id="perfilMsg"></div>
+      </div>
+    </div>
+
+    <!-- HISTORIAL -->
+    <div class="section-card">
+      <div class="section-hd">
+        <div class="section-hd-title">📦 Historial de pedidos</div>
+      </div>
+      <div class="section-body" id="histBody">
+        <div class="no-hist">
+          <div class="no-hist-icon">📭</div>
+          <div>Cargando historial…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = '';   // <-- misma URL del apps script
+
+function getSession(){
+  try{ return JSON.parse(localStorage.getItem('ep_session')||'null'); }catch{ return null; }
+}
+function saveSession(u){ localStorage.setItem('ep_session', JSON.stringify(u)); }
+function clearSession(){ localStorage.removeItem('ep_session'); }
+function cerrarSesion(){ clearSession(); window.location.href='index.html'; }
+
+var session = getSession();
+
+if(!session){
+  document.getElementById('noAuth').style.display = 'block';
+} else {
+  document.getElementById('authContent').style.display = 'block';
+  poblarPerfil(session);
+  cargarHistorial(session.correo);
+}
+
+function poblarPerfil(u){
+  document.getElementById('accAvatar').textContent = u.nombre.charAt(0).toUpperCase();
+  document.getElementById('accName').textContent   = u.nombre;
+  document.getElementById('accCorreo').textContent = u.correo;
+  document.getElementById('accTel').textContent    = u.telefono || 'Sin teléfono';
+  document.getElementById('accTipo').textContent   = u.tipo || 'Personal';
+  document.getElementById('editNombre').value      = u.nombre || '';
+  document.getElementById('editTel').value         = u.telefono || '';
+  document.getElementById('editZona').value        = u.zona || '';
+  document.getElementById('editTipo').value        = u.tipo || 'Personal';
+  document.getElementById('editDir').value         = u.direccion || '';
+}
+
+function guardarPerfil(){
+  var u = getSession();
+  if(!u) return;
+  u.nombre    = document.getElementById('editNombre').value.trim();
+  u.telefono  = document.getElementById('editTel').value.trim();
+  u.zona      = document.getElementById('editZona').value;
+  u.tipo      = document.getElementById('editTipo').value;
+  u.direccion = document.getElementById('editDir').value.trim();
+  saveSession(u);
+  poblarPerfil(u);
+  var msg = document.getElementById('perfilMsg');
+  msg.className = 'form-msg ok';
+  msg.textContent = '✓ Datos guardados localmente.';
+  setTimeout(function(){ msg.textContent=''; }, 3000);
+}
+
+function cargarHistorial(correo){
+  var body = document.getElementById('histBody');
+  if(!APPS_SCRIPT_URL){
+    body.innerHTML='<div class="no-hist"><div class="no-hist-icon">📭</div><div>El historial estará disponible una vez configurado el servicio.</div></div>';
+    return;
+  }
+  fetch(APPS_SCRIPT_URL+'?accion=historial&correo='+encodeURIComponent(correo))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d.success||!d.pedidos.length){
+        body.innerHTML='<div class="no-hist"><div class="no-hist-icon">📭</div><div>Aún no tenés pedidos.</div></div>';
+        return;
+      }
+      body.innerHTML = d.pedidos.map(function(p){
+        var est = p.estado||'En proceso';
+        var cls = est==='Entregado'?'he-entregado':est==='Cancelado'?'he-cancelado':est==='En camino'?'he-camino':'he-proceso';
+        return '<div class="hist-item">'
+          +'<div class="hist-top">'
+          +'<span class="hist-id">'+p.id+'</span>'
+          +'<span class="hist-fecha">'+new Date(p.fecha).toLocaleDateString('es-CR')+'</span>'
+          +'</div>'
+          +'<div class="hist-prods">'+p.productos+'</div>'
+          +'<div class="hist-foot">'
+          +'<div>'
+          +'<div class="hist-total">₡'+Number(p.total).toLocaleString('es-CR')+'</div>'
+          +(p.zona?'<div class="hist-zona">📍 '+p.zona+(p.direccion?' · '+p.direccion:'')+'</div>':'')
+          +'</div>'
+          +'<span class="hist-estado '+cls+'">'+est+'</span>'
+          +'</div>'
+          +'</div>';
+      }).join('');
+    }).catch(function(){
+      body.innerHTML='<div class="no-hist"><div class="no-hist-icon">⚠️</div><div>No se pudo cargar el historial.</div></div>';
+    });
+}
+</script>
+</body>
+</html>

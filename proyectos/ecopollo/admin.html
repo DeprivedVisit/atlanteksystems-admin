@@ -305,6 +305,63 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .dot-carn{background:#fb923c;}
 .dot-may{background:#60a5fa;}
 
+/* PEDIDOS / USUARIOS TABS */
+.section-precios{display:block;}
+.section-pedidos{display:none;}
+.section-usuarios{display:none;}
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;}
+.sc-label{font-size:.68rem;font-weight:700;color:var(--txt-soft);text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px;}
+.sc-val{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:700;color:var(--d);}
+.sc-sub{font-size:.7rem;color:var(--txt-soft);margin-top:3px;}
+.estado-badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:50px;font-size:.68rem;font-weight:700;}
+.est-proceso{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.2);}
+.est-entregado{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2);}
+.est-cancelado{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.est-camino{background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.2);}
+.estado-sel{
+  padding:3px 8px;background:transparent;border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;font-family:inherit;font-size:.72rem;color:var(--txt-mid);
+  outline:none;cursor:pointer;
+}
+.estado-sel option{background:#0d1a0f;}
+.tb-accion-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 10px;border:1px solid var(--border);border-radius:6px;
+  background:none;color:var(--txt-soft);font-family:inherit;font-size:.72rem;
+  cursor:pointer;transition:all .15s;
+}
+.tb-accion-btn:hover{border-color:rgba(255,255,255,.2);color:var(--txt-mid);}
+.u-activo{color:#4ade80;font-size:.8rem;font-weight:700;}
+.u-inactivo{color:#f87171;font-size:.8rem;font-weight:700;}
+.toggle-btn{
+  padding:4px 12px;border-radius:6px;border:none;
+  font-family:inherit;font-size:.72rem;font-weight:700;
+  cursor:pointer;transition:all .15s;
+}
+.toggle-on{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.toggle-on:hover{background:rgba(239,68,68,.25);}
+.toggle-off{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2);}
+.toggle-off:hover{background:rgba(74,222,128,.22);}
+.loading-txt{text-align:center;padding:40px;color:var(--txt-soft);font-size:.85rem;}
+.as-notice{
+  background:rgba(240,195,0,.06);border:1px solid rgba(240,195,0,.15);
+  border-radius:10px;padding:12px 16px;margin-bottom:16px;
+  font-size:.78rem;color:var(--txt-soft);
+}
+.as-notice strong{color:var(--d);}
+.as-url-inp{
+  width:100%;margin-top:8px;
+  padding:10px 14px;background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(240,195,0,.25);border-radius:8px;
+  font-family:inherit;font-size:.82rem;color:var(--txt);outline:none;
+}
+.as-url-inp:focus{border-color:var(--d);}
+.btn-guardar-url{
+  margin-top:8px;padding:8px 18px;
+  background:var(--d);color:var(--v);border:none;border-radius:8px;
+  font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;
+}
 /* RESPONSIVE */
 @media(max-width:680px){
   .tbt span{display:none;}
@@ -315,6 +372,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
   .ptable td,.ptable th{padding:7px 8px;}
   .price-inp{width:90px;}
   .topbar{padding:0 14px;}
+  .stat-cards{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -361,25 +419,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
     </div>
     <div class="tb-divider"></div>
     <div class="tb-tabs">
-      <button class="tbt active" id="tab-ND-LOCAL" onclick="setCat('ND-LOCAL',this)">
-        <span class="tier-dot dot-nd"></span><span>ND-Local</span>
+      <button class="tbt active" id="mainTab-precios" onclick="setMainTab('precios',this)">
+        🐔 <span>Precios</span>
       </button>
-      <button class="tbt" id="tab-CARNICERIA" onclick="setCat('CARNICERIA',this)">
-        <span class="tier-dot dot-carn"></span><span>Carnicería</span>
+      <button class="tbt" id="mainTab-pedidos" onclick="setMainTab('pedidos',this)">
+        📦 <span>Pedidos</span>
       </button>
-      <button class="tbt" id="tab-MAYORISTA" onclick="setCat('MAYORISTA',this)">
-        <span class="tier-dot dot-may"></span><span>Mayorista</span>
+      <button class="tbt" id="mainTab-usuarios" onclick="setMainTab('usuarios',this)">
+        👥 <span>Usuarios</span>
       </button>
     </div>
-    <div class="tb-right">
+    <div class="tb-right" id="preciosActions">
       <button class="tb-btn" id="btnEdit" onclick="toggleEdit()">✏️ <span>Editar</span></button>
       <button class="tb-btn tb-btn-pdf" onclick="generarPDF()">📄 <span>PDF</span></button>
+      <button class="tb-btn tb-btn-out" onclick="doLogout()">↩ <span>Salir</span></button>
+    </div>
+    <div class="tb-right" id="otherActions" style="display:none;">
+      <button class="tb-btn" onclick="recargarSeccion()">↻ <span>Recargar</span></button>
       <button class="tb-btn tb-btn-out" onclick="doLogout()">↩ <span>Salir</span></button>
     </div>
   </div>
 
   <!-- BODY -->
   <div class="app-body">
+
+    <!-- ══ PRECIOS SECTION ══ -->
+    <div class="section-precios" id="sectionPrecios">
+
+    <!-- SUB TABS para precios -->
+    <div style="display:flex;gap:6px;margin-bottom:14px;">
+      <button class="tbt active" id="tab-ND-LOCAL" onclick="setCat('ND-LOCAL',this)" style="font-size:.78rem;padding:6px 12px;">
+        <span class="tier-dot dot-nd"></span><span>ND-Local</span>
+      </button>
+      <button class="tbt" id="tab-CARNICERIA" onclick="setCat('CARNICERIA',this)" style="font-size:.78rem;padding:6px 12px;">
+        <span class="tier-dot dot-carn"></span><span>Carnicería</span>
+      </button>
+      <button class="tbt" id="tab-MAYORISTA" onclick="setCat('MAYORISTA',this)" style="font-size:.78rem;padding:6px 12px;">
+        <span class="tier-dot dot-may"></span><span>Mayorista</span>
+      </button>
+    </div>
 
     <!-- META -->
     <div class="meta-strip">
@@ -416,11 +494,47 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 
     <!-- TABLE -->
     <div id="mainWrap"></div>
-  </div>
 
-</div>
+    </div><!-- /section-precios -->
 
-<!-- SAVE TOAST -->
+    <!-- ══ PEDIDOS SECTION ══ -->
+    <div class="section-pedidos" id="sectionPedidos">
+      <div class="as-notice">
+        <strong>Apps Script URL</strong> — necesaria para cargar pedidos y usuarios del Google Sheet.
+        <input class="as-url-inp" type="url" id="asUrlInput" placeholder="https://script.google.com/macros/s/..." value="">
+        <button class="btn-guardar-url" onclick="guardarAsUrl()">Guardar URL</button>
+      </div>
+      <div class="stat-cards" id="statCards">
+        <div class="stat-card"><div class="sc-label">Total pedidos</div><div class="sc-val" id="scPedidos">—</div></div>
+        <div class="stat-card"><div class="sc-label">Pendientes</div><div class="sc-val" id="scPendientes">—</div></div>
+        <div class="stat-card"><div class="sc-label">Total clientes</div><div class="sc-val" id="scUsuarios">—</div></div>
+        <div class="stat-card"><div class="sc-label">Ingresos</div><div class="sc-val" id="scRevenue">—</div></div>
+      </div>
+      <div class="search-row">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchPedidos" placeholder="Buscar por nombre, correo o ID…" oninput="renderPedidos()">
+        </div>
+      </div>
+      <div id="pedidosWrap"><div class="loading-txt">Cargá la URL del Apps Script para ver pedidos.</div></div>
+    </div>
+
+    <!-- ══ USUARIOS SECTION ══ -->
+    <div class="section-usuarios" id="sectionUsuarios">
+      <div class="search-row">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchUsuarios" placeholder="Buscar por nombre, correo o zona…" oninput="renderUsuarios()">
+        </div>
+      </div>
+      <div id="usuariosWrap"><div class="loading-txt">Cargá la URL del Apps Script para ver usuarios.</div></div>
+    </div>
+
+  </div><!-- /app-body -->
+
+</div><!-- /appScreen -->
+
+<!-- SAVE TOAST (solo visible en pestaña Precios) -->
 <div class="save-toast" id="saveToast">
   <span class="save-toast-txt">⚠️ <strong>Cambios sin guardar</strong></span>
   <button class="st-save" onclick="guardar()">💾 Guardar</button>
@@ -812,11 +926,180 @@ function generarPDF(){
   setTimeout(function(){v.print();},800);
 }
 
+/* ══ MAIN TABS ══ */
+var ADMIN_TOKEN = 'epAdmin2026';
+var asUrl = localStorage.getItem('ep-as-url') || '';
+var allPedidos = [], allUsuarios = [];
+var mainTabAct = 'precios';
+
+function setMainTab(tab, btn) {
+  mainTabAct = tab;
+  document.querySelectorAll('[id^="mainTab-"]').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('sectionPrecios').style.display  = tab==='precios'  ? 'block' : 'none';
+  document.getElementById('sectionPedidos').style.display  = tab==='pedidos'  ? 'block' : 'none';
+  document.getElementById('sectionUsuarios').style.display = tab==='usuarios' ? 'block' : 'none';
+  document.getElementById('preciosActions').style.display  = tab==='precios'  ? 'flex'  : 'none';
+  document.getElementById('otherActions').style.display    = tab!=='precios'  ? 'flex'  : 'none';
+  if(tab==='pedidos')  cargarPedidos();
+  if(tab==='usuarios') cargarUsuarios();
+}
+
+function guardarAsUrl(){
+  var v = document.getElementById('asUrlInput').value.trim();
+  asUrl = v;
+  if(v) localStorage.setItem('ep-as-url', v);
+  cargarStats();
+  cargarPedidos();
+}
+
+function recargarSeccion(){
+  if(mainTabAct==='pedidos')  cargarPedidos();
+  if(mainTabAct==='usuarios') cargarUsuarios();
+}
+
+/* ── STATS ── */
+function cargarStats(){
+  if(!asUrl) return;
+  fetch(asUrl+'?accion=stats&adminToken='+ADMIN_TOKEN)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d.success) return;
+      document.getElementById('scPedidos').textContent  = d.totalPedidos;
+      document.getElementById('scPendientes').textContent= d.pendientes;
+      document.getElementById('scUsuarios').textContent  = d.totalUsers;
+      document.getElementById('scRevenue').textContent   = '₡'+Math.round(d.totalRevenue).toLocaleString('es-CR');
+    }).catch(function(){});
+}
+
+/* ── PEDIDOS ── */
+function cargarPedidos(){
+  var wrap = document.getElementById('pedidosWrap');
+  if(!asUrl){
+    wrap.innerHTML='<div class="loading-txt">Guardá la URL del Apps Script primero.</div>';
+    return;
+  }
+  document.getElementById('asUrlInput').value = asUrl;
+  wrap.innerHTML='<div class="loading-txt">⏳ Cargando pedidos…</div>';
+  cargarStats();
+  fetch(asUrl+'?accion=admin_pedidos&adminToken='+ADMIN_TOKEN)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d.success){ wrap.innerHTML='<div class="loading-txt">Error: '+d.error+'</div>'; return; }
+      allPedidos = d.pedidos || [];
+      renderPedidos();
+    }).catch(function(e){ wrap.innerHTML='<div class="loading-txt">Error de conexión.</div>'; });
+}
+
+function renderPedidos(){
+  var q = (document.getElementById('searchPedidos').value||'').toLowerCase();
+  var list = q ? allPedidos.filter(function(p){
+    return (p.nombre+p.correo+p.id+p.telefono).toLowerCase().indexOf(q)!==-1;
+  }) : allPedidos;
+  var wrap = document.getElementById('pedidosWrap');
+  if(!list.length){ wrap.innerHTML='<div class="loading-txt">Sin pedidos.</div>'; return; }
+  var html='<table class="ptable"><thead><tr>'
+    +'<th>ID</th><th>Fecha</th><th>Cliente</th><th>Productos</th><th>Total</th><th>Zona</th><th>Estado</th><th>Acción</th>'
+    +'</tr></thead><tbody>';
+  list.forEach(function(p){
+    var est = p.estado||'En proceso';
+    var cls = est==='Entregado'?'est-entregado':est==='Cancelado'?'est-cancelado':est==='En camino'?'est-camino':'est-proceso';
+    html+='<tr>'
+      +'<td class="tc" style="width:70px;font-size:.68rem;">'+p.id+'</td>'
+      +'<td style="width:90px;font-size:.72rem;color:var(--txt-soft);">'+new Date(p.fecha).toLocaleDateString('es-CR')+'</td>'
+      +'<td><div style="font-weight:600;font-size:.82rem;">'+p.nombre+'</div><div style="font-size:.7rem;color:var(--txt-soft);">'+p.correo+'</div></td>'
+      +'<td style="font-size:.75rem;max-width:180px;color:var(--txt-mid);">'+p.productos+'</td>'
+      +'<td style="font-weight:800;color:var(--d);white-space:nowrap;">₡'+Number(p.total).toLocaleString('es-CR')+'</td>'
+      +'<td style="font-size:.75rem;color:var(--txt-soft);">'+p.zona+'</td>'
+      +'<td><span class="estado-badge '+cls+'">'+est+'</span></td>'
+      +'<td><select class="estado-sel" onchange="cambiarEstado(\''+p.id+'\',this.value)">'
+      +'<option>En proceso</option><option>En camino</option><option>Entregado</option><option>Cancelado</option>'
+      +'</select></td>'
+      +'</tr>';
+  });
+  html+='</tbody></table>';
+  wrap.innerHTML=html;
+}
+
+function cambiarEstado(id, estado){
+  if(!asUrl) return;
+  fetch(asUrl, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({accion:'update_estado',id:id,estado:estado,adminToken:ADMIN_TOKEN})
+  }).then(function(r){return r.json();}).then(function(d){
+    var p = allPedidos.find(function(x){return x.id===id;});
+    if(p && d.success) p.estado=estado;
+    renderPedidos();
+  }).catch(function(){});
+}
+
+/* ── USUARIOS ── */
+function cargarUsuarios(){
+  var wrap = document.getElementById('usuariosWrap');
+  if(!asUrl){
+    wrap.innerHTML='<div class="loading-txt">Guardá la URL del Apps Script primero.</div>';
+    return;
+  }
+  wrap.innerHTML='<div class="loading-txt">⏳ Cargando usuarios…</div>';
+  fetch(asUrl+'?accion=admin_usuarios&adminToken='+ADMIN_TOKEN)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d.success){ wrap.innerHTML='<div class="loading-txt">Error: '+d.error+'</div>'; return; }
+      allUsuarios = d.usuarios || [];
+      renderUsuarios();
+    }).catch(function(){ wrap.innerHTML='<div class="loading-txt">Error de conexión.</div>'; });
+}
+
+function renderUsuarios(){
+  var q = (document.getElementById('searchUsuarios').value||'').toLowerCase();
+  var list = q ? allUsuarios.filter(function(u){
+    return (u.nombre+u.correo+u.zona).toLowerCase().indexOf(q)!==-1;
+  }) : allUsuarios;
+  var wrap = document.getElementById('usuariosWrap');
+  if(!list.length){ wrap.innerHTML='<div class="loading-txt">Sin usuarios registrados.</div>'; return; }
+  var html='<table class="ptable"><thead><tr>'
+    +'<th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Zona</th><th>Dirección</th><th>Tipo</th><th>Estado</th><th>Acción</th>'
+    +'</tr></thead><tbody>';
+  list.forEach(function(u){
+    var activo = (u.activo||'SI')==='SI';
+    html+='<tr>'
+      +'<td style="font-weight:600;font-size:.82rem;">'+u.nombre+'</td>'
+      +'<td style="font-size:.75rem;color:var(--txt-soft);">'+u.correo+'</td>'
+      +'<td style="font-size:.75rem;">'+u.telefono+'</td>'
+      +'<td style="font-size:.75rem;">'+u.zona+'</td>'
+      +'<td style="font-size:.72rem;color:var(--txt-soft);max-width:140px;">'+u.direccion+'</td>'
+      +'<td style="font-size:.72rem;">'+u.tipo+'</td>'
+      +'<td class="'+(activo?'u-activo':'u-inactivo')+'">'+(activo?'Activo':'Inactivo')+'</td>'
+      +'<td><button class="toggle-btn '+(activo?'toggle-on':'toggle-off')+'" onclick="toggleUsuario(\''+u.correo+'\','+(activo?'false':'true')+')">'
+      +(activo?'Desactivar':'Activar')+'</button></td>'
+      +'</tr>';
+  });
+  html+='</tbody></table>';
+  wrap.innerHTML=html;
+}
+
+function toggleUsuario(correo, nuevoActivo){
+  if(!asUrl) return;
+  fetch(asUrl, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({accion:'update_usuario',correo:correo,activo:nuevoActivo,adminToken:ADMIN_TOKEN})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.success){
+      var u = allUsuarios.find(function(x){return x.correo===correo;});
+      if(u) u.activo = nuevoActivo?'SI':'NO';
+      renderUsuarios();
+    }
+  }).catch(function(){});
+}
+
 /* ── init ── */
 function init(){
   document.getElementById('fechaInput').value=new Date().toISOString().split('T')[0];
   loadStorage();
   render();
+  if(asUrl) document.getElementById('asUrlInput').value = asUrl;
 }
 if(sessionStorage.getItem('ep-auth')==='1') init();
 </script>

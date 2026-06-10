@@ -22,11 +22,155 @@
         <img src="logo.jpg" alt="EcoPollo" class="nav-logo-img" />
         <span class="nav-logo">EcoPollo</span>
       </div>
-      <a class="nav-cta" href="https://wa.me/50688880000?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20EcoPollo" target="_blank" rel="noopener">
-        💬 WhatsApp
-      </a>
+      <div class="nav-right">
+        <button class="nav-cart-btn" id="navCartBtn" onclick="toggleCart()" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+        </button>
+        <button class="nav-login-btn" id="navLoginBtn" onclick="abrirAuth('login')">Ingresar</button>
+        <button class="nav-user-btn" id="navUserBtn" style="display:none" onclick="toggleUserMenu()">
+          <span id="navUserName"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-user-dropdown" id="navUserDropdown" style="display:none">
+          <a href="mi-cuenta.html">👤 Mi cuenta</a>
+          <a href="mi-cuenta.html#historial">📦 Mis pedidos</a>
+          <button onclick="cerrarSesion()">↩ Cerrar sesión</button>
+        </div>
+        <a class="nav-wa-btn" href="https://wa.me/50688880000" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+        <button class="nav-menu-btn" id="navMenuBtn" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MEGA MENU -->
+    <div class="mega-menu" id="megaMenu">
+      <div class="mega-inner">
+        <div class="mega-cats">
+          <div class="mega-cat" data-nombre="Pollo entero" data-precio="1950" data-img="fondo/pexels-hariprasad-ce-512756904-34797333.jpg">
+            <div class="mc-img" style="background-image:url('fondo/pexels-hariprasad-ce-512756904-34797333.jpg')"></div>
+            <div class="mc-body">
+              <div class="mc-name">🍗 Pollo entero</div>
+              <div class="mc-price">₡1,950<span>/kg</span></div>
+              <div class="mc-desc">Sin vísceras, fresco y listo</div>
+              <button class="mc-add-btn">+ Agregar al carrito</button>
+            </div>
+          </div>
+          <div class="mega-cat" data-nombre="Pechuga deshuesada" data-precio="3025" data-img="fondo/pexels-einfoto-2209439.jpg">
+            <div class="mc-img" style="background-image:url('fondo/pexels-einfoto-2209439.jpg')"></div>
+            <div class="mc-body">
+              <div class="mc-name">🥩 Pechuga deshuesada</div>
+              <div class="mc-price">₡3,025<span>/kg</span></div>
+              <div class="mc-desc">Sin hueso, sin piel, premium</div>
+              <button class="mc-add-btn">+ Agregar al carrito</button>
+            </div>
+          </div>
+          <div class="mega-cat" data-nombre="Muslo entero" data-precio="1475" data-img="fondo/pexels-goumbik-616353.jpg">
+            <div class="mc-img" style="background-image:url('fondo/pexels-goumbik-616353.jpg')"></div>
+            <div class="mc-body">
+              <div class="mc-name">🍖 Muslo entero</div>
+              <div class="mc-price">₡1,475<span>/kg</span></div>
+              <div class="mc-desc">Con hueso, ideal a la plancha</div>
+              <button class="mc-add-btn">+ Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+        <div class="mega-links">
+          <a href="catalogo-fotos.html" onclick="toggleMenu()">📸 Catálogo de fotos</a>
+          <a href="#cotizador" onclick="toggleMenu()">📋 Cotizador detallado</a>
+          <a href="https://wa.me/50688880000" target="_blank" rel="noopener">💬 WhatsApp directo</a>
+          <a href="mi-cuenta.html" id="megaAccountLink" style="display:none">👤 Mi cuenta</a>
+        </div>
+      </div>
     </div>
   </nav>
+
+  <!-- OVERLAY MENÚ -->
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <!-- AUTH MODAL -->
+  <div class="auth-modal" id="authModal">
+    <div class="auth-box">
+      <div class="auth-head">
+        <img src="logo.jpg" alt="EcoPollo" class="auth-logo" />
+        <div>
+          <div class="auth-head-title" id="authTitle">Iniciar sesión</div>
+          <div class="auth-head-sub">EcoPollo · Costa Rica</div>
+        </div>
+        <button class="auth-close" onclick="cerrarAuth()">✕</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Ingresar</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Crear cuenta</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="panelLogin" class="auth-panel">
+        <div class="af"><label>Correo electrónico</label><input type="email" id="loginEmail" placeholder="tu@correo.com" autocomplete="email"/></div>
+        <div class="af"><label>Contraseña</label><input type="password" id="loginPwd" placeholder="••••••••" autocomplete="current-password"/></div>
+        <div class="auth-msg" id="loginMsg"></div>
+        <button class="auth-submit-btn" onclick="doLogin()">Entrar</button>
+      </div>
+
+      <!-- REGISTRO -->
+      <div id="panelRegister" class="auth-panel" style="display:none">
+        <div class="af-row">
+          <div class="af"><label>Nombre completo</label><input type="text" id="regNombre" placeholder="María González" autocomplete="name"/></div>
+          <div class="af"><label>Teléfono / WhatsApp</label><input type="tel" id="regTel" placeholder="8888-4444" autocomplete="tel"/></div>
+        </div>
+        <div class="af"><label>Correo electrónico</label><input type="email" id="regEmail" placeholder="tu@correo.com" autocomplete="email"/></div>
+        <div class="af-row">
+          <div class="af"><label>Contraseña</label><input type="password" id="regPwd" placeholder="••••••••"/></div>
+          <div class="af"><label>Confirmar</label><input type="password" id="regPwd2" placeholder="••••••••"/></div>
+        </div>
+        <div class="af-row">
+          <div class="af"><label>Zona / Sector</label><input type="text" id="regZona" placeholder="Ej: Cartago centro"/></div>
+          <div class="af"><label>Tipo</label>
+            <select id="regTipo"><option>Personal</option><option>Restaurante</option><option>Sodería / Comedor</option><option>Carnicería</option><option>Supermercado</option><option>Otro negocio</option></select>
+          </div>
+        </div>
+        <div class="af"><label>Dirección exacta de entrega</label><input type="text" id="regDir" placeholder="200m norte del parque central"/></div>
+        <div class="auth-msg" id="regMsg"></div>
+        <button class="auth-submit-btn" onclick="doRegister()">Crear cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-head">
+      <div class="cart-head-title">🛒 Tu carrito</div>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div style="font-size:2.4rem;margin-bottom:12px">🛒</div>
+        <div>Tu carrito está vacío</div>
+        <div style="font-size:.8rem;opacity:.5;margin-top:6px">Agregá productos desde el menú</div>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-location">
+        <label>📍 Zona de entrega</label>
+        <input type="text" id="cartZona" placeholder="Ej: Cartago, San José…"/>
+        <label style="margin-top:10px">Dirección exacta</label>
+        <input type="text" id="cartDir" placeholder="200m norte del parque…"/>
+      </div>
+      <div class="cart-total-row">
+        <span>Total estimado</span>
+        <strong id="cartTotal">₡0</strong>
+      </div>
+      <button class="cart-wa-btn" onclick="cartCheckout()">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Confirmar pedido por WhatsApp
+      </button>
+      <div class="cart-note">* Precios en colones · Entrega coordinada por WhatsApp</div>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
