@@ -325,6 +325,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
   outline:none;cursor:pointer;
 }
 .estado-sel option{background:#0d1a0f;}
+.btn-toggle-user{
+  padding:4px 10px;background:transparent;border:1px solid rgba(255,255,255,.15);
+  border-radius:6px;font-family:inherit;font-size:.72rem;color:var(--txt-mid);
+  cursor:pointer;transition:background .15s,color .15s;
+}
+.btn-toggle-user:hover{background:rgba(240,195,0,.12);color:var(--d);border-color:rgba(240,195,0,.3);}
 .tb-accion-btn{
   display:inline-flex;align-items:center;gap:4px;
   padding:4px 10px;border:1px solid var(--border);border-radius:6px;
@@ -928,7 +934,8 @@ function generarPDF(){
 
 /* ══ MAIN TABS ══ */
 var ADMIN_TOKEN = 'epAdmin2026';
-var asUrl = localStorage.getItem('ep-as-url') || '';
+var AS_DEFAULT = 'https://script.google.com/macros/s/AKfycbx1qqd3Z4-zmPxfCIAeRla493IrROxV_soAqMTyHOj139mewQ1d17QM2zdgRNesqu2n/exec';
+var asUrl = localStorage.getItem('ep-as-url') || AS_DEFAULT;
 var allPedidos = [], allUsuarios = [];
 var mainTabAct = 'precios';
 
@@ -1025,7 +1032,7 @@ function cambiarEstado(id, estado){
   if(!asUrl) return;
   fetch(asUrl, {
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'text/plain'},
     body:JSON.stringify({accion:'update_estado',id:id,estado:estado,adminToken:ADMIN_TOKEN})
   }).then(function(r){return r.json();}).then(function(d){
     var p = allPedidos.find(function(x){return x.id===id;});
@@ -1050,6 +1057,58 @@ function cargarUsuarios(){
       renderUsuarios();
     }).catch(function(){ wrap.innerHTML='<div class="loading-txt">Error de conexión.</div>'; });
 }
+
+function renderUsuarios(){
+  var q = (document.getElementById('searchUsuarios').value||'').toLowerCase();
+  var list = q ? allUsuarios.filter(function(u){
+    return (u.nombre+u.correo+u.zona+u.tipo).toLowerCase().indexOf(q)!==-1;
+  }) : allUsuarios;
+  var wrap = document.getElementById('usuariosWrap');
+  if(!list.length){ wrap.innerHTML='<div class="loading-txt">Sin usuarios registrados.</div>'; return; }
+  var html='<table class="ptable"><thead><tr>'
+    +'<th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Zona</th><th>Tipo</th><th>Activo</th><th>Acción</th>'
+    +'</tr></thead><tbody>';
+  list.forEach(function(u){
+    var activo = (u.activo||'SI')==='SI';
+    html+='<tr>'
+      +'<td style="font-weight:600;font-size:.82rem;">'+u.nombre+'</td>'
+      +'<td style="font-size:.75rem;color:var(--txt-mid);">'+u.correo+'</td>'
+      +'<td style="font-size:.75rem;">'+u.telefono+'</td>'
+      +'<td style="font-size:.75rem;color:var(--txt-soft);">'+u.zona+'</td>'
+      +'<td><span style="font-size:.72rem;padding:2px 8px;border-radius:50px;background:rgba(240,195,0,.12);color:var(--d);">'+u.tipo+'</span></td>'
+      +'<td><span class="estado-badge '+(activo?'est-entregado':'est-cancelado')+'">'+(activo?'Activo':'Inactivo')+'</span></td>'
+      +'<td><button class="btn-toggle-user" onclick="toggleUsuario(\''+u.correo+'\','+(activo?'false':'true')+')">'
+      +(activo?'Desactivar':'Activar')+'</button></td>'
+      +'</tr>';
+  });
+  html+='</tbody></table>';
+  wrap.innerHTML=html;
+}
+
+function toggleUsuario(correo, activar){
+  if(!asUrl) return;
+  fetch(asUrl, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({accion:'update_usuario',correo:correo,activo:activar,adminToken:ADMIN_TOKEN})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.success) cargarUsuarios();
+  }).catch(function(){});
+}
+
+/* ── INIT ── */
+function init(){
+  loadStorage();
+  render();
+  if(asUrl){
+    var inp = document.getElementById('asUrlInput');
+    if(inp) inp.value = asUrl;
+    cargarStats();
+  }
+}
+</script>
+</body>
+</html>
 
 function renderUsuarios(){
   var q = (document.getElementById('searchUsuarios').value||'').toLowerCase();

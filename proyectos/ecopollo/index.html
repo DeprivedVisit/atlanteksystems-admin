@@ -15,6 +15,26 @@
 </head>
 <body>
 
+  <!-- WELCOME SPLASH -->
+  <div class="welcome-splash" id="welcomeSplash">
+    <div class="ws-inner">
+      <img src="logo.jpg" alt="EcoPollo" class="ws-logo" />
+      <h1 class="ws-title">Bienvenido a EcoPollo</h1>
+      <p class="ws-sub">Pollo fresco de calidad, directo a tu puerta.<br>¿Cómo deseas continuar?</p>
+      <div class="ws-actions">
+        <button class="ws-btn-login" onclick="splashLogin()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Iniciar sesión
+        </button>
+        <button class="ws-btn-guest" onclick="splashGuest()">
+          Continuar sin sesión
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <p class="ws-hint">Al iniciar sesión podés ver tu historial de pedidos y guardar tu dirección.</p>
+    </div>
+  </div>
+
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
@@ -28,7 +48,7 @@
           <span class="cart-badge" id="cartBadge" style="display:none">0</span>
         </button>
         <button class="nav-login-btn" id="navLoginBtn" onclick="abrirAuth('login')">Ingresar</button>
-        <button class="nav-user-btn" id="navUserBtn" style="display:none" onclick="toggleUserMenu()">
+        <button class="nav-user-btn" id="navUserBtn" style="display:none">
           <span id="navUserName"></span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9l6 6 6-6"/></svg>
         </button>
@@ -210,7 +230,7 @@
     <div class="container">
       <div class="coti-header reveal">
         <h2>Tu <span>cotización</span></h2>
-        <p>5 pasos simples · Sin compromiso</p>
+        <p>4 pasos simples · Sin compromiso</p>
       </div>
 
       <!-- PROGRESS -->
@@ -223,22 +243,21 @@
           <div class="ps" data-step="2">2</div>
           <div class="ps" data-step="3">3</div>
           <div class="ps" data-step="4">4</div>
-          <div class="ps" data-step="5">5</div>
         </div>
       </div>
 
       <!-- FORM CARD -->
       <div class="coti-card reveal">
 
-        <!-- STEP 1: Producto -->
+        <!-- STEP 1: Producto + Cantidad -->
         <div class="step active" id="step1">
-          <div class="step-label">Paso 1 de 5</div>
+          <div class="step-label">Paso 1 de 4</div>
           <h3 class="step-title">¿Qué producto querés?</h3>
           <div class="product-grid">
 
-            <label class="prod-card" data-key="producto" data-val="Pollo entero" data-img="fondo/pexels-goumbik-616353.jpg">
+            <label class="prod-card" data-key="producto" data-val="Pollo entero" data-img="fondo/prod-pollo-entero.jpg">
               <input type="radio" name="producto" value="Pollo entero" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-goumbik-616353.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-pollo-entero.jpg')">
                 <span class="prod-photo-badge">₡1,950/kg</span>
               </div>
               <div class="prod-body">
@@ -247,9 +266,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Pollo limpio" data-img="fondo/pexels-andres-carrera-189555109-11414300.jpg">
+            <label class="prod-card" data-key="producto" data-val="Pollo limpio" data-img="fondo/prod-pollo-limpio.jpg">
               <input type="radio" name="producto" value="Pollo limpio" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-andres-carrera-189555109-11414300.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-pollo-limpio.jpg')">
                 <span class="prod-photo-badge">₡2,100/kg</span>
               </div>
               <div class="prod-body">
@@ -258,9 +277,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Pechuga con hueso" data-img="fondo/pexels-abhijith-ts-33843905-24973405.jpg">
+            <label class="prod-card" data-key="producto" data-val="Pechuga con hueso" data-img="fondo/prod-pechuga-hueso.jpg">
               <input type="radio" name="producto" value="Pechuga con hueso" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-abhijith-ts-33843905-24973405.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-pechuga-hueso.jpg')">
                 <span class="prod-photo-badge">₡2,800/kg</span>
               </div>
               <div class="prod-body">
@@ -269,9 +288,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Pechuga deshuesada" data-img="fondo/pexels-alleksana-6107764.jpg">
+            <label class="prod-card" data-key="producto" data-val="Pechuga deshuesada" data-img="fondo/prod-pechuga-deshuesada.jpg">
               <input type="radio" name="producto" value="Pechuga deshuesada" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-alleksana-6107764.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-pechuga-deshuesada.jpg')">
                 <span class="prod-photo-badge">₡3,025/kg</span>
               </div>
               <div class="prod-body">
@@ -280,9 +299,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Muslo entero" data-img="fondo/pexels-tahir-33328012.jpg">
+            <label class="prod-card" data-key="producto" data-val="Muslo entero" data-img="fondo/prod-muslo-entero.jpg">
               <input type="radio" name="producto" value="Muslo entero" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-tahir-33328012.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-muslo-entero.jpg')">
                 <span class="prod-photo-badge">₡1,475/kg</span>
               </div>
               <div class="prod-body">
@@ -291,9 +310,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Cuarto de muslo" data-img="fondo/pexels-arti-tic-1675363189-34110265.jpg">
+            <label class="prod-card" data-key="producto" data-val="Cuarto de muslo" data-img="fondo/prod-cuarto-muslo.jpg">
               <input type="radio" name="producto" value="Cuarto de muslo" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-arti-tic-1675363189-34110265.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-cuarto-muslo.jpg')">
                 <span class="prod-photo-badge">₡1,800/kg</span>
               </div>
               <div class="prod-body">
@@ -302,9 +321,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Muslito de muslo" data-img="fondo/muslito-muslo.jpg">
+            <label class="prod-card" data-key="producto" data-val="Muslito de muslo" data-img="fondo/prod-muslito-muslo.jpg">
               <input type="radio" name="producto" value="Muslito de muslo" />
-              <div class="prod-photo" style="background-image:url('fondo/muslito-muslo.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-muslito-muslo.jpg')">
                 <span class="prod-photo-badge">₡2,650/kg</span>
               </div>
               <div class="prod-body">
@@ -313,9 +332,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Ala entera" data-img="fondo/ala-entera.jpg">
+            <label class="prod-card" data-key="producto" data-val="Ala entera" data-img="fondo/prod-ala-entera.jpg">
               <input type="radio" name="producto" value="Ala entera" />
-              <div class="prod-photo" style="background-image:url('fondo/ala-entera.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-ala-entera.jpg')">
                 <span class="prod-photo-badge">₡2,250/kg</span>
               </div>
               <div class="prod-body">
@@ -324,9 +343,9 @@
               </div>
             </label>
 
-            <label class="prod-card" data-key="producto" data-val="Trocito corriente" data-img="fondo/pexels-ivandesignx-29887688.jpg">
+            <label class="prod-card" data-key="producto" data-val="Trocito corriente" data-img="fondo/prod-trocito.jpg">
               <input type="radio" name="producto" value="Trocito corriente" />
-              <div class="prod-photo" style="background-image:url('fondo/pexels-ivandesignx-29887688.jpg')">
+              <div class="prod-photo" style="background-image:url('fondo/prod-trocito.jpg')">
                 <span class="prod-photo-badge">₡1,800/kg</span>
               </div>
               <div class="prod-body">
@@ -336,28 +355,9 @@
             </label>
 
           </div>
-          <button class="btn-next" id="next1" disabled>Siguiente →</button>
-        </div>
-
-        <!-- BANNER producto seleccionado (pasos 2-5) -->
-        <div class="prod-selected-banner" id="prodBanner" style="display:none">
-          <div class="psb-img" id="psbImg"></div>
-          <div class="psb-info">
-            <div class="psb-label">Producto seleccionado</div>
-            <div class="psb-name" id="psbName">—</div>
-            <div class="psb-price" id="psbPrice">—</div>
-          </div>
-          <button class="psb-change" onclick="showStep(1)">Cambiar</button>
-        </div>
-
-        <!-- STEP 2: Cantidad -->
-        <div class="step" id="step2">
-          <div class="step-label">Paso 2 de 5</div>
-          <h3 class="step-title">¿Cuántos kg necesitás?</h3>
-          <div class="kg-wrap">
+          <div class="kg-wrap" style="margin-top:28px">
             <div class="kg-display">
-              <span id="kgDisplay">5</span>
-              <span class="kg-unit">kg</span>
+              <span id="kgDisplay">5</span><span class="kg-unit">kg</span>
             </div>
             <input type="range" id="kgSlider" min="1" max="50" value="5" class="kg-slider" />
             <div class="kg-range-labels"><span>1 kg</span><span>50 kg</span></div>
@@ -371,17 +371,25 @@
           </div>
           <div class="subtotal-preview">
             <span>Subtotal estimado:</span>
-            <strong id="subtotalPreview">₡ 9,750</strong>
+            <strong id="subtotalPreview">—</strong>
           </div>
-          <div class="step-nav">
-            <button class="btn-back" id="back2">← Atrás</button>
-            <button class="btn-next" id="next2">Siguiente →</button>
-          </div>
+          <button class="btn-next" id="next1" disabled>Siguiente →</button>
         </div>
 
-        <!-- STEP 3: Zona -->
-        <div class="step" id="step3">
-          <div class="step-label">Paso 3 de 5</div>
+        <!-- BANNER producto seleccionado (pasos 2-4) -->
+        <div class="prod-selected-banner" id="prodBanner" style="display:none">
+          <div class="psb-img" id="psbImg"></div>
+          <div class="psb-info">
+            <div class="psb-label">Producto seleccionado</div>
+            <div class="psb-name" id="psbName">—</div>
+            <div class="psb-price" id="psbPrice">—</div>
+          </div>
+          <button class="psb-change" onclick="showStep(1)">Cambiar</button>
+        </div>
+
+        <!-- STEP 2: Zona -->
+        <div class="step" id="step2">
+          <div class="step-label">Paso 2 de 4</div>
           <h3 class="step-title">¿Dónde te entregamos?</h3>
           <div class="zone-grid">
             <label class="zone-card" data-key="zona" data-val="Cartago">
@@ -416,14 +424,14 @@
             </label>
           </div>
           <div class="step-nav">
-            <button class="btn-back" id="back3">← Atrás</button>
-            <button class="btn-next" id="next3" disabled>Siguiente →</button>
+            <button class="btn-back" id="back2">← Atrás</button>
+            <button class="btn-next" id="next2" disabled>Siguiente →</button>
           </div>
         </div>
 
-        <!-- STEP 4: Tipo de pedido -->
-        <div class="step" id="step4">
-          <div class="step-label">Paso 4 de 5</div>
+        <!-- STEP 3: Tipo de pedido -->
+        <div class="step" id="step3">
+          <div class="step-label">Paso 3 de 4</div>
           <h3 class="step-title">¿Qué tipo de pedido es?</h3>
           <div class="tipo-grid">
             <label class="tipo-card" data-key="tipo_pedido" data-val="Pedido regular">
@@ -446,14 +454,14 @@
             </label>
           </div>
           <div class="step-nav">
-            <button class="btn-back" id="back4">← Atrás</button>
-            <button class="btn-next" id="next4" disabled>Siguiente →</button>
+            <button class="btn-back" id="back3">← Atrás</button>
+            <button class="btn-next" id="next3" disabled>Siguiente →</button>
           </div>
         </div>
 
-        <!-- STEP 5: Datos -->
-        <div class="step" id="step5">
-          <div class="step-label">Paso 5 de 5</div>
+        <!-- STEP 4: Datos -->
+        <div class="step" id="step4">
+          <div class="step-label">Paso 4 de 4</div>
           <h3 class="step-title">¿A nombre de quién va el pedido?</h3>
           <div class="form-fields">
             <div class="field-group">
@@ -470,7 +478,7 @@
             </div>
           </div>
           <div class="step-nav">
-            <button class="btn-back" id="back5">← Atrás</button>
+            <button class="btn-back" id="back4">← Atrás</button>
             <button class="btn-submit" id="btnSubmit" disabled>Ver cotización →</button>
           </div>
         </div>

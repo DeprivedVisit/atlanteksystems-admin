@@ -56,7 +56,7 @@ const state = {
 };
 
 let currentStep = 1;
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 4;
 
 // ── NAV scroll ──
 window.addEventListener('scroll', () => {
@@ -96,15 +96,15 @@ function updateProgress() {
 
 // ── PRODUCT PHOTO MAP ──
 const PROD_IMGS = {
-  'Pollo entero':       'fondo/pexels-goumbik-616353.jpg',
-  'Pollo limpio':       'fondo/pexels-andres-carrera-189555109-11414300.jpg',
-  'Pechuga con hueso':  'fondo/pexels-abhijith-ts-33843905-24973405.jpg',
-  'Pechuga deshuesada': 'fondo/pexels-alleksana-6107764.jpg',
-  'Muslo entero':       'fondo/pexels-tahir-33328012.jpg',
-  'Cuarto de muslo':    'fondo/pexels-arti-tic-1675363189-34110265.jpg',
-  'Muslito de muslo':   'fondo/muslito-muslo.jpg',
-  'Ala entera':         'fondo/ala-entera.jpg',
-  'Trocito corriente':  'fondo/pexels-ivandesignx-29887688.jpg'
+  'Pollo entero':       'fondo/prod-pollo-entero.jpg',
+  'Pollo limpio':       'fondo/prod-pollo-limpio.jpg',
+  'Pechuga con hueso':  'fondo/prod-pechuga-hueso.jpg',
+  'Pechuga deshuesada': 'fondo/prod-pechuga-deshuesada.jpg',
+  'Muslo entero':       'fondo/prod-muslo-entero.jpg',
+  'Cuarto de muslo':    'fondo/prod-cuarto-muslo.jpg',
+  'Muslito de muslo':   'fondo/prod-muslito-muslo.jpg',
+  'Ala entera':         'fondo/prod-ala-entera.jpg',
+  'Trocito corriente':  'fondo/prod-trocito.jpg'
 };
 
 function updateProdBanner(nombre, precio) {
@@ -132,14 +132,15 @@ function bindCards(selector, stateKey, nextBtn) {
       if (stateKey === 'producto') {
         const precio = PRECIOS[card.dataset.val] || 0;
         updateProdBanner(card.dataset.val, precio);
+        updateSubtotal();
       }
     });
   });
 }
 
 bindCards('.prod-card', 'producto', 'next1');
-bindCards('.zone-card', 'zona', 'next3');
-bindCards('.tipo-card', 'tipo_pedido', 'next4');
+bindCards('.zone-card', 'zona', 'next2');
+bindCards('.tipo-card', 'tipo_pedido', 'next3');
 
 // ── KG SLIDER ──
 const kgSlider = document.getElementById('kgSlider');
@@ -182,12 +183,10 @@ document.getElementById('next1').addEventListener('click', () => {
 });
 document.getElementById('next2').addEventListener('click', () => showStep(3));
 document.getElementById('next3').addEventListener('click', () => showStep(4));
-document.getElementById('next4').addEventListener('click', () => showStep(5));
 
 document.getElementById('back2').addEventListener('click', () => showStep(1));
 document.getElementById('back3').addEventListener('click', () => showStep(2));
 document.getElementById('back4').addEventListener('click', () => showStep(3));
-document.getElementById('back5').addEventListener('click', () => showStep(4));
 
 // ── SUBMIT ──
 document.getElementById('btnSubmit').addEventListener('click', async () => {
@@ -296,8 +295,8 @@ document.getElementById('btnNuevo').addEventListener('click', () => {
   Object.assign(state, { producto: '', zona: '', tipo_pedido: '', nombre: '', telefono: '', email: '', cantidad_kg: 5 });
   updateKg(5);
   document.getElementById('next1').disabled = true;
+  document.getElementById('next2').disabled = true;
   document.getElementById('next3').disabled = true;
-  document.getElementById('next4').disabled = true;
   document.getElementById('btnSubmit').disabled = true;
   showStep(1);
   document.getElementById('cotizador').scrollIntoView({ behavior: 'smooth' });
@@ -309,7 +308,7 @@ updateProgress();
 // ══════════════════════════════════════════════════════════════════════════════
 //  APPS SCRIPT URL — pegar aquí después de deploy
 // ══════════════════════════════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = '';   // <-- pegar la URL de tu web app aquí
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1qqd3Z4-zmPxfCIAeRla493IrROxV_soAqMTyHOj139mewQ1d17QM2zdgRNesqu2n/exec';
 
 // ── MEGA MENU ─────────────────────────────────────────────────────────────────
 const navMenuBtn  = document.getElementById('navMenuBtn');
@@ -447,6 +446,10 @@ function setRegMsg(type, text) {
 async function doLogin() {
   const correo   = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPwd').value;
+
+  if (!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) { setLoginMsg('error', 'Ingresá un correo válido'); return; }
+  if (!password) { setLoginMsg('error', 'Ingresá tu contraseña'); return; }
+
   setLoginMsg('loading');
 
   if (!APPS_SCRIPT_URL) {
@@ -467,15 +470,23 @@ async function doLogin() {
 }
 
 async function doRegister() {
-  const pwd  = document.getElementById('regPwd').value;
-  const pwd2 = document.getElementById('regPwd2').value;
+  const nombre  = document.getElementById('regNombre').value.trim();
+  const correo  = document.getElementById('regEmail').value.trim();
+  const tel     = document.getElementById('regTel').value.trim();
+  const pwd     = document.getElementById('regPwd').value;
+  const pwd2    = document.getElementById('regPwd2').value;
+
+  if (!nombre)  { setRegMsg('error', 'Ingresá tu nombre completo'); return; }
+  if (!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) { setRegMsg('error', 'Correo electrónico inválido'); return; }
+  if (!tel)     { setRegMsg('error', 'Ingresá tu teléfono'); return; }
+  if (pwd.length < 6) { setRegMsg('error', 'La contraseña debe tener al menos 6 caracteres'); return; }
   if (pwd !== pwd2) { setRegMsg('error', 'Las contraseñas no coinciden'); return; }
 
   const body = {
     accion:    'registro',
-    nombre:    document.getElementById('regNombre').value.trim(),
-    telefono:  document.getElementById('regTel').value.trim(),
-    correo:    document.getElementById('regEmail').value.trim(),
+    nombre:    nombre,
+    telefono:  tel,
+    correo:    correo,
     password:  pwd,
     zona:      document.getElementById('regZona').value,
     tipo:      document.getElementById('regTipo').value,
@@ -491,7 +502,7 @@ async function doRegister() {
   try {
     const res  = await fetch(APPS_SCRIPT_URL, {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body:    JSON.stringify(body)
     });
     const data = await res.json();
@@ -644,7 +655,7 @@ function cartCheckout() {
   if (APPS_SCRIPT_URL && u) {
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({
         accion:    'guardar_pedido',
         nombre:    u.nombre,
@@ -664,3 +675,29 @@ document.getElementById('cartWaBtn')?.addEventListener('click', cartCheckout);
 
 // Init carrito
 updateCartUI();
+
+// ── WELCOME SPLASH ──
+function closeSplash() {
+  const s = document.getElementById('welcomeSplash');
+  if (!s) return;
+  s.classList.add('hiding');
+  setTimeout(() => s.remove(), 380);
+}
+
+function splashLogin() {
+  closeSplash();
+  setTimeout(() => abrirAuth('login'), 200);
+}
+
+function splashGuest() {
+  closeSplash();
+}
+
+// Show splash on load unless already logged in
+window.addEventListener('DOMContentLoaded', () => {
+  const sess = localStorage.getItem('ep_session');
+  if (sess) {
+    const s = document.getElementById('welcomeSplash');
+    if (s) s.remove();
+  }
+});
