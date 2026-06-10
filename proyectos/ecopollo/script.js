@@ -1,5 +1,35 @@
 const WEBHOOK_URL = 'https://YOUR_N8N_INSTANCE/webhook/ecopollo-leads';
 
+// ── Fondo rotativo ──────────────────────────────────────────────────────────
+(function () {
+  const IMGS = [
+    'fondo/pexels-hariprasad-ce-512756904-34797333.jpg',
+    'fondo/pexels-deniss-bojanini-174298580-12415681.jpg',
+    'fondo/pexels-einfoto-2209439.jpg',
+    'fondo/pexels-arti-tic-1675363189-34110265.jpg',
+    'fondo/pexels-andres-carrera-189555109-11414300.jpg',
+    'fondo/pexels-abhijith-ts-33843905-24973405.jpg',
+    'fondo/pexels-tahir-33328012.jpg',
+    'fondo/pexels-goumbik-616353.jpg',
+    'fondo/pexels-alleksana-6107764.jpg',
+    'fondo/pexels-ivandesignx-29887688.jpg',
+  ];
+  let idx = 0;
+  const el = document.getElementById('heroBg');
+  if (!el) return;
+  el.style.backgroundImage = `url(${IMGS[0]})`;
+  el.style.backgroundSize = 'cover';
+  el.style.backgroundPosition = 'center';
+  setInterval(() => {
+    idx = (idx + 1) % IMGS.length;
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.style.backgroundImage = `url(${IMGS[idx]})`;
+      el.style.opacity = '1';
+    }, 900);
+  }, 9000);
+})();
+
 const PRECIOS = {
   'Pollo entero': 1950,
   'Pechuga deshuesada': 3025,
