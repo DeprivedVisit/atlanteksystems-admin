@@ -235,29 +235,49 @@
           <div class="step-label">Paso 1 de 5</div>
           <h3 class="step-title">¿Qué producto querés?</h3>
           <div class="product-grid">
-            <label class="prod-card" data-key="producto" data-val="Pollo entero">
+            <label class="prod-card" data-key="producto" data-val="Pollo entero" data-img="fondo/pexels-hariprasad-ce-512756904-34797333.jpg">
               <input type="radio" name="producto" value="Pollo entero" />
-              <div class="prod-icon">🍗</div>
-              <div class="prod-name">Pollo entero</div>
-              <div class="prod-price">₡1,950/kg</div>
-              <div class="prod-desc">Pollo fresco sin vísceras, limpio y listo para cocinar</div>
+              <div class="prod-photo" style="background-image:url('fondo/pexels-hariprasad-ce-512756904-34797333.jpg')">
+                <span class="prod-photo-badge">₡1,950/kg</span>
+              </div>
+              <div class="prod-body">
+                <div class="prod-name">Pollo entero</div>
+                <div class="prod-desc">Pollo fresco sin vísceras, limpio y listo para cocinar</div>
+              </div>
             </label>
-            <label class="prod-card" data-key="producto" data-val="Pechuga deshuesada">
+            <label class="prod-card" data-key="producto" data-val="Pechuga deshuesada" data-img="fondo/pexels-einfoto-2209439.jpg">
               <input type="radio" name="producto" value="Pechuga deshuesada" />
-              <div class="prod-icon">🥩</div>
-              <div class="prod-name">Pechuga deshuesada</div>
-              <div class="prod-price">₡3,025/kg</div>
-              <div class="prod-desc">Pechuga sin hueso, sin piel, lista para asar o cocinar</div>
+              <div class="prod-photo" style="background-image:url('fondo/pexels-einfoto-2209439.jpg')">
+                <span class="prod-photo-badge">₡3,025/kg</span>
+              </div>
+              <div class="prod-body">
+                <div class="prod-name">Pechuga deshuesada</div>
+                <div class="prod-desc">Sin hueso, sin piel, lista para asar o cocinar</div>
+              </div>
             </label>
-            <label class="prod-card" data-key="producto" data-val="Muslo entero">
+            <label class="prod-card" data-key="producto" data-val="Muslo entero" data-img="fondo/pexels-goumbik-616353.jpg">
               <input type="radio" name="producto" value="Muslo entero" />
-              <div class="prod-icon">🍖</div>
-              <div class="prod-name">Muslo entero</div>
-              <div class="prod-price">₡1,475/kg</div>
-              <div class="prod-desc">Muslo con hueso y piel, ideal para hornear o a la plancha</div>
+              <div class="prod-photo" style="background-image:url('fondo/pexels-goumbik-616353.jpg')">
+                <span class="prod-photo-badge">₡1,475/kg</span>
+              </div>
+              <div class="prod-body">
+                <div class="prod-name">Muslo entero</div>
+                <div class="prod-desc">Con hueso y piel, ideal para hornear o a la plancha</div>
+              </div>
             </label>
           </div>
           <button class="btn-next" id="next1" disabled>Siguiente →</button>
+        </div>
+
+        <!-- BANNER producto seleccionado (pasos 2-5) -->
+        <div class="prod-selected-banner" id="prodBanner" style="display:none">
+          <div class="psb-img" id="psbImg"></div>
+          <div class="psb-info">
+            <div class="psb-label">Producto seleccionado</div>
+            <div class="psb-name" id="psbName">—</div>
+            <div class="psb-price" id="psbPrice">—</div>
+          </div>
+          <button class="psb-change" onclick="showStep(1)">Cambiar</button>
         </div>
 
         <!-- STEP 2: Cantidad -->
@@ -390,6 +410,13 @@
           <div class="resumen-header">
             <div class="resumen-icon">🐔</div>
             <h3>Tu cotización está lista</h3>
+          </div>
+          <div class="resumen-prod-photo" id="resumenProdPhoto" style="display:none">
+            <div class="rpp-img" id="rppImg"></div>
+            <div class="rpp-overlay">
+              <div class="rpp-name" id="rppName">—</div>
+              <div class="rpp-kg" id="rppKg">—</div>
+            </div>
           </div>
           <div class="resumen-table" id="resumenTable"></div>
           <div class="resumen-total">

@@ -71,6 +71,10 @@ function showStep(n) {
   if (el) el.classList.add('active');
   currentStep = typeof n === 'number' ? n : TOTAL_STEPS + 1;
   updateProgress();
+
+  // Banner solo visible en pasos 2-5 y resumen (no en paso 1)
+  const banner = document.getElementById('prodBanner');
+  if (banner) banner.style.display = (n !== 1 && state.producto) ? 'flex' : 'none';
 }
 
 function updateProgress() {
@@ -84,6 +88,26 @@ function updateProgress() {
   });
 }
 
+// ── PRODUCT PHOTO MAP ──
+const PROD_IMGS = {
+  'Pollo entero':       'fondo/pexels-hariprasad-ce-512756904-34797333.jpg',
+  'Pechuga deshuesada': 'fondo/pexels-einfoto-2209439.jpg',
+  'Muslo entero':       'fondo/pexels-goumbik-616353.jpg'
+};
+
+function updateProdBanner(nombre, precio) {
+  const banner = document.getElementById('prodBanner');
+  const img    = document.getElementById('psbImg');
+  const name   = document.getElementById('psbName');
+  const price  = document.getElementById('psbPrice');
+  if (!banner) return;
+  if (!nombre) { banner.style.display = 'none'; return; }
+  img.style.cssText    = `background-image:url('${PROD_IMGS[nombre] || ''}');background-size:cover;background-position:center;`;
+  name.textContent     = nombre;
+  price.textContent    = `₡${precio.toLocaleString('es-CR')}/kg`;
+  banner.style.display = 'flex';
+}
+
 // ── CARD SELECTION ──
 function bindCards(selector, stateKey, nextBtn) {
   document.querySelectorAll(selector).forEach(card => {
@@ -92,6 +116,11 @@ function bindCards(selector, stateKey, nextBtn) {
       card.classList.add('selected');
       state[stateKey] = card.dataset.val;
       if (nextBtn) document.getElementById(nextBtn).disabled = false;
+
+      if (stateKey === 'producto') {
+        const precio = PRECIOS[card.dataset.val] || 0;
+        updateProdBanner(card.dataset.val, precio);
+      }
     });
   });
 }
@@ -163,6 +192,18 @@ document.getElementById('btnSubmit').addEventListener('click', async () => {
 });
 
 function buildResumen() {
+  // Foto del resumen
+  const rppWrap = document.getElementById('resumenProdPhoto');
+  const rppImg  = document.getElementById('rppImg');
+  const rppName = document.getElementById('rppName');
+  const rppKg   = document.getElementById('rppKg');
+  if (rppWrap && state.producto && PROD_IMGS[state.producto]) {
+    rppImg.style.cssText  = `background-image:url('${PROD_IMGS[state.producto]}');background-size:cover;background-position:center;width:100%;height:100%;`;
+    rppName.textContent   = state.producto;
+    rppKg.textContent     = `${state.cantidad_kg} kg · ₡${state.total_colones.toLocaleString('es-CR')} total`;
+    rppWrap.style.display = 'block';
+  }
+
   const rows = [
     ['Producto', state.producto],
     ['Cantidad', `${state.cantidad_kg} kg`],
@@ -236,6 +277,10 @@ document.getElementById('btnNuevo').addEventListener('click', () => {
   document.getElementById('telefono').value = '';
   document.getElementById('email').value = '';
   document.getElementById('resumenSuccess').style.display = 'none';
+  const rppWrap = document.getElementById('resumenProdPhoto');
+  if (rppWrap) rppWrap.style.display = 'none';
+  const banner = document.getElementById('prodBanner');
+  if (banner) banner.style.display = 'none';
   Object.assign(state, { producto: '', zona: '', tipo_pedido: '', nombre: '', telefono: '', email: '', cantidad_kg: 5 });
   updateKg(5);
   document.getElementById('next1').disabled = true;
