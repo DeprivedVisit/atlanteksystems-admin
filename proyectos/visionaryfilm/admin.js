@@ -18,17 +18,7 @@ function getCfg() {
 }
 function saveCfg(obj) { localStorage.setItem(CFG_KEY, JSON.stringify(obj)); }
 
-// ===== AUTH — acceso público sin login =====
-// Para reactivar login: descomentar el bloque onAuthStateChanged y borrar las líneas de abajo
-currentUser = { email: 'admin@visionaryfilm.cr', nombre: 'Fabian', rol: 'admin', uid: 'admin_main' };
-document.getElementById('loginScreen').style.display = 'none';
-const _app = document.getElementById('appScreen');
-_app.style.display = 'flex';
-_app.classList.add('active');
-document.getElementById('sidebarEmail').textContent = 'Fabian · VisionaryFilm';
-applyRoleUI('admin');
-addDemoBanner();
-initApp();
+// El inicio de la app está al final del archivo (después de todas las declaraciones)
 
 function applyRoleUI(rol) {
   const isAdmin = rol === 'admin';
@@ -1320,3 +1310,15 @@ async function renderPresupuesto(data) {
   document.getElementById('mkPresRest').textContent    = meta > 0
     ? (gastado > meta ? `⚠️ Excedido en ${usd(gastado-meta)}` : `Disponible ${usd(meta-gastado)}`) : '';
 }
+
+// ===== INICIO — acceso público sin login =====
+// (va al final para que todas las declaraciones estén disponibles)
+currentUser = { email: 'admin@visionaryfilm.cr', nombre: 'Fabian', rol: 'admin', uid: 'admin_main' };
+document.getElementById('loginScreen').style.display = 'none';
+document.getElementById('logoutBtn').style.display = 'none';
+document.getElementById('appScreen').style.display = 'flex';
+document.getElementById('appScreen').classList.add('active');
+document.getElementById('sidebarEmail').textContent = 'Fabian · VisionaryFilm';
+applyRoleUI('admin');
+addDemoBanner();
+initApp();
