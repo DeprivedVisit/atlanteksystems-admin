@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brief Oficial — VisionaryFilm CR × Apex Cloud Works</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c8970a;
+      --dark: #0f0f18;
+      --gray: #555;
+      --light: #f7f6f3;
+      --border: #e0ddd5;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      color: var(--dark);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    /* ===== COVER ===== */
+    .cover {
+      background: var(--dark);
+      color: #fff;
+      padding: 64px 64px 56px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 48px;
+    }
+
+    .apex-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+
+    .cover-date {
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .06em;
+    }
+
+    .cover-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: .4rem;
+    }
+
+    .cover-title span { color: var(--gold); }
+
+    .cover-sub {
+      color: rgba(255,255,255,.5);
+      font-size: 14px;
+      letter-spacing: .04em;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: var(--gold);
+      color: #0f0f18;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem 1rem;
+      border-radius: 2px;
+    }
+
+    /* ===== BODY ===== */
+    .doc { max-width: 780px; margin: 0 auto; padding: 56px 64px 80px; }
+
+    /* ===== SECTION ===== */
+    .sec { margin-bottom: 48px; }
+
+    .sec-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .75rem;
+    }
+
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -.01em;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* ===== GRID ===== */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+    /* ===== INFO CARD ===== */
+    .info-card {
+      background: var(--light);
+      border-radius: 6px;
+      padding: 1.1rem 1.25rem;
+    }
+
+    .info-card .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: .3rem;
+    }
+
+    .info-card .value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .info-card .value.pending {
+      color: #c47a00;
+      font-style: italic;
+    }
+
+    /* ===== DELIVERABLE LIST ===== */
+    .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+
+    .deliverable-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 13.5px;
+    }
+
+    .deliverable-list li .check {
+      width: 18px;
+      height: 18px;
+      background: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    .deliverable-list li .dl-title { font-weight: 500; }
+    .deliverable-list li .dl-desc { color: var(--gray); font-size: 12.5px; display: block; margin-top: .15rem; }
+
+    /* ===== PENDING ===== */
+    .pending-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+
+    .pending-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      background: #fffbf0;
+      border: 1px solid #e8d8a0;
+      border-radius: 5px;
+      font-size: 13.5px;
+    }
+
+    .pending-list li .num {
+      width: 20px;
+      height: 20px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pending-list li .dl-title { font-weight: 500; }
+    .pending-list li .dl-desc { color: #7a6020; font-size: 12.5px; display: block; margin-top: .15rem; }
+
+    /* ===== PRICING ===== */
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .pricing-row:last-child { border-bottom: none; }
+
+    .pricing-row .item { color: var(--dark); }
+    .pricing-row .item span { color: var(--gray); font-size: 12px; display: block; }
+    .pricing-row .amount { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; }
+    .pricing-row.total .amount { color: var(--gold); font-size: 20px; }
+    .pricing-row.total .item { font-weight: 600; }
+
+    /* ===== NEXT STEPS ===== */
+    .steps { display: flex; flex-direction: column; gap: .75rem; }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--dark);
+      color: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-body { padding-top: 3px; }
+    .step-body strong { font-weight: 600; font-size: 14px; }
+    .step-body p { color: var(--gray); font-size: 12.5px; margin-top: .2rem; }
+
+    /* ===== CREDENTIALS BOX ===== */
+    .cred-box {
+      background: var(--dark);
+      color: #fff;
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .cred-box h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .cred-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem 2rem; }
+
+    .cred-row .cred-label { font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase; }
+    .cred-row .cred-val { font-family: monospace; font-size: 14px; color: #fff; margin-top: .2rem; }
+
+    /* ===== SIGNATURE ===== */
+    .signature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .sig-field { border-top: 1px solid var(--dark); padding-top: .75rem; }
+
+    .sig-field .sig-name { font-weight: 600; font-size: 13px; }
+    .sig-field .sig-role { color: var(--gray); font-size: 12px; }
+    .sig-field .sig-date { color: var(--gray); font-size: 11px; margin-top: .5rem; }
+
+    .sig-line {
+      height: 48px;
+      border-bottom: 1px dashed var(--border);
+      margin-bottom: .75rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .doc-footer {
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    .doc-footer strong { color: var(--dark); }
+
+    /* ===== PRINT ===== */
+    @media print {
+      .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .cred-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body { font-size: 13px; }
+      .doc { padding: 40px 48px 60px; }
+    }
+
+    @media (max-width: 600px) {
+      .cover { padding: 32px; }
+      .doc { padding: 32px 24px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .signature-block { grid-template-columns: 1fr; gap: 2rem; }
+      .cred-grid { grid-template-columns: 1fr; }
+      .doc-footer { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="apex-logo">Apex Cloud Works</div>
+    <div class="cover-date">Junio 2026</div>
+  </div>
+  <div>
+    <div class="cover-title">Visionary<span>Film</span> CR</div>
+    <div class="cover-sub">Brief oficial · Sistema web completo</div>
+    <div class="cover-badge">Entrega v1.0</div>
+  </div>
+</div>
+
+<div class="doc">
+
+  <!-- RESUMEN DEL PROYECTO -->
+  <div class="sec">
+    <div class="sec-label">01 · Resumen</div>
+    <div class="sec-title">De qué se trata este proyecto</div>
+    <p style="color:var(--gray);max-width:600px;">
+      Se desarrolló una plataforma web completa para VisionaryFilm CR — estudio de producción audiovisual en Costa Rica.
+      El sistema incluye una landing pública para atraer clientes y un panel privado de gestión interna
+      para administrar clientes, proyectos, pagos en USD, gastos, fondo de equipo y marketing.
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DATOS DEL CLIENTE -->
+  <div class="sec">
+    <div class="sec-label">02 · Datos del cliente</div>
+    <div class="sec-title">VisionaryFilm CR</div>
+    <div class="grid-2" style="margin-bottom:1rem;">
+      <div class="info-card">
+        <div class="label">Negocio</div>
+        <div class="value">VisionaryFilm CR</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Industria</div>
+        <div class="value">Producción audiovisual</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Instagram</div>
+        <div class="value">@visionaryfilmcr</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Ubicación</div>
+        <div class="value">Costa Rica</div>
+      </div>
+      <div class="info-card">
+        <div class="label">WhatsApp</div>
+        <div class="value pending">⚠ Pendiente — completar</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Dominio</div>
+        <div class="value pending">⚠ Pendiente — definir</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ENTREGABLES -->
+  <div class="sec">
+    <div class="sec-label">03 · Entregables</div>
+    <div class="sec-title">Qué se construyó</div>
+    <ul class="deliverable-list">
+      <li>
+        <div class="check">✓</div>
+        <div>
+          <div class="dl-title">Landing pública — index.html</div>
+          <span class="dl-desc">Hero · Servicios · Portafolio · Proceso · Precios (3 paquetes USD) · Contacto → WhatsApp · Footer · WhatsApp flotante · Mobile-first</span>
+        </div>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <div>
+          <div class="dl-title">Panel admin — admin.html</div>
+          <span class="dl-desc">Login seguro · Dashboard con stats en tiempo real · Gestión de clientes · Proyectos y pagos BAC USD · Gastos por categoría · Fondo de equipo con meta</span>
+        </div>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <div>
+          <div class="dl-title">Módulo Marketing</div>
+          <span class="dl-desc">Campañas (plataforma, inversión, alcance, leads, conversiones) · Leads con fuente y estado · Contenido (likes, comentarios, alcance) · Presupuesto mensual</span>
+        </div>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <div>
+          <div class="dl-title">Sistema de roles y equipo</div>
+          <span class="dl-desc">Fabian crea cuentas para empleados · Rol admin ve todo · Rol empleado solo ve proyectos y marketing · Tareas por proyecto actualizables</span>
+        </div>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <div>
+          <div class="dl-title">Backend Firebase + Modo demo</div>
+          <span class="dl-desc">Firestore para datos en nube · Auth con email/password · Modo demo con localStorage para pruebas sin configuración</span>
+        </div>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <div>
+          <div class="dl-title">Integración WhatsApp BAC</div>
+          <span class="dl-desc">Botón por proyecto genera mensaje con resumen + datos de transferencia BAC configurables desde el admin</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PENDIENTES DEL CLIENTE -->
+  <div class="sec">
+    <div class="sec-label">04 · Pendientes</div>
+    <div class="sec-title">Lo que Fabian debe completar</div>
+    <ul class="pending-list">
+      <li>
+        <div class="num">1</div>
+        <div>
+          <div class="dl-title">Número de WhatsApp</div>
+          <span class="dl-desc">Actualizar en script.js línea 2: const WA_NUMBER = '506XXXXXXXX'</span>
+        </div>
+      </li>
+      <li>
+        <div class="num">2</div>
+        <div>
+          <div class="dl-title">Fotos de portafolio</div>
+          <span class="dl-desc">6 imágenes de trabajos reales (16:10, mínimo 800px de ancho) para reemplazar los placeholders en index.html</span>
+        </div>
+      </li>
+      <li>
+        <div class="num">3</div>
+        <div>
+          <div class="dl-title">Showreel de YouTube</div>
+          <span class="dl-desc">Descomentar el iframe en index.html sección #hero y reemplazar VIDEO_ID con el ID del reel en YouTube</span>
+        </div>
+      </li>
+      <li>
+        <div class="num">4</div>
+        <div>
+          <div class="dl-title">Configurar Firebase (para producción)</div>
+          <span class="dl-desc">Crear proyecto en console.firebase.google.com · Copiar config en firebase-config.js · Activar Auth · Crear base de datos Firestore</span>
+        </div>
+      </li>
+      <li>
+        <div class="num">5</div>
+        <div>
+          <div class="dl-title">Datos BAC en el admin</div>
+          <span class="dl-desc">Ir a ⚙️ Configuración en el panel admin · Llenar nombre titular, número de cuenta, IBAN y WhatsApp del negocio</span>
+        </div>
+      </li>
+      <li>
+        <div class="num">6</div>
+        <div>
+          <div class="dl-title">Dominio y deploy</div>
+          <span class="dl-desc">Definir dominio (ej: visionaryfilmcr.com) y coordinar con Apex Cloud Works el deploy en AWS S3 + CloudFront</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ACCESO AL DEMO -->
+  <div class="sec">
+    <div class="sec-label">05 · Acceso</div>
+    <div class="sec-title">Cómo probar el sistema ahora</div>
+    <p style="color:var(--gray);margin-bottom:1rem;font-size:13px;">
+      El panel funciona en modo demo (datos en localStorage) sin necesidad de Firebase.
+      Para abrirlo, correr el servidor local con el comando de abajo.
+    </p>
+
+    <div class="cred-box">
+      <h4>Credenciales demo</h4>
+      <div class="cred-grid">
+        <div class="cred-row">
+          <div class="cred-label">URL local</div>
+          <div class="cred-val">http://localhost:8765/admin.html</div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-label">Comando para abrir</div>
+          <div class="cred-val">python -m http.server 8765</div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-label">Email</div>
+          <div class="cred-val">admin@visionaryfilm.cr</div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-label">Contraseña</div>
+          <div class="cred-val">vf2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PRECIOS -->
+  <div class="sec">
+    <div class="sec-label">06 · Inversión</div>
+    <div class="sec-title">Precio del proyecto</div>
+    <div style="max-width:480px;">
+      <div class="pricing-row">
+        <div class="item">
+          Setup inicial
+          <span>Landing + Admin + Firebase + Deploy + Capacitación</span>
+        </div>
+        <div class="amount">$350 USD</div>
+      </div>
+      <div class="pricing-row">
+        <div class="item">
+          Dominio .com (anual)
+          <span>visionaryfilmcr.com u otro — si aplica</span>
+        </div>
+        <div class="amount">~$15 USD</div>
+      </div>
+      <div class="pricing-row">
+        <div class="item">
+          Mantenimiento mensual
+          <span>Actualizaciones, soporte técnico, backups</span>
+        </div>
+        <div class="amount">$75 USD/mes</div>
+      </div>
+      <div class="pricing-row total">
+        <div class="item">Total setup + 1 mes</div>
+        <div class="amount">$425 USD</div>
+      </div>
+    </div>
+    <p style="color:var(--gray);font-size:12px;margin-top:1rem;">
+      * Pago por transferencia BAC en USD. 50% al aprobar este brief, 50% al entregar en producción.
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PRÓXIMOS PASOS -->
+  <div class="sec">
+    <div class="sec-label">07 · Próximos pasos</div>
+    <div class="sec-title">Hoja de ruta</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Firmar este brief + primer pago (50%)</strong>
+          <p>Confirmar alcance y arrancar la fase de producción final.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Entregar assets pendientes</strong>
+          <p>Fotos de portafolio, número de WhatsApp real, link del reel de YouTube.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Configurar Firebase</strong>
+          <p>Crear proyecto, activar Auth y Firestore. Apex apoya el proceso (20 min).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Revisión y ajustes finales</strong>
+          <p>2 rondas de revisiones incluidas sobre copy, precios y diseño.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>Deploy en producción + capacitación</strong>
+          <p>AWS S3 + CloudFront, dominio configurado. Sesión de 45 min para aprender a usar el admin.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <strong>Segundo pago (50%) + entrega oficial</strong>
+          <p>Sitio en vivo, credenciales finales, acceso completo al código.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FIRMA -->
+  <div class="sec">
+    <div class="sec-label">08 · Aprobación</div>
+    <div class="sec-title">Firma de aprobación</div>
+    <p style="color:var(--gray);font-size:13px;margin-bottom:2rem;">
+      Al firmar este documento, ambas partes confirman el alcance del proyecto,
+      los entregables listados y las condiciones de pago descritas arriba.
+    </p>
+
+    <div class="signature-block">
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-field">
+          <div class="sig-name">Fabian</div>
+          <div class="sig-role">Cliente · VisionaryFilm CR</div>
+          <div class="sig-date">Fecha: ___________________</div>
+        </div>
+      </div>
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-field">
+          <div class="sig-name">Garett Barrantes</div>
+          <div class="sig-role">Apex Cloud Works</div>
+          <div class="sig-date">Fecha: Junio 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div><strong>Apex Cloud Works</strong> · Cartago, Costa Rica · apexcloudworkscompany@gmail.com · +506 6314-4171</div>
+  <div>VisionaryFilm CR — Brief Oficial · Junio 2026</div>
+</div>
+
+</body>
+</html>
