@@ -18,27 +18,17 @@ function getCfg() {
 }
 function saveCfg(obj) { localStorage.setItem(CFG_KEY, JSON.stringify(obj)); }
 
-// ===== AUTH =====
-onAuthStateChanged(auth, user => {
-  if (user) {
-    currentUser = user;
-    document.getElementById('loginScreen').style.display = 'none';
-    const app = document.getElementById('appScreen');
-    app.style.display = 'flex';
-    app.classList.add('active');
-    document.getElementById('sidebarEmail').textContent =
-      (user.nombre ? user.nombre + ' · ' : '') + user.email;
-    applyRoleUI(user.rol);
-    addDemoBanner();
-    initApp();
-  } else {
-    currentUser = null;
-    document.getElementById('loginScreen').style.display = 'flex';
-    const app = document.getElementById('appScreen');
-    app.style.display = 'none';
-    app.classList.remove('active');
-  }
-});
+// ===== AUTH — acceso público sin login =====
+// Para reactivar login: descomentar el bloque onAuthStateChanged y borrar las líneas de abajo
+currentUser = { email: 'admin@visionaryfilm.cr', nombre: 'Fabian', rol: 'admin', uid: 'admin_main' };
+document.getElementById('loginScreen').style.display = 'none';
+const _app = document.getElementById('appScreen');
+_app.style.display = 'flex';
+_app.classList.add('active');
+document.getElementById('sidebarEmail').textContent = 'Fabian · VisionaryFilm';
+applyRoleUI('admin');
+addDemoBanner();
+initApp();
 
 function applyRoleUI(rol) {
   const isAdmin = rol === 'admin';
@@ -64,22 +54,6 @@ function addDemoBanner() {
     document.querySelector('.main').prepend(b);
   }
 }
-
-document.getElementById('loginForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass  = document.getElementById('loginPass').value;
-  const errEl = document.getElementById('loginError');
-  errEl.style.display = 'none';
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-  } catch {
-    errEl.textContent = 'Correo o contraseña incorrectos.';
-    errEl.style.display = 'block';
-  }
-});
-
-document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
 // ===== SIDEBAR NAV =====
 document.querySelectorAll('.nav-item').forEach(item => {
