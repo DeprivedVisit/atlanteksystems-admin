@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VisionaryFilm — Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">Visionary<span>Film</span></div>
+    <div class="login-sub">Panel de gestión</div>
+    <form class="login-form" id="loginForm">
+      <div class="fg">
+        <label>Correo</label>
+        <input type="email" id="loginEmail" required autocomplete="email">
+      </div>
+      <div class="fg">
+        <label>Contraseña</label>
+        <input type="password" id="loginPass" required autocomplete="current-password">
+      </div>
+      <p id="loginError" style="color:var(--red);font-size:.82rem;display:none;"></p>
+      <button type="submit" class="btn btn-gold" style="width:100%;margin-top:.5rem;">Ingresar</button>
+    </form>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      Visionary<span>Film</span>
+      <span class="sidebar-version">Admin v1.0</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-section="dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+      <div class="nav-item" data-section="clientes">
+        <span class="nav-icon">👥</span> Clientes
+      </div>
+      <div class="nav-item" data-section="proyectos">
+        <span class="nav-icon">🎬</span> Proyectos & Pagos
+      </div>
+      <div class="nav-item" data-section="gastos">
+        <span class="nav-icon">💸</span> Gastos
+      </div>
+      <div class="nav-item" data-section="fondo">
+        <span class="nav-icon">🎯</span> Fondo de Equipo
+      </div>
+      <div class="nav-item" data-section="marketing">
+        <span class="nav-icon">📈</span> Marketing
+      </div>
+      <div class="nav-item admin-only" data-section="equipo">
+        <span class="nav-icon">🧑‍💼</span> Equipo
+      </div>
+      <div class="nav-item admin-only" data-section="settings">
+        <span class="nav-icon">⚙️</span> Configuración
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="sidebarEmail"></div>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" style="width:100%;">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      </div>
+      <div class="topbar-actions" id="topbarActions"></div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div id="sec-dashboard" class="app-section">
+        <div class="stats-grid">
+          <div class="stat-card green">
+            <div class="stat-label">Ingresos totales</div>
+            <div class="stat-value" id="statIngresos">$0</div>
+            <div class="stat-sub">USD recibidos</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-label">Gastos totales</div>
+            <div class="stat-value" id="statGastos">$0</div>
+            <div class="stat-sub">USD gastados</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Balance neto</div>
+            <div class="stat-value" id="statBalance">$0</div>
+            <div class="stat-sub">Ingresos − Gastos</div>
+          </div>
+          <div class="stat-card gold">
+            <div class="stat-label">Fondo de equipo</div>
+            <div class="stat-value" id="statFondo">$0</div>
+            <div class="stat-sub" id="statFondoSub">Sin meta activa</div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Últimas transacciones</h3>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Descripción</th>
+                  <th>Categoría</th>
+                  <th>Monto</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
+              <tbody id="dashTxBody">
+                <tr><td colspan="5"><div class="empty-state"><span class="empty-icon">📋</span><p>No hay transacciones aún</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Proyectos activos</h3>
+          </div>
+          <div id="dashProjects" class="section-body" style="display:flex;flex-wrap:wrap;gap:.6rem;">
+            <span style="color:var(--muted);font-size:.88rem;">Sin proyectos activos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLIENTES -->
+      <div id="sec-clientes" class="app-section" style="display:none;">
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Clientes</h3>
+            <button class="btn btn-gold btn-sm" id="btnNuevoCliente">+ Nuevo cliente</button>
+          </div>
+          <div class="section-body">
+            <div class="search-bar">
+              <input type="search" class="search-input" id="clienteSearch" placeholder="Buscar por nombre o empresa...">
+            </div>
+            <div class="tbl-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Empresa</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Proyectos</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="clientesTbody">
+                  <tr><td colspan="6"><div class="empty-state"><span class="empty-icon">👥</span><p>Sin clientes aún</p></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROYECTOS & PAGOS -->
+      <div id="sec-proyectos" class="app-section" style="display:none;">
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Proyectos & Pagos</h3>
+            <button class="btn btn-gold btn-sm" id="btnNuevoProyecto">+ Nuevo proyecto</button>
+          </div>
+          <div class="section-body">
+            <div class="search-bar">
+              <input type="search" class="search-input" id="proyectoSearch" placeholder="Buscar proyecto...">
+              <select class="filter-select" id="proyectoEstadoFilter">
+                <option value="">Todos los estados</option>
+                <option value="activo">Activo</option>
+                <option value="completado">Completado</option>
+                <option value="cancelado">Cancelado</option>
+              </select>
+            </div>
+            <div class="tbl-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Proyecto</th>
+                    <th>Valor USD</th>
+                    <th>Pagado</th>
+                    <th>Estado</th>
+                    <th>Entrega</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="proyectosTbody">
+                  <tr><td colspan="7"><div class="empty-state"><span class="empty-icon">🎬</span><p>Sin proyectos aún</p></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GASTOS -->
+      <div id="sec-gastos" class="app-section" style="display:none;">
+        <div class="stats-grid" style="grid-template-columns: repeat(auto-fit,minmax(180px,1fr));">
+          <div class="stat-card red">
+            <div class="stat-label">Gastos este mes</div>
+            <div class="stat-value" id="gastosMes">$0</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-label">Total histórico</div>
+            <div class="stat-value" id="gastosTotal">$0</div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Gastos (Salidas)</h3>
+            <button class="btn btn-gold btn-sm" id="btnNuevoGasto">+ Registrar gasto</button>
+          </div>
+          <div class="section-body">
+            <div class="search-bar">
+              <select class="filter-select" id="gastoCategFilter">
+                <option value="">Todas las categorías</option>
+                <option>Equipo</option>
+                <option>Software</option>
+                <option>Transporte</option>
+                <option>Marketing</option>
+                <option>Producción</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="tbl-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Monto USD</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="gastosTbody">
+                  <tr><td colspan="5"><div class="empty-state"><span class="empty-icon">💸</span><p>Sin gastos registrados</p></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FONDO DE EQUIPO -->
+      <div id="sec-fondo" class="app-section" style="display:none;">
+        <div class="fund-card" id="fondoCard">
+          <div class="fund-name" id="fondoNombre">Sin meta activa</div>
+          <div class="fund-amounts">
+            <span id="fondoSaldo">$0</span>
+            <span> de <span id="fondoMeta">—</span></span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar" id="fondoBar" style="width:0%"></div>
+          </div>
+          <div class="progress-meta">
+            <span id="fondoPct">0%</span>
+            <span id="fondoRestante"></span>
+          </div>
+          <div style="display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap;">
+            <button class="btn btn-gold btn-sm" id="btnDepositar">+ Depositar</button>
+            <button class="btn btn-ghost btn-sm" id="btnNuevaMeta">Nueva meta</button>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header"><h3>Historial de depósitos</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Fecha</th><th>Nota</th><th>Monto USD</th><th>Acumulado</th></tr>
+              </thead>
+              <tbody id="fondoHistorial">
+                <tr><td colspan="4"><div class="empty-state"><span class="empty-icon">🎯</span><p>Sin depósitos aún</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARKETING -->
+      <div id="sec-marketing" class="app-section" style="display:none;">
+        <div class="tab-bar" style="display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+          <button class="tab-btn active" data-tab="campanas">Campañas</button>
+          <button class="tab-btn" data-tab="leads">Leads</button>
+          <button class="tab-btn" data-tab="contenido">Contenido</button>
+          <button class="tab-btn" data-tab="presupuesto">Presupuesto</button>
+        </div>
+
+        <!-- Campañas -->
+        <div id="mktab-campanas">
+          <div class="stats-grid" style="margin-bottom:1.5rem;">
+            <div class="stat-card green"><div class="stat-label">Total invertido</div><div class="stat-value" id="mkInvertido">$0</div></div>
+            <div class="stat-card"><div class="stat-label">Leads generados</div><div class="stat-value" id="mkLeads">0</div></div>
+            <div class="stat-card gold"><div class="stat-label">Costo por lead</div><div class="stat-value" id="mkCPL">—</div></div>
+            <div class="stat-card"><div class="stat-label">Conversiones</div><div class="stat-value" id="mkConv">0</div></div>
+          </div>
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Campañas</h3>
+              <button class="btn btn-gold btn-sm" id="btnNuevaCampana">+ Nueva campaña</button>
+            </div>
+            <div class="tbl-wrap">
+              <table>
+                <thead><tr><th>Nombre</th><th>Plataforma</th><th>Período</th><th>Inversión</th><th>Alcance</th><th>Leads</th><th>Conv.</th><th></th></tr></thead>
+                <tbody id="campanasTbody"><tr><td colspan="8"><div class="empty-state"><span class="empty-icon">📣</span><p>Sin campañas aún</p></div></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leads -->
+        <div id="mktab-leads" style="display:none;">
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Leads</h3>
+              <button class="btn btn-gold btn-sm" id="btnNuevoLead">+ Nuevo lead</button>
+            </div>
+            <div class="section-body">
+              <div class="search-bar">
+                <select class="filter-select" id="leadFuenteFilter">
+                  <option value="">Todas las fuentes</option>
+                  <option>Instagram</option><option>Referido</option><option>Web</option><option>TikTok</option><option>Otro</option>
+                </select>
+                <select class="filter-select" id="leadEstadoFilter">
+                  <option value="">Todos los estados</option>
+                  <option value="nuevo">Nuevo</option><option value="contactado">Contactado</option>
+                  <option value="convertido">Convertido</option><option value="perdido">Perdido</option>
+                </select>
+              </div>
+              <div class="tbl-wrap">
+                <table>
+                  <thead><tr><th>Nombre</th><th>Contacto</th><th>Fuente</th><th>Estado</th><th>Fecha</th><th>Nota</th><th></th></tr></thead>
+                  <tbody id="leadsTbody"><tr><td colspan="7"><div class="empty-state"><span class="empty-icon">🎯</span><p>Sin leads aún</p></div></td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido -->
+        <div id="mktab-contenido" style="display:none;">
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Rendimiento de contenido</h3>
+              <button class="btn btn-gold btn-sm" id="btnNuevoContenido">+ Registrar post</button>
+            </div>
+            <div class="section-body">
+              <div class="search-bar">
+                <select class="filter-select" id="contTipoFilter">
+                  <option value="">Todos los tipos</option>
+                  <option>Reel</option><option>Foto</option><option>Story</option><option>Video</option>
+                </select>
+                <select class="filter-select" id="contPlataformaFilter">
+                  <option value="">Todas las plataformas</option>
+                  <option>Instagram</option><option>TikTok</option><option>YouTube</option><option>Facebook</option>
+                </select>
+              </div>
+              <div class="tbl-wrap">
+                <table>
+                  <thead><tr><th>Fecha</th><th>Tipo</th><th>Plataforma</th><th>Caption</th><th>Likes</th><th>Comentarios</th><th>Alcance</th><th>Guardados</th><th></th></tr></thead>
+                  <tbody id="contenidoTbody"><tr><td colspan="9"><div class="empty-state"><span class="empty-icon">📸</span><p>Sin posts registrados</p></div></td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Presupuesto -->
+        <div id="mktab-presupuesto" style="display:none;">
+          <div class="section-card" style="max-width:480px;">
+            <div class="section-header"><h3>Presupuesto mensual de marketing</h3></div>
+            <div class="section-body">
+              <div class="fund-card" style="padding:1.5rem;margin-bottom:0;">
+                <div class="fund-name" id="mkPresNombre">Meta mensual</div>
+                <div class="fund-amounts">
+                  <span id="mkPresGastado">$0</span>
+                  <span> de <span id="mkPresMeta">—</span></span>
+                </div>
+                <div class="progress-wrap"><div class="progress-bar" id="mkPresBar" style="width:0%"></div></div>
+                <div class="progress-meta"><span id="mkPresPct">0%</span><span id="mkPresRest"></span></div>
+                <div style="margin-top:1.25rem;display:flex;gap:.75rem;">
+                  <button class="btn btn-gold btn-sm" id="btnSetPresupuesto">Definir meta mensual</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EQUIPO -->
+      <div id="sec-equipo" class="app-section" style="display:none;">
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Equipo</h3>
+            <button class="btn btn-gold btn-sm" id="btnNuevoEmpleado">+ Agregar empleado</button>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
+              <tbody id="equipoTbody">
+                <tr><td colspan="5"><div class="empty-state"><span class="empty-icon">🧑‍💼</span><p>Sin empleados aún</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFIGURACIÓN -->
+      <div id="sec-settings" class="app-section" style="display:none;">
+        <div class="section-card">
+          <div class="section-header"><h3>Datos de transferencia BAC</h3></div>
+          <div class="section-body">
+            <p style="color:var(--muted);font-size:.87rem;margin-bottom:1.25rem;">
+              Estos datos aparecen en el mensaje de WhatsApp que se genera al registrar un pago.
+            </p>
+            <div class="modal-form" style="max-width:420px;">
+              <div class="fg">
+                <label>Nombre del titular</label>
+                <input type="text" id="cfgNombre" placeholder="Ej: Fabian Quesada">
+              </div>
+              <div class="fg">
+                <label>Número de cuenta BAC</label>
+                <input type="text" id="cfgCuenta" placeholder="Ej: 123456789">
+              </div>
+              <div class="fg">
+                <label>IBAN (CR…)</label>
+                <input type="text" id="cfgIBAN" placeholder="CR00 0010 0000 0000 0000 00">
+              </div>
+              <div class="fg">
+                <label>WhatsApp (con código país, sin +)</label>
+                <input type="text" id="cfgWA" placeholder="Ej: 50688889999">
+              </div>
+              <button class="btn btn-gold" id="btnGuardarCfg">Guardar configuración</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- MODAL: Nuevo cliente -->
+<div class="modal-overlay" id="modalCliente">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalClienteTitle">Nuevo cliente</div>
+      <button class="modal-close" data-close="modalCliente">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="clienteId">
+      <div class="form-row">
+        <div class="fg"><label>Nombre *</label><input type="text" id="cliNombre" required></div>
+        <div class="fg"><label>Empresa</label><input type="text" id="cliEmpresa"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Email</label><input type="email" id="cliEmail"></div>
+        <div class="fg"><label>Teléfono</label><input type="tel" id="cliTel"></div>
+      </div>
+      <div class="fg"><label>Notas</label><textarea id="cliNotas" rows="3"></textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalCliente">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarCliente">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Nuevo proyecto -->
+<div class="modal-overlay" id="modalProyecto">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalProyectoTitle">Nuevo proyecto</div>
+      <button class="modal-close" data-close="modalProyecto">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="proyectoId">
+      <div class="fg">
+        <label>Cliente *</label>
+        <select id="proyClienteId">
+          <option value="">Seleccionar cliente...</option>
+        </select>
+      </div>
+      <div class="fg"><label>Título del proyecto *</label><input type="text" id="proyTitulo"></div>
+      <div class="fg"><label>Descripción</label><textarea id="proyDesc" rows="2"></textarea></div>
+      <div class="form-row">
+        <div class="fg"><label>Valor total (USD) *</label><input type="number" id="proyValor" min="0" step="0.01"></div>
+        <div class="fg"><label>Fecha de entrega</label><input type="date" id="proyFecha"></div>
+      </div>
+      <div class="fg">
+        <label>Estado</label>
+        <select id="proyEstado">
+          <option value="activo">Activo</option>
+          <option value="completado">Completado</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalProyecto">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarProyecto">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Registrar pago -->
+<div class="modal-overlay" id="modalPago">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Registrar pago</div>
+      <button class="modal-close" data-close="modalPago">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="pagoProyectoId">
+      <div id="pagoProyectoInfo" style="background:var(--bg);border-radius:6px;padding:.75rem 1rem;margin-bottom:.25rem;font-size:.87rem;color:var(--muted2);"></div>
+      <div class="form-row">
+        <div class="fg"><label>Monto (USD) *</label><input type="number" id="pagoMonto" min="0.01" step="0.01"></div>
+        <div class="fg">
+          <label>Método</label>
+          <select id="pagoMetodo">
+            <option value="BAC-transferencia">BAC Transferencia</option>
+            <option value="efectivo">Efectivo</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Nota (opcional)</label><input type="text" id="pagoNota"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalPago">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarPago">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Nuevo gasto -->
+<div class="modal-overlay" id="modalGasto">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Registrar gasto</div>
+      <button class="modal-close" data-close="modalGasto">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="gastoId">
+      <div class="fg"><label>Descripción *</label><input type="text" id="gastoDesc"></div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Categoría *</label>
+          <select id="gastoCateg">
+            <option>Equipo</option>
+            <option>Software</option>
+            <option>Transporte</option>
+            <option>Marketing</option>
+            <option>Producción</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="fg"><label>Monto (USD) *</label><input type="number" id="gastoMonto" min="0.01" step="0.01"></div>
+      </div>
+      <div class="fg"><label>Fecha</label><input type="date" id="gastoFecha"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalGasto">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarGasto">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Depositar al fondo -->
+<div class="modal-overlay" id="modalDeposito">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Depositar al fondo</div>
+      <button class="modal-close" data-close="modalDeposito">✕</button>
+    </div>
+    <div class="modal-form">
+      <div class="fg"><label>Monto (USD) *</label><input type="number" id="depMonto" min="0.01" step="0.01"></div>
+      <div class="fg"><label>Nota (opcional)</label><input type="text" id="depNota" placeholder="Ej: Pago proyecto X"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalDeposito">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarDeposito">Depositar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Nueva meta de equipo -->
+<div class="modal-overlay" id="modalMeta">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Nueva meta de equipo</div>
+      <button class="modal-close" data-close="modalMeta">✕</button>
+    </div>
+    <div class="modal-form">
+      <div class="fg"><label>Nombre de la meta *</label><input type="text" id="metaNombre" placeholder="Ej: Cámara Sony A7 IV"></div>
+      <div class="fg"><label>Monto objetivo (USD) *</label><input type="number" id="metaMonto" min="1" step="1"></div>
+      <p style="font-size:.82rem;color:var(--muted);">El saldo acumulado se mantiene al cambiar la meta.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalMeta">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarMeta">Guardar meta</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Detalle cliente -->
+<div class="modal-overlay" id="modalDetalleCliente">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-header">
+      <div class="modal-title" id="detClienteNombre">Cliente</div>
+      <button class="modal-close" data-close="modalDetalleCliente">✕</button>
+    </div>
+    <dl class="info-grid" id="detClienteInfo" style="margin-bottom:1.25rem;"></dl>
+    <h4 style="font-size:.85rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem;">Proyectos</h4>
+    <div id="detClienteProyectos"></div>
+  </div>
+</div>
+
+<!-- MODAL: Nuevo empleado -->
+<div class="modal-overlay" id="modalEmpleado">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalEmpleadoTitle">Nuevo empleado</div>
+      <button class="modal-close" data-close="modalEmpleado">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="empleadoId">
+      <div class="form-row">
+        <div class="fg"><label>Nombre *</label><input type="text" id="empNombre"></div>
+        <div class="fg"><label>Rol</label>
+          <select id="empRol">
+            <option value="employee">Empleado</option>
+            <option value="editor">Editor</option>
+            <option value="camarografo">Camarógrafo</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Email *</label><input type="email" id="empEmail"></div>
+      <div class="fg"><label>Contraseña *</label><input type="password" id="empPass" placeholder="Mínimo 6 caracteres"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalEmpleado">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarEmpleado">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Nueva campaña -->
+<div class="modal-overlay" id="modalCampana">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Nueva campaña</div>
+      <button class="modal-close" data-close="modalCampana">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="campanaId">
+      <div class="form-row">
+        <div class="fg"><label>Nombre *</label><input type="text" id="campNombre"></div>
+        <div class="fg"><label>Plataforma *</label>
+          <select id="campPlataforma">
+            <option>Instagram</option><option>TikTok</option><option>Facebook</option>
+            <option>YouTube</option><option>Google Ads</option><option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Fecha inicio</label><input type="date" id="campInicio"></div>
+        <div class="fg"><label>Fecha fin</label><input type="date" id="campFin"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Inversión USD *</label><input type="number" id="campInversion" min="0" step="0.01"></div>
+        <div class="fg"><label>Alcance (personas)</label><input type="number" id="campAlcance" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Leads generados</label><input type="number" id="campLeads" min="0"></div>
+        <div class="fg"><label>Conversiones</label><input type="number" id="campConv" min="0"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalCampana">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarCampana">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Nuevo lead -->
+<div class="modal-overlay" id="modalLead">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Nuevo lead</div>
+      <button class="modal-close" data-close="modalLead">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="leadId">
+      <div class="form-row">
+        <div class="fg"><label>Nombre *</label><input type="text" id="leadNombre"></div>
+        <div class="fg"><label>Contacto (tel/email)</label><input type="text" id="leadContacto"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Fuente *</label>
+          <select id="leadFuente">
+            <option>Instagram</option><option>Referido</option><option>Web</option><option>TikTok</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="fg"><label>Estado</label>
+          <select id="leadEstado">
+            <option value="nuevo">Nuevo</option><option value="contactado">Contactado</option>
+            <option value="convertido">Convertido</option><option value="perdido">Perdido</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Nota</label><textarea id="leadNota" rows="2"></textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalLead">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarLead">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Registrar contenido -->
+<div class="modal-overlay" id="modalContenido">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Registrar post</div>
+      <button class="modal-close" data-close="modalContenido">✕</button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="contenidoId">
+      <div class="form-row">
+        <div class="fg"><label>Tipo</label>
+          <select id="contTipo">
+            <option>Reel</option><option>Foto</option><option>Story</option><option>Video</option>
+          </select>
+        </div>
+        <div class="fg"><label>Plataforma</label>
+          <select id="contPlataforma">
+            <option>Instagram</option><option>TikTok</option><option>YouTube</option><option>Facebook</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Fecha *</label><input type="date" id="contFecha"></div>
+        <div class="fg"><label>Alcance</label><input type="number" id="contAlcance" min="0"></div>
+      </div>
+      <div class="fg"><label>Caption / Descripción</label><textarea id="contCaption" rows="2"></textarea></div>
+      <div class="form-row">
+        <div class="fg"><label>Likes</label><input type="number" id="contLikes" min="0"></div>
+        <div class="fg"><label>Comentarios</label><input type="number" id="contComents" min="0"></div>
+      </div>
+      <div class="fg"><label>Guardados</label><input type="number" id="contGuardados" min="0"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalContenido">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarContenido">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Presupuesto de marketing -->
+<div class="modal-overlay" id="modalPresupuesto">
+  <div class="modal" style="max-width:380px;">
+    <div class="modal-header">
+      <div class="modal-title">Meta mensual de marketing</div>
+      <button class="modal-close" data-close="modalPresupuesto">✕</button>
+    </div>
+    <div class="modal-form">
+      <div class="fg"><label>Monto objetivo USD/mes *</label><input type="number" id="prsMonto" min="1" step="1"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="modalPresupuesto">Cancelar</button>
+        <button class="btn btn-gold" id="btnGuardarPresupuesto">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Tareas del proyecto (empleado) -->
+<div class="modal-overlay" id="modalTareas">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-header">
+      <div class="modal-title" id="tareasProyectoNombre">Tareas</div>
+      <button class="modal-close" data-close="modalTareas">✕</button>
+    </div>
+    <div id="tareasLista" style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem;"></div>
+    <div id="addTareaWrap" class="admin-only" style="border-top:1px solid var(--border);padding-top:1rem;">
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+        <input type="text" class="search-input" id="nuevaTareaTitulo" placeholder="Nueva tarea..." style="flex:1;">
+        <select class="filter-select" id="nuevaTareaAsignado"><option value="">Sin asignar</option></select>
+        <button class="btn btn-gold btn-sm" id="btnAddTarea">+ Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
