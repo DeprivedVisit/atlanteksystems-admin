@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Cloudworks — Arquitecto Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=VT323&family=Share+Tech+Mono&family=Press+Start+2P&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ── CANVAS PARTICLES ─────────────────────────── */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── TOKENS ───────────────────────────────────── */
+:root {
+  --bg:     #050302;
+  --bg2:    #0d0a06;
+  --bg3:    #181208;
+  --gold:   #c4956a;
+  --gold2:  #e2b97a;
+  --gold3:  rgba(196,149,106,0.10);
+  --line:   rgba(196,149,106,0.18);
+  --line2:  rgba(196,149,106,0.08);
+  --cream:  #f0e6d6;
+  --cream2: #c8b49a;
+  --cream3: #7a6650;
+  --green:  #34d399;
+  --blue:   #60a5fa;
+  --neon-g: rgba(52,211,153,0.9);
+  --neon-b: rgba(96,165,250,0.9);
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  isolation: isolate;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 60% at 10% 15%, rgba(196,149,106,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 55% at 90% 85%, rgba(140,80,20,0.09) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: var(--cream);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CRT scanlines — muy sutil */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,0,0,0.09) 3px, rgba(0,0,0,0.09) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Vignette */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* todo el contenido sobre canvas (z:0) y pseudo-elements (z:2) */
+.ticker, .nav, .hero, .wrap, footer { position: relative; z-index: 3; }
+
+::selection { background: rgba(196,149,106,0.25); color: #fff; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(196,149,106,0.2); border-radius: 2px; }
+
+/* ── HELPERS ──────────────────────────────────── */
+.px  { font-family: 'Press Start 2P', monospace; }  /* solo accents */
+.vt  { font-family: 'VT323', monospace; }
+.stm { font-family: 'Share Tech Mono', monospace; }
+.ub  { font-family: 'Unbounded', sans-serif; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+.sec  { padding: 96px 0; }
+.sec + .sec { border-top: 1px solid var(--line2); }
+
+.label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px; color: var(--gold);
+  letter-spacing: 4px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px;
+}
+.label::before { content: ''; width: 18px; height: 1px; background: var(--gold); }
+
+.sec-h2 {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: clamp(28px, 3.8vw, 48px);
+  letter-spacing: -0.03em; line-height: 1.05;
+  color: var(--cream);
+}
+
+/* pill */
+.pil {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px; border: 1px solid;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.pil-g { color: var(--green); border-color: rgba(52,211,153,.3); background: rgba(52,211,153,.08); }
+.pil-b { color: var(--blue);  border-color: rgba(96,165,250,.3); background: rgba(96,165,250,.08); }
+.pil-y { color: var(--gold);  border-color: var(--line); background: var(--gold3); }
+.pil-d { color: var(--cream3); border-color: rgba(255,255,255,.1); background: rgba(255,255,255,.03); }
+.pil-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* tags */
+.tag { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--gold); background: var(--gold3); border: 1px solid var(--line); border-radius: 4px; padding: 4px 10px; }
+.tag-sm { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: .5px; color: var(--cream3); background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 4px; padding: 3px 8px; }
+
+/* btns */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: 12px; letter-spacing: 0.02em;
+  padding: 15px 28px; text-decoration: none;
+  transition: all .22s; cursor: pointer; border: none;
+  border-radius: 0; /* sharp corners — retro */
+}
+.btn-gold { background: var(--gold); color: var(--bg); }
+.btn-gold:hover { background: var(--gold2); box-shadow: 0 0 28px rgba(196,149,106,.35); transform: translateY(-2px); }
+.btn-out { background: transparent; color: var(--cream2); border: 1.5px solid rgba(200,180,150,.2); }
+.btn-out:hover { border-color: var(--gold); color: var(--gold); background: var(--gold3); }
+.btn-ghost { background: transparent; color: var(--gold); border: 1.5px solid var(--line); }
+.btn-ghost:hover { background: var(--gold3); border-color: var(--gold); }
+.btn-lg { padding: 18px 36px; font-size: 13px; }
+.arr { transition: transform .2s; }
+.btn:hover .arr { transform: translateX(4px); }
+
+/* ═══════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════ */
+.ticker {
+  background: rgba(5,3,2,.98);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(196,149,106,.06);
+  overflow: hidden; padding: 10px 0;
+  position: sticky; top: 0; z-index: 800;
+}
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: scroll 28s linear infinite;
+}
+.ticker-track span {
+  font-family: 'Share Tech Mono', monospace; font-size: 11px;
+  color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+  padding: 0 36px; opacity: .7;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.ticker-track span b { color: var(--gold2); opacity: 1; font-weight: 400; }
+@keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+.nav {
+  position: sticky; top: 42px; z-index: 700;
+  background: rgba(5,3,2,.92);
+  border-bottom: 1px solid var(--line2);
+  backdrop-filter: blur(20px);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-logo {
+  font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 13px;
+  color: var(--cream); text-decoration: none; letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo-icon {
+  width: 28px; height: 28px;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--gold);
+}
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  font-family: 'Share Tech Mono', monospace; font-size: 11px;
+  color: var(--cream3); text-decoration: none; letter-spacing: 2px;
+  text-transform: uppercase; transition: color .2s;
+}
+.nav-links a:hover { color: var(--cream2); }
+.nav-cta {
+  font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 10px;
+  color: var(--bg); background: var(--gold); padding: 10px 20px;
+  text-decoration: none; letter-spacing: .02em;
+  transition: background .2s, box-shadow .2s;
+}
+.nav-cta:hover { background: var(--gold2); box-shadow: 0 0 20px rgba(196,149,106,.3); }
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero {
+  min-height: calc(100vh - 102px);
+  display: grid; grid-template-columns: 1fr 420px;
+  gap: 60px; align-items: center;
+  padding: 80px 48px 60px;
+  max-width: 1296px; margin: 0 auto;
+  position: relative;
+}
+
+/* dot grid */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(196,149,106,0.18) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0; pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 50%, rgba(0,0,0,.5) 30%, transparent 70%);
+}
+
+.hero-left, .hero-right { position: relative; z-index: 2; }
+
+/* INSERT COIN eyebrow */
+.hero-eyebrow {
+  font-family: 'Press Start 2P', monospace; font-size: 8px;
+  color: var(--gold); letter-spacing: 3px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+  animation: eyebrow-blink 3s ease-in-out infinite;
+}
+@keyframes eyebrow-blink { 0%,80%,100%{opacity:1} 90%{opacity:.4} }
+.eyebrow-arrow { color: var(--gold2); }
+
+/* BIG TITLE */
+.hero-h1 {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: clamp(52px, 7vw, 92px);
+  line-height: .95; letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  color: var(--cream);
+}
+.hero-h1 .outline {
+  -webkit-text-stroke: 1.5px var(--gold);
+  color: transparent;
+  display: block;
+}
+.hero-h1 .filled { display: block; color: var(--cream); }
+
+.hero-sub {
+  font-size: 17px; font-weight: 300; color: var(--cream3);
+  line-height: 1.75; max-width: 440px; margin-bottom: 40px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 56px; }
+
+/* HP / LEVEL BARS */
+.hp-bars {
+  display: flex; flex-direction: column; gap: 11px;
+  padding-top: 40px; border-top: 1px solid var(--line2);
+}
+.hp-row { display: flex; align-items: center; gap: 12px; }
+.hp-lbl {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  color: var(--cream3); letter-spacing: 2px; text-transform: uppercase;
+  width: 68px; text-align: right; flex-shrink: 0;
+}
+.hp-track {
+  flex: 1; height: 8px;
+  background: rgba(255,255,255,.05); position: relative; overflow: hidden;
+}
+/* tiny notches */
+.hp-track::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(0,0,0,.25) 6px, rgba(0,0,0,.25) 7px);
+}
+.hp-fill {
+  height: 100%; position: relative;
+  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+}
+.hp-fill.g { background: var(--gold); box-shadow: 0 0 8px rgba(196,149,106,.5); }
+.hp-fill.gg { background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,.5); }
+.hp-fill.b { background: var(--blue);  box-shadow: 0 0 8px rgba(96,165,250,.4); }
+.hp-val {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  color: var(--cream2); width: 44px; text-align: right; flex-shrink: 0;
+}
+
+/* ── HERO RIGHT — cards ─── */
+.hero-right { display: flex; flex-direction: column; gap: 12px; }
+
+.h-card {
+  background: rgba(14,9,4,.88);
+  border: 1px solid rgba(196,149,106,.18);
+  padding: 18px 20px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 8px 32px rgba(0,0,0,.45);
+  transition: border-color .2s;
+}
+.h-card:hover { border-color: rgba(196,149,106,.35); }
+
+/* Score */
+.score-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.score-title {
+  font-family: 'Press Start 2P', monospace; font-size: 8px;
+  color: var(--gold); letter-spacing: 2px; text-shadow: 0 0 10px rgba(196,149,106,.4);
+}
+.score-live {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  color: var(--green); letter-spacing: 2px;
+  display: flex; align-items: center; gap: 5px;
+}
+.live-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.score-item {}
+.score-n { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 22px; color: var(--gold); line-height: 1; margin-bottom: 3px; }
+.score-n.green { color: var(--green); font-size: 18px; }
+.score-n.blue  { color: var(--blue);  font-size: 18px; }
+.score-l { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: var(--cream3); letter-spacing: 2px; text-transform: uppercase; }
+
+/* Vinyl */
+.vinyl-card { display: flex; align-items: center; gap: 18px; }
+.vinyl-disc {
+  width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;
+  background: conic-gradient(
+    #1c130a 0deg 35deg, #2a1e10 35deg 70deg, #1c130a 70deg 105deg,
+    #2a1e10 105deg 140deg, #1c130a 140deg 175deg, #2a1e10 175deg 210deg,
+    #1c130a 210deg 245deg, #2a1e10 245deg 280deg, #1c130a 280deg 315deg,
+    #2a1e10 315deg 360deg
+  );
+  border: 2px solid rgba(196,149,106,.25);
+  position: relative;
+  animation: spin-vinyl 10s linear infinite;
+  box-shadow: 0 0 20px rgba(196,149,106,.15);
+}
+.vinyl-disc::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--gold); box-shadow: 0 0 8px rgba(196,149,106,.5);
+}
+.vinyl-disc::before {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bg); z-index: 2;
+}
+@keyframes spin-vinyl { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+.vinyl-info {}
+.vinyl-tag { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; }
+.vinyl-week { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 14px; color: var(--cream); margin-bottom: 8px; }
+.vinyl-btn {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  color: var(--gold); border: 1px solid var(--line); background: var(--gold3);
+  padding: 5px 12px; text-decoration: none; letter-spacing: 1px;
+  display: inline-block; transition: all .2s;
+}
+.vinyl-btn:hover { background: rgba(196,149,106,.2); border-color: var(--gold); }
+
+/* Stack card */
+.stack-card {}
+.stack-lbl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+.stack-slots { display: flex; flex-wrap: wrap; gap: 6px; }
+.slot {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  color: var(--gold); background: var(--gold3);
+  border: 1px solid var(--line); padding: 5px 10px;
+  letter-spacing: 1px; cursor: default;
+  transition: all .15s;
+}
+.slot:hover { background: rgba(196,149,106,.18); border-color: var(--gold); box-shadow: 0 0 10px rgba(196,149,106,.2); }
+
+/* Project mini-list */
+.proj-list { display: flex; flex-direction: column; gap: 8px; }
+.proj-row {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05);
+  padding: 9px 12px; transition: border-color .2s;
+}
+.proj-row:hover { border-color: var(--line); }
+.proj-icon { font-size: 16px; width: 28px; text-align: center; flex-shrink: 0; }
+.proj-name { font-size: 12px; font-weight: 500; color: var(--cream); flex: 1; }
+.proj-meta { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: var(--cream3); letter-spacing: .5px; }
+
+/* ═══════════════════════════════════════════════
+   PROCESS
+═══════════════════════════════════════════════ */
+.process-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border: 1px solid var(--line); overflow: hidden;
+}
+.pc-card {
+  padding: 36px 32px;
+  border-right: 1px solid var(--line);
+  position: relative;
+  transition: background .2s;
+}
+.pc-card:last-child { border-right: none; }
+.pc-card:hover { background: rgba(196,149,106,.03); }
+.pc-num {
+  font-family: 'Press Start 2P', monospace; font-size: 9px;
+  color: var(--gold); opacity: .5; margin-bottom: 20px; letter-spacing: 2px;
+}
+.pc-card h3 {
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: 17px; letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.pc-card p { font-size: 14px; color: var(--cream3); line-height: 1.7; margin-bottom: 20px; }
+
+/* ═══════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════ */
+.srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line2); border: 1px solid var(--line2); overflow: hidden; }
+.srv {
+  background: var(--bg); padding: 36px 32px;
+  transition: background .2s;
+  position: relative;
+}
+.srv:hover { background: rgba(196,149,106,.025); }
+.srv-top { height: 130px; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 20px; }
+.srv-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid rgba(255,255,255,.08); }
+.srv-no {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px;
+  color: var(--cream3); letter-spacing: 2px; opacity: .4;
+}
+.srv h3 {
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: 18px; letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.srv p { font-size: 14px; color: var(--cream3); line-height: 1.7; margin-bottom: 20px; }
+.srv-price {
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: 17px; color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════════
+   PORTFOLIO
+═══════════════════════════════════════════════ */
+.pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pf {
+  border: 1px solid var(--line); overflow: hidden;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+.pf:hover { border-color: rgba(196,149,106,.45); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+.pf-cover {
+  height: 180px; padding: 22px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.pf-cover::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,.55) 100%);
+}
+.pf-top { display: flex; justify-content: space-between; align-items: flex-start; z-index: 2; }
+.pf-lvl {
+  font-family: 'Press Start 2P', monospace; font-size: 7px;
+  color: rgba(196,149,106,.4); letter-spacing: 1px;
+}
+.pf-emoji { font-size: 26px; z-index: 2; }
+.pf-name {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: 20px; color: var(--cream); z-index: 2;
+  letter-spacing: -0.02em;
+}
+.pf-body { padding: 18px 22px 22px; }
+.pf-desc { font-size: 14px; color: var(--cream3); line-height: 1.7; margin-bottom: 14px; }
+.pf-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.pf-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; border-top: 1px solid rgba(255,255,255,.05);
+}
+.pf-kpis { display: flex; gap: 20px; }
+.pf-kn { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 17px; color: var(--gold); }
+.pf-kl { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: var(--cream3); letter-spacing: 2px; text-transform: uppercase; }
+.pf-sector { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); letter-spacing: 1px; }
+
+/* ═══════════════════════════════════════════════
+   PRICING
+═══════════════════════════════════════════════ */
+.pr-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: start; }
+.pr {
+  border: 1px solid var(--line); padding: 32px;
+  transition: border-color .25s;
+}
+.pr:hover { border-color: rgba(196,149,106,.4); }
+.pr.feat {
+  border-color: var(--gold);
+  background: rgba(196,149,106,.04);
+  box-shadow: 0 0 0 1px rgba(196,149,106,.08), 0 24px 48px rgba(0,0,0,.3);
+  position: relative;
+}
+.pr-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  font-family: 'Press Start 2P', monospace; font-size: 7px;
+  background: var(--gold); color: var(--bg);
+  padding: 5px 16px; white-space: nowrap; letter-spacing: 1px;
+}
+.pr-tier {
+  font-family: 'Press Start 2P', monospace; font-size: 8px;
+  color: var(--gold); letter-spacing: 2px; margin-bottom: 18px;
+}
+.pr-amount {
+  font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 42px;
+  color: var(--cream); line-height: 1; margin-bottom: 6px;
+}
+.pr-from { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; color: var(--cream3); margin-right: 4px; }
+.pr-desc { font-size: 14px; color: var(--cream3); line-height: 1.6; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.05); }
+.pr-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 26px; }
+.pr-feats li { font-size: 14px; color: var(--cream2); display: flex; align-items: center; gap: 10px; }
+.pr-feats li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.pr-feats li.off { color: var(--cream3); opacity: .38; }
+.pr-feats li.off::before { background: rgba(255,255,255,.15); }
+.pr-btn {
+  display: block; text-align: center; text-decoration: none;
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: 11px; padding: 15px; letter-spacing: .02em;
+  transition: all .2s;
+}
+.pr-btn-gold { background: var(--gold); color: var(--bg); }
+.pr-btn-gold:hover { background: var(--gold2); box-shadow: 0 0 24px rgba(196,149,106,.3); }
+.pr-btn-out { background: transparent; color: var(--gold); border: 1.5px solid var(--line); }
+.pr-btn-out:hover { background: var(--gold3); border-color: var(--gold); }
+
+/* trust */
+.trust-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  padding: 18px 0; margin-top: 32px;
+  border-top: 1px solid var(--line2);
+}
+.trust-bar span {
+  font-family: 'Share Tech Mono', monospace; font-size: 10px;
+  color: var(--cream3); letter-spacing: 1.5px;
+  display: flex; align-items: center; gap: 6px;
+}
+.trust-sep { color: var(--line); font-size: 12px; }
+
+/* ═══════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════ */
+.about-layout { display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: start; }
+.about-card { border: 1px solid var(--line); overflow: hidden; }
+.about-card-img {
+  height: 220px; background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 76px; border-bottom: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+/* corner brackets on avatar */
+.about-card-img::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px solid rgba(196,149,106,.15);
+  pointer-events: none;
+}
+.about-card-body { padding: 22px; }
+.about-name { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 16px; letter-spacing: -0.02em; margin-bottom: 4px; }
+.about-role { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 18px; }
+.about-links { display: flex; flex-direction: column; gap: 8px; }
+.about-link { display: flex; align-items: center; gap: 8px; font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); text-decoration: none; letter-spacing: .5px; transition: color .2s; }
+.about-link:hover { color: var(--gold); }
+.al-ic { width: 20px; text-align: center; opacity: .5; }
+
+.about-right {}
+.about-bio { font-size: 17px; font-weight: 300; color: var(--cream2); line-height: 1.8; margin-bottom: 36px; }
+.skill-lbl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 36px; }
+.about-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.as { border: 1px solid var(--line); padding: 15px; text-align: center; }
+.as-n { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 22px; color: var(--gold); display: block; margin-bottom: 5px; }
+.as-l { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: var(--cream3); letter-spacing: 2.5px; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════ */
+.faq-layout { display: grid; grid-template-columns: 300px 1fr; gap: 72px; align-items: start; }
+.faq-sticky { position: sticky; top: 120px; }
+.faq-sticky h2 { margin-bottom: 14px; }
+.faq-sticky p { font-size: 15px; color: var(--cream3); line-height: 1.7; margin-bottom: 24px; }
+
+.faq-list {}
+.faq-item { border-bottom: 1px solid rgba(255,255,255,.06); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 0; cursor: pointer; gap: 16px;
+}
+.faq-qt {
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: 15px; letter-spacing: -0.01em;
+  color: var(--cream); flex: 1; transition: color .2s;
+  line-height: 1.4;
+}
+.faq-q:hover .faq-qt { color: var(--gold); }
+.faq-ic {
+  width: 26px; height: 26px;
+  border: 1.5px solid rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--cream3); flex-shrink: 0;
+  transition: all .25s; font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+}
+.faq-item.open .faq-ic { border-color: var(--gold); color: var(--gold); transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(.4,0,.2,1), padding .35s; }
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 18px; }
+.faq-a p { font-size: 15px; color: var(--cream3); line-height: 1.8; }
+.faq-a strong { color: var(--cream2); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════
+   CTA
+═══════════════════════════════════════════════ */
+.cta-wrap {
+  border: 1px solid var(--line);
+  padding: 72px;
+  background: linear-gradient(135deg, rgba(196,149,106,.05) 0%, rgba(0,0,0,.15) 100%);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px; position: relative; overflow: hidden;
+}
+.cta-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 100% at 0% 50%, rgba(196,149,106,.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-eyebrow {
+  font-family: 'Press Start 2P', monospace; font-size: 8px;
+  color: var(--gold); letter-spacing: 2px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cta-h2 {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em;
+  line-height: 1.05; margin-bottom: 10px;
+}
+.cta-h2 em { color: var(--gold); font-style: italic; }
+.cta-sub { font-size: 15px; color: var(--cream3); }
+.cta-btns { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; min-width: 180px; }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer { border-top: 1px solid var(--line2); padding: 48px 0 28px; }
+.ft-top { display: grid; grid-template-columns: 260px 1fr; gap: 56px; margin-bottom: 40px; }
+.ft-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.ft-logo-mark { width: 24px; height: 24px; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Press Start 2P', monospace; font-size: 7px; color: var(--gold); }
+.ft-brand-name { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 14px; color: var(--cream); letter-spacing: -0.02em; }
+.ft-desc { font-size: 13px; color: var(--cream3); line-height: 1.65; margin-bottom: 16px; }
+.ft-contacts { display: flex; flex-direction: column; gap: 6px; }
+.ft-contacts a { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--cream3); text-decoration: none; letter-spacing: .5px; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+.ft-contacts a:hover { color: var(--gold); }
+.ft-nav-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.ft-nav-ttl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
+.ft-nav-links { display: flex; flex-direction: column; gap: 8px; }
+.ft-nav-links a { font-size: 13px; color: var(--cream3); text-decoration: none; transition: color .2s; }
+.ft-nav-links a:hover { color: var(--cream2); }
+.ft-bottom { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.05); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.ft-copy { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cream3); letter-spacing: 1px; }
+.ft-live { display: flex; align-items: center; gap: 6px; font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--green); letter-spacing: 1px; }
+.ft-live-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+.ft-admin { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: rgba(255,255,255,.08); text-decoration: none; letter-spacing: 2px; transition: color .2s; }
+.ft-admin:hover { color: rgba(255,255,255,.25); }
+</style>
+</head>
+<body>
+
+<!-- CANVAS PARTICLES -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Landing Pages <b>✦</b></span>
+    <span>Sistemas Web <b>✦</b></span>
+    <span>AWS · Bedrock <b>✦</b></span>
+    <span>Automatizaciones <b>✦</b></span>
+    <span>AI Agents <b>✦</b></span>
+    <span>Pagos Integrados <b>✦</b></span>
+    <span>Apex Cloudworks <b>✦</b></span>
+    <span>Cartago, CR 🇨🇷 <b>✦</b></span>
+    <span>Landing Pages <b>✦</b></span>
+    <span>Sistemas Web <b>✦</b></span>
+    <span>AWS · Bedrock <b>✦</b></span>
+    <span>Automatizaciones <b>✦</b></span>
+    <span>AI Agents <b>✦</b></span>
+    <span>Pagos Integrados <b>✦</b></span>
+    <span>Apex Cloudworks <b>✦</b></span>
+    <span>Cartago, CR 🇨🇷 <b>✦</b></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/img/logo.png" alt="Apex Cloudworks" style="height:34px;width:auto;border-radius:6px;display:block;">
+      APEX CLOUDWORKS
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#portafolio">Portafolio</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#sobre">Nosotros</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="https://wa.me/50663144171" class="nav-cta" target="_blank">COTIZAR →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-arrow">▶</span> INSERT COIN · CARTAGO CR · 2026
+    </div>
+
+    <h1 class="hero-h1">
+      <span class="filled">ARQUI</span>
+      <span class="outline">TECTO</span>
+      <span class="filled">DIGITAL</span>
+    </h1>
+
+    <p class="hero-sub">
+      Landing pages, sistemas web y automatizaciones con IA desplegadas en AWS. De tu idea a producción — en días, no meses.
+    </p>
+
+    <div class="hero-actions">
+      <a href="https://wa.me/50663144171" class="btn btn-gold btn-lg" target="_blank">INICIAR PROYECTO <span class="arr">→</span></a>
+      <a href="#portafolio" class="btn btn-out btn-lg">VER PORTAFOLIO</a>
+    </div>
+
+    <!-- HP bars -->
+    <div class="hp-bars">
+      <div class="hp-row">
+        <span class="hp-lbl">SKILLS</span>
+        <div class="hp-track"><div class="hp-fill g" style="width:92%"></div></div>
+        <span class="hp-val">92 / 100</span>
+      </div>
+      <div class="hp-row">
+        <span class="hp-lbl">SPEED</span>
+        <div class="hp-track"><div class="hp-fill gg" style="width:97%"></div></div>
+        <span class="hp-val">&lt; 24H</span>
+      </div>
+      <div class="hp-row">
+        <span class="hp-lbl">CLOUD</span>
+        <div class="hp-track"><div class="hp-fill b" style="width:88%"></div></div>
+        <span class="hp-val">AWS</span>
+      </div>
+      <div class="hp-row">
+        <span class="hp-lbl">XP</span>
+        <div class="hp-track"><div class="hp-fill g" style="width:72%"></div></div>
+        <span class="hp-val">6+ PRJ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="hero-right">
+
+    <!-- Score -->
+    <div class="h-card">
+      <div class="score-header">
+        <span class="score-title">▶ HIGH SCORE</span>
+        <span class="score-live"><span class="live-dot"></span>LIVE</span>
+      </div>
+      <div class="score-grid">
+        <div class="score-item">
+          <div class="score-n">6+</div>
+          <div class="score-l">Proyectos</div>
+        </div>
+        <div class="score-item">
+          <div class="score-n green">&lt;24H</div>
+          <div class="score-l">Respuesta</div>
+        </div>
+        <div class="score-item">
+          <div class="score-n blue">99.9%</div>
+          <div class="score-l">Uptime</div>
+        </div>
+        <div class="score-item">
+          <div class="score-n" style="font-size:16px">REMOTO</div>
+          <div class="score-l">100%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vinyl -->
+    <div class="h-card vinyl-card">
+      <div class="vinyl-disc"></div>
+      <div class="vinyl-info">
+        <div class="vinyl-tag">♪ NOW PLAYING — SEM <span id="week-num">—</span></div>
+        <div class="vinyl-week">Canción de la semana <span id="week-emoji">—</span></div>
+        <a href="https://open.spotify.com/track/4PTG3Z6ehGkBF3zIwYvGZg" class="vinyl-btn" target="_blank">ABRIR SPOTIFY →</a>
+      </div>
+    </div>
+
+    <!-- Projects mini -->
+    <div class="h-card">
+      <div class="stack-lbl" style="margin-bottom:12px;">PROYECTOS ACTIVOS</div>
+      <div class="proj-list">
+        <div class="proj-row">
+          <span class="proj-icon">🩺</span>
+          <div>
+            <div class="proj-name">Skindoctors CR</div>
+            <div class="proj-meta">CloudFront · n8n · Sheets</div>
+          </div>
+          <span class="pil pil-g"><span class="pil-dot"></span>LIVE</span>
+        </div>
+        <div class="proj-row">
+          <span class="proj-icon">🐔</span>
+          <div>
+            <div class="proj-name">EcoPollo</div>
+            <div class="proj-meta">AWS S3 · WhatsApp API</div>
+          </div>
+          <span class="pil pil-b">DEV</span>
+        </div>
+        <div class="proj-row">
+          <span class="proj-icon">🎬</span>
+          <div>
+            <div class="proj-name">VisionaryFilm</div>
+            <div class="proj-meta">Admin Panel · Firebase</div>
+          </div>
+          <span class="pil pil-y">READY</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stack -->
+    <div class="h-card stack-card">
+      <div class="stack-lbl">INVENTARIO DE SKILLS</div>
+      <div class="stack-slots">
+        <span class="slot">JS</span>
+        <span class="slot">NODE</span>
+        <span class="slot">AWS</span>
+        <span class="slot">REACT</span>
+        <span class="slot">N8N</span>
+        <span class="slot">SQL</span>
+        <span class="slot">BEDROCK</span>
+        <span class="slot">CI/CD</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="wrap" style="padding-top:0;">
+
+  <!-- PROCESS -->
+  <section class="sec" id="como" style="border-top: 1px solid var(--line2);">
+    <div style="margin-bottom:48px;">
+      <div class="label" style="margin-bottom:14px;">Simple y directo</div>
+      <h2 class="sec-h2">Cómo empezamos</h2>
+    </div>
+    <div class="process-grid">
+      <div class="pc-card">
+        <div class="pc-num">01 ——</div>
+        <h3>Cuéntanos tu idea</h3>
+        <p>Escribinos por WhatsApp. No necesitás tener todo claro — con una idea es suficiente para arrancar.</p>
+        <a href="https://wa.me/50663144171" class="btn btn-ghost" style="font-size:10px;padding:11px 20px;" target="_blank">ESCRIBIR AHORA →</a>
+      </div>
+      <div class="pc-card">
+        <div class="pc-num">02 ——</div>
+        <h3>Recibís tu propuesta</h3>
+        <p>En menos de 24h tenés cotización clara: precio, tiempo de entrega y exactamente qué incluye el proyecto.</p>
+      </div>
+      <div class="pc-card">
+        <div class="pc-num">03 ——</div>
+        <h3>Arrancamos</h3>
+        <p>Decís que sí y empezamos. Seguimiento constante hasta que tu proyecto esté live en producción en AWS.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="sec" id="servicios">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;gap:24px;flex-wrap:wrap;">
+      <div>
+        <div class="label" style="margin-bottom:14px;">Lo que construimos</div>
+        <h2 class="sec-h2">Servicios</h2>
+      </div>
+      <p style="font-size:15px;color:var(--cream3);max-width:340px;text-align:right;font-weight:300;">Desde landing pages hasta sistemas con IA. Todo en AWS.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv">
+        <div class="srv-top">
+          <div class="srv-icon" style="background:rgba(52,211,153,.07);">🌐</div>
+          <span class="srv-no">01 / 03</span>
+        </div>
+        <h3>Landing Pages</h3>
+        <p>Mobile-first, AWS S3 + CloudFront, formulario de leads, WhatsApp directo y SSL. Listo en 48–72 horas.</p>
+        <div class="srv-price">$150 — $500</div>
+      </div>
+      <div class="srv">
+        <div class="srv-top">
+          <div class="srv-icon" style="background:rgba(96,165,250,.07);">⚡</div>
+          <span class="srv-no">02 / 03</span>
+        </div>
+        <h3>Sistemas Web</h3>
+        <p>Dashboard con auth, base de datos PostgreSQL y pagos Stripe integrados. Tu negocio en la nube.</p>
+        <div class="srv-price">$500 — $2,000</div>
+      </div>
+      <div class="srv">
+        <div class="srv-top">
+          <div class="srv-icon" style="background:rgba(196,149,106,.07);">🤖</div>
+          <span class="srv-no">03 / 03</span>
+        </div>
+        <h3>Automatizaciones + IA</h3>
+        <p>Flujos n8n, WhatsApp, Google Sheets y agentes con AWS Bedrock. Piloto automático para tu negocio.</p>
+        <div class="srv-price">$200 — $800</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="sec" id="portafolio">
+    <div style="margin-bottom:48px;">
+      <div class="label" style="margin-bottom:14px;">Proyectos reales</div>
+      <h2 class="sec-h2">Portafolio</h2>
+    </div>
+    <div class="pf-grid">
+
+      <div class="pf">
+        <div class="pf-cover" style="background:linear-gradient(135deg,#152014,#0c1609);">
+          <div class="pf-top">
+            <span class="pf-lvl">STAGE 01</span>
+            <span class="pil pil-g"><span class="pil-dot"></span>LIVE</span>
+          </div>
+          <div>
+            <div class="pf-emoji">🩺</div>
+            <div class="pf-name">SKINDOCTORS CR</div>
+          </div>
+        </div>
+        <div class="pf-body">
+          <p class="pf-desc">2 landing pages con captura de leads automatizada. N8N conectado a Google Sheets y alertas Gmail. CloudFront con SSL.</p>
+          <div class="pf-tags">
+            <span class="tag-sm">HTML/CSS/JS</span><span class="tag-sm">n8n</span><span class="tag-sm">AWS S3</span><span class="tag-sm">CloudFront</span><span class="tag-sm">Google Sheets</span>
+          </div>
+          <div class="pf-foot">
+            <div class="pf-kpis">
+              <div><div class="pf-kn">2</div><div class="pf-kl">Landings</div></div>
+              <div><div class="pf-kn">100%</div><div class="pf-kl">Auto</div></div>
+            </div>
+            <span class="pf-sector">Skincare · CR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pf">
+        <div class="pf-cover" style="background:linear-gradient(135deg,#142012,#0b1809);">
+          <div class="pf-top">
+            <span class="pf-lvl">STAGE 02</span>
+            <span class="pil pil-b">DEV</span>
+          </div>
+          <div>
+            <div class="pf-emoji">🐔</div>
+            <div class="pf-name">ECOPOLLO</div>
+          </div>
+        </div>
+        <div class="pf-body">
+          <p class="pf-desc">Landing + cotizador de pedidos para distribuidora. Calculadora por canal (restaurantes / minoristas) con envío a WhatsApp.</p>
+          <div class="pf-tags">
+            <span class="tag-sm">HTML/CSS/JS</span><span class="tag-sm">AWS S3</span><span class="tag-sm">WhatsApp API</span>
+          </div>
+          <div class="pf-foot">
+            <div class="pf-kpis">
+              <div><div class="pf-kn">2</div><div class="pf-kl">Canales</div></div>
+              <div><div class="pf-kn">WA</div><div class="pf-kl">Integrado</div></div>
+            </div>
+            <span class="pf-sector">Alimentos · CR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pf">
+        <div class="pf-cover" style="background:linear-gradient(135deg,#111028,#090815);">
+          <div class="pf-top">
+            <span class="pf-lvl">STAGE 03</span>
+            <span class="pil pil-y">READY</span>
+          </div>
+          <div>
+            <div class="pf-emoji">🎬</div>
+            <div class="pf-name">VISIONARYFILM</div>
+          </div>
+        </div>
+        <div class="pf-body">
+          <p class="pf-desc">Portafolio completo + panel admin para productora. 8 módulos: marketing, equipo, proyectos, métricas de campañas.</p>
+          <div class="pf-tags">
+            <span class="tag-sm">HTML/CSS/JS</span><span class="tag-sm">Firebase</span><span class="tag-sm">CloudFront</span>
+          </div>
+          <div class="pf-foot">
+            <div class="pf-kpis">
+              <div><div class="pf-kn">8</div><div class="pf-kl">Módulos</div></div>
+              <div><div class="pf-kn">Admin</div><div class="pf-kl">Completo</div></div>
+            </div>
+            <span class="pf-sector">Audiovisual · CR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pf" style="border-style:dashed;border-color:rgba(196,149,106,.15);">
+        <div class="pf-cover" style="background:linear-gradient(135deg,#161210,#0e0c08);">
+          <div class="pf-top">
+            <span class="pf-lvl">STAGE 04</span>
+            <span class="pil pil-d">AVAILABLE</span>
+          </div>
+          <div>
+            <div class="pf-emoji">⭐</div>
+            <div class="pf-name">TU EMPRESA</div>
+          </div>
+        </div>
+        <div class="pf-body">
+          <p class="pf-desc">¿Tenés un proyecto? Podría ser el próximo caso de éxito de Apex Cloudworks. Respuesta en &lt;24h garantizado.</p>
+          <div style="padding-top:12px;border-top:1px solid rgba(255,255,255,.05);margin-top:12px;">
+            <a href="https://wa.me/50663144171" class="btn btn-ghost" style="font-size:10px;padding:11px 20px;" target="_blank">COTIZAR AHORA →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec" id="precios" style="background:rgba(255,255,255,.01);">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div class="label" style="justify-content:center;margin-bottom:14px;">SELECT YOUR CHARACTER</div>
+      <h2 class="sec-h2">Precios</h2>
+      <p style="margin-top:12px;font-size:15px;color:var(--cream3);">Sin sorpresas. Sin costos ocultos.</p>
+    </div>
+    <div class="pr-grid">
+      <div class="pr">
+        <div class="pr-tier">STARTER</div>
+        <div class="pr-amount"><span class="pr-from">desde </span>$150</div>
+        <p class="pr-desc">Para negocios que necesitan presencia digital rápida y efectiva.</p>
+        <ul class="pr-feats">
+          <li>Landing page — 1 página</li>
+          <li>Diseño mobile-first</li>
+          <li>Deploy AWS S3 + CloudFront</li>
+          <li>Formulario + WhatsApp</li>
+          <li>SSL / HTTPS incluido</li>
+          <li>1 revisión gratuita</li>
+          <li class="off">Dashboard admin</li>
+          <li class="off">Base de datos</li>
+        </ul>
+        <a href="https://wa.me/50663144171" class="pr-btn pr-btn-out" target="_blank">EMPEZAR →</a>
+      </div>
+      <div class="pr feat">
+        <div class="pr-badge">★ MÁS POPULAR</div>
+        <div class="pr-tier">PRO</div>
+        <div class="pr-amount"><span class="pr-from">desde </span>$500</div>
+        <p class="pr-desc">Sistema completo para negocios en crecimiento real.</p>
+        <ul class="pr-feats">
+          <li>Todo lo de Starter</li>
+          <li>Múltiples páginas</li>
+          <li>Dashboard admin</li>
+          <li>Base de datos PostgreSQL</li>
+          <li>Pagos Stripe / PayPal</li>
+          <li>Deploy EC2 + CI/CD</li>
+          <li>Panel de estadísticas</li>
+          <li>3 revisiones gratuitas</li>
+        </ul>
+        <a href="https://wa.me/50663144171" class="pr-btn pr-btn-gold" target="_blank">COTIZAR PRO →</a>
+      </div>
+      <div class="pr">
+        <div class="pr-tier">ENTERPRISE</div>
+        <div class="pr-amount"><span class="pr-from">desde </span>$2,000</div>
+        <p class="pr-desc">Solución total con IA y automatización end-to-end.</p>
+        <ul class="pr-feats">
+          <li>Todo lo de Pro</li>
+          <li>Agente IA (AWS Bedrock)</li>
+          <li>Automatizaciones n8n</li>
+          <li>Bot WhatsApp / Telegram</li>
+          <li>Integraciones API custom</li>
+          <li>Soporte premium</li>
+          <li>Mantenimiento 3 meses</li>
+          <li>Revisiones ilimitadas</li>
+        </ul>
+        <a href="https://wa.me/50663144171" class="pr-btn pr-btn-out" target="_blank">CONTACTAR →</a>
+      </div>
+    </div>
+    <div class="trust-bar">
+      <span>🔒 SSL siempre incluido</span>
+      <span class="trust-sep">·</span>
+      <span>☁️ AWS infraestructura</span>
+      <span class="trust-sep">·</span>
+      <span>👁 Preview antes de pagar</span>
+      <span class="trust-sep">·</span>
+      <span>💬 Respuesta &lt;24h</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec" id="sobre">
+    <div class="about-layout">
+      <div>
+        <div class="about-card">
+          <div class="about-card-img">👨‍💻</div>
+          <div class="about-card-body">
+            <div class="about-name">GARETT BARRANTES</div>
+            <div class="about-role">FOUNDER · ARQUITECTO DIGITAL</div>
+            <div class="about-links">
+              <a href="https://wa.me/50663144171" class="about-link" target="_blank"><span class="al-ic">💬</span>+506 6314-4171</a>
+              <a href="mailto:apexcloudworkscompany@gmail.com" class="about-link"><span class="al-ic">✉</span>apexcloudworkscompany@gmail.com</a>
+              <a href="https://github.com/DeprivedVisit" class="about-link" target="_blank"><span class="al-ic">⚡</span>github.com/DeprivedVisit</a>
+              <a href="https://linkedin.com/in/garett-barrantes" class="about-link" target="_blank"><span class="al-ic">🔗</span>linkedin.com/in/garett-barrantes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="label" style="margin-bottom:16px;">Player Profile</div>
+        <h2 class="sec-h2" style="margin-bottom:20px;">Una persona.<br>Resultados de agencia.</h2>
+        <p class="about-bio">Construyo soluciones web completas desde Cartago, Costa Rica. Me especializo en sistemas rápidos, seguros y escalables — desde una landing page hasta pipelines de IA en AWS. Si podés imaginarlo, puedo construirlo.</p>
+        <div class="skill-lbl">Stack tecnológico</div>
+        <div class="skill-tags">
+          <span class="tag">JavaScript</span><span class="tag">Node.js</span>
+          <span class="tag">AWS S3 · EC2 · Cognito</span><span class="tag">React</span>
+          <span class="tag">n8n</span><span class="tag">Claude · Bedrock</span>
+          <span class="tag">SQL</span><span class="tag">CloudFront</span>
+        </div>
+        <div class="about-stats">
+          <div class="as"><span class="as-n">6+</span><span class="as-l">Proyectos</span></div>
+          <div class="as"><span class="as-n">2+</span><span class="as-l">Años XP</span></div>
+          <div class="as"><span class="as-n">100%</span><span class="as-l">Remoto</span></div>
+          <div class="as"><span class="as-n">&lt;24h</span><span class="as-l">Respuesta</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec" id="faq">
+    <div class="faq-layout">
+      <div class="faq-sticky">
+        <div class="label" style="margin-bottom:16px;">FAQ</div>
+        <h2 class="sec-h2">Preguntas<br>que nos<br>hacen.</h2>
+        <p style="margin-top:14px;font-size:15px;color:var(--cream3);">¿No encontrás lo que buscás?</p>
+        <a href="https://wa.me/50663144171" class="btn btn-ghost" style="margin-top:20px;font-size:10px;padding:12px 20px;" target="_blank">PREGUNTAR →</a>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">
+            <span class="faq-qt">¿Cuánto cuesta una landing page?</span>
+            <span class="faq-ic">+</span>
+          </div>
+          <div class="faq-a"><p>Las landing pages van desde <strong>$150 hasta $500 USD</strong>. En menos de 24h tenés cotización exacta para tu caso.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">
+            <span class="faq-qt">¿Cuánto tiempo tarda en estar lista?</span>
+            <span class="faq-ic">+</span>
+          </div>
+          <div class="faq-a"><p>Una <strong>landing page</strong>: 48–72 horas. Un <strong>sistema web completo</strong>: 1–3 semanas. Siempre hay preview antes del deploy.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">
+            <span class="faq-qt">¿El hosting está incluido?</span>
+            <span class="faq-ic">+</span>
+          </div>
+          <div class="faq-a"><p><strong>Sí, el primer año.</strong> AWS S3 + CloudFront incluido. Del segundo año ~$2–5 USD/mes.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">
+            <span class="faq-qt">¿Puedo ver el trabajo antes de pagar el total?</span>
+            <span class="faq-ic">+</span>
+          </div>
+          <div class="faq-a"><p><strong>Sí, siempre.</strong> 50% adelante → preview privado → aprobás → ajustes → deploy → 50% restante.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">
+            <span class="faq-qt">¿Trabajás fuera de Costa Rica?</span>
+            <span class="faq-ic">+</span>
+          </div>
+          <div class="faq-a"><p><strong>Sí, 100% remoto.</strong> Clientes de toda Latinoamérica. Precios USD, AWS global.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">
+            <span class="faq-qt">¿Qué pasa si quiero cambios después?</span>
+            <span class="faq-ic">+</span>
+          </div>
+          <div class="faq-a"><p><strong>Plan de mantenimiento desde $50 USD/mes</strong> con 2 cambios mensuales, SSL renovado, backups y soporte prioritario.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec">
+    <div class="cta-wrap">
+      <div>
+        <div class="cta-eyebrow">▶ ¿LISTO PARA ARRANCAR?</div>
+        <h2 class="cta-h2">Hablemos de tu <em>proyecto.</em></h2>
+        <p class="cta-sub">Respuesta en menos de 24 horas · Cartago, Costa Rica</p>
+      </div>
+      <div class="cta-btns">
+        <a href="https://wa.me/50663144171" class="btn btn-gold btn-lg" target="_blank">WHATSAPP <span class="arr">→</span></a>
+        <a href="mailto:apexcloudworkscompany@gmail.com" class="btn btn-out btn-lg" style="justify-content:center;">EMAIL</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <div class="ft-logo">
+          <img src="assets/img/logo.png" alt="Apex Cloudworks" style="height:30px;width:auto;border-radius:5px;display:block;">
+          <span class="ft-brand-name">APEX CLOUDWORKS</span>
+        </div>
+        <p class="ft-desc">Arquitectura digital desde Cartago, Costa Rica. Landing pages, sistemas web y automatizaciones con IA en AWS.</p>
+        <div class="ft-contacts">
+          <a href="https://wa.me/50663144171" target="_blank">💬 +506 6314-4171</a>
+          <a href="mailto:apexcloudworkscompany@gmail.com">✉ apexcloudworkscompany@gmail.com</a>
+          <a href="#">📍 Cartago, Costa Rica 🇨🇷</a>
+        </div>
+      </div>
+      <div class="ft-nav-grid">
+        <div>
+          <div class="ft-nav-ttl">Servicios</div>
+          <div class="ft-nav-links">
+            <a href="#servicios">Landing Pages</a>
+            <a href="#servicios">Sistemas Web</a>
+            <a href="#servicios">Automatizaciones</a>
+            <a href="#servicios">IA · Bedrock</a>
+          </div>
+        </div>
+        <div>
+          <div class="ft-nav-ttl">Empresa</div>
+          <div class="ft-nav-links">
+            <a href="#sobre">Sobre mí</a>
+            <a href="#portafolio">Portafolio</a>
+            <a href="#precios">Precios</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="ft-nav-ttl">Contacto</div>
+          <div class="ft-nav-links">
+            <a href="https://wa.me/50663144171" target="_blank">WhatsApp</a>
+            <a href="https://github.com/DeprivedVisit" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/garett-barrantes" target="_blank">LinkedIn</a>
+            <a href="https://instagram.com/garett_barrantes" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-copy">© 2026 · APEX CLOUDWORKS · GARETT BARRANTES BENAVIDES · CARTAGO, CR</span>
+      <div class="ft-live"><span class="ft-live-dot"></span>DISPONIBLE PARA PROYECTOS</div>
+      <a href="admin.html" class="ft-admin">· admin ·</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── PARTICLE SYSTEM ─────────────────────────── */
+(function(){
+  const canvas = document.getElementById('particles-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  const GOLD = { r:196, g:149, b:106 };
+  const COUNT = 88;
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(min, max){ return Math.random()*(max-min)+min; }
+
+  function Particle(){
+    this.reset = function(){
+      this.x    = rand(0, W);
+      this.y    = rand(0, H);
+      this.r    = rand(0.6, 2.2);
+      this.vx   = rand(-0.18, 0.18);
+      this.vy   = rand(-0.22, 0.08);   /* leve deriva hacia arriba */
+      this.a    = rand(0.06, 0.32);
+      this.life = rand(0.4, 1.0);      /* ciclo de vida individual */
+      this.dLife= rand(0.001, 0.003);  /* velocidad del fade */
+      this.glow = Math.random() > 0.82; /* 18% tienen glow */
+    };
+    this.reset();
+    this.y = rand(0, H); /* distribución inicial completa */
+  }
+
+  for(let i=0;i<COUNT;i++){ particles.push(new Particle()); }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach(p => {
+      /* fade in/out basado en life */
+      p.life += p.dLife;
+      if(p.life > 1.0){ p.dLife = -Math.abs(p.dLife); }
+      if(p.life < 0.0){ p.reset(); return; }
+
+      const alpha = p.a * Math.sin(p.life * Math.PI);
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      /* wrap horizontal */
+      if(p.x < -4) p.x = W+4;
+      if(p.x > W+4) p.x = -4;
+      /* reset al bajar demasiado */
+      if(p.y > H+4){ p.reset(); p.y = H+4; }
+      if(p.y < -4){ p.reset(); p.y = -4; }
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      if(p.glow){
+        /* partícula con halo sutil */
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
+        g.addColorStop(0, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},0.6)`);
+        g.addColorStop(1, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},0)`);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+
+      /* punto central */
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgb(${GOLD.r},${GOLD.g},${GOLD.b})`;
+      ctx.fill();
+
+      ctx.restore();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+/* ── WEEK / SPOTIFY ──────────────────────────── */
+const WEEK_EMOJIS=["🎸","🎹","🥁","🎺","🎻","🎷","🎤","🎧","🔥","⚡","🌊","🌙","🌟","💫","🚀","🎯","🦋","🌸","🍀","🎲","💎","🏆","🎮","🧠"];
+function getWeek(){const n=new Date(),s=new Date(n.getFullYear(),0,1);return Math.ceil(((n-s)/86400000+s.getDay()+1)/7);}
+const w=getWeek();
+const wn=document.getElementById('week-num'),we=document.getElementById('week-emoji');
+if(wn)wn.textContent=w; if(we)we.textContent=WEEK_EMOJIS[w%WEEK_EMOJIS.length];
+
+// animate HP bars
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.hp-fill').forEach(b=>{
+    const fw=b.style.width; b.style.width='0%';
+    setTimeout(()=>{b.style.width=fw;},400);
+  });
+});
+
+function faq(el){
+  const item=el.closest('.faq-item'),open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+</script>
+</body>
+</html>
