@@ -1,5 +1,5 @@
 # 🧠 CLAUDE.md — Garett Barrantes Benavides
-> Memoria permanente · Versión 10.0 · Junio 2026
+> Memoria permanente · Versión 11.0 · 22 Junio 2026
 > Leer completo antes de cualquier sesión.
 
 ---
@@ -81,11 +81,12 @@
 
 ## 🛠️ Stack
 
-**Nivel JS:** Semana 1 ✅ · Semana 2 en curso (Closures + .filter())
+**Nivel JS:** Semana 1 ✅ · Semana 2 ✅ (Closures + .filter()) · Semana 3 en curso
 **Objetivo:** JS → React → APIs → AWS avanzado
 **Dispositivos:** iPhone · VS Code · Google Calendar + Apple Calendar
-**AWS:** S3 · EC2 · Bedrock · Cognito · Route 53 · IAM
+**AWS deployado:** S3 · CloudFront · Route 53 · Apps Script · N8N webhooks en producción
 **GitHub:** github.com/apexcloudworkscompany
+**Jarvis:** PY local · brief 7:50 AM · /lead · /deploy · /revisar · /refactor · auto-review código
 
 ---
 
@@ -116,12 +117,34 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 
 | # | Proyecto | Cliente | Estado | Valor |
 |---|---------|---------|--------|-------|
-| 1 | **Skindoctors** | Skindoctors CR | 🔥 Cerrar antes 15 junio | $450 USD |
-| 2 | **EcoPollo** | Tío Michael | Activo — cotizador | — |
-| 3 | **VisionaryFilm** | Fabian | Pendiente Instagram | TBD |
+| 0 | **Apex Landing** | Interno | ✅ Rediseño premium retro live | — |
+| 1 | **Skindoctors** | Skindoctors CR | ⚠️ Sistema completo — pendiente firma y cobro | $450 USD |
+| 2 | **EcoPollo** | Tío Michael | 🔥 Activo — cotizador en desarrollo | — |
+| 3 | **VisionaryFilm** | Fabian | Pendiente datos Fabian (WA, fotos, YouTube ID) | TBD |
 | 4 | **RFLX** | Andrés | En cartera | TBD |
 | 5 | **Arte Verde** | Tía Estefany | En cartera | TBD |
-| 9 | **Jarvis** | Interno | Funcional | — |
+| 9 | **Jarvis** | Interno | ✅ Funcional — brief, /lead, /deploy, /revisar | — |
+
+### Skindoctors — Infraestructura
+
+| Recurso | Detalle |
+|---------|---------|
+| S3 bucket | `skindoctors-cr-landings` — us-east-2 |
+| CloudFront | `E31U5V9IA0JXSZ` · `d3suiaystvdco4.cloudfront.net` |
+| Landing 1 | `/melasblock/` — N8N activo + Google Sheets + Gmail |
+| Landing 2 | `/cbd-balance/` — N8N importado, **pendiente activar toggle** |
+| Presentación | `/presentacion/index.html` · `/presentacion/entrega-final.html` |
+| WA actual | `+506 6314-4171` (Garett) → cambiar a número Skindoctors al firmar |
+
+### Apex Landing — apexcloudworkscompany.com
+
+| Elemento | Detalle |
+|---------|---------|
+| Paleta | Warm gold/cream — `#C4956A` / `#E2B97A` · fondo `#060402` |
+| Hero | Dos columnas · texto gigante · cards flotantes (Spotify, Code, Output) |
+| Tipografía | Playfair Display + Lora + JetBrains Mono |
+| Admin | `/admin.html` · mock data · pendiente conectar Google Sheets |
+| Pendiente | Foto real Garett · auth Cognito · dashboard cliente |
 
 ---
 
@@ -186,7 +209,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 |-----------|--------|
 | Netacad | JS Essentials · diario 10:00 |
 | Open English | Nivel 1 · 71% · meta C2 · se traba al hablar |
-| JS/React | Semana 2 — Closures + .filter() |
+| JS/React | Semana 2 ✅ · Semana 3 en curso |
 | Inglés nocturno | Serie sin subtítulos · 22:30 |
 | Codewars | 1 kata · 23:00 |
 | Viteck | Mar Desarrollo Web · Mié IT Support |
@@ -201,3 +224,21 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 ---
 
 ## 🔮 Roadmap
+
+| Etapa | Meta | Estado |
+|-------|------|--------|
+| Q2 2026 | Cerrar Skindoctors $450 · EcoPollo cotizador live | 🔥 En curso |
+| Q3 2026 | 2 clientes nuevos · subir a plan $900/trimestral | ⏳ |
+| Q4 2026 | Liz sale del trabajo hostil · Apex cubre sus gastos | ⏳ |
+| 2027 | React + APIs propias · primer producto interno | ⏳ |
+| 2028–2030 | Equipo pequeño · automatización total | ⏳ |
+| 2033 | CEO empresa propia automatizada · tranquilidad real | 🎯 |
+
+**Pendientes críticos (22 jun 2026):**
+- [ ] Activar workflow N8N CBD en n8n.cloud (toggle Active)
+- [ ] Agendar reunión Skindoctors → presentar `presentacion/index.html`
+- [ ] Hablar comisión con Andrés **antes** del cobro
+- [ ] Firma + cobro $450 USD
+- [ ] Cambiar WA Skindoctors al número oficial del cliente
+- [ ] Conectar Jarvis a n8n → WhatsApp Business (leads auto-registrados)
+- [ ] Foto real de Garett para sección "Sobre mí" del Apex Landing
