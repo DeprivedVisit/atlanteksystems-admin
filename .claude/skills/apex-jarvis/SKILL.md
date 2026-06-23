@@ -1,20 +1,32 @@
 ---
 name: apex-jarvis
 description: >
-  Skill para planificar y desarrollar Jarvis — el agente interno de Apex Cloud Works.
-  Activar cuando Garett hable de Jarvis, automatización, monitoreo de sitios,
-  o quiera que algo funcione solo sin intervención humana.
+  Contexto completo del proyecto Jarvis (asistente interno) de Apex Cloud Works.
+  Activar cuando Garett mencione Jarvis, el brief matutino, /lead, /deploy, /revisar,
+  /refactor, la automatización interna, o quiera trabajar en el sistema de IA local.
 ---
 
-# Apex Jarvis — Agente interno
+# Jarvis — Asistente interno de Apex Cloud Works
 
 ## Visión
 Jarvis opera todo por Garett. No es un asistente — es un socio que ejecuta.
 
+## Comandos implementados
+
+| Comando | Función |
+|---------|---------|
+| Brief matutino | Se ejecuta a las 7:50 AM con agenda del día |
+| `/lead` | Registra un nuevo lead (cliente potencial) |
+| `/deploy` | Asiste en el proceso de deploy a AWS S3 + CloudFront |
+| `/revisar` | Auto-review de código antes de deploy |
+| `/refactor` | Sugerencias de refactor del código actual |
+
 ## Estado actual
+- ✅ Funcional en producción local
+- ⏳ Pendiente: Conectar n8n → WhatsApp Business (leads auto-registrados)
+- ⏳ Pendiente: Configurar .env para proyectos apexweb y ecopollo
 - Stack: Python · AWS Bedrock · Claude API
 - Repo: github.com/apexcloudworkscompany/Jarvis
-- Estado: Funcional básico
 
 ## Roadmap
 
