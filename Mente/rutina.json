@@ -1,0 +1,53 @@
+{
+  "owner": "Garett",
+  "timezone": "America/Costa_Rica",
+  "version": "2.0",
+  "notes": "Rutina optimizada — sostenible, con ejercicio y pausas reales. Arranca 21 mayo 2026.",
+  "schedule": [
+    { "id": "wake",        "time": "07:50", "duration_min": 10,  "title": "Alarma — Agua + Noticias",                   "type": "morning",    "reminder_min": 5 },
+    { "id": "shower",      "time": "08:00", "duration_min": 30,  "title": "Levantarse + Café + Baño",                   "type": "morning",    "reminder_min": 5 },
+    { "id": "breakfast",   "time": "08:30", "duration_min": 30,  "title": "Desayuno + Agenda del día",                  "type": "morning",    "reminder_min": 5 },
+    { "id": "netacad",     "time": "09:00", "duration_min": 60,  "title": "Netacad — Mañana",                           "type": "learning",   "reminder_min": 5 },
+    { "id": "work1",       "time": "10:00", "duration_min": 90,  "title": "Home Office — Bloque 1",                     "type": "work",       "reminder_min": 5 },
+    { "id": "break1",      "time": "11:30", "duration_min": 15,  "title": "☕ Café + Pausa activa (caminar/estirar)",    "type": "break",      "reminder_min": 5 },
+    { "id": "work2",       "time": "11:45", "duration_min": 75,  "title": "Home Office — Bloque 2",                     "type": "work",       "reminder_min": 5 },
+    { "id": "openenglish", "time": "13:00", "duration_min": 60,  "title": "Open English — Tarde",                       "type": "learning",   "reminder_min": 5 },
+    { "id": "lunch",       "time": "14:00", "duration_min": 45,  "title": "Almuerzo + Descanso real (sin pantalla)",     "type": "break",      "reminder_min": 5 },
+    { "id": "work3",       "time": "14:45", "duration_min": 120, "title": "Home Office — Bloque 3",                     "type": "work",       "reminder_min": 5 },
+    { "id": "exercise",    "time": "16:45", "duration_min": 30,  "title": "🚴 Bicicleta — ejercicio al aire libre",      "type": "health",     "reminder_min": 10 },
+    { "id": "sunset",      "time": "17:15", "duration_min": 45,  "title": "🌅 Sunset + Smoke + Pokémon GO",             "type": "free",       "reminder_min": 5 },
+    { "id": "work4",       "time": "18:00", "duration_min": 120, "title": "Home Office — Bloque 4",                     "type": "work",       "reminder_min": 5 },
+    { "id": "dinner",      "time": "20:00", "duration_min": 30,  "title": "Cena + Descanso",                            "type": "break",      "reminder_min": 5 },
+    { "id": "work5",       "time": "20:30", "duration_min": 90,  "title": "Home Office — Bloque 5 (sprint o coding)",   "type": "work",       "reminder_min": 5 },
+    { "id": "coding",      "time": "22:00", "duration_min": 60,  "title": "Programación — Práctica libre (noche)",       "type": "learning",   "reminder_min": 5 },
+    { "id": "review",      "time": "23:00", "duration_min": 30,  "title": "Revisión del día + Plan de mañana",          "type": "planning",   "reminder_min": 5 },
+    { "id": "news_night",  "time": "23:30", "duration_min": 15,  "title": "Noticias para dormir",                       "type": "wind_down",  "reminder_min": 5 },
+    { "id": "sleep",       "time": "23:45", "duration_min": 485, "title": "Dormir — 8 horas",                           "type": "sleep",      "reminder_min": 0 }
+  ],
+  "learning_blocks": {
+    "morning":   { "id": "netacad",      "platform": "Netacad",       "url": "https://netacad.com" },
+    "afternoon": { "id": "openenglish",  "platform": "Open English",  "url": "https://openenglish.com" },
+    "night":     { "id": "coding",       "platform": "Programación general" }
+  },
+  "work_blocks": ["work1", "work2", "work3", "work4", "work5"],
+  "health": {
+    "exercise_id": "exercise",
+    "coffee_reminder_every_min": 90,
+    "no_screen_blocks": ["lunch"]
+  },
+  "free_time": {
+    "id": "sunset",
+    "activities": ["sunset", "smoke", "duolingo", "pokemon_go"]
+  },
+  "sleep": {
+    "bedtime": "23:45",
+    "wake_time": "07:50",
+    "duration_hours": 8.08
+  },
+  "daily_work_hours": {
+    "total_work_min": 570,
+    "total_learning_min": 180,
+    "total_break_min": 90,
+    "note": "~9.5h productivas — sostenible con pausas reales"
+  }
+}

@@ -1,0 +1,263 @@
+/* ══════════════════════════════════════════════
+   backgrounds.css — Fondos animados · cc-root
+   Keyframes + clases de cada estado del proceso
+══════════════════════════════════════════════ */
+
+/* ── Variables de color por estado ──────────── */
+#cc-root {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  --glow:    #D97757;
+  --glowRgb: 217,119,87;
+  --accent:  #E8A86B;
+}
+
+/* ── Capa raíz interior ───────────────────────── */
+.cc-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Fondos individuales ─────────────────────── */
+.cc-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 1.2s ease;
+}
+.cc-bg.active { opacity: 1; }
+
+/* BG 0: Brief — dot grid */
+.cc-bg-0 {
+  background: radial-gradient(125% 105% at 72% 18%, #2e221b 0%, #1d1712 46%, #120e0b 100%);
+}
+.cc-bg-0 .cc-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(var(--glowRgb), .16) 1px, transparent 1.4px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(120% 100% at 70% 30%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(120% 100% at 70% 30%, #000 30%, transparent 80%);
+}
+.cc-bg-0 .cc-bubble {
+  position: absolute;
+  left: 9%; bottom: 20%;
+  max-width: 320px;
+  padding: 16px 20px;
+  border: 1px solid rgba(var(--glowRgb), .4);
+  border-radius: 4px 14px 14px 14px;
+  background: rgba(30, 22, 16, .6);
+  color: #f0ddd2;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.5;
+  animation: ccFloat 6s ease-in-out infinite;
+}
+.cc-cursor {
+  display: inline-block;
+  width: 8px; height: 17px;
+  background: var(--glow);
+  margin-left: 4px;
+  vertical-align: -3px;
+  animation: ccBlink 1s steps(2) infinite;
+}
+
+/* BG 1: Análisis — code rain */
+.cc-bg-1 {
+  background: radial-gradient(120% 100% at 30% 10%, #1a1512, #14100d 70%);
+}
+.cc-rain-col {
+  position: absolute;
+  top: 0; height: 100%;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre;
+  animation: ccRain linear infinite;
+}
+.cc-rain-col:nth-child(1) { left: 5%;  color: rgba(var(--glowRgb), .38); animation-duration: 9s; }
+.cc-rain-col:nth-child(2) { left: 26%; color: rgba(var(--glowRgb), .34); animation-duration: 7s;   animation-delay: -2s; }
+.cc-rain-col:nth-child(3) { left: 50%; color: rgba(var(--glowRgb), .28); animation-duration: 11s;  animation-delay: -4s; }
+.cc-rain-col:nth-child(4) { left: 73%; color: rgba(var(--glowRgb), .25); animation-duration: 8.5s; animation-delay: -1s; }
+
+/* BG 2: Build — grid + oscilloscope */
+.cc-bg-2 {
+  background: radial-gradient(120% 100% at 50% 30%, #1a1410, #120f0c 75%);
+}
+.cc-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--glowRgb), .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--glowRgb), .07) 1px, transparent 1px);
+  background-size: 46px 46px;
+}
+.cc-scope {
+  position: absolute;
+  top: 42%; left: 0;
+  width: 200%; height: 240px;
+  animation: ccScope 6s linear infinite;
+}
+.cc-scope svg { width: 100%; height: 100%; display: block; }
+.cc-build-log {
+  position: absolute;
+  right: 6%; bottom: 12%;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 1.9;
+  text-shadow: 0 0 8px rgba(var(--glowRgb), .4);
+}
+.cc-log-line { color: rgba(var(--glowRgb), .8); }
+.cc-log-line.warn { color: rgba(255, 120, 90, .8); }
+.cc-log-line.ok   { color: var(--glow); }
+
+/* BG 3: Deploy — LED bars */
+.cc-bg-3 {
+  background: radial-gradient(120% 100% at 50% 20%, #1a1206, #0a0703 78%);
+}
+.cc-led-row {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  opacity: .85;
+}
+.cc-led-bar {
+  width: 50px; height: 55vh;
+  border: 1px solid rgba(var(--glowRgb), .28);
+  border-radius: 5px;
+  background: rgba(40, 26, 6, .35);
+  padding: 8px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cc-led-seg {
+  display: block;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--glow);
+  animation: ccLed ease-in-out infinite;
+}
+.cc-ms-ghost {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.cc-ms-text {
+  font-family: 'VT323', monospace;
+  font-size: clamp(110px, 20vw, 300px);
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(var(--glowRgb), .14);
+}
+
+/* BG 4: Live — bar chart + line graph */
+.cc-bg-4 {
+  background: radial-gradient(120% 100% at 50% 25%, #1a1410, #120f0c 78%);
+}
+.cc-hlines {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(var(--glowRgb), .06) 1px, transparent 1px);
+  background-size: 100% 44px;
+}
+.cc-bars {
+  position: absolute;
+  left: 0; right: 0; bottom: 14%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px, 1.8vw, 22px);
+  height: 42vh;
+}
+.cc-bar {
+  width: clamp(20px, 3.5vw, 48px);
+  background: linear-gradient(var(--glow), rgba(var(--glowRgb), .2));
+  border-radius: 3px 3px 0 0;
+  transform-origin: bottom;
+  animation: ccBar ease-out infinite alternate;
+  box-shadow: 0 0 14px rgba(var(--glowRgb), .3);
+}
+.cc-bar.accent {
+  background: linear-gradient(var(--accent), rgba(232, 168, 107, .2));
+  box-shadow: 0 0 20px rgba(232, 168, 107, .4);
+}
+.cc-sparkline {
+  position: absolute;
+  left: 10%; right: 10%;
+  top: 22%;
+  width: 80%; height: 110px;
+  opacity: .5;
+}
+
+/* ── Overlay: scanlines + vignette ──────────── */
+.cc-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,.2) 3px
+  );
+  opacity: .55;
+}
+.cc-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.65) 100%);
+}
+
+/* ── Barra de progreso ───────────────────────── */
+.cc-progress {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 20;
+  background: rgba(var(--glowRgb), .1);
+}
+.cc-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--glow);
+  box-shadow: 0 0 10px var(--glow);
+  transition: width .1s linear;
+}
+
+/* ── Keyframes ───────────────────────────────── */
+@keyframes ccBlink {
+  50% { opacity: 0; }
+}
+@keyframes ccRain {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+@keyframes ccScope {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes ccBar {
+  from { transform: scaleY(.12); }
+  to   { transform: scaleY(1); }
+}
+@keyframes ccFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+@keyframes ccLed {
+  0%, 100% { opacity: .25; }
+  50%      { opacity: 1; }
+}
