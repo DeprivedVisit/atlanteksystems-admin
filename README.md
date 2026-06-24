@@ -1,6 +1,6 @@
 # Apex Cloud Works
 
-Landing pages de alta conversión para negocios costarricenses. Cartago, CR.
+Landing pages y sistemas web para negocios costarricenses. Cartago, CR.
 
 **apexcloudworkscompany.com** · apexcloudworkscompany@gmail.com · +506 6314-4171
 
@@ -10,9 +10,9 @@ Landing pages de alta conversión para negocios costarricenses. Cartago, CR.
 
 | Cliente | Proyecto | URL live | Estado |
 |---------|---------|----------|--------|
-| Skindoctors CR | Melasblock BB Cream | [CloudFront](https://d3suiaystvdco4.cloudfront.net/melasblock/) | 🔥 Live — cerrar antes 15 jun |
-| Tío Michael | EcoPollo | — | Cotizador en desarrollo |
-| Fabian | VisionaryFilm | — | Pendiente Instagram |
+| Skindoctors CR | Melasblock + CBD Balance | [CloudFront](https://d3suiaystvdco4.cloudfront.net/melasblock/) | ⚠️ Live — pendiente firma + cobro $450 |
+| Tío Michael | EcoPollo | [CloudFront](https://d1qphat23nmosd.cloudfront.net) | 🔥 Cotizador en desarrollo |
+| Fabian | VisionaryFilm | — | 🔵 Pendiente datos Fabian |
 | Andrés | RFLX | — | En cartera |
 | Tía Estefany | Arte Verde | — | En cartera |
 
@@ -20,8 +20,8 @@ Landing pages de alta conversión para negocios costarricenses. Cartago, CR.
 
 ## Stack
 
-**Frontend:** HTML · CSS · JavaScript → React  
-**Cloud:** AWS S3 · CloudFront · Route 53 · EC2 · Bedrock · IAM  
+**Frontend:** HTML · CSS · JavaScript → React
+**Cloud:** AWS S3 · CloudFront · Route 53 · EC2 · Bedrock · IAM
 **Herramientas:** VS Code · GitHub · Claude Code · AWS CLI
 
 ---
@@ -30,16 +30,30 @@ Landing pages de alta conversión para negocios costarricenses. Cartago, CR.
 
 ```
 apex-cloudworks/
+├── Mente/                       ← Cerebro de Jarvis (fuente de verdad)
 ├── proyectos/
 │   ├── skindoctors/
-│   │   ├── melasblock/
-│   │   │   ├── Mellas/      ← Fuente HTML (index.html · tipos.html · logo.svg)
-│   │   │   └── img/         ← Assets (4k.png · melasblock.png · tonos JPG)
-│   │   └── cbd-balance/     ← Próxima landing
-│   └── apexcloudworkscompany.com/
-├── Loop-Company.v1/
-├── LOG.md                   ← Check-in semanal
-└── CLAUDE.md                ← Contexto y memoria del sistema
+│   │   ├── melasblock/          ← Landing 1 · N8N + Sheets activo
+│   │   ├── cbd-balance/         ← Landing 2 · N8N importado
+│   │   └── presentacion/        ← Showcase para reunión con cliente
+│   ├── ecopollo/                ← Cotizador 5 pasos en desarrollo
+│   ├── visionaryfilm/           ← Pendiente datos Fabian
+│   ├── apexcloudworkscompany.com/ ← Apex Landing · live
+│   └── jarvis/                  ← Agente interno Python
+├── CLAUDE.md                    ← Contexto y memoria del sistema (v11.0)
+├── SYSTEM.md                    ← System prompt portable (multi-AI)
+└── LOG.md                       ← Check-in semanal
+```
+
+---
+
+## Regla de código
+
+**Siempre archivos separados — nunca inline:**
+```
+index.html          → estructura
+assets/css/style.css → diseño
+assets/js/script.js  → lógica
 ```
 
 ---
@@ -64,16 +78,15 @@ apex-cloudworks/
 ## Deploy rápido — referencia
 
 ```bash
-# Subir HTML
-aws s3 cp Mellas/index.html s3://skindoctors-cr-landings/melasblock/index.html \
-  --region us-east-2 --content-type "text/html; charset=utf-8"
+# Subir proyecto completo
+aws s3 sync ./[carpeta] s3://[bucket] --delete
 
 # Invalidar CloudFront
-aws cloudfront create-invalidation --distribution-id E31U5V9IA0JXSZ --paths "/*"
+aws cloudfront create-invalidation --distribution-id [ID] --paths "/*"
 ```
 
-**CloudFront:** `E31U5V9IA0JXSZ` · `d3suiaystvdco4.cloudfront.net`  
-**S3:** `skindoctors-cr-landings` · `us-east-2`
+**Skindoctors:** CloudFront `E31U5V9IA0JXSZ` · S3 `skindoctors-cr-landings` · us-east-2
+**EcoPollo:** CloudFront `d1qphat23nmosd.cloudfront.net`
 
 ---
 

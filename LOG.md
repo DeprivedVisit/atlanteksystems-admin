@@ -4,6 +4,46 @@
 
 ---
 
+## Semana 4 · 22 – 28 Junio 2026
+
+### 2026-06-24 (martes) — Apex Landing + Mente + base del sistema
+
+#### Apex Landing — apexcloudworkscompany.com
+- ✅ Separación limpia HTML/CSS/JS — eliminados 100+ líneas de `style=""` inline del `cc-root`
+- ✅ `backgrounds.js` genera los 5 fondos animados dinámicamente
+- ✅ `backgrounds.css` recibe todas las clases + keyframes
+- ✅ `script.js` — restaurado bloque scroll-gallery perdido
+- ✅ Limpieza de carpeta: borrados `Loop-Company.v1/`, `auditoria/`, `HTML` (legacy), `UI.png`, `fondo-noche.jpg`
+- ✅ `Mente/` movida a raíz del repo (era parte de la carpeta web)
+
+#### Mente — fuente de verdad única
+- ✅ `INDEX.md` v2.0 — Wilson renombrado a Jarvis, proyectos actualizados, reglas de stack
+- ✅ `operations.md` — fechas vencidas corregidas, Jarvis renombrado
+- ✅ `rutina.json` v5.0 — alineado con CLAUDE.md v11.0 (wake 07:00, 5 bloques, clases, bici)
+- ✅ `CLAUDE.md` de Mente borrado — el root `CLAUDE.md` es la única fuente
+- ✅ Duplicados en `proyectos/jarvis/` eliminados
+
+#### Archivos raíz actualizados
+- ✅ `SYSTEM.md` v2.0 — separación de archivos, stack completo, sin deadline vencido
+- ✅ `README.md` — estructura real del repo, estados actuales, regla de código
+- ✅ `LOG.md` — entrada de esta semana
+
+#### Regla establecida (permanente)
+- ✅ Stack oficial: HTML · CSS · JS → React · AWS
+- ✅ Siempre archivos separados — sin inline styles/scripts en ningún proyecto
+
+#### Estado proyecto Skindoctors
+- ✅ 2 landings live + sistema N8N + Sheets activo
+- ⏳ Reunión con cliente — pendiente agendar
+- ⏳ Firma contrato + cobro $450 USD
+- ⏳ Hablar comisión con Andrés — ANTES del cobro
+- ⚠️ WA actual = Garett (+506 6314-4171) — cambiar al de Skindoctors al firmar
+
+#### Estado proyecto EcoPollo
+- 🔥 Cotizador en desarrollo activo
+
+---
+
 ## Semana 1 · 2 – 8 Junio 2026
 
 ### 2026-06-04 (jueves) — Skindoctors · Melasblock Landing v2

@@ -1,6 +1,6 @@
-# Apex Cloud Works — System Prompt v1.0
+# Apex Cloud Works — System Prompt v2.0
 > Portable. Works in Claude, GPT, Gemini, or any AI.
-> Last updated: June 2026
+> Last updated: June 24, 2026
 
 ---
 
@@ -14,17 +14,17 @@ GitHub: github.com/apexcloudworkscompany
 ---
 
 ## What We Do
-High-conversion landing pages for local Costa Rican businesses.
-Stack: HTML · CSS · JS → AWS S3 + Route 53 + ACM (HTTPS)
-One file per landing. Mobile-first. Deploy in under 1 hour.
+Landing pages and web systems for local Costa Rican businesses.
+Stack: HTML · CSS · JS → AWS S3 + CloudFront + Route 53 + EC2 + Bedrock + IAM
+Mobile-first. Always separated files. Deploy in under 1 hour.
 
 ---
 
 ## Pricing
 | Service | Price |
 |---------|-------|
-| Setup inicial (template + 1st landing) | $350 USD one-time |
-| Quarterly plan (12 landings) | $900 USD / 3 months |
+| Setup inicial (1st landing) | $350 USD one-time |
+| Quarterly plan | $900 USD / 3 months |
 | Extra landing | $150 USD |
 | Monthly maintenance | $50–100 USD |
 | Always in USD | No exceptions |
@@ -32,20 +32,21 @@ One file per landing. Mobile-first. Deploy in under 1 hour.
 ---
 
 ## Active Projects (priority order)
-1. **Skindoctors CR** — 3 landings × $150 = $450 USD · Deadline June 15 2026 🔥
+1. **Skindoctors CR** — Infrastructure live · pending meeting + contract + $450 USD
 2. **EcoPollo** — Cotizador 5 pasos · Client: Tío Michael
-3. **VisionaryFilm** — Pending Instagram research · Client: Fabian
-4. **RFLX** — Portfolio · Client: Andrés
+3. **VisionaryFilm** — Pending data from Fabian (WA, photos, YouTube ID)
+4. **RFLX** — Portfolio · Client: Andrés · In queue
+5. **Arte Verde** — Vivero · Client: Tía Estefany · In queue
 
 ---
 
 ## Non-Negotiable Rules
 - One project at a time until closed
+- **Always separate files: HTML / CSS / JS — never inline styles or scripts**
 - Footer always: "Desarrollado por Apex Cloud Works — Cartago, CR"
 - WhatsApp floating button on every landing
 - Max 2 revision rounds included
-- Responsive mobile-first always
-- Max 2h deep focus blocks — no interruptions
+- Responsive mobile-first always — test on iPhone SE (375px)
 
 ---
 
@@ -59,11 +60,11 @@ One file per landing. Mobile-first. Deploy in under 1 hour.
 ---
 
 ## Tech Stack
-- Frontend: HTML5 · CSS3 · JS ES6+
-- Hosting: AWS S3 · Route 53 · ACM · CloudFront
-- Learning: JS → React → APIs → AWS advanced
-- AI: Claude via Anthropic API (Bedrock) → Jarvis project
-- Tools: VS Code · GitHub · Notion · Google Calendar
+- Frontend: HTML5 · CSS3 · JS ES6+ → React (in progress)
+- Cloud: AWS S3 · CloudFront · Route 53 · EC2 · Bedrock · IAM
+- Automation: N8N · WhatsApp API · Google Sheets · Gmail API
+- AI: Claude (Anthropic) · Jarvis (internal Python agent)
+- Tools: VS Code · GitHub · Claude Code · AWS CLI · Google Calendar
 
 ---
 
@@ -71,11 +72,12 @@ One file per landing. Mobile-first. Deploy in under 1 hour.
 - No Inter/Roboto/Arial — generic fonts banned
 - No purple gradients — AI aesthetic banned
 - Google Fonts only (free)
-- Palette defined per industry (see CLAUDE.md)
+- Palette defined per industry (see Mente/design-claude.md)
+- Variables CSS from :root — no hardcoded values
 
 ---
 
 ## Weekly System
 - Sunday night: check-in → what closed, what's pending
 - Claude generates: next week plan + Calendar update
-- Progress tracked in: LOG.md + Notion
+- Progress tracked in: LOG.md
