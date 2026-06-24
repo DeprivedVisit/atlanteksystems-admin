@@ -1,5 +1,5 @@
 # 🧠 CLAUDE.md — Garett Barrantes Benavides
-> Memoria permanente · Versión 11.0 · 22 Junio 2026
+> Memoria permanente · Versión 12.0 · 24 Junio 2026
 > Leer completo antes de cualquier sesión.
 
 ---
@@ -42,6 +42,7 @@
 - Saltarse pasos → decírselo directo, sin suavizar
 - Aprende mejor con videos — videos primero, lectura después
 - Corrección directa, sin rodeo, sin apología
+- **Código siempre separado:** HTML / CSS / JS — nunca inline, nunca monolítico
 
 ---
 
@@ -88,6 +89,11 @@
 **GitHub:** github.com/apexcloudworkscompany
 **Jarvis:** PY local · brief 07:00 AM · /lead · /deploy · /revisar · /refactor · auto-review código
 
+**Stack oficial:**
+- Frontend: HTML · CSS · JS → React
+- Cloud: AWS S3 · CloudFront · Route 53 · EC2 · Bedrock · IAM
+- Herramientas: VS Code · GitHub · Claude Code · AWS CLI
+
 ---
 
 ## 🧱 Sistema de Landings
@@ -98,6 +104,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 **Nunca cambia:**
 - Footer: "Desarrollado por Apex Cloud Works — Cartago, CR"
 - WhatsApp flotante · Mobile-first · USD · Max 2 revisiones
+- **Archivos siempre separados:** `index.html` / `assets/css/style.css` / `assets/js/script.js`
 
 **Paleta por rubro:**
 | Rubro | Primario | Acento | Fuentes |
@@ -117,7 +124,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 
 | # | Proyecto | Cliente | Estado | Valor |
 |---|---------|---------|--------|-------|
-| 0 | **Apex Landing** | Interno | ✅ Rediseño premium retro live | — |
+| 0 | **Apex Landing** | Interno | ✅ Live · HTML/CSS/JS separados · limpio | — |
 | 1 | **Skindoctors** | Skindoctors CR | ⚠️ Sistema completo — pendiente firma y cobro | $450 USD |
 | 2 | **EcoPollo** | Tío Michael | 🔥 Activo — cotizador en desarrollo | — |
 | 3 | **VisionaryFilm** | Fabian | Pendiente datos Fabian (WA, fotos, YouTube ID) | TBD |
@@ -141,8 +148,8 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | Elemento | Detalle |
 |---------|---------|
 | Paleta | Warm gold/cream — `#C4956A` / `#E2B97A` · fondo `#060402` |
-| Hero | Dos columnas · texto gigante · cards flotantes (Spotify, Code, Output) |
-| Tipografía | Playfair Display + Lora + JetBrains Mono |
+| Estructura | `index.html` + `assets/css/` + `assets/js/` — completamente separado |
+| Fondos | 5 estados animados generados por `backgrounds.js` |
 | Admin | `/admin.html` · mock data · pendiente conectar Google Sheets |
 | Pendiente | Foto real Garett · auth Cognito · dashboard cliente |
 
@@ -234,7 +241,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | 2028–2030 | Equipo pequeño · automatización total | ⏳ |
 | 2033 | CEO empresa propia automatizada · tranquilidad real | 🎯 |
 
-**Pendientes críticos (22 jun 2026):**
+**Pendientes críticos (24 jun 2026):**
 - [ ] Activar workflow N8N CBD en n8n.cloud (toggle Active)
 - [ ] Agendar reunión Skindoctors → presentar `presentacion/index.html`
 - [ ] Hablar comisión con Andrés **antes** del cobro
@@ -242,3 +249,10 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 - [ ] Cambiar WA Skindoctors al número oficial del cliente
 - [ ] Conectar Jarvis a n8n → WhatsApp Business (leads auto-registrados)
 - [ ] Foto real de Garett para sección "Sobre mí" del Apex Landing
+- [ ] Auditar y mejorar Jarvis (fase B pendiente)
+
+**Completados (24 jun 2026):**
+- [x] Apex Landing — separación limpia HTML/CSS/JS
+- [x] Mente/ — fuente de verdad única, actualizada, sin duplicados
+- [x] SYSTEM.md v2.0 · README.md · LOG.md actualizados
+- [x] Regla de código establecida: archivos siempre separados
