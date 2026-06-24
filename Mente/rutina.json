@@ -1,53 +1,55 @@
 {
   "owner": "Garett",
   "timezone": "America/Costa_Rica",
-  "version": "2.0",
-  "notes": "Rutina optimizada — sostenible, con ejercicio y pausas reales. Arranca 21 mayo 2026.",
+  "version": "5.0",
+  "notes": "Rutina v5.0 — Desde jueves 4 junio 2026. Alineado con CLAUDE.md v11.0.",
   "schedule": [
-    { "id": "wake",        "time": "07:50", "duration_min": 10,  "title": "Alarma — Agua + Noticias",                   "type": "morning",    "reminder_min": 5 },
-    { "id": "shower",      "time": "08:00", "duration_min": 30,  "title": "Levantarse + Café + Baño",                   "type": "morning",    "reminder_min": 5 },
-    { "id": "breakfast",   "time": "08:30", "duration_min": 30,  "title": "Desayuno + Agenda del día",                  "type": "morning",    "reminder_min": 5 },
-    { "id": "netacad",     "time": "09:00", "duration_min": 60,  "title": "Netacad — Mañana",                           "type": "learning",   "reminder_min": 5 },
-    { "id": "work1",       "time": "10:00", "duration_min": 90,  "title": "Home Office — Bloque 1",                     "type": "work",       "reminder_min": 5 },
-    { "id": "break1",      "time": "11:30", "duration_min": 15,  "title": "☕ Café + Pausa activa (caminar/estirar)",    "type": "break",      "reminder_min": 5 },
-    { "id": "work2",       "time": "11:45", "duration_min": 75,  "title": "Home Office — Bloque 2",                     "type": "work",       "reminder_min": 5 },
-    { "id": "openenglish", "time": "13:00", "duration_min": 60,  "title": "Open English — Tarde",                       "type": "learning",   "reminder_min": 5 },
-    { "id": "lunch",       "time": "14:00", "duration_min": 45,  "title": "Almuerzo + Descanso real (sin pantalla)",     "type": "break",      "reminder_min": 5 },
-    { "id": "work3",       "time": "14:45", "duration_min": 120, "title": "Home Office — Bloque 3",                     "type": "work",       "reminder_min": 5 },
-    { "id": "exercise",    "time": "16:45", "duration_min": 30,  "title": "🚴 Bicicleta — ejercicio al aire libre",      "type": "health",     "reminder_min": 10 },
-    { "id": "sunset",      "time": "17:15", "duration_min": 45,  "title": "🌅 Sunset + Smoke + Pokémon GO",             "type": "free",       "reminder_min": 5 },
-    { "id": "work4",       "time": "18:00", "duration_min": 120, "title": "Home Office — Bloque 4",                     "type": "work",       "reminder_min": 5 },
-    { "id": "dinner",      "time": "20:00", "duration_min": 30,  "title": "Cena + Descanso",                            "type": "break",      "reminder_min": 5 },
-    { "id": "work5",       "time": "20:30", "duration_min": 90,  "title": "Home Office — Bloque 5 (sprint o coding)",   "type": "work",       "reminder_min": 5 },
-    { "id": "coding",      "time": "22:00", "duration_min": 60,  "title": "Programación — Práctica libre (noche)",       "type": "learning",   "reminder_min": 5 },
-    { "id": "review",      "time": "23:00", "duration_min": 30,  "title": "Revisión del día + Plan de mañana",          "type": "planning",   "reminder_min": 5 },
-    { "id": "news_night",  "time": "23:30", "duration_min": 15,  "title": "Noticias para dormir",                       "type": "wind_down",  "reminder_min": 5 },
-    { "id": "sleep",       "time": "23:45", "duration_min": 485, "title": "Dormir — 8 horas",                           "type": "sleep",      "reminder_min": 0 }
+    { "id": "wake",        "time": "07:00", "duration_min": 15,  "title": "Despertar + Noticias inglés",                "type": "morning",   "reminder_min": 0 },
+    { "id": "ritual",      "time": "07:15", "duration_min": 30,  "title": "Ritual — Café",                             "type": "morning",   "reminder_min": 5 },
+    { "id": "breakfast",   "time": "07:45", "duration_min": 15,  "title": "Desayuno + Agenda del día",                 "type": "morning",   "reminder_min": 5 },
+    { "id": "work1",       "time": "08:00", "duration_min": 120, "title": "PROYECTO — Bloque 1",                       "type": "work",      "reminder_min": 5 },
+    { "id": "netacad",     "time": "10:00", "duration_min": 60,  "title": "Netacad",                                   "type": "learning",  "reminder_min": 5 },
+    { "id": "openenglish", "time": "11:00", "duration_min": 60,  "title": "Open English",                              "type": "learning",  "reminder_min": 5 },
+    { "id": "lunch",       "time": "12:00", "duration_min": 45,  "title": "Almuerzo sin pantalla",                     "type": "break",     "reminder_min": 5 },
+    { "id": "work2",       "time": "12:45", "duration_min": 120, "title": "PROYECTO — Bloque 2",                       "type": "work",      "reminder_min": 5 },
+    { "id": "jsreact",     "time": "14:45", "duration_min": 60,  "title": "JS/React — Video + Práctica",               "type": "learning",  "reminder_min": 5 },
+    { "id": "work3",       "time": "15:45", "duration_min": 120, "title": "PROYECTO — Bloque 3",                       "type": "work",      "reminder_min": 5 },
+    { "id": "exercise",    "time": "17:45", "duration_min": 75,  "title": "Bici / Clase (según día)",                  "type": "health",    "reminder_min": 10 },
+    { "id": "work4",       "time": "19:00", "duration_min": 120, "title": "PROYECTO — Bloque 4",                       "type": "work",      "reminder_min": 5 },
+    { "id": "work5",       "time": "21:00", "duration_min": 90,  "title": "PROYECTO — Bloque 5 Sprint",                "type": "work",      "reminder_min": 5 },
+    { "id": "english",     "time": "22:30", "duration_min": 30,  "title": "Inglés nocturno — Serie sin subtítulos",    "type": "learning",  "reminder_min": 5 },
+    { "id": "codewars",    "time": "23:00", "duration_min": 30,  "title": "Codewars — 1 kata",                         "type": "learning",  "reminder_min": 5 },
+    { "id": "review",      "time": "23:30", "duration_min": 20,  "title": "Balance del día",                           "type": "planning",  "reminder_min": 5 },
+    { "id": "minecraft",   "time": "23:50", "duration_min": 10,  "title": "Minecraft",                                 "type": "free",      "reminder_min": 0 },
+    { "id": "sleep",       "time": "00:00", "duration_min": 420, "title": "Dormir 7h",                                 "type": "sleep",     "reminder_min": 0 }
   ],
   "learning_blocks": {
-    "morning":   { "id": "netacad",      "platform": "Netacad",       "url": "https://netacad.com" },
-    "afternoon": { "id": "openenglish",  "platform": "Open English",  "url": "https://openenglish.com" },
-    "night":     { "id": "coding",       "platform": "Programación general" }
+    "morning_1": { "id": "netacad",      "platform": "Netacad",        "url": "https://netacad.com" },
+    "morning_2": { "id": "openenglish",  "platform": "Open English",   "url": "https://openenglish.com" },
+    "afternoon": { "id": "jsreact",      "platform": "JS/React videos" },
+    "night_1":   { "id": "english",      "platform": "Serie sin subtítulos" },
+    "night_2":   { "id": "codewars",     "platform": "Codewars",       "url": "https://codewars.com" }
   },
   "work_blocks": ["work1", "work2", "work3", "work4", "work5"],
+  "classes": {
+    "martes":   { "time": "19:00", "subject": "Desarrollo Web",  "place": "Viteck" },
+    "miercoles":{ "time": "19:00", "subject": "IT Support",      "place": "Viteck" }
+  },
+  "bike_days": ["martes", "jueves", "sabado"],
   "health": {
     "exercise_id": "exercise",
     "coffee_reminder_every_min": 90,
     "no_screen_blocks": ["lunch"]
   },
-  "free_time": {
-    "id": "sunset",
-    "activities": ["sunset", "smoke", "duolingo", "pokemon_go"]
-  },
   "sleep": {
-    "bedtime": "23:45",
-    "wake_time": "07:50",
-    "duration_hours": 8.08
+    "bedtime": "00:00",
+    "wake_time": "07:00",
+    "duration_hours": 7
   },
   "daily_work_hours": {
     "total_work_min": 570,
-    "total_learning_min": 180,
-    "total_break_min": 90,
-    "note": "~9.5h productivas — sostenible con pausas reales"
+    "total_learning_min": 240,
+    "total_break_min": 45,
+    "note": "5 bloques de proyecto + 4 bloques de aprendizaje"
   }
 }

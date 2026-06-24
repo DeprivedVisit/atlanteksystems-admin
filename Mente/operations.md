@@ -119,11 +119,11 @@ PASO 8: DEPLOY Y ENTREGA
 
 ### Regla de oro: UN proyecto a la vez
 El orden de prioridad es estricto:
-1. Skindoctors (cerrar $450 antes del 15 junio 2026)
-2. EcoPollo (cotizador activo)
-3. VisionaryFilm (pendiente datos de Fabian)
-4. RFLX (en cartera)
-5. Arte Verde (en cartera)
+1. **Skindoctors** — infraestructura live, pendiente reunión de presentación + firma + cobro $450
+2. **EcoPollo** — cotizador en desarrollo activo
+3. **VisionaryFilm** — pendiente datos de Fabian (WA, fotos, YouTube ID)
+4. **RFLX** — en cartera
+5. **Arte Verde** — en cartera
 
 ### Tracking semanal (domingos)
 - ¿Qué cerré esta semana?
@@ -178,22 +178,22 @@ refactor: limpieza de código
 
 ---
 
-## Wilson — Agente Interno (ex Jarvis)
+## Jarvis — Agente Interno
 
-### Estado actual
-- Python local
-- Brief matutino 7:50 AM
+### Estado actual (24 jun 2026)
+- Python local · `proyectos/jarvis/jarvis.pyw`
+- Brief matutino 07:00 AM
 - Comandos: `/lead`, `/deploy`, `/revisar`, `/refactor`
 
-### Roadmap Wilson
+### Roadmap Jarvis
 ```
 Fase 1 (actual):   Brief + comandos básicos
 Fase 2 (3+ clientes): Monitoreo automático de uptime
 Fase 3 (futuro):   Reportes semanales por WA, revisión de Gmail, plan domingo
 ```
 
-### Alimentación de Wilson
-Los archivos en `Mente/` son el cerebro de Wilson:
+### Cerebro de Jarvis
+Los archivos en `Mente/` (raíz del repo) son la fuente de verdad:
 - `brand-voice.md` → Cómo habla Apex
 - `small-business.md` → A quién le habla
 - `design-claude.md` → Cómo diseña
