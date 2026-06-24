@@ -6,19 +6,17 @@
 
 ## Archivos del sistema
 
-| Archivo | Contenido | Subir a Projects |
-|---------|-----------|-----------------|
-| `CLAUDE.md` | Identidad, rutina, proyectos, roadmap — contexto completo de Garett | ✅ |
-| `SYSTEM.md` | System prompt portable para cualquier IA | ✅ |
-| `instrucciones.md` | Texto para el campo "Instructions" de Claude Projects | ✅ |
-| `operations.md` | AWS, precios, flujo de proyecto, comandos | ✅ |
-| `brand-voice.md` | Cómo habla Apex, vocabulario, tono por canal | ✅ |
-| `design-claude.md` | Paletas, tipografía, proceso, checklist de entrega | ✅ |
-| `small-business.md` | Perfil del cliente objetivo, dolores, objeciones | ✅ |
-| `customer-support.md` | Templates WA, política de revisiones, situaciones difíciles | ✅ |
-| `rutina.json` | Schedule diario estructurado para Jarvis | ✅ |
-
-> **Nota:** `CLAUDE.md` y `SYSTEM.md` son copias de los archivos raíz. Al actualizar la raíz, actualizar aquí también.
+| Archivo | Ubicación | Contenido | Subir a Projects |
+|---------|-----------|-----------|-----------------|
+| `CLAUDE.md` | raíz del repo | Identidad, rutina, proyectos, roadmap | ✅ |
+| `SYSTEM.md` | raíz del repo | System prompt portable para cualquier IA | ✅ |
+| `instrucciones.md` | Mente/ | Texto para campo "Instructions" de claude.ai | — |
+| `operations.md` | Mente/ | AWS, precios, flujo de proyecto, comandos | ✅ |
+| `brand-voice.md` | Mente/ | Cómo habla Apex, vocabulario, tono por canal | ✅ |
+| `design-claude.md` | Mente/ | Paletas, tipografía, proceso, checklist | ✅ |
+| `small-business.md` | Mente/ | Perfil del cliente objetivo, dolores | ✅ |
+| `customer-support.md` | Mente/ | Templates WA, protocolo de atención | ✅ |
+| `rutina.json` | Mente/ | Schedule diario estructurado para Jarvis | ✅ |
 
 ---
 
