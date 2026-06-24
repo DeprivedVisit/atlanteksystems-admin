@@ -6,16 +6,19 @@
 
 ## Archivos del sistema
 
-| Archivo | Contenido | Prioridad |
-|---------|-----------|-----------|
-| `rutina.json` | Schedule diario para recordatorios | 🔴 Alta |
-| `brand-voice.md` | Cómo habla Apex, vocabulario, tono por canal | 🔴 Alta |
-| `small-business.md` | Perfil del cliente objetivo, dolores, objeciones | 🔴 Alta |
-| `design-claude.md` | Paletas, tipografía, proceso, checklist de entrega | 🔴 Alta |
-| `operations.md` | AWS, precios, flujo de proyecto, comandos | 🔴 Alta |
-| `customer-support.md` | Templates WA, política de revisiones, situaciones difíciles | 🔴 Alta |
+| Archivo | Contenido | Subir a Projects |
+|---------|-----------|-----------------|
+| `CLAUDE.md` | Identidad, rutina, proyectos, roadmap — contexto completo de Garett | ✅ |
+| `SYSTEM.md` | System prompt portable para cualquier IA | ✅ |
+| `instrucciones.md` | Texto para el campo "Instructions" de Claude Projects | ✅ |
+| `operations.md` | AWS, precios, flujo de proyecto, comandos | ✅ |
+| `brand-voice.md` | Cómo habla Apex, vocabulario, tono por canal | ✅ |
+| `design-claude.md` | Paletas, tipografía, proceso, checklist de entrega | ✅ |
+| `small-business.md` | Perfil del cliente objetivo, dolores, objeciones | ✅ |
+| `customer-support.md` | Templates WA, política de revisiones, situaciones difíciles | ✅ |
+| `rutina.json` | Schedule diario estructurado para Jarvis | ✅ |
 
-> **Contexto personal de Garett:** leer `CLAUDE.md` en la raíz del repo.
+> **Nota:** `CLAUDE.md` y `SYSTEM.md` son copias de los archivos raíz. Al actualizar la raíz, actualizar aquí también.
 
 ---
 
