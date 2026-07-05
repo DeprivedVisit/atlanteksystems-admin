@@ -1,0 +1,99 @@
+/* ══════════════════════════════════════════════
+   APEX CLOUDWORKS — tokens.css
+   Design System · Industrial Steel + Gold · v3.0
+   Fuente de verdad única para landing + admin + portal
+══════════════════════════════════════════════ */
+
+:root {
+  /* ── Fondos — acero industrial (frío, denso) ── */
+  --bg:       #090B0E;
+  --surface:  #101318;
+  --raised:   #171B22;
+
+  /* ── Acento — Burnished Gold (no cambia — es la marca) ── */
+  --gold:     #C4956A;
+  --gold2:    #DBA878;
+  --gold3:    #F0D4A8;
+
+  /* Legacy aliases — para no romper CSS existente */
+  --accent:   #C4956A;
+  --accent2:  #DBA878;
+  --claude:   #C4956A;
+  --claude2:  #DBA878;
+
+  /* ── Bordes — cool steel tint ── */
+  --border:   rgba(160, 180, 200, 0.08);
+  --border2:  rgba(196, 149, 106, 0.22);
+
+  /* ── Texto — cool whites (acero, no crema) ── */
+  --text:     #E8ECF0;
+  --text2:    #8A9AAA;
+  --text3:    #5A6A7A;
+
+  /* ── Utilidades ── */
+  --green:    #4ADE80;
+  --blue:     #60A5FA;
+  --red:      #F87171;
+  --tap:      48px;
+
+  /* ── Spacing (4px base) ── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ── Border radius ── */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-xl:   20px;
+  --r-full: 9999px;
+
+  /* ── Z-Index ── */
+  --z-back:     -10;
+  --z-base:     1;
+  --z-decor:    2;
+  --z-raised:   10;
+  --z-float:    20;
+  --z-toast:    90;
+  --z-overlay:  97;
+  --z-dropdown: 98;
+  --z-nav:      99;
+
+  /* ── Transitions ── */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.25s ease;
+  --transition-spring: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Typography scale ── */
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1rem;
+  --fs-md:   1.125rem;
+  --fs-lg:   1.25rem;
+  --fs-xl:   1.5rem;
+  --fs-2xl:  1.875rem;
+  --fs-3xl:  2.25rem;
+  --fs-4xl:  3rem;
+  --fs-hero: clamp(3.25rem, 5.5vw, 5.5rem);
+
+  /* ── Superficies extendidas (paneles/hover anidados — admin/portal) ── */
+  --raised2:   #1E242E;
+
+  /* ── Utilidades de dorado derivadas (admin/portal) ── */
+  --gold-dim:  rgba(196, 149, 106, 0.12);
+  --gold-glow: rgba(196, 149, 106, 0.22);
+
+  /* ── Estados extra (admin/portal) ── */
+  --yellow:    #FBBF24;
+  --blue-lite: #93C5FD;
+  --shadow:    rgba(0, 0, 0, 0.5);
+}

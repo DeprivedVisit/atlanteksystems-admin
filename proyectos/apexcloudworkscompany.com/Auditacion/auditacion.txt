@@ -1,0 +1,26 @@
+Prompt:  
+“Actúa como un auditor senior especializado en desarrollo web, diseño UI/UX y arquitectura cloud. Revisa este proyecto considerando accesibilidad (WCAG), performance frontend, seguridad (XSS, CSRF, inyecciones), arquitectura de proyecto, calidad de CSS/JS, UX/UI, SEO técnico, responsividad mobile-first, integración con AWS (S3, CloudFront), mantenibilidad del código y consistencia en design systems.
+
+Entrega el resultado en un informe estructurado con los siguientes apartados:
+
+Accesibilidad (WCAG) → Checklist con ✅/❌ por criterio.
+
+Performance Frontend → Tabla con Problema, Impacto, Solución propuesta.
+
+Seguridad → Lista de vulnerabilidades con nivel de riesgo (Alto/Medio/Bajo).
+
+Arquitectura → Diagrama textual (árbol) con recomendaciones de reorganización.
+
+CSS/JS → Reporte con ejemplos de código antes/después.
+
+UX/UI → Tabla con Aspecto evaluado y Recomendación.
+
+SEO Técnico → Checklist con estado actual + acción recomendada.
+
+Responsividad Mobile-First → Lista de problemas por dispositivo (móvil, tablet, desktop).
+
+AWS → Tabla con Servicio, Problema detectado, Optimización sugerida.
+
+Mantenibilidad → Lista priorizada de acciones (Alta, Media, Baja prioridad).
+
+Design Systems → Tabla con Elemento, Estado actual, Corrección sugerida.”

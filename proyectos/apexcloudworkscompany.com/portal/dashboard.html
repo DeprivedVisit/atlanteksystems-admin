@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Proyecto — Apex Cloud Works</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg?v=5">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="dash-header">
+    <div class="dh-brand">APEX</div>
+    <div class="dh-greeting" id="dh-greeting"></div>
+    <div class="dh-right">
+      <button class="btn-logout" onclick="portalLogout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT (renderizado por JS) -->
+  <main class="dash-main" id="dash-main">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <span>Cargando tu proyecto…</span>
+    </div>
+  </main>
+
+  <!-- MODAL: Nueva consulta -->
+  <div class="modal-overlay" id="modal-ticket">
+    <div class="modal-box">
+      <h3 class="modal-title">Nueva consulta</h3>
+
+      <div class="form-field">
+        <label for="t-asunto">Asunto</label>
+        <input type="text" id="t-asunto" placeholder="ej. Cambio en la sección de precios">
+      </div>
+
+      <div class="form-field">
+        <label for="t-msg">Descripción</label>
+        <textarea id="t-msg" placeholder="Describí tu consulta o solicitud con el mayor detalle posible…"></textarea>
+      </div>
+
+      <div id="ticket-error" style="color:#fca5a5;font-size:12px;margin-top:6px;display:none;"></div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeTicketModal()">Cancelar</button>
+        <button class="btn-send" id="btn-send-ticket" onclick="submitTicket()">Enviar consulta</button>
+      </div>
+    </div>
+  </div>
+
+  <script>window.APEX_API_BASE = 'http://localhost:3000';</script>
+  <script src="../assets/js/portal.js"></script>
+  <script>
+    // El chequeo de sesión (401 → redirect a login) ya vive dentro de initDashboard()
+    initDashboard();
+  </script>
+
+</body>
+</html>

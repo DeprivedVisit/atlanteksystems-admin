@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 130" width="120" height="130" role="img" aria-label="Apex Cloud Works">
+  <defs>
+    <!-- Facet 3 (Right-center light) -->
+    <linearGradient id="facet3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0956E"/>
+      <stop offset="100%" stop-color="#DA7756"/>
+    </linearGradient>
+    <!-- Facet 4 (Rightmost highlight) -->
+    <linearGradient id="facet4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE5D9"/>
+      <stop offset="100%" stop-color="#F0956E"/>
+    </linearGradient>
+
+    <!-- Cloud Sunset Gradient - 3D volumetric lighting -->
+    <linearGradient id="cloudSunset" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#311E3B" stop-opacity="0.95"/> <!-- Deep purple base -->
+      <stop offset="35%" stop-color="#C4664A"/>                    <!-- Warm terracotta -->
+      <stop offset="70%" stop-color="#E2B97A"/>                    <!-- Golden sunlight -->
+      <stop offset="100%" stop-color="#FFFFFF"/>                   <!-- Pure white crest -->
+    </linearGradient>
+
+    <!-- Ring gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#DA7756" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#FFE5D9" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#DA7756" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Glow filter for cloud and peak -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Blur filter for floor shadow -->
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5"/>
+    </filter>
+  </defs>
+
+  <!-- Floor shadow -->
+  <ellipse cx="60" cy="122" rx="46" ry="5" fill="#000000" opacity="0.4" filter="url(#blur)"/>
+
+  <!-- Back of orbital ring -->
+  <path d="M15,85 C15,72 105,72 105,85" fill="none" stroke="url(#ringGrad)" stroke-width="2" stroke-dasharray="3,3" opacity="0.5"/>
+
+  <!-- 3D ORGANIC MULTI-PEAK RUGGED MOUNTAIN (APEX) -->
+  <g id="mountain">
+    <!-- Left shadow facets -->
+    <polygon points="58,48 45,68 55,75" fill="#4A1C10"/> <!-- Facet 1 (Main Peak left shadow) -->
+    <polygon points="45,68 32,82 55,75" fill="#5C2012"/> <!-- Facet 2 (Mid Left shadow) -->
+    <polygon points="32,82 15,118 40,118" fill="#8C3F2B"/> <!-- Facet 3 (Lower Left shadow 1) -->
+    <polygon points="32,82 40,118 60,118" fill="#5C2012"/> <!-- Facet 4 (Lower Left shadow 2) -->
+    <polygon points="32,82 60,118 62,94" fill="#4A1C10"/> <!-- Facet 5a (Lower Left shadow 3) -->
+    <polygon points="32,82 62,94 55,75" fill="#5C2012"/>  <!-- Facet 5b (Crest transition shadow) -->
+
+    <!-- Right light facets -->
+    <polygon points="58,48 55,75 70,72" fill="url(#facet4)"/> <!-- Facet 6 (Main Peak light slope) -->
+    <polygon points="70,72 55,75 62,94" fill="url(#facet3)"/> <!-- Facet 7 (Saddle transition) -->
+    <polygon points="70,72 62,94 82,65" fill="url(#facet4)"/> <!-- Facet 8 (Second Peak light slope) -->
+    <polygon points="82,65 62,94 90,85" fill="#DA7756"/>       <!-- Facet 9 (Second Peak right slope) -->
+    <polygon points="90,85 62,94 60,118" fill="url(#facet3)"/> <!-- Facet 10 (Lower Right facet 1) -->
+    <polygon points="90,85 60,118 105,118" fill="url(#facet4)"/> <!-- Facet 11 (Lower Right facet 2) -->
+    <polygon points="82,65 90,85 105,118" fill="#DA7756"/>      <!-- Facet 12 (Rightmost slope) -->
+
+    <!-- Rugged Faceted Snow Cap (Main Peak) -->
+    <polygon points="58,48 51,58 56,61" fill="#FFE5D9" opacity="0.9"/>
+    <polygon points="58,48 56,61 64,59" fill="#FFFFFF" opacity="0.95"/>
+
+    <!-- Rugged Faceted Snow Cap (Second Peak) -->
+    <polygon points="82,65 77,71 82,73" fill="#FFE5D9" opacity="0.9"/>
+    <polygon points="82,65 82,73 89,71" fill="#FFFFFF" opacity="0.95"/>
+  </g>
+
+  <!-- Front of orbital ring -->
+  <path d="M105,85 C105,98 15,98 15,85" fill="none" stroke="url(#ringGrad)" stroke-width="2.5" opacity="0.8"/>
+
+  <!-- Connection beam between peaks and clouds -->
+  <line x1="58" y1="48" x2="58" y2="34" stroke="#FFE5D9" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.5"/>
+  <line x1="82" y1="65" x2="82" y2="40" stroke="#FFE5D9" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.4"/>
+
+  <!-- 3D ORGANIC VOLUMETRIC CLOUDS (TOWARDS THE TOP) -->
+  <g id="clouds" filter="url(#glow)">
+    <!-- Layer 1: Background Cloud (Shadow/Depth) -->
+    <path d="M 24,30 C 21,27 21,22 25,20 C 27,15 33,13 37,16 C 41,9 53,8 58,13 C 63,8 75,10 79,17 C 83,15 89,17 91,22 C 95,24 95,29 91,32 C 92,35 89,38 85,38 L 31,38 C 27,38 24,35 24,30 Z" 
+          fill="url(#cloudSunset)" opacity="0.45"/>
+
+    <!-- Layer 2: Foreground Cloud (Main) -->
+    <path d="M 30,36 C 27,33 27,27 31,25 C 33,20 39,18 43,21 C 47,13 59,12 64,17 C 69,12 81,14 85,21 C 89,19 95,21 97,26 C 101,28 101,34 97,37 C 98,40 95,43 91,43 L 37,43 C 33,43 30,40 30,36 Z" 
+          fill="url(#cloudSunset)" opacity="0.95"/>
+  </g>
+</svg>

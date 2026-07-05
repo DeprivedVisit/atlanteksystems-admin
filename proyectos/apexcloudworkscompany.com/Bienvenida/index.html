@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bienvenido — Apex Cloud Works</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0f0d0b;line-height:1.7;min-height:100vh}
+
+/* NAV */
+.navbar{background:#0a0908;padding:1rem 0;border-bottom:1px solid rgba(200,149,74,.1)}
+.nav-inner{width:min(820px,92%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Noto Serif Display',Georgia,serif;font-size:1.05rem;color:#fff;text-decoration:none}
+.nav-logo span{color:#c8954a;font-style:italic}
+.nav-tag{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,149,74,.5)}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0a0908 0%,#1a1005 60%,#0a0908 100%);padding:5rem 0 4rem;border-bottom:1px solid rgba(200,149,74,.08);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(200,149,74,.06) 0%,transparent 70%);pointer-events:none}
+.hero-inner{width:min(820px,92%);margin-inline:auto}
+.hero-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#c8954a;opacity:.7;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.hero-eyebrow::before{content:'';display:block;width:20px;height:1px;background:#c8954a;opacity:.5}
+.hero-greeting{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.1;color:#fff;margin-bottom:.6rem}
+.hero-greeting strong{font-weight:600;color:#c8954a;font-style:italic}
+.hero-client{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:300;color:rgba(255,255,255,.45);margin-bottom:2rem}
+.hero-client .client-name{color:rgba(200,149,74,.75);font-style:italic}
+.hero-sub{font-size:.92rem;color:rgba(232,224,216,.55);max-width:520px;line-height:1.8}
+
+/* WRAP */
+.wrap{width:min(820px,92%);margin-inline:auto;padding-block:4rem}
+
+/* SECTION TITLES */
+.section-head{margin-bottom:2rem}
+.section-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,149,74,.55);margin-bottom:.4rem}
+.section-title{font-family:'Noto Serif Display',Georgia,serif;font-size:1.3rem;font-weight:400;color:#fff}
+
+/* STEPS — PROCESO */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:48px 1fr;gap:1rem;position:relative;padding-bottom:2rem}
+.step:last-child{padding-bottom:0}
+.step-left{display:flex;flex-direction:column;align-items:center;gap:0}
+.step-num{width:48px;height:48px;border-radius:50%;border:1px solid rgba(200,149,74,.25);background:rgba(200,149,74,.06);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Display',Georgia,serif;font-size:1rem;font-weight:600;color:#c8954a;flex-shrink:0;z-index:1}
+.step-num.done{background:rgba(30,160,80,.1);border-color:rgba(30,160,80,.3);color:#30b870}
+.step-num.active{background:rgba(200,149,74,.12);border-color:#c8954a;color:#c8954a;box-shadow:0 0 0 3px rgba(200,149,74,.08)}
+.step-line{flex:1;width:1px;background:rgba(200,149,74,.1);min-height:2rem;margin-top:0}
+.step:last-child .step-line{display:none}
+.step-body{padding-top:.6rem;padding-bottom:.5rem}
+.step-label{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,149,74,.5);margin-bottom:.2rem}
+.step-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.4rem}
+.step-desc{font-size:.84rem;color:rgba(232,224,216,.55);line-height:1.7;margin-bottom:.6rem}
+.step-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.step-tag{font-size:.68rem;font-weight:600;padding:.2rem .6rem;border-radius:50px;background:rgba(200,149,74,.06);border:1px solid rgba(200,149,74,.12);color:rgba(200,149,74,.65)}
+.step-tag.green{background:rgba(30,160,80,.06);border-color:rgba(30,160,80,.15);color:rgba(50,200,100,.7)}
+
+/* CHECKLIST DE MATERIALES */
+.materials-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.material-card{background:rgba(255,255,255,.03);border:1px solid rgba(200,149,74,.1);border-radius:12px;padding:1.25rem 1.4rem}
+.material-title{font-size:.78rem;font-weight:700;color:#c8954a;margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem}
+.material-title .icon{font-size:.9rem}
+.material-list{display:flex;flex-direction:column;gap:.35rem}
+.material-item{font-size:.8rem;color:rgba(232,224,216,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.5}
+.material-item::before{content:'○';color:rgba(200,149,74,.3);font-size:.7rem;flex-shrink:0;margin-top:.15rem}
+.material-item.optional{opacity:.6}
+.material-item.optional::before{content:'◌'}
+
+/* REGLAS DE COMUNICACIÓN */
+.rules-list{display:flex;flex-direction:column;gap:.75rem}
+.rule{display:flex;align-items:flex-start;gap:1rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(200,149,74,.08)}
+.rule-icon{font-size:1.1rem;flex-shrink:0;margin-top:.05rem}
+.rule-body{}
+.rule-title{font-size:.85rem;font-weight:700;color:#e8e0d8;margin-bottom:.1rem}
+.rule-desc{font-size:.79rem;color:rgba(232,224,216,.45);line-height:1.55}
+
+/* TIMELINE */
+.timeline-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:.75rem 0}
+.tl-item{text-align:center}
+.tl-day{font-family:'Noto Serif Display',Georgia,serif;font-size:1.1rem;font-weight:600;color:#c8954a}
+.tl-label{font-size:.68rem;color:rgba(232,224,216,.4);line-height:1.3;margin-top:.1rem}
+.tl-dot{width:6px;height:6px;background:#c8954a;border-radius:50%;margin:.4rem auto}
+.tl-line{height:1px;background:linear-gradient(90deg,rgba(200,149,74,.3),rgba(200,149,74,.1));margin:.6rem 0}
+
+/* HIGHLIGHT BOX */
+.hl{background:rgba(200,149,74,.06);border:1px solid rgba(200,149,74,.15);border-left:3px solid #c8954a;border-radius:0 10px 10px 0;padding:.85rem 1.1rem;font-size:.82rem;color:rgba(232,224,216,.65);line-height:1.7;margin-top:.75rem}
+
+/* CONTACTO FINAL */
+.cta-section{background:linear-gradient(135deg,#0f0c08,#1c1208);border:1px solid rgba(200,149,74,.12);border-radius:16px;padding:2.5rem;text-align:center;margin-top:1rem}
+.cta-title{font-family:'Noto Serif Display',Georgia,serif;font-size:1.4rem;font-weight:300;color:#fff;margin-bottom:.4rem}
+.cta-title strong{color:#c8954a;font-weight:600}
+.cta-sub{font-size:.84rem;color:rgba(255,255,255,.35);margin-bottom:1.5rem}
+.cta-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.4rem;border-radius:50px;font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover{background:#1ea855}
+.btn-email{background:rgba(200,149,74,.1);color:#c8954a;border:1px solid rgba(200,149,74,.25)}
+.btn-email:hover{background:rgba(200,149,74,.18)}
+
+/* DIVIDER */
+.section-divider{border:none;border-top:1px solid rgba(200,149,74,.08);margin:3.5rem 0}
+
+/* FOOTER */
+.footer{background:#0a0908;border-top:1px solid rgba(200,149,74,.08);padding:1.5rem 1rem;text-align:center;font-size:.7rem;color:rgba(255,255,255,.18)}
+.footer a{color:rgba(200,149,74,.4)}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .hero{padding:3.5rem 0 2.5rem}
+  .wrap{padding-block:2.5rem}
+  .materials-grid{grid-template-columns:1fr}
+  .timeline-bar{grid-template-columns:repeat(3,1fr)}
+  .tl-item:nth-child(4),.tl-item:nth-child(5){display:none}
+  .step{grid-template-columns:38px 1fr}
+  .step-num{width:38px;height:38px;font-size:.85rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Apex <span>Cloud Works</span></a>
+    <span class="nav-tag">Kit de Bienvenida</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Apex Cloud Works · Onboarding</div>
+    <h1 class="hero-greeting">Bienvenido al<br><strong>equipo.</strong></h1>
+    <div class="hero-client">Ya sos cliente · <span class="client-name">[Nombre del cliente]</span></div>
+    <p class="hero-sub">Este documento te explica exactamente qué pasa a partir de ahora, qué necesitamos de vos y cómo vamos a trabajar juntos para que tu proyecto esté en producción lo antes posible.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROCESO -->
+  <div class="section-head">
+    <div class="section-eyebrow">// Lo que viene</div>
+    <div class="section-title">El proceso paso a paso</div>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num done">✓</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">Paso 1 — Completado</div>
+        <div class="step-title">Contrato firmado y pago inicial recibido</div>
+        <div class="step-desc">Ya confirmamos el proyecto. El 50% de adelanto está recibido y el alcance está claro. El proyecto arrancó oficialmente.</div>
+        <div class="step-tags">
+          <span class="step-tag green">✓ Contrato</span>
+          <span class="step-tag green">✓ Pago 50%</span>
+          <span class="step-tag green">✓ Alcance definido</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num active">02</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">Paso 2 — Ahora mismo</div>
+        <div class="step-title">Nos mandás los materiales</div>
+        <div class="step-desc">Para arrancar a construir necesitamos el kit de materiales completo. Podés mandarlo todo por WhatsApp o en un link de Drive. <strong>Los plazos de entrega corren desde que recibamos esto.</strong></div>
+        <div class="step-tags">
+          <span class="step-tag">Logo / branding</span>
+          <span class="step-tag">Textos</span>
+          <span class="step-tag">Fotos / imágenes</span>
+          <span class="step-tag">Info de contacto</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">Paso 3 — Día 1–2</div>
+        <div class="step-title">Brief y diseño base</div>
+        <div class="step-desc">Analizamos el brief, elegimos paleta de colores, tipografía y estructura de secciones. Te mandamos la propuesta de diseño para que la apruebes antes de construir.</div>
+        <div class="step-tags">
+          <span class="step-tag">Paleta de colores</span>
+          <span class="step-tag">Tipografía</span>
+          <span class="step-tag">Estructura de secciones</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">04</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">Paso 4 — Día 2–7</div>
+        <div class="step-title">Desarrollo y preview en vivo</div>
+        <div class="step-desc">Construimos el sitio completo (HTML, CSS, JS) y lo subimos a un link de preview en AWS para que lo puedas ver en cualquier dispositivo. Revisás y nos mandás los cambios.</div>
+        <div class="step-tags">
+          <span class="step-tag">HTML / CSS / JS</span>
+          <span class="step-tag">Preview S3</span>
+          <span class="step-tag">2 rondas de revisión</span>
+        </div>
+        <div class="hl">Tenés <strong>2 rondas de revisión incluidas</strong>. Una ronda = todos los cambios enviados en un mismo mensaje. Revisiones adicionales se cotizan desde $25 USD.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">05</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">Paso 5 — Día 7–10</div>
+        <div class="step-title">Pago final y lanzamiento a producción</div>
+        <div class="step-desc">Una vez que aprobás el sitio, coordinamos el pago del 50% restante. En cuanto confirmamos la transferencia, hacemos el deploy definitivo en AWS CloudFront con SSL y tu dominio.</div>
+        <div class="step-tags">
+          <span class="step-tag">Pago 50% final</span>
+          <span class="step-tag">Deploy AWS</span>
+          <span class="step-tag">SSL + dominio</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num">06</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-label">Paso 6 — Entrega</div>
+        <div class="step-title">Site live + código fuente + soporte</div>
+        <div class="step-desc">Tu sitio está en producción. Te entregamos el código fuente completo, el acceso a Google Sheets con los leads y la guía de uso. Quedamos disponibles para soporte técnico.</div>
+        <div class="step-tags">
+          <span class="step-tag green">Site en producción</span>
+          <span class="step-tag green">Código fuente tuyo</span>
+          <span class="step-tag green">Leads → Google Sheets</span>
+          <span class="step-tag green">Soporte incluido</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- MATERIALES -->
+  <div class="section-head">
+    <div class="section-eyebrow">// Qué necesitamos de vos</div>
+    <div class="section-title">Kit de materiales</div>
+  </div>
+
+  <div class="materials-grid">
+    <div class="material-card">
+      <div class="material-title"><span class="icon">🎨</span> Branding</div>
+      <div class="material-list">
+        <div class="material-item">Logo en PNG o SVG (fondo transparente si tenés)</div>
+        <div class="material-item">Colores de tu marca (hex, o decínoslos)</div>
+        <div class="material-item optional">Fuentes que usás (opcional)</div>
+        <div class="material-item optional">Referencias visuales (páginas que te gusten)</div>
+      </div>
+    </div>
+    <div class="material-card">
+      <div class="material-title"><span class="icon">✍️</span> Contenido</div>
+      <div class="material-list">
+        <div class="material-item">Nombre del negocio o producto</div>
+        <div class="material-item">Descripción de lo que ofrecés</div>
+        <div class="material-item">Precios o rangos de precios</div>
+        <div class="material-item optional">Testimonios o reseñas (opcional)</div>
+      </div>
+    </div>
+    <div class="material-card">
+      <div class="material-title"><span class="icon">📷</span> Imágenes</div>
+      <div class="material-list">
+        <div class="material-item">Fotos del producto o servicio</div>
+        <div class="material-item optional">Foto tuya o del equipo (opcional)</div>
+        <div class="material-item optional">Imágenes de ambiente / contexto</div>
+        <div class="material-item optional">Si no tenés, usamos banco de imágenes</div>
+      </div>
+    </div>
+    <div class="material-card">
+      <div class="material-title"><span class="icon">📞</span> Contacto</div>
+      <div class="material-list">
+        <div class="material-item">Número de WhatsApp para el formulario</div>
+        <div class="material-item">Correo electrónico de contacto</div>
+        <div class="material-item optional">Dirección física (si aplica)</div>
+        <div class="material-item optional">Redes sociales (Instagram, TikTok, etc.)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl" style="margin-top:1.25rem">
+    ¿No tenés todo? No hay problema — con lo que tenés empezamos. Lo que falte lo vamos definiendo en el camino. <strong>Un mensaje por WhatsApp con lo que tenés a mano es suficiente para arrancar.</strong>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- TIMELINE -->
+  <div class="section-head">
+    <div class="section-eyebrow">// Cuánto tarda</div>
+    <div class="section-title">Timeline estimado</div>
+  </div>
+
+  <div class="timeline-bar">
+    <div class="tl-item">
+      <div class="tl-day">Hoy</div>
+      <div class="tl-dot"></div>
+      <div class="tl-label">Mandás materiales</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-day">Día 2</div>
+      <div class="tl-dot"></div>
+      <div class="tl-label">Brief + diseño aprobado</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-day">Día 5</div>
+      <div class="tl-dot"></div>
+      <div class="tl-label">Preview en vivo</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-day">Día 7</div>
+      <div class="tl-dot"></div>
+      <div class="tl-label">Revisiones listas</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-day">Día 10</div>
+      <div class="tl-dot"></div>
+      <div class="tl-label">Site en producción</div>
+    </div>
+  </div>
+  <div class="tl-line"></div>
+
+  <div class="hl">El timeline empieza desde que recibimos los materiales completos. Cambios menores (texto, precio, número) los hacemos el mismo día o al día siguiente. Cambios mayores (nueva sección) en 1–3 días.</div>
+
+  <hr class="section-divider"/>
+
+  <!-- REGLAS DE COMUNICACIÓN -->
+  <div class="section-head">
+    <div class="section-eyebrow">// Cómo trabajamos</div>
+    <div class="section-title">Reglas del juego</div>
+  </div>
+
+  <div class="rules-list">
+    <div class="rule">
+      <div class="rule-icon">💬</div>
+      <div class="rule-body">
+        <div class="rule-title">WhatsApp es el canal principal</div>
+        <div class="rule-desc">Toda la coordinación del proyecto va por WhatsApp (+506 6314-4171). Respondemos en menos de 2 horas. Para documentos formales (contratos, facturas) también usamos correo.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">📦</div>
+      <div class="rule-body">
+        <div class="rule-title">Los cambios van en un solo mensaje</div>
+        <div class="rule-desc">Cuando revisés el preview, juntá todos los cambios en un solo mensaje antes de enviarlo. Eso cuenta como una ronda de revisión. Mensajes separados = rondas separadas.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">⏱️</div>
+      <div class="rule-body">
+        <div class="rule-title">Respondé el preview en 3 días hábiles</div>
+        <div class="rule-desc">Cuando te mandemos el link de preview para revisar, tenés 3 días hábiles para enviarnos los cambios. Si no hay respuesta, asumimos que está aprobado y avanzamos al deploy.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🔒</div>
+      <div class="rule-body">
+        <div class="rule-title">El código es tuyo al completar el pago</div>
+        <div class="rule-desc">Una vez que confirmamos el 50% final, te entregamos el código fuente completo. Es tuyo para siempre — podés modificarlo, llevarlo a otro proveedor o hacer lo que quieras con él.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🛠️</div>
+      <div class="rule-body">
+        <div class="rule-title">Errores técnicos los resolvemos en 24 horas</div>
+        <div class="rule-desc">Si algo en el sitio deja de funcionar (formulario, carga, imágenes), reportalo por WhatsApp y lo resolvemos en menos de 24 horas hábiles, sin costo adicional.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">➕</div>
+      <div class="rule-body">
+        <div class="rule-title">Cambios fuera del alcance tienen precio</div>
+        <div class="rule-desc">Si querés agregar algo que no estaba en el alcance original, te cotizamos antes de hacerlo. Siempre vas a saber el precio antes de que arranquemos. Sin sorpresas.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- CTA FINAL -->
+  <div class="cta-section">
+    <div class="cta-title">¿Listo para <strong>arrancar</strong>?</div>
+    <div class="cta-sub">Mandanos los materiales por WhatsApp y el reloj empieza a correr.</div>
+    <div class="cta-btns">
+      <a href="https://wa.me/50663144171?text=Hola%20Garett!%20Ya%20leí%20el%20kit%20de%20bienvenida%20y%20voy%20a%20mandarte%20los%20materiales." target="_blank" rel="noopener" class="btn btn-wa">💬 Mandar materiales por WhatsApp</a>
+      <a href="mailto:apexcloudworkscompany@gmail.com" class="btn btn-email">✉️ Por correo</a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  © 2026 Apex Cloud Works · Garett Barrantes · Cartago, Costa Rica ·
+  <a href="../Legal/terminos.html">Términos y Condiciones</a> ·
+  <a href="../Legal/politica-privacidad.html">Privacidad</a>
+</footer>
+
+</body>
+</html>

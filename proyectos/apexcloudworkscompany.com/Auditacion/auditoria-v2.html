@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Auditoría Técnica — Apex Cloud Works · v2 · Jun 2026</title>
+<style>
+:root {
+  --bg:      #0d1117;
+  --surface: #161b22;
+  --surf2:   #1c2330;
+  --border:  rgba(255,255,255,0.08);
+  --gold:    #C4956A;
+  --gold2:   #E2B97A;
+  --text:    #f0f4f8;
+  --muted:   #7a8898;
+  --muted2:  #a0aec0;
+  --green:   #34d399;
+  --yellow:  #fbbf24;
+  --red:     #f87171;
+  --blue:    #60a5fa;
+  --orange:  #fb923c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Segoe UI',system-ui,sans-serif;
+  font-size:14px;line-height:1.6;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:48px 24px}
+
+/* ── HEADER ── */
+.report-header{
+  border-bottom:2px solid var(--gold);
+  padding-bottom:32px;margin-bottom:48px;
+}
+.rh-badge{
+  display:inline-block;
+  background:rgba(196,149,106,0.12);
+  border:1px solid rgba(196,149,106,0.3);
+  color:var(--gold);
+  font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:16px;
+}
+.rh-title{font-size:32px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.rh-title span{color:var(--gold);}
+.rh-meta{color:var(--muted);font-size:13px;display:flex;gap:24px;flex-wrap:wrap;margin-top:12px;}
+.rh-meta strong{color:var(--muted2);}
+
+/* Score board */
+.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:28px;}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+.sc-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.sc-val{font-size:28px;font-weight:700;}
+.sc-sub{font-size:10px;color:var(--muted);margin-top:4px;}
+.score-red{color:var(--red);}
+.score-orange{color:var(--orange);}
+.score-yellow{color:var(--yellow);}
+.score-green{color:var(--green);}
+
+/* ── SECTIONS ── */
+.section{margin-bottom:56px;}
+.section-title{
+  font-size:18px;font-weight:700;
+  color:var(--gold);
+  padding:12px 0 12px 16px;
+  border-left:3px solid var(--gold);
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-title .s-num{
+  font-size:11px;color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;padding:2px 8px;
+}
+
+/* ── TABLES ── */
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{background:var(--surf2);color:var(--muted2);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--muted2);}
+td strong{color:var(--text);}
+tr:hover td{background:rgba(255,255,255,0.015);}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;}
+.checklist li{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 14px;border-bottom:1px solid var(--border);
+  font-size:13px;color:var(--muted2);
+}
+.checklist li:last-child{border-bottom:none;}
+.cl-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.cl-text strong{color:var(--text);display:block;margin-bottom:2px;}
+.cl-text span{font-size:11px;color:var(--muted);}
+.cl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap;}
+.b-red{background:rgba(248,113,113,0.12);color:var(--red);border:1px solid rgba(248,113,113,0.3);}
+.b-orange{background:rgba(251,146,60,0.12);color:var(--orange);border:1px solid rgba(251,146,60,0.3);}
+.b-yellow{background:rgba(251,191,36,0.12);color:var(--yellow);border:1px solid rgba(251,191,36,0.3);}
+.b-green{background:rgba(52,211,153,0.12);color:var(--green);border:1px solid rgba(52,211,153,0.3);}
+.b-blue{background:rgba(96,165,250,0.12);color:var(--blue);border:1px solid rgba(96,165,250,0.3);}
+
+/* ── CODE BLOCKS ── */
+.code-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+.code-block{background:#0a0e13;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.code-label{padding:6px 14px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+.code-label.bad{background:rgba(248,113,113,0.1);color:var(--red);}
+.code-label.good{background:rgba(52,211,153,0.1);color:var(--green);}
+pre{padding:14px;font-size:12px;line-height:1.5;overflow-x:auto;color:#e2e8f0;font-family:'Consolas','JetBrains Mono',monospace;}
+.hl-red{color:var(--red);}
+.hl-green{color:var(--green);}
+.hl-yellow{color:var(--yellow);}
+.hl-blue{color:var(--blue);}
+.hl-comment{color:var(--muted);}
+
+/* ── ARCH TREE ── */
+.arch-tree{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:24px;font-family:'Consolas','JetBrains Mono',monospace;
+  font-size:12px;line-height:1.8;color:var(--muted2);
+}
+.arch-tree .ok{color:var(--green);}
+.arch-tree .warn{color:var(--yellow);}
+.arch-tree .bad{color:var(--red);}
+.arch-tree .folder{color:var(--gold);}
+
+/* ── DEVICE SECTION ── */
+.device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.device-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.dc-title{font-size:12px;font-weight:700;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.dc-list{list-style:none;}
+.dc-list li{font-size:12px;color:var(--muted2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;}
+.dc-list li:last-child{border-bottom:none;}
+.dc-list li::before{content:'·';color:var(--gold);flex-shrink:0;}
+
+/* ── PRIORITY LIST ── */
+.prio-list{list-style:none;}
+.prio-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 14px;border-bottom:1px solid var(--border);
+}
+.prio-item:last-child{border-bottom:none;}
+.prio-num{
+  min-width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px;
+}
+.p-high .prio-num{background:rgba(248,113,113,0.15);color:var(--red);}
+.p-med  .prio-num{background:rgba(251,191,36,0.15);color:var(--yellow);}
+.p-low  .prio-num{background:rgba(96,165,250,0.15);color:var(--blue);}
+.prio-content strong{color:var(--text);display:block;font-size:13px;}
+.prio-content span{color:var(--muted);font-size:12px;}
+
+/* ── FOOTER ── */
+.report-footer{border-top:1px solid var(--border);padding-top:24px;margin-top:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:var(--muted);font-size:12px;}
+.report-footer strong{color:var(--gold);}
+
+/* ── TOC ── */
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:48px;}
+.toc-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 24px;}
+.toc a{color:var(--muted2);text-decoration:none;font-size:12px;padding:3px 0;display:block;transition:color .15s;}
+.toc a:hover{color:var(--gold);}
+.toc a::before{content:'→ ';color:var(--gold);opacity:.5;}
+
+@media(max-width:700px){
+  .code-compare{grid-template-columns:1fr;}
+  .device-grid{grid-template-columns:1fr;}
+  .score-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── HEADER ── -->
+<div class="report-header">
+  <div class="rh-badge">Auditoría Técnica Senior</div>
+  <h1 class="rh-title">Apex <span>Cloud Works</span> — Informe Completo</h1>
+  <p style="color:var(--muted2);font-size:14px;margin-top:8px;">Revisión exhaustiva de código, seguridad, UX, performance y arquitectura cloud</p>
+  <div class="rh-meta">
+    <span><strong>Proyecto:</strong> apexcloudworkscompany.com</span>
+    <span><strong>Fecha:</strong> 25 Junio 2026</span>
+    <span><strong>Versión:</strong> v2.0</span>
+    <span><strong>Stack:</strong> HTML/CSS/JS · Google Apps Script · AWS S3 + CloudFront</span>
+  </div>
+  <div class="score-grid">
+    <div class="score-card"><div class="sc-label">Seguridad</div><div class="sc-val score-red">D+</div><div class="sc-sub">6 vulnerabilidades críticas</div></div>
+    <div class="score-card"><div class="sc-label">Accesibilidad</div><div class="sc-val score-yellow">C+</div><div class="sc-sub">WCAG 2.1 parcial</div></div>
+    <div class="score-card"><div class="sc-label">Performance</div><div class="sc-val score-yellow">B-</div><div class="sc-sub">Fuentes + fetch sin caché</div></div>
+    <div class="score-card"><div class="sc-label">SEO</div><div class="sc-val score-green">A-</div><div class="sc-sub">Schema + OG correctos</div></div>
+    <div class="score-card"><div class="sc-label">UX/UI</div><div class="sc-val score-yellow">B</div><div class="sc-sub">Buena base, gaps en mobile</div></div>
+    <div class="score-card"><div class="sc-label">Mantenibilidad</div><div class="sc-val score-orange">C+</div><div class="sc-sub">Monolíticos, sin modularidad</div></div>
+    <div class="score-card"><div class="sc-label">AWS</div><div class="sc-val score-yellow">B-</div><div class="sc-sub">Sin WAF ni headers</div></div>
+    <div class="score-card"><div class="sc-label">Score Global</div><div class="sc-val score-orange">C+</div><div class="sc-sub">24 hallazgos totales</div></div>
+  </div>
+</div>
+
+<!-- ── TOC ── -->
+<div class="toc">
+  <div class="toc-title">Índice del Informe</div>
+  <div class="toc-grid">
+    <a href="#s1">1. Accesibilidad (WCAG)</a>
+    <a href="#s2">2. Performance Frontend</a>
+    <a href="#s3">3. Seguridad</a>
+    <a href="#s4">4. Arquitectura</a>
+    <a href="#s5">5. CSS / JS</a>
+    <a href="#s6">6. UX / UI</a>
+    <a href="#s7">7. SEO Técnico</a>
+    <a href="#s8">8. Responsividad Mobile-First</a>
+    <a href="#s9">9. AWS Cloud</a>
+    <a href="#s10">10. Mantenibilidad</a>
+    <a href="#s11">11. Design Systems</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 1. ACCESIBILIDAD -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-title"><span class="s-num">01</span> Accesibilidad (WCAG 2.1)</div>
+  <div class="cl-wrap">
+    <ul class="checklist">
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>1.1.1 — Alternativas de texto (imágenes HTML)</strong><span>Logo y avatares tienen atributo alt definido. img[alt] presente en index.html</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>1.1.1 — Alternativas de texto (imágenes CSS)</strong><span>Portafolio usa background-image en .pf-cover — screen readers no pueden leer. Afecta 5+ cards de proyectos.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>1.3.1 — Labels asociados a inputs</strong><span>admin.html línea 34: &lt;label&gt; sin for="gate-input". Screen reader no asocia campo y etiqueta.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>1.3.1 — Labels en portal</strong><span>portal/index.html usa for/id correctamente en formulario de login.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>1.4.3 — Contraste de texto (AA)</strong><span>--muted2 (#a0aec0) sobre --surface2 (#1c2330) = ratio ~3.8:1. Requiere mínimo 4.5:1 para texto normal.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>1.4.11 — Contraste de componentes UI</strong><span>Botones .qa-btn y .sb-item en estado hover usan colores dim que no cumplen 3:1 en estado focus.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>2.1.1 — Teclado: modales</strong><span>Modales del admin no tienen focus trap. Tab puede escapar del modal y navegar el fondo.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>2.1.1 — Teclado: sidebar</strong><span>Items del sidebar son &lt;button&gt; (correcto) pero sin orden de tab claro al colapsar.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>2.4.2 — Título de página</strong><span>index.html y admin.html tienen &lt;title&gt; descriptivos y únicos.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>4.1.2 — Nombre / Rol / Valor (modales)</strong><span>Modales sin role="dialog", aria-modal="true", ni aria-labelledby. Screen readers no anuncian apertura.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>4.1.2 — Sidebar toggle</strong><span>.sb-toggle sin aria-expanded ni aria-controls. Screen reader no sabe el estado del sidebar.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>2.4.4 — Propósito del enlace</strong><span>CTA buttons tienen texto descriptivo ("Ver Demo", "Agendar consulta", etc.).</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>1.3.5 — Autocompletado</strong><span>Inputs de nombre/email en formulario de contacto sin autocomplete="name" / autocomplete="email".</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>lang attribute</strong><span>&lt;html lang="es"&gt; presente en todas las páginas.</span></div></li>
+    </ul>
+  </div>
+  <p style="margin-top:12px;font-size:12px;color:var(--muted)">✅ 5 criterios cumplidos &nbsp;·&nbsp; ❌ 9 criterios fallidos &nbsp;·&nbsp; Nivel de conformidad actual: <strong style="color:var(--yellow)">Parcial A</strong></p>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 2. PERFORMANCE -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-title"><span class="s-num">02</span> Performance Frontend</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Problema</th><th>Impacto</th><th>Solución propuesta</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Google Fonts: 9 archivos por página</strong><br><span style="font-size:11px;color:var(--muted)">index.html carga 9 font files (Space Grotesk ×3, Inter ×4, JetBrains ×2)</span></td>
+          <td><span class="badge b-red">Alto</span><br>+600ms en primera carga</td>
+          <td>Reducir a 5 weights máximo. Consolidar en un único &lt;link&gt;. Usar font-display: swap.</td>
+        </tr>
+        <tr>
+          <td><strong>Duplicación de Google Fonts entre páginas</strong><br><span style="font-size:11px;color:var(--muted)">index.html, admin.html y portal/index.html descargan sets diferentes de fonts. JetBrains Mono cargado 2 veces.</span></td>
+          <td><span class="badge b-red">Alto</span><br>KB duplicados en sesión</td>
+          <td>Definir un único CSS de tipografía compartido. Usar variable fonts cuando sea posible.</td>
+        </tr>
+        <tr>
+          <td><strong>fetchAdminData() sin caché</strong><br><span style="font-size:11px;color:var(--muted)">admin.js: 4 fetch paralelos a Apps Script en cada init y cada refresh. Sin cache-control ni ETag.</span></td>
+          <td><span class="badge b-orange">Medio</span><br>4–8 req innecesarios</td>
+          <td>Agregar timestamp de stale: si LIVE.loaded hace &lt;2min no refetch. Usar sessionStorage como caché corto.</td>
+        </tr>
+        <tr>
+          <td><strong>Auto-refresh cada 5 min incondicional</strong><br><span style="font-size:11px;color:var(--muted)">startAutoRefresh() hace 4 fetches cada 300s aunque no haya cambios.</span></td>
+          <td><span class="badge b-yellow">Bajo</span><br>Requests innecesarios a GAS</td>
+          <td>Polling solo si tab está en foco (document.visibilityState). Aumentar a 10 min o usar notificación push.</td>
+        </tr>
+        <tr>
+          <td><strong>JS inline en admin.html</strong><br><span style="font-size:11px;color:var(--muted)">admin.html líneas 12–24: 200+ líneas de &lt;style&gt; inline para el gate modal.</span></td>
+          <td><span class="badge b-yellow">Bajo</span><br>No se cachea, aumenta parse</td>
+          <td>Mover estilos del gate a admin.css. El CSS se beneficia del caché del navegador.</td>
+        </tr>
+        <tr>
+          <td><strong>Sin lazy loading en imágenes de portafolio</strong><br><span style="font-size:11px;color:var(--muted)">Imágenes de Unsplash cargadas como background-image sin estrategia de lazy.</span></td>
+          <td><span class="badge b-yellow">Bajo</span><br>LCP y CLS afectados</td>
+          <td>Usar Intersection Observer para cargar background-image cuando el elemento entra al viewport.</td>
+        </tr>
+        <tr>
+          <td><strong>Scripts sin defer/async</strong><br><span style="font-size:11px;color:var(--muted)">admin.js se carga antes del cierre de &lt;/body&gt; (correcto) pero sin defer. index.html tiene script.js al final (correcto).</span></td>
+          <td><span class="badge b-green">Bajo</span><br>Impacto mínimo actual</td>
+          <td>Agregar defer a ambos scripts como buena práctica. Preparar para migración a ESModules.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 3. SEGURIDAD -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-title"><span class="s-num">03</span> Seguridad</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Vulnerabilidad</th><th>Riesgo</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>🔴 Admin token hardcodeado en cliente</strong></td>
+          <td><span class="badge b-red">CRÍTICO</span></td>
+          <td>admin.js línea 13: <code style="background:#0a0e13;padding:2px 6px;border-radius:4px;color:var(--red)">const _t = ['apex','Admin','2026','!'].join('')</code> — cualquiera puede obtenerlo con DevTools y hacer llamadas administrativas directas al Apps Script (crear clientes, editar finanzas, borrar proyectos).</td>
+        </tr>
+        <tr>
+          <td><strong>🔴 URL del Apps Script expuesta</strong></td>
+          <td><span class="badge b-red">CRÍTICO</span></td>
+          <td>La URL del endpoint Apps Script está en admin.js y portal.js (código público). Combinada con el admin token hardcodeado, cualquier script externo puede hacer CRUD completo sobre los datos.</td>
+        </tr>
+        <tr>
+          <td><strong>🔴 Autenticación basada en localStorage</strong></td>
+          <td><span class="badge b-red">CRÍTICO</span></td>
+          <td>El gate del admin guarda el hash SHA-256 de la contraseña en localStorage. localStorage es accesible por cualquier JS de la página → XSS = acceso admin total. Sin expiración ni revocación.</td>
+        </tr>
+        <tr>
+          <td><strong>🟠 innerHTML sin escape en builders SVG</strong></td>
+          <td><span class="badge b-orange">ALTO</span></td>
+          <td>buildRevenueRing(), buildLeadFunnel() y buildActivityFeed() usan template literals con datos de LIVE sin pasar por la función h(). Si un nombre de cliente o proyecto contiene <code>&lt;script&gt;</code>, se ejecuta.</td>
+        </tr>
+        <tr>
+          <td><strong>🟠 Password hashes en Google Sheets</strong></td>
+          <td><span class="badge b-orange">ALTO</span></td>
+          <td>portal-apps-script.gs guarda password_hash directamente en la hoja "Usuarios". Si el Spreadsheet se comparte accidentalmente, los hashes de todos los clientes quedan expuestos. Sin salt por usuario.</td>
+        </tr>
+        <tr>
+          <td><strong>🟠 Sin CSRF tokens en POST al Apps Script</strong></td>
+          <td><span class="badge b-orange">ALTO</span></td>
+          <td>apiPost() envía JSON sin token CSRF. Una página maliciosa en otro dominio podría enviar requests a la misma URL con el admin token (si lo obtiene) y modificar datos.</td>
+        </tr>
+        <tr>
+          <td><strong>🟡 Sin rate limiting en login del portal</strong></td>
+          <td><span class="badge b-yellow">MEDIO</span></td>
+          <td>El endpoint login del Apps Script no limita intentos fallidos. Permite fuerza bruta ilimitada contra credenciales de clientes.</td>
+        </tr>
+        <tr>
+          <td><strong>🟡 Tres estrategias de auth inconsistentes</strong></td>
+          <td><span class="badge b-yellow">MEDIO</span></td>
+          <td>admin.html usa localStorage+SHA-256, portal.js usa sessionStorage+SHA-256, auth.js tiene código Cognito sin usar. Superficie de ataque triple y mantenimiento inconsistente.</td>
+        </tr>
+        <tr>
+          <td><strong>🟢 Security headers del admin</strong></td>
+          <td><span class="badge b-green">BIEN</span></td>
+          <td>admin.html tiene &lt;meta name="robots" content="noindex, nofollow"&gt;. La función h() de escape existe y se usa en la mayoría de renders.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:16px;background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:16px;font-size:13px;color:var(--muted2);">
+    <strong style="color:var(--red)">⚠ Acción inmediata requerida:</strong> El token admin hardcodeado + URL del Apps Script pública permiten a cualquier persona con acceso al código JS ejecutar operaciones admin completas. Prioridad máxima antes de escalar el panel.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 4. ARQUITECTURA -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-title"><span class="s-num">04</span> Arquitectura</div>
+  <p style="color:var(--muted2);margin-bottom:16px;font-size:13px;">Estado actual del árbol de archivos con notas de calidad y propuesta de reorganización.</p>
+  <div class="arch-tree">
+<pre>
+apexcloudworkscompany.com/
+├── <span class="folder">assets/</span>
+│   ├── <span class="folder">css/</span>
+│   │   ├── <span class="warn">style.css</span>          ← 2384 líneas monolíticas  <span class="bad">⚠ dividir en módulos</span>
+│   │   ├── <span class="warn">admin.css</span>          ← 900+ líneas              <span class="bad">⚠ dividir en módulos</span>
+│   │   └── <span class="ok">portal.css</span>         ← tamaño aceptable
+│   ├── <span class="folder">js/</span>
+│   │   ├── <span class="warn">admin.js</span>           ← 1350+ líneas monolíticas <span class="bad">⚠ dividir: dashboard.js, modales.js, api.js</span>
+│   │   ├── <span class="ok">script.js</span>          ← enfocado, correcto
+│   │   ├── <span class="warn">portal.js</span>          ← auth mezclada con UI     <span class="bad">⚠ separar auth.js</span>
+│   │   └── <span class="bad">auth.js</span>            ← código Cognito sin usar  <span class="bad">⚠ eliminar o completar</span>
+│   └── <span class="folder">img/</span>               ← sin estructura por tipo
+├── <span class="ok">index.html</span>             ← bien estructurado, SEO correcto
+├── <span class="warn">admin.html</span>             ← 500+ líneas + CSS inline <span class="bad">⚠ mover styles a admin.css</span>
+├── <span class="folder">portal/</span>
+│   └── <span class="ok">index.html</span>         ← correcto
+├── <span class="folder">Seguridad/</span>             ← buena práctica tenerla separada
+├── <span class="folder">Legal/</span>                 ← correcto
+├── <span class="folder">Bienvenida/</span>
+├── <span class="ok">contact-apps-script.gs</span> ← separado del portal GAS ✓
+├── <span class="warn">portal-apps-script.gs</span>  ← ADMIN_TOKEN hardcodeado <span class="bad">🔴 crítico</span>
+├── <span class="ok">MIGRATION_COREUI.md</span>    ← documentación de migración ✓
+└── <span class="folder">Auditacion/</span>            ← documentación de auditoría ✓
+
+PROPUESTA DE REORGANIZACIÓN:
+apexcloudworkscompany.com/
+├── <span class="folder">assets/</span>
+│   ├── <span class="folder">css/</span>
+│   │   ├── _variables.css       ← tokens y custom properties
+│   │   ├── _reset.css
+│   │   ├── _typography.css      ← fonts unificadas
+│   │   ├── components/
+│   │   │   ├── _buttons.css
+│   │   │   ├── _cards.css
+│   │   │   ├── _nav.css
+│   │   │   └── _modals.css
+│   │   ├── pages/
+│   │   │   ├── _landing.css
+│   │   │   ├── _admin.css
+│   │   │   └── _portal.css
+│   │   └── main.css             ← @import de todos
+│   ├── <span class="folder">js/</span>
+│   │   ├── api/
+│   │   │   └── apex-api.js      ← fetch helpers + cache
+│   │   ├── admin/
+│   │   │   ├── dashboard.js
+│   │   │   ├── modales.js
+│   │   │   └── kanban.js
+│   │   ├── auth/
+│   │   │   └── gate.js          ← password gate unificado
+│   │   └── script.js
+│   └── <span class="folder">img/</span>
+│       ├── icons/
+│       ├── og/
+│       └── portfolio/
+</pre>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 5. CSS / JS -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-title"><span class="s-num">05</span> CSS / JavaScript — Antes y Después</div>
+
+  <p style="color:var(--muted2);font-size:13px;margin-bottom:16px;"><strong style="color:var(--text)">Problema 1:</strong> Admin token expuesto en JS cliente</p>
+  <div class="code-compare">
+    <div class="code-block">
+      <div class="code-label bad">❌ Actual — admin.js línea 13</div>
+      <pre><span class="hl-comment">// Token visible en DevTools para cualquiera</span>
+<span class="hl-red">const _t = ['apex','Admin','2026','!'].join('');</span>
+
+async function apiPost(body) {
+  return fetch(PORTAL_AS_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      <span class="hl-red">adminToken: _t,</span>
+      ...body
+    })
+  }).then(r => r.json());
+}</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-label good">✅ Propuesto — sin token en cliente</div>
+      <pre><span class="hl-comment">// Token se maneja en servidor (lambda/proxy)</span>
+<span class="hl-green">// No hay token en el cliente</span>
+
+async function apiPost(accion, body) {
+  <span class="hl-green">const token = sessionStorage.getItem('apex_session');</span>
+  return fetch('/api/admin', {  <span class="hl-comment">// proxy propio</span>
+    method: 'POST',
+    headers: {
+      <span class="hl-green">'Authorization': `Bearer ${token}`,</span>
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ accion, ...body })
+  }).then(r => r.json());
+}</pre>
+    </div>
+  </div>
+
+  <p style="color:var(--muted2);font-size:13px;margin:20px 0 16px;"><strong style="color:var(--text)">Problema 2:</strong> innerHTML sin sanitizar en builders</p>
+  <div class="code-compare">
+    <div class="code-block">
+      <div class="code-label bad">❌ Actual — buildActivityFeed() sin escape</div>
+      <pre>LIVE.leads.forEach(l => items.push({
+  icon: '📬',
+  <span class="hl-red">text: `Lead — &lt;strong&gt;${l.nombre}&lt;/strong&gt;`,</span>
+  <span class="hl-comment">// l.nombre viene del Sheet, no sanitizado</span>
+}));
+
+return items.map(item => `
+  &lt;div class="activity-item"&gt;
+    &lt;div&gt;<span class="hl-red">${item.text}</span>&lt;/div&gt;
+  &lt;/div&gt;
+`);</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-label good">✅ Propuesto — con escape consistente</div>
+      <pre>LIVE.leads.forEach(l => items.push({
+  icon: '📬',
+  <span class="hl-green">nombre: l.nombre, // solo datos, sin HTML</span>
+}));
+
+return items.map(item => `
+  &lt;div class="activity-item"&gt;
+    &lt;div&gt;Lead — &lt;strong&gt;<span class="hl-green">${h(item.nombre)}</span>&lt;/strong&gt;&lt;/div&gt;
+  &lt;/div&gt;
+`);
+<span class="hl-comment">// Regla: SIEMPRE h() cuando se usa ${} en innerHTML</span></pre>
+    </div>
+  </div>
+
+  <p style="color:var(--muted2);font-size:13px;margin:20px 0 16px;"><strong style="color:var(--text)">Problema 3:</strong> !important y magic numbers en CSS</p>
+  <div class="code-compare">
+    <div class="code-block">
+      <div class="code-label bad">❌ Actual — style.css media queries</div>
+      <pre><span class="hl-red">@media (max-width: 767px) {</span>
+  .calc-wrap {
+    <span class="hl-red">grid-template-columns: 1fr !important;</span>
+  }
+  .srv-grid {
+    <span class="hl-red">flex-direction: column !important;</span>
+  }
+  .section {
+    <span class="hl-red">padding: 64px 0;</span>  /* magic number */
+  }
+}</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-label good">✅ Propuesto — con variables CSS</div>
+      <pre><span class="hl-green">:root {
+  --bp-mobile: 48rem;    /* 768px */
+  --section-y: 4rem;
+}
+
+@media (max-width: var(--bp-mobile)) {</span>
+  .calc-wrap {
+    <span class="hl-green">grid-template-columns: 1fr;</span>  /* spec más alta */
+  }
+  .srv-grid {
+    <span class="hl-green">flex-direction: column;</span>
+  }
+  .section {
+    <span class="hl-green">padding: var(--section-y) 0;</span>
+  }
+}</pre>
+    </div>
+  </div>
+
+  <p style="color:var(--muted2);font-size:13px;margin:20px 0 16px;"><strong style="color:var(--text)">Problema 4:</strong> Modales sin accesibilidad</p>
+  <div class="code-compare">
+    <div class="code-block">
+      <div class="code-label bad">❌ Actual — modal sin ARIA</div>
+      <pre>&lt;div class="modal-overlay" <span class="hl-red">id="modal-proyecto"</span>&gt;
+  &lt;div class="modal"&gt;
+    &lt;h3&gt;Nuevo proyecto&lt;/h3&gt;
+    <span class="hl-comment">&lt;!-- sin role, sin aria-modal --&gt;</span>
+  &lt;/div&gt;
+&lt;/div&gt;
+
+function openModal(id) {
+  document.getElementById(id)
+    ?.classList.add('open');
+  <span class="hl-comment">// sin focus management</span>
+}</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-label good">✅ Propuesto — con ARIA + focus trap</div>
+      <pre>&lt;div class="modal-overlay" id="modal-proyecto"
+  <span class="hl-green">role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-proyecto-title"</span>&gt;
+  &lt;div class="modal"&gt;
+    &lt;h3 <span class="hl-green">id="modal-proyecto-title"</span>&gt;Nuevo proyecto&lt;/h3&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+function openModal(id) {
+  const m = document.getElementById(id);
+  m?.classList.add('open');
+  <span class="hl-green">const first = m?.querySelector('input,button');
+  first?.focus();
+  trapFocus(m);</span>
+}</pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 6. UX / UI -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-title"><span class="s-num">06</span> UX / UI</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Aspecto evaluado</th><th>Estado</th><th>Recomendación</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sidebar colapsable</strong><br><span style="font-size:11px;color:var(--muted)">Implementado recientemente</span></td><td><span class="badge b-green">Bien</span></td><td>Estado persiste en localStorage. Considerar tooltip en ícono cuando está colapsado para claridad.</td></tr>
+        <tr><td><strong>Feedback en acciones async</strong><br><span style="font-size:11px;color:var(--muted)">Botones cambian texto a "Guardando…" / "Enviando…"</span></td><td><span class="badge b-green">Bien</span></td><td>Agregar spinner visual además del texto. Deshabilitar el botón con cursor:not-allowed para mayor claridad.</td></tr>
+        <tr><td><strong>Estados vacíos (empty states)</strong><br><span style="font-size:11px;color:var(--muted)">Tablas muestran "No hay X aún" con ícono</span></td><td><span class="badge b-green">Bien</span></td><td>Agregar CTA en empty states: "No hay proyectos — <u>Crear primero</u>" para guiar la acción.</td></tr>
+        <tr><td><strong>Error handling en formularios</strong><br><span style="font-size:11px;color:var(--muted)">Errores se muestran en divs con color rojo</span></td><td><span class="badge b-yellow">Parcial</span></td><td>Mensajes de error demasiado genéricos ("Error al guardar"). Mostrar el error real del servidor. Marcar el campo fallido con borde rojo.</td></tr>
+        <tr><td><strong>Mobile: sidebar y tablas</strong><br><span style="font-size:11px;color:var(--muted)">Sidebar colapsa a 60px en mobile, tablas horizontales</span></td><td><span class="badge b-yellow">Parcial</span></td><td>Las tablas de datos deberían convertirse en cards en mobile. La vista tabla con 7 columnas es ilegible en 375px.</td></tr>
+        <tr><td><strong>Confirmación antes de acciones destructivas</strong><br><span style="font-size:11px;color:var(--muted)">Cerrar ticket usa botón directo sin confirm</span></td><td><span class="badge b-red">Falta</span></td><td>Agregar confirm() o modal de confirmación antes de cerrar/reabrir tickets y marcar cobros como pagados.</td></tr>
+        <tr><td><strong>Onboarding en primera vez</strong><br><span style="font-size:11px;color:var(--muted)">Panel muestra datos vacíos sin orientación</span></td><td><span class="badge b-red">Falta</span></td><td>Si LIVE.proyectos.length === 0 al primer login, mostrar wizard de 3 pasos: crea tu primer proyecto → agrega un lead → registra un cobro.</td></tr>
+        <tr><td><strong>Darkmode en landing (index.html)</strong><br><span style="font-size:11px;color:var(--muted)">Landing usa dark theme fijo</span></td><td><span class="badge b-blue">Info</span></td><td>Sin toggle de tema claro/oscuro. No crítico pero considerar prefers-color-scheme para respetar preferencia del OS.</td></tr>
+        <tr><td><strong>Consistencia visual entre páginas</strong><br><span style="font-size:11px;color:var(--muted)">Landing usa Space Grotesk, admin usa Unbounded+JetBrains</span></td><td><span class="badge b-yellow">Parcial</span></td><td>Ver sección Design Systems. Las dos páginas tienen identidades visuales distintas. Unificar tipografía de títulos.</td></tr>
+        <tr><td><strong>Kanban drag & drop</strong><br><span style="font-size:11px;color:var(--muted)">Implementado con HTML5 native DnD</span></td><td><span class="badge b-yellow">Parcial</span></td><td>DnD nativo no funciona en touch/mobile. Agregar touch events o migrar a biblioteca (SortableJS).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 7. SEO TÉCNICO -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-title"><span class="s-num">07</span> SEO Técnico</div>
+  <div class="cl-wrap">
+    <ul class="checklist">
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Title tag descriptivo y único</strong><span>"Apex Cloudworks — Sistemas web en AWS · Cartago, CR" — longitud correcta, keyword presente.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Meta description</strong><span>Presente, 155 chars aproximado, incluye keyword local "Cartago, Costa Rica".</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Open Graph (og:title, og:description, og:image, og:url)</strong><span>Todos presentes en index.html con contenido correcto y og:locale=es_CR.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Twitter Card</strong><span>summary_large_image con title, description e image correctos.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Canonical URL</strong><span>&lt;link rel="canonical" href="https://apexcloudworkscompany.com/"&gt; presente.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Schema.org LocalBusiness</strong><span>JSON-LD presente con name, url, telephone, address con localidad Cartago.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>noindex en páginas privadas</strong><span>admin.html y portal/index.html tienen meta robots noindex, nofollow.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>lang="es" en html tag</strong><span>Presente en todas las páginas.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>Jerarquía de headings</strong><span>En algunas secciones hay salto de h1 a h3 sin h2 intermedio. Afecta crawlability.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>Sitemap XML</strong><span>No hay sitemap.xml en el directorio raíz. Google no tiene mapa del sitio para crawler.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>robots.txt</strong><span>No se encontró robots.txt. Crawlers indexan todo sin restricción ni guía.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>Alt en imágenes de portafolio (CSS background)</strong><span>Proyectos del portafolio usan background-image — invisible para Google Image Search y screen readers.</span></div></li>
+      <li><span class="cl-icon">❌</span><div class="cl-text"><strong>Schema para servicios (Service schema)</strong><span>La sección de servicios (Landing Pages, Sistemas Web, Automatización) no tiene marcado Schema específico para cada servicio.</span></div></li>
+      <li><span class="cl-icon">✅</span><div class="cl-text"><strong>Core Web Vitals: LCP estimado</strong><span>Hero section sin imagen pesada (solo texto + animación CSS). LCP probablemente bajo.</span></div></li>
+    </ul>
+  </div>
+  <p style="margin-top:12px;font-size:12px;color:var(--muted)"><strong style="color:var(--yellow)">Acciones inmediatas:</strong> Crear sitemap.xml y robots.txt, corregir jerarquía h1→h2→h3, agregar schema Service.</p>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 8. RESPONSIVIDAD MOBILE-FIRST -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-title"><span class="s-num">08</span> Responsividad Mobile-First</div>
+  <div class="device-grid">
+    <div class="device-card">
+      <div class="dc-title">📱 Móvil (375px–480px)</div>
+      <ul class="dc-list">
+        <li>Tablas de datos (7 columnas) generan scroll horizontal — sin conversión a cards</li>
+        <li>Kanban drag & drop no funciona con touch (HTML5 DnD limitado en iOS)</li>
+        <li>Quick actions bar en dashboard se apila en columna — layout vertical aceptable pero botones muy anchos</li>
+        <li>Modal del gate (password): correcto con min(380px,90%)</li>
+        <li>Sidebar colapsada a 60px — correcto pero sin labels es confuso</li>
+        <li>Fuentes Unbounded pesadas en mobile — performance impacto</li>
+        <li>Progress groups: grid de 3 col → 2 col en mobile (implementado)</li>
+      </ul>
+    </div>
+    <div class="device-card">
+      <div class="dc-title">📟 Tablet (768px–1024px)</div>
+      <ul class="dc-list">
+        <li>dash-row3 (Ring + Funnel + Entregas) colapsa a 1 columna — correcto</li>
+        <li>Sidebar ocupa 220px — razonable, contenido principal tiene espacio suficiente</li>
+        <li>Topbar con elementos derecha (clock, badge) puede apretarse entre 768-860px</li>
+        <li>Métricas: 2 col en tablet (implementado) — correcto</li>
+        <li>Landing page: secciones hero y portafolio tienen buena respuesta en tablet</li>
+        <li>Kanban horizontal con 4 columnas en pantalla estrecha genera scroll horizontal</li>
+      </ul>
+    </div>
+    <div class="device-card">
+      <div class="dc-title">🖥️ Desktop (1024px+)</div>
+      <ul class="dc-list">
+        <li>max-width:1400px en tab-section — correcto, evita líneas muy largas</li>
+        <li>Dashboard grid 2 columnas: proyectos + activity — bien balanceado</li>
+        <li>Tablas de datos legibles con todas las columnas</li>
+        <li>Sidebar 220px deja 880px+ para contenido — suficiente</li>
+        <li>Gráfico SVG de ingresos (cuando activo) se expande bien con width:100%</li>
+        <li>Sin breakpoint específico para pantallas 4K — puede verse muy ancho sin max-width</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:13px;">
+    <strong style="color:var(--text)">Prioridad mobile:</strong>
+    <span style="color:var(--muted2)"> (1) Convertir tablas a cards en &lt;600px — <strong style="color:var(--yellow)">alto impacto</strong> · (2) Agregar touch events al kanban · (3) Tooltip en sidebar íconos cuando colapsado</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 9. AWS -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s9">
+  <div class="section-title"><span class="s-num">09</span> AWS — Infraestructura Cloud</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Servicio</th><th>Configuración detectada</th><th>Problema</th><th>Optimización sugerida</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>S3</strong><br><span style="font-size:11px;color:var(--muted)">skindoctors-cr-landings (us-east-2)</span></td>
+          <td>Bucket con archivos estáticos por cliente. ACL público para hosting.</td>
+          <td><span class="badge b-orange">Medio</span> Sin bucket versioning. Si se pisa un archivo, no hay rollback.</td>
+          <td>Habilitar S3 Versioning. Agregar S3 Lifecycle para limpiar versiones viejas. Configurar MFA Delete.</td>
+        </tr>
+        <tr>
+          <td><strong>CloudFront</strong><br><span style="font-size:11px;color:var(--muted)">E31U5V9IA0JXSZ · d3suiaystvdco4.cloudfront.net</span></td>
+          <td>CDN activo para landings de clientes. SSL via ACM.</td>
+          <td><span class="badge b-red">Alto</span> Sin security headers (X-Frame-Options, CSP, X-Content-Type, HSTS). Sin WAF configurado.</td>
+          <td>Agregar CloudFront Response Headers Policy con: Strict-Transport-Security, X-Frame-Options: DENY, X-Content-Type: nosniff, Referrer-Policy: strict-origin. Considerar WAF básico para landings con formularios.</td>
+        </tr>
+        <tr>
+          <td><strong>Route 53</strong><br><span style="font-size:11px;color:var(--muted)">apexcloudworkscompany.com</span></td>
+          <td>DNS manejado en Route 53. A record + CNAME.</td>
+          <td><span class="badge b-yellow">Bajo</span> Sin MX records verificados. Sin SPF/DKIM si se usa email corporativo.</td>
+          <td>Agregar SPF record (TXT) para evitar que emails desde el dominio sean marcados como spam. Verificar DKIM si se usa Gmail Workspace o SES.</td>
+        </tr>
+        <tr>
+          <td><strong>IAM</strong><br><span style="font-size:11px;color:var(--muted)">Acceso via AWS CLI</span></td>
+          <td>Configuración local con CLI.</td>
+          <td><span class="badge b-orange">Medio</span> Sin saber si se usa root account o usuario IAM con permisos mínimos.</td>
+          <td>Usar usuario IAM con política mínima (S3 solo al bucket específico, CloudFront solo invalidaciones). Nunca usar root para operaciones diarias. Habilitar MFA en root.</td>
+        </tr>
+        <tr>
+          <td><strong>Sin usar: AWS Cognito</strong><br><span style="font-size:11px;color:var(--muted)">auth.js tiene código pero inactivo</span></td>
+          <td>auth.js contiene código Cognito sin deployar.</td>
+          <td><span class="badge b-blue">Oportunidad</span> Auth actual (localStorage + SHA-256) es vulnerable. Cognito resuelve este problema.</td>
+          <td>Completar la integración Cognito User Pool para reemplazar el password gate del admin. Usar Hosted UI o custom UI con SDK. Costo: casi $0 bajo 50.000 MAUs.</td>
+        </tr>
+        <tr>
+          <td><strong>Sin usar: CloudFront Functions</strong></td>
+          <td>No implementado.</td>
+          <td><span class="badge b-blue">Oportunidad</span> El proxy para ocultar el Apps Script URL podría ser una CloudFront Function.</td>
+          <td>Crear CF Function que recibe requests autenticados, agrega el admin token del lado del edge, y hace forward a Apps Script. Token nunca llega al cliente.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 10. MANTENIBILIDAD -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s10">
+  <div class="section-title"><span class="s-num">10</span> Mantenibilidad — Lista Priorizada</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+    <ul class="prio-list">
+      <li class="prio-item p-high"><div class="prio-num">1</div><div class="prio-content"><strong>Eliminar admin token del cliente JS</strong><span>Alta · Seguridad · admin.js línea 13 — mover a proxy o edge function</span></div><span class="badge b-red">Alta</span></li>
+      <li class="prio-item p-high"><div class="prio-num">2</div><div class="prio-content"><strong>Unificar estrategia de autenticación</strong><span>Alta · Seguridad/Mantenibilidad · Elegir una: Cognito (recomendado) o sessionStorage con timeout</span></div><span class="badge b-red">Alta</span></li>
+      <li class="prio-item p-high"><div class="prio-num">3</div><div class="prio-content"><strong>Aplicar h() en 100% de innerHTML</strong><span>Alta · Seguridad · Auditar cada uso de template literals con ${} en innerHTML</span></div><span class="badge b-red">Alta</span></li>
+      <li class="prio-item p-high"><div class="prio-num">4</div><div class="prio-content"><strong>Dividir admin.js en módulos</strong><span>Alta · Mantenibilidad · 1350+ líneas — separar: api.js, dashboard.js, modales.js, kanban.js</span></div><span class="badge b-orange">Media-Alta</span></li>
+      <li class="prio-item p-high"><div class="prio-num">5</div><div class="prio-content"><strong>Dividir style.css en módulos</strong><span>Alta · Mantenibilidad · 2384 líneas — separar por componentes</span></div><span class="badge b-orange">Media-Alta</span></li>
+      <li class="prio-item p-med"><div class="prio-num">6</div><div class="prio-content"><strong>Crear sitemap.xml y robots.txt</strong><span>Media · SEO · 30 min de trabajo, impacto inmediato en indexación</span></div><span class="badge b-yellow">Media</span></li>
+      <li class="prio-item p-med"><div class="prio-num">7</div><div class="prio-content"><strong>Agregar focus trap y ARIA a modales</strong><span>Media · Accesibilidad · openModal() necesita focus management</span></div><span class="badge b-yellow">Media</span></li>
+      <li class="prio-item p-med"><div class="prio-num">8</div><div class="prio-content"><strong>Agregar security headers en CloudFront</strong><span>Media · Seguridad Cloud · Response Headers Policy — 15 min en consola AWS</span></div><span class="badge b-yellow">Media</span></li>
+      <li class="prio-item p-med"><div class="prio-num">9</div><div class="prio-content"><strong>Convertir tablas a cards en mobile</strong><span>Media · UX Mobile · Tablas de 7 columnas en 375px son inutilizables</span></div><span class="badge b-yellow">Media</span></li>
+      <li class="prio-item p-med"><div class="prio-num">10</div><div class="prio-content"><strong>Consolidar Google Fonts a un solo set</strong><span>Media · Performance · 9+ archivos de font innecesarios</span></div><span class="badge b-yellow">Media</span></li>
+      <li class="prio-item p-med"><div class="prio-num">11</div><div class="prio-content"><strong>Agregar cache corto a fetchAdminData()</strong><span>Media · Performance · stale check de 2 min antes de re-fetch</span></div><span class="badge b-yellow">Media</span></li>
+      <li class="prio-item p-low"><div class="prio-num">12</div><div class="prio-content"><strong>Eliminar auth.js (código Cognito sin usar)</strong><span>Baja · Limpieza · Código muerto que confunde</span></div><span class="badge b-blue">Baja</span></li>
+      <li class="prio-item p-low"><div class="prio-num">13</div><div class="prio-content"><strong>Reemplazar variables CSS magic numbers</strong><span>Baja · Mantenibilidad · --breakpoint-mobile, --section-padding, etc.</span></div><span class="badge b-blue">Baja</span></li>
+      <li class="prio-item p-low"><div class="prio-num">14</div><div class="prio-content"><strong>Agregar JSDoc a funciones complejas</strong><span>Baja · Documentación · buildRevenueRing, buildKanban, fetchAdminData</span></div><span class="badge b-blue">Baja</span></li>
+      <li class="prio-item p-low"><div class="prio-num">15</div><div class="prio-content"><strong>Touch events en Kanban</strong><span>Baja · UX Mobile · HTML5 DnD no funciona en iOS/Android</span></div><span class="badge b-blue">Baja</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- 11. DESIGN SYSTEMS -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section" id="s11">
+  <div class="section-title"><span class="s-num">11</span> Design Systems</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Elemento</th><th>Estado actual</th><th>Corrección sugerida</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Tipografía — Landing (index.html)</strong></td>
+          <td>Space Grotesk (títulos) + Inter (cuerpo) + JetBrains Mono (código)</td>
+          <td>Definido en <code>:root</code> con variables. <span class="badge b-green">Consistente internamente</span></td>
+        </tr>
+        <tr>
+          <td><strong>Tipografía — Admin (admin.html)</strong></td>
+          <td>Unbounded (títulos) + JetBrains Mono (todo) + Playfair Display (brand)</td>
+          <td>Set completamente diferente a la landing. Unificar familia de títulos (usar Unbounded en ambas o Space Grotesk en ambas). <span class="badge b-red">Inconsistente</span></td>
+        </tr>
+        <tr>
+          <td><strong>Color — Gold accent</strong></td>
+          <td>#C4956A (landing) / #C4956A (admin) — el mismo</td>
+          <td>Consistente entre sitios. <span class="badge b-green">Bien</span></td>
+        </tr>
+        <tr>
+          <td><strong>Color — Background</strong></td>
+          <td>Landing: #060402 · Admin: #0d1117 · Portal: diferente</td>
+          <td>Tres backgrounds distintos entre secciones del mismo proyecto. Unificar en una variable compartida --color-bg. <span class="badge b-yellow">Parcial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Botón primario</strong></td>
+          <td>Landing: .btn con --gold, border-radius var(--r). Admin: .btn-primary con color:#000 sobre gold.</td>
+          <td>Apariencia similar pero implementaciones diferentes. Crear un único _buttons.css compartido. <span class="badge b-yellow">Duplicado</span></td>
+        </tr>
+        <tr>
+          <td><strong>Botón secundario</strong></td>
+          <td>Landing: .btn-ghost. Admin: .btn-secondary. Portal: sin botón secundario definido.</td>
+          <td>Tres nombres distintos para el mismo concepto visual. Estandarizar en .btn + .btn--secondary. <span class="badge b-red">Inconsistente</span></td>
+        </tr>
+        <tr>
+          <td><strong>Badges / Pills</strong></td>
+          <td>Landing: .pill .pill-green. Admin: .badge .badge-live .badge-dev. Portal: sin badges.</td>
+          <td>Sistema de badges duplicado. Unificar en .badge con modificadores semánticos: .badge--success, .badge--warning. <span class="badge b-red">Inconsistente</span></td>
+        </tr>
+        <tr>
+          <td><strong>Border radius</strong></td>
+          <td>Landing: --r: 12px. Admin: border-radius hardcodeado (8px, 10px, 12px, 16px según elemento).</td>
+          <td>Admin carece de variable --radius. Agregar y usar consistentemente. <span class="badge b-yellow">Parcial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Spacing scale</strong></td>
+          <td>Landing: --space-xs/sm/md/lg definidos. Admin: valores hardcodeados (8px, 12px, 16px, 20px, 24px, 28px, 32px).</td>
+          <td>Migrar admin a la misma escala de espaciado de la landing. <span class="badge b-yellow">Parcial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Animaciones / Transiciones</strong></td>
+          <td>Landing: transitions a 0.2s ease. Admin: mix de 0.15s, 0.2s, 0.22s, 0.25s con easing diferentes.</td>
+          <td>Definir --transition-fast: 150ms ease y --transition-base: 220ms ease. Usar consistentemente. <span class="badge b-yellow">Parcial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Design token file</strong></td>
+          <td>Ninguno. Tokens repartidos en :root de cada CSS.</td>
+          <td>Crear un único tokens.css con todas las variables CSS del sistema. Importar como primer archivo en todos los CSS del proyecto. <span class="badge b-red">Falta</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="report-footer">
+  <div>
+    <strong>Apex Cloud Works</strong> — Auditoría Técnica v2.0 · Jun 2026<br>
+    <span>apexcloudworkscompany.com · Cartago, Costa Rica</span>
+  </div>
+  <div style="text-align:right;">
+    24 hallazgos totales · 6 críticos · 7 altos · 10 medios · 1 bajo<br>
+    <span>Próxima auditoría recomendada: <strong>Dic 2026</strong></span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# No indexar panel admin ni portal de clientes
+Disallow: /admin.html
+Disallow: /portal/
+Disallow: /Auditacion/
+Disallow: /Seguridad/
+Disallow: /Bienvenida/
+Disallow: /templates/
+Disallow: /*.gs$
+
+# Sitemap
+Sitemap: https://apexcloudworkscompany.com/sitemap.xml

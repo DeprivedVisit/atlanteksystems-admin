@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Cliente — Apex Cloud Works</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg?v=5">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body>
+
+  <div class="login-page">
+    <div class="login-card">
+
+      <div class="login-logo">
+        <img src="../assets/img/logo.svg?v=5" alt="Apex">
+        <div>
+          <div class="login-logo-text">APEX <span>CLOUD WORKS</span></div>
+        </div>
+      </div>
+
+      <h1 class="login-title">Portal de clientes</h1>
+      <p class="login-sub">Ingresá con tu email y contraseña para ver el estado de tu proyecto.</p>
+
+      <form id="login-form" autocomplete="off" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="tu@email.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-login" id="btn-submit">
+          Ingresar al portal
+        </button>
+
+        <div class="login-error" id="login-error"></div>
+      </form>
+
+      <div class="login-footer">
+        ¿Problemas para ingresar? Escribinos por
+        <a href="https://wa.me/50663144171" target="_blank">WhatsApp</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>window.APEX_API_BASE = 'http://localhost:3000';</script>
+  <script src="../assets/js/portal.js"></script>
+  <script>
+    // Si ya hay sesión activa, redirigir al dashboard
+    (async () => {
+      try {
+        const res = await fetch(`${PORTAL_API}/me`);
+        if (res.ok) window.location.href = 'dashboard.html';
+      } catch (err) { /* backend caído — dejar el login visible */ }
+    })();
+
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit');
+      const errEl = document.getElementById('login-error');
+      const email = document.getElementById('email').value.trim();
+      const pass  = document.getElementById('password').value;
+
+      if (!email || !pass) {
+        showError('Completá todos los campos.'); return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Ingresando…';
+      errEl.classList.remove('show');
+
+      const result = await portalLogin(email, pass);
+
+      if (result.success) {
+        btn.textContent = '✓ Redirigiendo…';
+        window.location.href = 'dashboard.html';
+      } else {
+        showError(result.error || 'Error al ingresar.');
+        btn.disabled = false;
+        btn.textContent = 'Ingresar al portal';
+      }
+
+      function showError(msg) {
+        errEl.textContent = msg;
+        errEl.classList.add('show');
+      }
+    });
+  </script>
+
+</body>
+</html>

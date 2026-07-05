@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Página no encontrada · Apex Cloud Works</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#0C0C14; color:#E8E8F2;
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  min-height:100dvh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:24px; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 50% 40%, rgba(218,119,86,0.06) 0%,transparent 70%);
+}
+.code{
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(5rem,20vw,10rem); font-weight:700;
+  line-height:1; letter-spacing:-.04em;
+  color:transparent; -webkit-text-stroke:2px rgba(218,119,86,0.4);
+  margin-bottom:24px; position:relative; z-index:1;
+}
+.title{
+  font-size:clamp(1.5rem,4vw,2.5rem); font-weight:700;
+  letter-spacing:-.02em; margin-bottom:12px; position:relative; z-index:1;
+}
+.title em{color:#DA7756; font-style:normal;}
+.sub{
+  font-size:1rem; color:#9494B0; max-width:420px; line-height:1.7;
+  margin-bottom:36px; position:relative; z-index:1;
+}
+.actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; position:relative; z-index:1;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 24px; border-radius:9px; font-family:inherit;
+  font-size:15px; font-weight:600; cursor:pointer; text-decoration:none;
+  transition:all .2s;
+}
+.btn-primary{background:#DA7756; color:#0C0C14;}
+.btn-primary:hover{background:#F0956E; transform:translateY(-1px); box-shadow:0 6px 24px rgba(218,119,86,.35);}
+.btn-secondary{background:transparent; color:#E8E8F2; border:1px solid rgba(232,232,242,.12);}
+.btn-secondary:hover{border-color:rgba(218,119,86,.4); color:#DA7756;}
+.hint{
+  margin-top:48px; font-family:'JetBrains Mono',monospace;
+  font-size:11px; color:#68688A; letter-spacing:.05em;
+  position:relative; z-index:1;
+}
+</style>
+</head>
+<body>
+  <div class="code" aria-hidden="true">404</div>
+  <h1 class="title">Esta página <em>no existe</em></h1>
+  <p class="sub">La URL que buscás no está disponible. Puede que haya cambiado o que simplemente no exista.</p>
+  <div class="actions">
+    <a href="/" class="btn btn-primary">Volver al inicio →</a>
+    <a href="https://wa.me/50663144171" class="btn btn-secondary" target="_blank" rel="noopener">Contactar a Apex</a>
+  </div>
+  <p class="hint">Apex Cloud Works · apexcloudworkscompany.com</p>
+</body>
+</html>

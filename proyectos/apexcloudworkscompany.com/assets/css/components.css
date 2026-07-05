@@ -1,0 +1,49 @@
+/* ══════════════════════════════════════════════
+   APEX CLOUDWORKS — components.css
+   Componentes compartidos · landing + admin + portal
+   Tamaño/tipografía quedan locales a cada superficie;
+   acá solo vive la forma y el color que sí se comparten.
+══════════════════════════════════════════════ */
+
+/* ── BUTTON (base) ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-gold {
+  background: var(--gold);
+  color: #08070c;
+}
+.btn-gold:hover {
+  background: var(--gold2);
+  box-shadow: 0 4px 16px var(--gold-glow);
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── BADGE (base) ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
