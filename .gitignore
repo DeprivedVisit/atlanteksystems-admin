@@ -18,3 +18,4 @@ _archivo/
 
 # Obsidian — estado volátil de la app (el vault sí se trackea)
 .obsidian/workspace.json
+Obsidian/.obsidian/workspace.json
