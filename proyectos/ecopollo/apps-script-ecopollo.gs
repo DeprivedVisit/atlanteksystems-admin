@@ -8,9 +8,14 @@
 //  3. Implementar → Nueva implementación → Aplicación web
 //  4. Ejecutar como: Yo  |  Acceso: Cualquier usuario
 //  5. Copiar la URL y colocarla en APPS_SCRIPT_URL de script.js y admin.html
+//  6. ⚙️ Configuración del proyecto → Propiedades del script → agregar
+//     ADMIN_TOKEN con la contraseña real del panel (esa es la que se escribe
+//     en el login de admin.html — nunca vive en el código)
 // ═══════════════════════════════════════════════════════════════════
 
-const ADMIN_TOKEN = 'epAdmin2026';   // Cambiar por un token seguro
+// El token real vive en Script Properties (Apps Script → ⚙️ Configuración del proyecto →
+// Propiedades del script → agregar ADMIN_TOKEN), nunca en el código fuente.
+const ADMIN_TOKEN = PropertiesService.getScriptProperties().getProperty('ADMIN_TOKEN');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function getSheet(nombre) {

@@ -1,6 +1,19 @@
+// ⚙️ Configuración del proyecto → Propiedades del script → agregar RFLX_TOKEN
+// con la contraseña real del panel de admin (nunca vive en el código).
 const SPREADSHEET_ID = SpreadsheetApp.getActiveSpreadsheet().getId();
 const SHEET_CITAS = "Citas";
 const SHEET_BLOQUEOS = "Bloqueos";
+const RFLX_TOKEN = PropertiesService.getScriptProperties().getProperty('RFLX_TOKEN');
+
+function requireAdmin(token) {
+  if (!RFLX_TOKEN || token !== RFLX_TOKEN) {
+    throw new Error('No autorizado');
+  }
+}
+
+// Acciones administrativas — cambian/cancelan citas ya confirmadas o bloquean
+// disponibilidad. addBooking queda abierta porque es el flujo público de reserva.
+const ADMIN_ACTIONS = ['cancelBooking', 'completeBooking', 'blockDate', 'unblockDate', 'blockSlot', 'unblockSlot'];
 
 function doGet(e) {
   if (!e || !e.parameter) {
@@ -51,6 +64,15 @@ function doPost(e) {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const data = JSON.parse(e.postData.contents);
   const action = data.action;
+
+  if (action === 'checkAdminToken') {
+    try { requireAdmin(data.token); return JSONResponse({ ok: true }); }
+    catch (err) { return JSONResponse({ ok: false }); }
+  }
+  if (ADMIN_ACTIONS.indexOf(action) !== -1) {
+    try { requireAdmin(data.token); }
+    catch (err) { return JSONResponse({ ok: false, error: 'No autorizado' }); }
+  }
 
   if (action === 'addBooking') {
     const b = data.booking;

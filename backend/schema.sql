@@ -1,6 +1,6 @@
 -- ══════════════════════════════════════════════════════════════
---  schema.sql — Apex Cloud Works.com MySQL Schema
---  Garett Barrantes Benavides · Curridabat, Costa Rica
+--  schema.sql — Apex Cloud Works MySQL Schema
+--  Garett Barrantes Benavides · Cartago, Costa Rica
 --  Migración desde: JSON files → MySQL 8.0
 --  Ejecutar: mysql -u root -p apex_cloudworks < schema.sql
 -- ══════════════════════════════════════════════════════════════

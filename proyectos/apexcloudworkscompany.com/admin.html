@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apex Admin — Panel de Control</title>
   <meta name="robots" content="noindex, nofollow">
-  <!-- SECURITY: noindex enforced, password gate active -->
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg?v=5">
+  <!-- SECURITY: noindex enforced. Password gate TEMPORALMENTE desactivado (GATE_DISABLED_TEMP) — ver gateInit() -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/img/logo-mountain.png?v=1">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/admin.css">
   <style>
   #apex-gate{position:fixed;inset:0;background:#09080a;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace}
   .gate-box{width:min(380px,90%);background:#121015;border:1px solid rgba(196,149,106,.2);border-radius:16px;padding:2.5rem 2rem;text-align:center}
-  .gate-logo{font-family:'Unbounded',sans-serif;font-size:1.1rem;color:#fff;margin-bottom:.25rem}.gate-logo em{color:#C4956A;font-style:normal}
+  .gate-logo{font-family:'Anton',sans-serif;font-size:1.1rem;color:#fff;margin-bottom:.25rem}.gate-logo em{color:#C4956A;font-style:normal}
   .gate-sub{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:2rem}
   .gate-label{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,149,106,.5);text-align:left;margin-bottom:.5rem}
   .gate-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(196,149,106,.18);border-radius:8px;padding:.7rem 1rem;color:#e8e0d8;font-family:'JetBrains Mono',monospace;font-size:.9rem;outline:none;margin-bottom:1rem;transition:border-color .2s}
   .gate-input:focus{border-color:rgba(196,149,106,.45)}
-  .gate-btn{width:100%;background:#C4956A;color:#000;border:none;border-radius:8px;padding:.75rem;font-family:'Unbounded',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .2s}
+  .gate-btn{width:100%;background:#C4956A;color:#000;border:none;border-radius:8px;padding:.75rem;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .2s}
   .gate-btn:hover{background:#d4a57a}
   .gate-err{font-size:.75rem;color:#f87171;margin-top:.6rem;min-height:1rem}
   .gate-hint{font-size:.65rem;color:rgba(255,255,255,.15);margin-top:1.25rem;line-height:1.6}
@@ -35,48 +35,76 @@
     <label class="gate-label" id="gate-pass-label" for="gate-input">Contraseña</label>
     <input type="password" class="gate-input" id="gate-input" placeholder="••••••••••" autocomplete="current-password"/>
     <button class="gate-btn" id="gate-btn">Entrar →</button>
-    <div class="gate-err" id="gate-err"></div>
+    <div class="gate-err" id="gate-err" role="alert"></div>
     <div class="gate-hint" id="gate-hint">Apex Cloud Works · Uso exclusivo de Garett Barrantes</div>
   </div>
 </div>
+
+  <!-- WINDOW TITLEBAR — emula VS Code -->
+  <div class="ide-titlebar">
+    <div class="ide-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+    <span class="ide-titlebar-name" id="ide-titlebar-name">dashboard.html — apex-admin — Visual Studio Code</span>
+    <span class="ide-titlebar-spacer"></span>
+  </div>
+
+  <!-- TABS BAR — un tab abierto por sección -->
+  <div class="ide-tabs-bar" id="ide-tabs-bar">
+    <button class="ide-tab active" data-tab="dashboard"><span class="ide-tab-icon">📊</span><span class="ide-tab-label">dashboard.html</span></button>
+    <button class="ide-tab" data-tab="proyectos"><span class="ide-tab-icon">📁</span><span class="ide-tab-label">proyectos.js</span></button>
+    <button class="ide-tab" data-tab="leads"><span class="ide-tab-icon">📬</span><span class="ide-tab-label">leads.json</span></button>
+    <button class="ide-tab" data-tab="finanzas"><span class="ide-tab-icon">💰</span><span class="ide-tab-label">finanzas.js</span></button>
+    <button class="ide-tab" data-tab="tickets"><span class="ide-tab-icon">🎫</span><span class="ide-tab-label">tickets.js</span></button>
+    <button class="ide-tab" data-tab="clientes"><span class="ide-tab-icon">👥</span><span class="ide-tab-label">clientes.js</span></button>
+    <button class="ide-tab" data-tab="testimonios"><span class="ide-tab-icon">⭐</span><span class="ide-tab-label">testimonios.sql</span></button>
+    <button class="ide-tab" data-tab="contratos"><span class="ide-tab-icon">📜</span><span class="ide-tab-label">contratos.sql</span></button>
+  </div>
 
   <!-- TOPBAR -->
   <header class="topbar">
     <button class="sb-toggle" id="sb-toggle" aria-label="Abrir o cerrar menú lateral" aria-expanded="true" aria-controls="sidebar">
       <span></span><span></span><span></span>
     </button>
-    <span class="tb-brand">Apex <span>Admin</span></span>
+    <span class="tb-brand"><img src="assets/img/logo-mountain.png?v=1" alt="" class="tb-brand-logo">Apex <span>Admin</span></span>
     <div class="tb-right">
       <span id="dash-clock" class="dash-clock"></span>
+      <span id="dash-last-sync" class="dash-last-sync"></span>
       <span id="dash-live" class="dash-live-badge">● En vivo</span>
       <span class="tb-badge"><span class="tb-badge-dot"></span> Garett</span>
     </div>
   </header>
 
-  <!-- SIDEBAR -->
+  <!-- SIDEBAR — file explorer -->
   <aside class="sidebar" id="sidebar">
+    <div class="sb-explorer-label"><span class="sb-explorer-arrow">▾</span><span class="sb-explorer-icon">📂</span>APEX-ADMIN</div>
     <nav class="sb-nav">
       <button class="sb-item active" data-tab="dashboard">
-        <span class="sb-icon">📊</span><span class="sb-label">Dashboard</span>
+        <span class="sb-icon">📊</span><span class="sb-label">dashboard.html</span>
       </button>
       <button class="sb-item" data-tab="proyectos">
-        <span class="sb-icon">📁</span><span class="sb-label">Proyectos</span>
+        <span class="sb-icon">📁</span><span class="sb-label">proyectos.js</span>
         <span class="sb-badge" id="sb-badge-proyectos" style="display:none"></span>
       </button>
       <button class="sb-item" data-tab="leads">
-        <span class="sb-icon">📬</span><span class="sb-label">Leads</span>
+        <span class="sb-icon">📬</span><span class="sb-label">leads.json</span>
         <span class="sb-badge" id="sb-badge-leads" style="display:none"></span>
       </button>
       <button class="sb-item" data-tab="finanzas">
-        <span class="sb-icon">💰</span><span class="sb-label">Finanzas</span>
+        <span class="sb-icon">💰</span><span class="sb-label">finanzas.js</span>
       </button>
       <div class="sb-divider"></div>
       <button class="sb-item" data-tab="tickets">
-        <span class="sb-icon">🎫</span><span class="sb-label">Tickets</span>
+        <span class="sb-icon">🎫</span><span class="sb-label">tickets.js</span>
         <span class="sb-badge" id="sb-badge-tickets" style="display:none"></span>
       </button>
       <button class="sb-item" data-tab="clientes">
-        <span class="sb-icon">👥</span><span class="sb-label">Clientes</span>
+        <span class="sb-icon">👥</span><span class="sb-label">clientes.js</span>
+      </button>
+      <button class="sb-item" data-tab="testimonios">
+        <span class="sb-icon">⭐</span><span class="sb-label">testimonios.sql</span>
+        <span class="sb-badge" id="sb-badge-testimonios" style="display:none"></span>
+      </button>
+      <button class="sb-item" data-tab="contratos">
+        <span class="sb-icon">📜</span><span class="sb-label">contratos.sql</span>
       </button>
     </nav>
     <div class="sb-footer">
@@ -173,6 +201,124 @@
             <span class="panel-title">Actividad reciente</span>
           </div>
           <div class="panel-body" id="dash-activity"></div>
+        </div>
+      </div>
+
+      <!-- Consultoría IA — Gemini (diseño) + Claude (arquitectura), estilo IDE -->
+      <div class="panel ai-consult-panel">
+        <div class="panel-header">
+          <span class="panel-title">Consultoría IA</span>
+          <span class="ai-consult-tag">Diseño · Arquitectura</span>
+        </div>
+        <div class="panel-body ai-consult-body">
+
+          <div class="ai-consult-msg">
+            <div class="ai-consult-avatar" style="--av-bg:var(--blue)">
+              <svg viewBox="0 0 16 20" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="1" width="12" height="12" fill="#3B82F6"/>
+                <rect x="4" y="4" width="3" height="3" fill="#fff"/>
+                <rect x="9" y="4" width="3" height="3" fill="#fff"/>
+                <rect x="2" y="10" width="4" height="3" fill="#1D4ED8"/>
+                <rect x="10" y="10" width="4" height="3" fill="#1D4ED8"/>
+                <rect x="3" y="14" width="4" height="6" fill="#3B82F6"/>
+                <rect x="9" y="14" width="4" height="6" fill="#3B82F6"/>
+                <rect x="1" y="6" width="2" height="4" fill="#3B82F6"/>
+                <rect x="13" y="6" width="2" height="4" fill="#3B82F6"/>
+              </svg>
+            </div>
+            <div class="ai-consult-bubble">
+              <span class="ai-consult-role" style="color:var(--blue)">Gemini · Diseño</span>
+              <p>Las tarjetas de métricas ya no mienten — sugiero agrupar Proyectos/Tickets por urgencia visual, no solo por orden de tab.</p>
+            </div>
+          </div>
+
+          <div class="ai-consult-msg">
+            <div class="ai-consult-avatar" style="--av-bg:var(--gold)">
+              <svg viewBox="0 0 16 20" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="1" width="12" height="12" fill="#C4956A"/>
+                <rect x="4" y="4" width="3" height="3" fill="#1A1A2E"/>
+                <rect x="9" y="4" width="3" height="3" fill="#1A1A2E"/>
+                <rect x="2" y="10" width="4" height="3" fill="#C4664A"/>
+                <rect x="10" y="10" width="4" height="3" fill="#C4664A"/>
+                <rect x="3" y="14" width="4" height="6" fill="#C4956A"/>
+                <rect x="9" y="14" width="4" height="6" fill="#C4956A"/>
+                <rect x="1" y="6" width="2" height="4" fill="#C4956A"/>
+                <rect x="13" y="6" width="2" height="4" fill="#C4956A"/>
+              </svg>
+            </div>
+            <div class="ai-consult-bubble">
+              <span class="ai-consult-role" style="color:var(--gold)">Claude · Arquitectura</span>
+              <p>De acuerdo — y para que la urgencia sea real, no cosmética, conviene exponer <code>/api/admin/metrics</code> desde MySQL en vez de calcularla en el cliente sobre el cache de Sheets.</p>
+            </div>
+          </div>
+
+          <p class="ai-consult-note">Conversación ilustrativa — no es un chat en vivo.</p>
+        </div>
+      </div>
+
+      <!-- Métricas MySQL — panel piloto, separado de las tarjetas de arriba (Sheets) -->
+      <div class="panel mysql-metrics-panel">
+        <div class="panel-header">
+          <span class="panel-title">Métricas MySQL <span class="mysql-pilot-tag">piloto</span></span>
+        </div>
+        <div class="panel-body">
+          <p class="mysql-metrics-note">Fuente distinta a las tarjetas de arriba (que vienen de Sheets) — esto consulta las vistas SQL ya construidas. Comparar los números antes de migrar el dashboard principal.</p>
+          <div class="mysql-metrics-grid" id="mysql-metrics-grid">
+            <div class="mysql-metric"><span class="mysql-metric-val" id="mm-leads">—</span><span class="mysql-metric-label">Leads en MySQL</span></div>
+            <div class="mysql-metric"><span class="mysql-metric-val" id="mm-ingresos">—</span><span class="mysql-metric-label">Ingresos confirmados</span></div>
+            <div class="mysql-metric"><span class="mysql-metric-val" id="mm-clientes">—</span><span class="mysql-metric-label">Clientes activos</span></div>
+            <div class="mysql-metric">
+              <span class="mysql-metric-val" id="mm-horas">—</span>
+              <span class="mysql-metric-label">Horas esta semana</span>
+              <div class="mysql-metric-spark" id="mm-horas-spark"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tablero financiero — Plan Maestro v2 Sección 6 -->
+      <div class="panel tablero-panel">
+        <div class="panel-header">
+          <span class="panel-title">Tablero financiero <span class="mysql-pilot-tag">piloto</span></span>
+        </div>
+        <div class="panel-body">
+          <p class="mysql-metrics-note">4 de 6 indicadores calculados desde MySQL (pagos reales). "Utilidad real" y "Fondo de emergencia" son campos manuales — no hay tabla de gastos ni saldo bancario en ninguna base de datos, así que se guardan localmente y los editás vos.</p>
+          <div class="tablero-grid" id="tablero-grid">
+            <div class="tablero-tile" id="tb-mrr-tile">
+              <span class="tablero-label">MRR</span>
+              <span class="tablero-val" id="tb-mrr">—</span>
+              <span class="tablero-sub">mantenimientos + trimestrales ÷ 3</span>
+            </div>
+            <div class="tablero-tile" id="tb-facturado-tile">
+              <span class="tablero-label">Facturado del mes</span>
+              <span class="tablero-val" id="tb-facturado">—</span>
+              <span class="tablero-sub">verde ≥ $700</span>
+            </div>
+            <div class="tablero-tile tablero-manual">
+              <span class="tablero-label">Utilidad real</span>
+              <div class="tablero-manual-row">
+                <span>$</span><input type="number" id="tb-utilidad-input" class="tablero-input" placeholder="0">
+              </div>
+              <span class="tablero-sub">manual · cobrado − gastos − sueldo</span>
+            </div>
+            <div class="tablero-tile tablero-manual">
+              <span class="tablero-label">Fondo de emergencia</span>
+              <div class="tablero-manual-row">
+                <input type="number" id="tb-fondo-input" class="tablero-input" placeholder="0"><span>meses</span>
+              </div>
+              <span class="tablero-sub">manual · verde ≥ 3 meses</span>
+            </div>
+            <div class="tablero-tile" id="tb-concentracion-tile">
+              <span class="tablero-label">Concentración</span>
+              <span class="tablero-val" id="tb-concentracion">—</span>
+              <span class="tablero-sub" id="tb-concentracion-sub">rojo si un cliente &gt; 40%</span>
+            </div>
+            <div class="tablero-tile" id="tb-cobrar-tile">
+              <span class="tablero-label">Cuentas por cobrar</span>
+              <span class="tablero-val" id="tb-cobrar">—</span>
+              <span class="tablero-sub" id="tb-cobrar-sub">rojo si algo pasa de 15 días</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -368,7 +514,73 @@
       </div>
     </section>
 
+    <!-- ── TESTIMONIOS — moderación ── -->
+    <section id="tab-testimonios" class="tab-section">
+      <div class="page-header">
+        <div>
+          <h1 class="ph-title">Testimonios</h1>
+          <p class="ph-sub">// Solo lo aprobado acá puede publicarse en el sitio</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Empresa</th>
+              <th>Rating</th>
+              <th>Texto</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-testimonios"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── CONTRATOS — trazabilidad legal ── -->
+    <section id="tab-contratos" class="tab-section">
+      <div class="page-header">
+        <div>
+          <h1 class="ph-title">Contratos</h1>
+          <p class="ph-sub">// Firmas registradas — cliente, servicio, fecha e IP</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Servicio</th>
+              <th>Firmado</th>
+              <th>IP</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-contratos"></tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
+
+  <!-- STATUS BAR — emula VS Code -->
+  <footer class="ide-status-bar">
+    <div class="ide-status-left">
+      <span class="ide-status-item">⎇ main*</span>
+      <span class="ide-status-item" id="ide-status-sync">🔄 Synced</span>
+      <span class="ide-status-item ide-status-errors">⊗ 0 · ⚠ 0</span>
+    </div>
+    <div class="ide-status-right">
+      <span class="ide-status-item" id="ide-status-lang">JSON</span>
+      <span class="ide-status-item">UTF-8</span>
+      <span class="ide-status-item">Spaces: 2</span>
+      <span class="ide-status-item">🔔</span>
+    </div>
+  </footer>
 
   <!-- ── MODALES ── -->
 
@@ -418,7 +630,7 @@
         <label class="form-label">Stack / Tecnología</label>
         <input type="text" class="form-input" id="np-tech" placeholder="HTML/CSS/JS · N8N · S3">
       </div>
-      <div id="np-error" class="form-error"></div>
+      <div id="np-error" class="form-error" role="alert"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-proyecto">Cancelar</button>
         <button class="btn btn-gold" id="btn-guardar-proyecto">Guardar</button>
@@ -448,7 +660,7 @@
           <option value="urgente">Urgente</option>
         </select>
       </div>
-      <div id="nt-error" class="form-error"></div>
+      <div id="nt-error" class="form-error" role="alert"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-ticket">Cancelar</button>
         <button class="btn btn-gold" id="btn-guardar-ticket">Crear ticket</button>
@@ -481,7 +693,7 @@
         <label class="form-label">Mensaje / nota</label>
         <textarea class="form-textarea" id="nl-mensaje" placeholder="Qué necesita..."></textarea>
       </div>
-      <div id="nl-error" class="form-error"></div>
+      <div id="nl-error" class="form-error" role="alert"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-lead">Cancelar</button>
         <button class="btn btn-gold" id="btn-guardar-lead">Guardar</button>
@@ -490,9 +702,9 @@
   </div>
 
   <!-- Modal Gestionar Lead -->
-  <div class="modal-overlay" id="modal-gestionar-lead">
+  <div class="modal-overlay" id="modal-gestionar-lead" role="dialog" aria-modal="true" aria-labelledby="modal-gestionar-lead-title">
     <div class="modal" style="max-width:380px;">
-      <h3>Gestionar lead</h3>
+      <h3 id="modal-gestionar-lead-title">Gestionar lead</h3>
       <input type="hidden" id="gl-id">
       <p style="font-size:14px;color:var(--text2);margin-bottom:16px">Lead: <strong id="gl-nombre" style="color:var(--text)"></strong></p>
       <div class="form-group">
@@ -503,7 +715,7 @@
           <option value="closed">Cerrado</option>
         </select>
       </div>
-      <div id="gl-error" class="form-error"></div>
+      <div id="gl-error" class="form-error" role="alert"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-gl">Cancelar</button>
         <button class="btn btn-gold" id="btn-guardar-gl">Guardar</button>
@@ -512,9 +724,9 @@
   </div>
 
   <!-- Modal Cliente -->
-  <div class="modal-overlay" id="modal-cliente">
+  <div class="modal-overlay" id="modal-cliente" role="dialog" aria-modal="true" aria-labelledby="modal-cliente-title">
     <div class="modal" style="max-width:520px;">
-      <h3>Nuevo cliente — Portal</h3>
+      <h3 id="modal-cliente-title">Nuevo cliente — Portal</h3>
 
       <div class="form-grid-2">
         <div class="form-group" style="grid-column:1/-1;">
@@ -551,7 +763,7 @@
         </div>
       </div>
 
-      <div id="nc-error" style="margin-top:10px;padding:10px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#fca5a5;font-size:13px;display:none;"></div>
+      <div id="nc-error" role="alert" style="margin-top:10px;padding:10px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#fca5a5;font-size:13px;display:none;"></div>
 
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-cliente">Cancelar</button>
@@ -561,16 +773,16 @@
   </div>
 
   <!-- Modal Responder Ticket -->
-  <div class="modal-overlay" id="modal-responder">
+  <div class="modal-overlay" id="modal-responder" role="dialog" aria-modal="true" aria-labelledby="modal-responder-title">
     <div class="modal">
-      <h3>Responder consulta</h3>
+      <h3 id="modal-responder-title">Responder consulta</h3>
       <input type="hidden" id="resp-ticket-id">
       <div id="resp-ticket-preview" style="margin-bottom:14px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border, rgba(255,255,255,0.08));border-radius:8px;font-size:13px;color:var(--text3);"></div>
       <div class="form-group">
         <label class="form-label">Tu respuesta</label>
         <textarea class="form-textarea" id="resp-msg" placeholder="Escribí tu respuesta al cliente…" style="min-height:100px;"></textarea>
       </div>
-      <div id="resp-error" style="display:none;color:#fca5a5;font-size:13px;margin-top:8px;"></div>
+      <div id="resp-error" role="alert" style="display:none;color:#fca5a5;font-size:13px;margin-top:8px;"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-responder">Cancelar</button>
         <button class="btn btn-gold" id="btn-enviar-resp">Enviar respuesta</button>
@@ -579,9 +791,9 @@
   </div>
 
   <!-- Modal Etapas -->
-  <div class="modal-overlay" id="modal-etapas">
+  <div class="modal-overlay" id="modal-etapas" role="dialog" aria-modal="true" aria-labelledby="modal-etapas-title">
     <div class="modal" style="max-width:560px;">
-      <h3>Etapas del proyecto</h3>
+      <h3 id="modal-etapas-title">Etapas del proyecto</h3>
       <div id="etapas-list" style="margin-bottom:16px;"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cerrar-etapas">Cerrar</button>
@@ -590,7 +802,7 @@
   </div>
 
   <!-- Modal Finanza -->
-  <div class="modal-overlay" id="modal-finanza">
+  <div class="modal-overlay" id="modal-finanza" role="dialog" aria-modal="true" aria-labelledby="fin-modal-title">
     <div class="modal" style="max-width:480px;">
       <h3 id="fin-modal-title">Nuevo cobro</h3>
       <input type="hidden" id="fin-id">
@@ -630,7 +842,7 @@
         <label class="form-label">Nota</label>
         <input type="text" class="form-input" id="fin-nota" placeholder="ej. Incluye setup + 1 revisión">
       </div>
-      <div id="fin-error" class="form-error"></div>
+      <div id="fin-error" class="form-error" role="alert"></div>
       <div class="form-actions">
         <button class="btn btn-ghost" id="btn-cancelar-finanza">Cancelar</button>
         <button class="btn btn-gold" id="btn-guardar-finanza">Guardar</button>
@@ -638,13 +850,18 @@
     </div>
   </div>
 
-  <script>window.APEX_API_BASE = 'http://localhost:3000';</script>
+  <script src="assets/js/env.js"></script>
   <script src="assets/js/admin.js"></script>
   <script>
   /* ── Apex Gate — auth real contra el backend ── */
+  // TODO(temporal): gate desactivado a pedido de Garett mientras se trabaja en el dashboard.
+  // Para reactivar: borrar este `return` y dejar que gateInit() siga a la lógica de abajo.
+  const GATE_DISABLED_TEMP = true;
+
   async function gateInit() {
+    if (GATE_DISABLED_TEMP) { document.getElementById('apex-gate').remove(); return; }
     try {
-      const res = await fetch(`${API_BASE}/api/admin/me`);
+      const res = await fetch(`${API_BASE}/api/admin/me`, { credentials: 'include' });
       const data = await res.json();
       if (data.isAdmin) { document.getElementById('apex-gate').remove(); return; }
     } catch (err) {
@@ -664,6 +881,7 @@
     try {
       const res = await fetch(`${API_BASE}/api/admin/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: val }),
       });

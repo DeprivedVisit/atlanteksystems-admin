@@ -1311,14 +1311,48 @@ async function renderPresupuesto(data) {
     ? (gastado > meta ? `⚠️ Excedido en ${usd(gastado-meta)}` : `Disponible ${usd(meta-gastado)}`) : '';
 }
 
-// ===== INICIO — acceso público sin login =====
+// ===== INICIO — login real =====
 // (va al final para que todas las declaraciones estén disponibles)
-currentUser = { email: 'admin@visionaryfilm.cr', nombre: 'Fabian', rol: 'admin', uid: 'admin_main' };
-document.getElementById('loginScreen').style.display = 'none';
-document.getElementById('logoutBtn').style.display = 'none';
-document.getElementById('appScreen').style.display = 'flex';
-document.getElementById('appScreen').classList.add('active');
-document.getElementById('sidebarEmail').textContent = 'Fabian · VisionaryFilm';
-applyRoleUI('admin');
-addDemoBanner();
-initApp();
+function showApp(user) {
+  currentUser = user;
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('logoutBtn').style.display = '';
+  document.getElementById('appScreen').style.display = 'flex';
+  document.getElementById('appScreen').classList.add('active');
+  document.getElementById('sidebarEmail').textContent = `${user.nombre} · VisionaryFilm`;
+  applyRoleUI(user.rol);
+  addDemoBanner();
+  initApp();
+}
+
+function showLogin() {
+  currentUser = null;
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('appScreen').classList.remove('active');
+  document.getElementById('loginScreen').style.display = '';
+}
+
+onAuthStateChanged(auth, user => {
+  if (user) showApp(user);
+  else showLogin();
+});
+
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+  try {
+    const { user } = await signInWithEmailAndPassword(auth, email, pass);
+    showApp(user);
+  } catch (err) {
+    errEl.textContent = 'Email o contraseña incorrectos.';
+    errEl.style.display = '';
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await signOut(auth);
+  showLogin();
+});

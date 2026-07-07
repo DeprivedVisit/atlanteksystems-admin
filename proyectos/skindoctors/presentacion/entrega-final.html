@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Acta de Entrega · Skindoctors CR · Apex Cloud Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF5EF;--surface:#FFFFFF;--beige:#E0C3AE;
+  --earth:#8F6149;--coral:#FF7671;--dark:#231F20;
+  --muted:#7A6558;--muted2:#5C4A3E;--border:#EDD9C8;
+  --teal:#1b7343;--green:#2E8B57;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Quicksand',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);padding:2.5rem 1.5rem;max-width:860px;margin:0 auto;line-height:1.6}
+
+/* ── Header ── */
+.doc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:1rem}
+.doc-logo{display:flex;flex-direction:column;gap:.3rem}
+.doc-logo-tagline{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);opacity:.6}
+.doc-meta{text-align:right}
+.doc-num{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--earth);text-transform:uppercase}
+.doc-date{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+.doc-title{font-size:1.5rem;font-weight:700;color:var(--dark);margin:1.5rem 0 .3rem}
+.doc-subtitle{font-size:.88rem;color:var(--muted);margin-bottom:2rem}
+
+/* ── Sections ── */
+h2{font-size:.8rem;font-weight:700;color:var(--earth);margin:2.2rem 0 .7rem;display:flex;align-items:center;gap:.5rem;text-transform:uppercase;letter-spacing:.1em}
+.step-n{width:22px;height:22px;border-radius:50%;background:var(--earth);color:#fff;font-size:.64rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-n.ok{background:var(--teal)}
+p{font-size:.86rem;color:var(--muted);margin-bottom:.75rem;line-height:1.7}
+
+/* ── Tabla de entregables ── */
+.table-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead tr{background:var(--dark)}
+thead th{padding:.7rem 1rem;text-align:left;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.55)}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(143,97,73,.04)}
+tbody td{padding:.75rem 1rem;color:var(--muted2)}
+table{border-radius:12px;overflow:hidden}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .65rem;border-radius:50px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.badge-ok{background:rgba(46,139,87,.1);color:var(--green);border:1px solid rgba(46,139,87,.2)}
+.badge-pend{background:rgba(143,97,73,.1);color:var(--earth);border:1px solid rgba(143,97,73,.2)}
+.badge-soon{background:rgba(224,195,174,.3);color:var(--muted);border:1px solid var(--border)}
+
+/* ── Code blocks ── */
+.code-block{background:var(--dark);color:#d4d0c8;border-radius:10px;padding:1.1rem 1.3rem;font-family:var(--mono);font-size:.75rem;line-height:1.75;overflow-x:auto;margin:.8rem 0;position:relative}
+.code-block .cmt{color:#7A7060;font-style:italic}
+.code-block .kw{color:#FF7671}
+.code-block .str{color:#FFAF83}
+.code-block .val{color:#A8D8A8}
+.copy-btn{position:absolute;top:.6rem;right:.6rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-family:var(--sans);font-size:.62rem;padding:.22rem .65rem;border-radius:6px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{background:rgba(255,255,255,.16);color:#fff}
+
+/* ── Tips y notas ── */
+.tip{background:rgba(143,97,73,.06);border:1px solid rgba(143,97,73,.18);border-left:3px solid var(--earth);border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:.8rem;color:var(--muted2);margin:.7rem 0}
+.tip strong{color:var(--dark)}
+.tip-green{background:rgba(27,115,67,.05);border-color:rgba(27,115,67,.2);border-left-color:var(--teal)}
+.tip-green strong{color:var(--teal)}
+
+/* ── Accesos ── */
+.accesos-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1rem 0}
+.acceso-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem}
+.acceso-card h4{font-size:.72rem;font-weight:700;color:var(--earth);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.35rem}
+.acceso-card p,.acceso-card a{font-size:.78rem;color:var(--muted);display:block;line-height:1.6;font-family:var(--mono)}
+.acceso-card a{color:var(--earth);text-decoration:underline}
+
+/* ── Firma ── */
+.firma-block{margin:2.5rem 0 1rem;padding:1.5rem;border-radius:14px;background:var(--surface);border:1px solid var(--border)}
+.firma-block h3{font-size:.88rem;font-weight:700;color:var(--dark);margin-bottom:.4rem}
+.firma-block p{font-size:.8rem;color:var(--muted);margin:0;line-height:1.8}
+.firma-line{border-top:1px solid var(--border);margin-top:1.5rem;padding-top:.75rem;font-size:.72rem;color:rgba(35,31,32,.3)}
+
+/* ── Términos ── */
+.terms-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.5rem 0 1rem}
+.terms-list li{font-size:.8rem;color:var(--muted2);display:flex;align-items:flex-start;gap:.5rem;line-height:1.5}
+.terms-list li::before{content:'·';color:var(--earth);font-size:1.2rem;line-height:1;margin-top:-.05rem}
+
+@media(max-width:600px){
+  .doc-header{flex-direction:column}
+  .doc-meta{text-align:left}
+  .accesos-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Header del documento -->
+<div class="doc-header">
+  <div class="doc-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 40" height="32" aria-label="Skindoctors CR">
+      <circle cx="19" cy="20" r="14" fill="none" stroke="#8F6149" stroke-width="0.8" opacity="0.5"/>
+      <circle cx="19" cy="20" r="5.5" fill="#8F6149"/>
+      <g stroke="#8F6149" stroke-linecap="round">
+        <line x1="19" y1="4"  x2="19" y2="2"  stroke-width="1.3"/>
+        <line x1="19" y1="36" x2="19" y2="38" stroke-width="1.3"/>
+        <line x1="4"  y1="20" x2="2"  y2="20" stroke-width="1.3"/>
+        <line x1="34" y1="20" x2="36" y2="20" stroke-width="1.3"/>
+      </g>
+      <text x="44" y="24" font-family="Georgia,serif" font-size="17" font-weight="600" fill="#231F20">Skin</text>
+      <text x="80" y="24" font-family="Georgia,serif" font-size="17" font-style="italic" fill="#8F6149">doctors</text>
+      <text x="44" y="35" font-family="Arial,sans-serif" font-size="5.8" letter-spacing="1.5" fill="rgba(35,31,32,0.3)">CIENCIA APLICADA A LA BELLEZA</text>
+    </svg>
+    <span class="doc-logo-tagline">Skindoctors CR · Costa Rica</span>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-num">APX-2026-SKD-001</div>
+    <div class="doc-date">Junio 2026</div>
+    <div class="doc-date" style="margin-top:.15rem;font-size:.72rem">Apex Cloud Works — Garett Barrantes</div>
+  </div>
+</div>
+
+<h1 class="doc-title">Acta de Entrega de Servicios Digitales</h1>
+<p class="doc-subtitle">Proyecto: 3 Landings HTML + Integraciones · Skindoctors CR · $450 USD</p>
+
+<!-- Tabla de entregables -->
+<h2><span class="step-n ok">✓</span>Entregables</h2>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Entregable</th>
+        <th>URL de producción</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Landing 1 — Melasblock BB Cream</strong></td>
+        <td><a href="https://d3suiaystvdco4.cloudfront.net/melasblock/" target="_blank" style="font-family:var(--mono);font-size:.76rem;color:var(--earth)">d3suiaystvdco4.cloudfront.net/melasblock/</a></td>
+        <td><span class="badge badge-ok">✓ Activa</span></td>
+      </tr>
+      <tr>
+        <td><strong>Landing 2 — CBD Oil Balance</strong></td>
+        <td><a href="https://d3suiaystvdco4.cloudfront.net/cbd-balance/" target="_blank" style="font-family:var(--mono);font-size:.76rem;color:var(--earth)">d3suiaystvdco4.cloudfront.net/cbd-balance/</a></td>
+        <td><span class="badge badge-ok">✓ Activa</span></td>
+      </tr>
+      <tr>
+        <td><strong>Landing 3 — Producto por definir</strong></td>
+        <td style="color:var(--muted);font-size:.76rem">A definir en reunión</td>
+        <td><span class="badge badge-soon">En curso</span></td>
+      </tr>
+      <tr>
+        <td>N8N — Melasblock Leads</td>
+        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">apexcloudworkscompany.app.n8n.cloud</td>
+        <td><span class="badge badge-ok">✓ Activo</span></td>
+      </tr>
+      <tr>
+        <td>N8N — CBD Balance Leads</td>
+        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">Pendiente activar post-firma</td>
+        <td><span class="badge badge-pend">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td>Google Sheets — Melasblock</td>
+        <td style="color:var(--muted);font-size:.76rem">Hoja activa — contactar Apex para acceso</td>
+        <td><span class="badge badge-ok">✓ Activo</span></td>
+      </tr>
+      <tr>
+        <td>Google Sheets — CBD Balance</td>
+        <td style="color:var(--muted);font-size:.76rem">Configurar post-firma</td>
+        <td><span class="badge badge-pend">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td>Documentos legales (Política + Términos)</td>
+        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">d3suiaystvdco4.cloudfront.net/legal/</td>
+        <td><span class="badge badge-ok">✓ Activos</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Instrucciones N8N CBD -->
+<h2><span class="step-n">1</span>Activar N8N para CBD Oil Balance</h2>
+<p>El workflow de N8N para CBD está listo para importar. Seguir estos pasos en <strong>apexcloudworkscompany.app.n8n.cloud</strong>:</p>
+
+<div class="tip">
+  <strong>Tiempo estimado:</strong> 15 minutos · Requiere acceso a la cuenta N8N de Apex Cloud Works.
+</div>
+
+<div class="code-block">
+  <button class="copy-btn" onclick="copiar(this)">Copiar</button>
+<pre><span class="cmt">Paso 1: ir a apexcloudworkscompany.app.n8n.cloud</span>
+<span class="cmt">Paso 2: Workflows → Import from File → seleccionar n8n-workflow-melasblock.json</span>
+<span class="cmt">Paso 3: Renombrar workflow a "CBD Oil Balance — Leads"</span>
+<span class="cmt">Paso 4: En nodo "Formatear Datos":</span>
+         <span class="kw">$json.body.tono</span>  →  <span class="val">$json.body.piel</span>
+         label <span class="str">"Tono"</span>         →  <span class="val">"Tipo de Piel"</span>
+<span class="cmt">Paso 5: En nodos de Sheets: reemplazar Sheet ID de Melasblock por ID del Sheet CBD</span>
+<span class="cmt">Paso 6: Activar workflow con el toggle → copiar URL del webhook generada</span>
+<span class="cmt">Paso 7: Pegar URL en cbd-balance/index.html → const N8N_WEBHOOK = 'URL'</span></pre>
+</div>
+
+<!-- Instrucciones cambiar WhatsApp -->
+<h2><span class="step-n">2</span>Cambiar número de WhatsApp</h2>
+<p>Actualmente las landings usan el número temporal de Apex Cloud Works (+506 6314-4171). Al firmar, reemplazar con el número oficial de Skindoctors en ambos archivos.</p>
+
+<div class="code-block">
+  <button class="copy-btn" onclick="copiar(this)">Copiar</button>
+<pre><span class="cmt">── melasblock/Mellas/index.html ── buscar línea ~1106:</span>
+<span class="kw">const</span> WA_NUMBER = <span class="str">'506XXXXXXXXX'</span>; <span class="cmt">← reemplazar con número Skindoctors (sin +)</span>
+
+<span class="cmt">── cbd-balance/index.html ── buscar línea ~829:</span>
+<span class="kw">const</span> WA_NUMBER = <span class="str">'506XXXXXXXXX'</span>; <span class="cmt">← mismo número</span>
+
+<span class="cmt">Después del cambio, subir al S3 con AWS CLI:</span>
+aws s3 cp melasblock/Mellas/index.html s3://skindoctors-cr-landings/melasblock/index.html
+aws s3 cp cbd-balance/index.html s3://skindoctors-cr-landings/cbd-balance/index.html
+aws cloudfront create-invalidation --distribution-id E31U5V9IA0JXSZ --paths "/*"</pre>
+</div>
+
+<div class="tip tip-green">
+  <strong>¿Por qué el número sin +?</strong> WhatsApp API usa formato internacional sin el símbolo +. Ejemplo: +506 8888-8888 → <code>50688888888</code>
+</div>
+
+<!-- Accesos técnicos -->
+<h2><span class="step-n">3</span>Accesos y configuración técnica</h2>
+
+<div class="accesos-grid">
+  <div class="acceso-card">
+    <h4>AWS S3 Bucket</h4>
+    <p>skindoctors-cr-landings</p>
+    <p style="color:var(--muted);font-size:.7rem">Región: us-east-2</p>
+  </div>
+  <div class="acceso-card">
+    <h4>CloudFront CDN</h4>
+    <p>d3suiaystvdco4.cloudfront.net</p>
+    <p style="color:var(--muted);font-size:.7rem">Distribution ID: E31U5V9IA0JXSZ</p>
+  </div>
+  <div class="acceso-card">
+    <h4>N8N Cloud</h4>
+    <a href="https://apexcloudworkscompany.app.n8n.cloud" target="_blank">apexcloudworkscompany.app.n8n.cloud</a>
+    <p style="color:var(--muted);font-size:.7rem">Workflow activo: Melasblock — Leads</p>
+  </div>
+  <div class="acceso-card">
+    <h4>Repositorio</h4>
+    <a href="https://github.com/apexcloudworkscompany" target="_blank">github.com/apexcloudworkscompany</a>
+    <p style="color:var(--muted);font-size:.7rem">Código fuente completo</p>
+  </div>
+</div>
+
+<!-- Términos -->
+<h2><span class="step-n">4</span>Términos de entrega</h2>
+<ul class="terms-list">
+  <li>Hasta <strong>2 rondas de revisión</strong> por landing están incluidas en el precio pactado.</li>
+  <li>Cambios adicionales fuera del scope original se cotizan aparte antes de ejecutarlos.</li>
+  <li>Soporte técnico incluido por <strong>30 días</strong> desde la fecha de entrega final.</li>
+  <li>El cliente es responsable de activar N8N para CBD y proveer el número de WhatsApp oficial.</li>
+  <li>El deploy y mantenimiento de AWS corre por cuenta de Apex Cloud Works durante el período de soporte.</li>
+  <li>El código fuente es entregado al cliente al completar el pago total del proyecto.</li>
+</ul>
+
+<!-- Firma -->
+<div class="firma-block">
+  <h3>Entregado por</h3>
+  <p>
+    <strong>Garett Johan Barrantes Benavides</strong><br>
+    Apex Cloud Works · Cartago, Costa Rica<br>
+    apexcloudworkscompany@gmail.com · +506 6314-4171<br>
+    apexcloudworkcompany.com
+  </p>
+  <div class="firma-line">
+    APX-2026-SKD-001 · Proyecto Skindoctors CR · Apex Cloud Works · Junio 2026 · Documento confidencial
+  </div>
+</div>
+
+<p style="font-size:.7rem;color:var(--muted);opacity:.4;text-align:center;margin-top:1.5rem">
+  Apex Cloud Works · Cartago, Costa Rica · 2026
+</p>
+
+<script>
+function copiar(btn){
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    btn.textContent='✓ Copiado';
+    setTimeout(()=>btn.textContent='Copiar',2000);
+  }).catch(()=>{});
+}
+</script>
+
+</body>
+</html>

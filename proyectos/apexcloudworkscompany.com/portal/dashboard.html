@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Proyecto — Apex Cloud Works</title>
   <meta name="robots" content="noindex, nofollow">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/img/logo-mountain.png?v=1">
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/portal.css">
@@ -31,9 +31,9 @@
   </main>
 
   <!-- MODAL: Nueva consulta -->
-  <div class="modal-overlay" id="modal-ticket">
+  <div class="modal-overlay" id="modal-ticket" role="dialog" aria-modal="true" aria-labelledby="modal-ticket-title">
     <div class="modal-box">
-      <h3 class="modal-title">Nueva consulta</h3>
+      <h3 class="modal-title" id="modal-ticket-title">Nueva consulta</h3>
 
       <div class="form-field">
         <label for="t-asunto">Asunto</label>
@@ -45,16 +45,16 @@
         <textarea id="t-msg" placeholder="Describí tu consulta o solicitud con el mayor detalle posible…"></textarea>
       </div>
 
-      <div id="ticket-error" style="color:#fca5a5;font-size:12px;margin-top:6px;display:none;"></div>
+      <div id="ticket-error" role="alert" style="color:#fca5a5;font-size:12px;margin-top:6px;display:none;"></div>
 
       <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeTicketModal()">Cancelar</button>
-        <button class="btn-send" id="btn-send-ticket" onclick="submitTicket()">Enviar consulta</button>
+        <button class="btn btn-ghost" onclick="closeTicketModal()">Cancelar</button>
+        <button class="btn btn-gold" id="btn-send-ticket" onclick="submitTicket()">Enviar consulta</button>
       </div>
     </div>
   </div>
 
-  <script>window.APEX_API_BASE = 'http://localhost:3000';</script>
+  <script src="../assets/js/env.js"></script>
   <script src="../assets/js/portal.js"></script>
   <script>
     // El chequeo de sesión (401 → redirect a login) ya vive dentro de initDashboard()

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Setup Google Sheets · CBD Oil Balance Leads</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#e8f5e9;--teal:#1b7343;--teal-lt:#25a35a;--dark:#1A2E1A;--muted:#4a7a5a;--border:#c3dcc5;--green:#2E8B57;--mono:'JetBrains Mono',monospace;--sans:'Quicksand',sans-serif}
+body{font-family:var(--sans);background:var(--bg);color:var(--dark);padding:2rem;max-width:820px;margin:0 auto;line-height:1.6}
+h1{font-size:1.6rem;margin-bottom:.3rem;color:var(--dark)}
+h1 span{color:var(--teal)}
+.sub{color:var(--muted);font-size:.85rem;margin-bottom:2rem}
+h2{font-size:1rem;font-weight:700;color:var(--teal);margin:2rem 0 .6rem;display:flex;align-items:center;gap:.5rem}
+.step-n{width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+p{font-size:.88rem;color:var(--muted);margin-bottom:.8rem}
+.code-block{background:var(--dark);color:#d4d0c8;border-radius:12px;padding:1.2rem 1.4rem;font-family:var(--mono);font-size:.78rem;line-height:1.7;overflow-x:auto;margin:1rem 0;position:relative}
+.code-block .kw{color:#A8D8A8}.code-block .str{color:#FFAF83}.code-block .cmt{color:#6a9a7a;font-style:italic}.code-block .fn{color:#80CBC4}.code-block .nb{color:#C8E6C9}
+.copy-btn{position:absolute;top:.7rem;right:.7rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-family:var(--sans);font-size:.66rem;padding:.25rem .7rem;border-radius:6px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.tip{background:rgba(27,115,67,.08);border:1px solid rgba(27,115,67,.2);border-left:3px solid var(--teal);border-radius:8px;padding:.8rem 1rem;font-size:.82rem;color:var(--muted);margin:.8rem 0}
+.tip strong{color:var(--dark)}
+.url-input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:var(--mono);font-size:.82rem;color:var(--dark);background:#fff;outline:none;margin:.5rem 0}
+.url-input:focus{border-color:var(--teal)}
+.done-box{background:rgba(27,115,67,.08);border:1px solid rgba(27,115,67,.2);border-left:3px solid var(--green);border-radius:8px;padding:.9rem 1rem;font-size:.84rem;color:#1b5e20;margin:1.5rem 0}
+</style>
+</head>
+<body>
+
+<h1>Setup <span>Google Sheets</span> · Leads CBD Oil Balance</h1>
+<p class="sub">Sigue estos 4 pasos para conectar el formulario de la landing con Google Sheets. Tiempo estimado: 8 minutos.</p>
+
+<!-- PASO 1 -->
+<h2><span class="step-n">1</span>Google Sheet ya creado</h2>
+<p>Tu hoja ya existe en Google Sheets. Sheet ID configurado:</p>
+<div class="tip">
+  <strong>Sheet ID:</strong> <code style="font-family:var(--mono);font-size:.8rem">1mNEzqy17t41N3SvRlNqvQOKqilOH_8PUzXFi0fUeaAI</code><br>
+  <strong>URL:</strong> <a href="https://docs.google.com/spreadsheets/d/1mNEzqy17t41N3SvRlNqvQOKqilOH_8PUzXFi0fUeaAI/edit" target="_blank" style="color:var(--teal)">Abrir hoja →</a>
+</div>
+
+<!-- PASO 2 -->
+<h2><span class="step-n">2</span>Crear el Apps Script</h2>
+<p>Dentro del Sheet: <strong>Extensiones → Apps Script</strong>. Borrá el código existente y pegá este:</p>
+
+<div class="code-block">
+  <button class="copy-btn" onclick="copiar(this)">Copiar</button>
+<pre><span class="cmt">// ── CBD Oil Balance Lead Capture · Apex Cloud Works ──</span>
+<span class="kw">const</span> <span class="nb">SHEET_ID</span>   = <span class="str">'1mNEzqy17t41N3SvRlNqvQOKqilOH_8PUzXFi0fUeaAI'</span>;
+<span class="kw">const</span> <span class="nb">SHEET_NAME</span> = <span class="str">'Leads'</span>;
+
+<span class="kw">function</span> <span class="fn">doPost</span>(e) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> sheet = SpreadsheetApp
+      .openById(<span class="nb">SHEET_ID</span>)
+      .getSheetByName(<span class="nb">SHEET_NAME</span>)
+      || SpreadsheetApp.openById(<span class="nb">SHEET_ID</span>).getActiveSheet();
+
+    <span class="kw">if</span> (sheet.getLastRow() === <span class="nb">0</span>) {
+      sheet.appendRow([
+        <span class="str">'Fecha'</span>, <span class="str">'Nombre'</span>, <span class="str">'Teléfono'</span>, <span class="str">'Email'</span>,
+        <span class="str">'Tipo de Piel'</span>, <span class="str">'Provincia'</span>, <span class="str">'Contexto'</span>, <span class="str">'Fuente'</span>
+      ]);
+      sheet.getRange(<span class="nb">1</span>, <span class="nb">1</span>, <span class="nb">1</span>, <span class="nb">8</span>)
+        .setBackground(<span class="str">'#1b7343'</span>)
+        .setFontColor(<span class="str">'#FFFFFF'</span>)
+        .setFontWeight(<span class="str">'bold'</span>);
+    }
+
+    <span class="kw">const</span> d = JSON.parse(e.postData.contents);
+
+    sheet.appendRow([
+      <span class="kw">new</span> Date().toLocaleString(<span class="str">'es-CR'</span>),
+      d.nombre    || <span class="str">''</span>,
+      d.telefono  || <span class="str">''</span>,
+      d.email     || <span class="str">''</span>,
+      d.piel      || <span class="str">'No especificado'</span>,
+      d.zona      || <span class="str">''</span>,
+      d.contexto  || <span class="str">''</span>,
+      <span class="str">'CBD Balance Landing'</span>
+    ]);
+
+    <span class="kw">return</span> ContentService
+      .createTextOutput(JSON.stringify({ status: <span class="str">'ok'</span> }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } <span class="kw">catch</span> (err) {
+    <span class="kw">return</span> ContentService
+      .createTextOutput(JSON.stringify({
+        status: <span class="str">'error'</span>,
+        msg: err.toString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+<span class="cmt">// Test de conexión (GET)</span>
+<span class="kw">function</span> <span class="fn">doGet</span>() {
+  <span class="kw">return</span> ContentService
+    .createTextOutput(<span class="str">'CBD Oil Balance Leads API · OK'</span>);
+}</pre>
+</div>
+
+<!-- PASO 3 -->
+<h2><span class="step-n">3</span>Deployar como Web App</h2>
+<p>En el editor de Apps Script: <strong>Implementar → Nueva implementación</strong></p>
+<ul style="font-size:.84rem;color:var(--muted);padding-left:1.5rem;line-height:2">
+  <li>Tipo: <strong>Aplicación web</strong></li>
+  <li>Ejecutar como: <strong>Yo (mi cuenta de Google)</strong></li>
+  <li>Quién tiene acceso: <strong>Cualquier persona</strong></li>
+  <li>Hacé clic en <strong>Implementar</strong></li>
+  <li>Copiá la <strong>URL de la aplicación web</strong> que aparece</li>
+</ul>
+<div class="tip"><strong>La URL tiene este formato:</strong><br><code style="font-family:var(--mono);font-size:.78rem">https://script.google.com/macros/s/AKfycb.../exec</code></div>
+
+<!-- PASO 4 -->
+<h2><span class="step-n">4</span>Pegar la URL en la landing</h2>
+<p>Abrí <strong>index.html</strong> de CBD Balance, buscá estas líneas y reemplazá el placeholder:</p>
+
+<div class="code-block">
+<pre><span class="cmt">// Antes:</span>
+<span class="kw">const</span> <span class="nb">SHEETS_URL</span> = <span class="str">''</span>;
+
+<span class="cmt">// Después (pegá tu URL real):</span>
+<span class="kw">const</span> <span class="nb">SHEETS_URL</span> = <span class="str">'https://script.google.com/macros/s/TU_ID/exec'</span>;</pre>
+</div>
+
+<!-- URL guardada -->
+<h2><span class="step-n">✓</span>Tu URL del script</h2>
+<p>Pegala aquí para tenerla guardada:</p>
+<input class="url-input" type="text" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec" oninput="guardarUrl()"/>
+
+<div class="done-box" id="doneBox" style="display:none">
+  ✅ URL guardada. Copiala y pegala en <strong>index.html</strong> → variable <code>SHEETS_URL</code>.
+</div>
+
+<div class="tip" style="margin-top:1.5rem">
+  <strong>¿Cómo funciona?</strong> Cuando un usuario llena el formulario y hace clic en "Continuar a WhatsApp", los datos se envían al Apps Script en segundo plano, se guardan en el Sheet, y se abre WhatsApp con el mensaje pre-llenado. Si el script falla, WhatsApp se abre igual — el usuario nunca es bloqueado.
+</div>
+
+<p style="margin-top:2rem;font-size:.72rem;color:var(--muted);opacity:.5">Apex Cloud Works · Cartago, CR · 2026</p>
+
+<script>
+function copiar(btn){
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    btn.textContent='✓ Copiado';
+    setTimeout(()=>btn.textContent='Copiar',2000);
+  });
+}
+function guardarUrl(){
+  const url = document.getElementById('scriptUrl').value;
+  if(url.includes('script.google.com')){
+    document.getElementById('doneBox').style.display='block';
+    localStorage.setItem('cbd_script_url', url);
+  }
+}
+const saved = localStorage.getItem('cbd_script_url');
+if(saved) document.getElementById('scriptUrl').value = saved;
+</script>
+</body>
+</html>

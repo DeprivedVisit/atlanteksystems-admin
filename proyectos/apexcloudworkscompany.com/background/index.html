@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Cloud Works — Sistemas web en AWS · Cartago, CR</title>
+  <meta name="description" content="Apex Cloud Works — landing pages, sistemas web y automatizaciones con IA, deployados en AWS. Precios, portafolio y casos reales, explorables en vivo.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css?v=32">
+</head>
+<body>
+
+  <!-- TOP TITLEBAR (OS LOOK) — la marca vive integrada en el chrome del IDE -->
+  <div class="window-titlebar">
+    <div class="window-logo">
+      <svg class="ide-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="#0A0C10" stroke="#C4956A" stroke-width="4"/>
+        <polygon points="50,20 20,80 50,60" fill="#C4956A"/>
+        <polygon points="50,20 50,60 80,80" fill="#DBA878"/>
+        <circle cx="50" cy="18" r="4" fill="#F0D4A8"/>
+      </svg>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">Selection</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Go</span>
+      <span class="menu-item">Run</span>
+      <span class="menu-item">Terminal</span>
+      <span class="menu-item">Help</span>
+    </div>
+    <a href="../index.html" class="workspace-pill" title="Apex Cloud Works">
+      <span class="workspace-pill-dot" aria-hidden="true"></span>
+      <img src="../assets/img/logo.svg" class="workspace-pill-icon" alt="">
+      <span class="workspace-pill-text">apexcloudwork<em>company.com</em></span>
+    </a>
+    <div class="window-controls">
+      <div class="control-btn minimize"></div>
+      <div class="control-btn maximize"></div>
+      <div class="control-btn close"></div>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB BAR — navegación real, con la sintaxis de breadcrumb del propio IDE -->
+  <div class="ide-breadcrumb-bar">
+    <nav class="ide-breadcrumb-path" aria-label="Navegación principal">
+      <span class="crumb-root">apex-cloudworks</span>
+      <a href="#proceso" class="crumb" onclick="event.preventDefault(); top.location.hash = 'proceso';">Proceso</a>
+      <a href="#servicios" class="crumb" onclick="event.preventDefault(); top.location.hash = 'servicios';">Servicios</a>
+      <a href="#portafolio" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('Portafolio.md');">Portafolio</a>
+      <a href="#precios" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('Precios.md');">Precios</a>
+      <a href="#faq" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('FAQ.md');">FAQ</a>
+      <a href="#sobre-mi" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('Sobre-mi.md');">Nosotros</a>
+    </nav>
+    <a href="https://wa.me/50663144171" class="ide-cta-chip" target="_blank" rel="noopener"><span aria-hidden="true">▶</span> Cotizar</a>
+  </div>
+
+  <div class="app-container" id="app-workspace">
+    
+    <!-- LEFTMOST ACTIVITY BAR -->
+    <nav class="activity-bar">
+      <div class="top-icons">
+        <div class="activity-icon active" id="act-explorer" title="Explorer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M3 15h18M3 4h18M3 20h18"/></svg>
+        </div>
+        <div class="activity-icon" id="act-obsidian" title="Obsidian Vault">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,10 85,35 75,80 50,90 25,80 15,35" stroke="#DBA878" stroke-width="6" stroke-linejoin="round" fill="rgba(196, 149, 106, 0.15)" />
+            <polygon points="50,10 50,90 75,80 85,35" fill="rgba(196, 149, 106, 0.25)" />
+          </svg>
+        </div>
+        <div class="activity-icon" id="act-search" title="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="activity-icon" id="act-git" title="Source Control">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v7"/></svg>
+        </div>
+        <div class="activity-icon custom-ai-logo pulsing-icon" id="act-antigravity" title="Antigravity AI Chat">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 15L15 80L50 60L85 80L50 15Z" stroke="#C4956A" stroke-width="6" stroke-linejoin="round" fill="rgba(196, 149, 106, 0.12)"/>
+            <circle cx="50" cy="15" r="8" fill="#C4956A"/>
+          </svg>
+        </div>
+      </div>
+      <div class="bottom-icons">
+        <div class="activity-icon" id="act-settings" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+      </div>
+    </nav>
+
+    <!-- LEFT SIDEBAR: EXPLORER / OBSIDIAN VAULT -->
+    <aside class="sidebar explorer-sidebar" id="sidebar-explorer">
+      <!-- VS Code File Explorer View -->
+      <div id="vscode-explorer-view">
+        <div class="panel-header">
+          <span class="panel-title">Explorer: APEX-CLOUDWORKS</span>
+          <div class="explorer-actions">
+            <span class="action-btn" title="New File">📄</span>
+            <span class="action-btn" title="New Folder">📁</span>
+            <span class="action-btn" title="Collapse All">↩️</span>
+          </div>
+        </div>
+        
+        <div class="panel-content file-tree">
+          <div class="tree-item folder-node open">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label font-bold">apex-cloudworks</span>
+          </div>
+          
+          <!-- Root welcome file -->
+          <div class="tree-item file-node active style-nested-1" id="file-README-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">README.md</span>
+          </div>
+
+          <!-- Folder Apex — info real del negocio -->
+          <div class="tree-item folder-node open style-nested-1">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label font-bold">apex-cloud-works</span>
+            <span class="tree-badge tree-badge-real">REAL</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Precios-md">
+            <span class="tree-icon">💲</span>
+            <span class="tree-label">Precios.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Portafolio-md">
+            <span class="tree-icon">💼</span>
+            <span class="tree-label">Portafolio.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Testimonios-md">
+            <span class="tree-icon">⭐</span>
+            <span class="tree-label">Testimonios.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-FAQ-md">
+            <span class="tree-icon">❓</span>
+            <span class="tree-label">FAQ.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Sobre-mi-md">
+            <span class="tree-icon">👤</span>
+            <span class="tree-label">Sobre-mi.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Arquitectura-js">
+            <span class="tree-icon">🏗️</span>
+            <span class="tree-label">Arquitectura.js</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Portada-md">
+            <span class="tree-icon">🖼️</span>
+            <span class="tree-label">Portada.md</span>
+          </div>
+
+          <!-- Folder Proceso — pasos del proyecto, como archivos reales -->
+          <div class="tree-item folder-node open style-nested-1">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label font-bold">proceso</span>
+            <span class="tree-badge tree-badge-real">REAL</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-01-Briefing-md">
+            <span class="tree-icon">📋</span>
+            <span class="tree-label">01-Briefing.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-02-Analisis-md">
+            <span class="tree-icon">🤖</span>
+            <span class="tree-label">02-Analisis.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-03-Build-md">
+            <span class="tree-icon">⚙️</span>
+            <span class="tree-label">03-Build.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-04-Deploy-md">
+            <span class="tree-icon">🚀</span>
+            <span class="tree-label">04-Deploy.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-05-Live-md">
+            <span class="tree-icon">⚡</span>
+            <span class="tree-label">05-Live.md</span>
+          </div>
+
+          <!-- Folder N8N -->
+          <div class="tree-item folder-node open style-nested-1">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label">N8N</span>
+            <span class="tree-badge tree-badge-demo">CASO DE ESTUDIO</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-restaurant-workflow-json">
+            <span class="tree-icon">⚙️</span>
+            <span class="tree-label">restaurant-workflow.json</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-ai-phone-logic-js">
+            <span class="tree-icon">⚡</span>
+            <span class="tree-label">ai-phone-logic.js</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-env-config-env">
+            <span class="tree-icon">🔧</span>
+            <span class="tree-label">env-config.env</span>
+          </div>
+
+          <!-- Folder Obsidian -->
+          <div class="tree-item folder-node open style-nested-1">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label">Obsidian</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Restaurant-Welcome-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">Restaurant-Welcome.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-Caller-Experience-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">Caller-Experience.md</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-System-Architecture-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">System-Architecture.md</span>
+          </div>
+
+          <!-- Folder Background -->
+          <div class="tree-item folder-node open style-nested-1">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label">background</span>
+          </div>
+          <div class="tree-item folder-node open style-nested-2">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label">assets</span>
+          </div>
+          <div class="tree-item folder-node open style-nested-3">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label">css</span>
+          </div>
+          <div class="tree-item file-node style-nested-4" id="file-style-css">
+            <span class="tree-icon">🎨</span>
+            <span class="tree-label">style.css</span>
+          </div>
+          <div class="tree-item folder-node open style-nested-3">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📂</span>
+            <span class="tree-label">js</span>
+          </div>
+          <div class="tree-item file-node style-nested-4" id="file-script-js">
+            <span class="tree-icon">⚡</span>
+            <span class="tree-label">script.js</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-index-html">
+            <span class="tree-icon">🌐</span>
+            <span class="tree-label">index.html</span>
+          </div>
+          <div class="tree-item file-node style-nested-2" id="file-walkthrough-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">walkthrough.md</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Obsidian Vault View (Shown only in Obsidian mode) -->
+      <div id="obsidian-vault-view" style="display: none;">
+        <div class="panel-header">
+          <span class="panel-title">💜 APEX RESTAURANT VAULT</span>
+          <div class="explorer-actions">
+            <span class="action-btn" title="New Note">➕</span>
+            <span class="action-btn" title="Graph View">🕸️</span>
+          </div>
+        </div>
+        <div class="panel-content file-tree">
+          <div class="tree-item folder-node open">
+            <span class="tree-arrow">▼</span>
+            <span class="tree-icon">📁</span>
+            <span class="tree-label">Restaurant Notes</span>
+          </div>
+          <div class="tree-item file-node active style-nested-1" id="obs-file-Restaurant-Welcome-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">Restaurant-Welcome</span>
+          </div>
+          <div class="tree-item file-node style-nested-1" id="obs-file-Caller-Experience-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">Caller-Experience</span>
+          </div>
+          <div class="tree-item file-node style-nested-1" id="obs-file-System-Architecture-md">
+            <span class="tree-icon">📝</span>
+            <span class="tree-label">System-Architecture</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER PANE: SPLIT EDITOR + BOTTOM TERMINAL -->
+    <div class="center-editor-timeline-layout">
+      
+      <!-- Split Editor Workspace -->
+      <div class="editor-tabs-and-split">
+        <!-- Editor Tabs -->
+        <div class="editor-tabs" id="editor-tab-bar">
+          <div class="tab" id="tab-Precios-md" data-file="Precios.md">
+            <span class="tab-icon">💲</span>
+            <span class="tab-label">Precios.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-Portafolio-md" data-file="Portafolio.md">
+            <span class="tab-icon">💼</span>
+            <span class="tab-label">Portafolio.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-Testimonios-md" data-file="Testimonios.md">
+            <span class="tab-icon">⭐</span>
+            <span class="tab-label">Testimonios.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-FAQ-md" data-file="FAQ.md">
+            <span class="tab-icon">❓</span>
+            <span class="tab-label">FAQ.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-Sobre-mi-md" data-file="Sobre-mi.md">
+            <span class="tab-icon">👤</span>
+            <span class="tab-label">Sobre-mi.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-Arquitectura-js" data-file="Arquitectura.js">
+            <span class="tab-icon">🏗️</span>
+            <span class="tab-label">Arquitectura.js</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-Portada-md" data-file="Portada.md">
+            <span class="tab-icon">🖼️</span>
+            <span class="tab-label">Portada.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab active" id="tab-README-md" data-file="README.md">
+            <span class="tab-icon">📝</span>
+            <span class="tab-label">README.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-restaurant-workflow-json" data-file="restaurant-workflow.json">
+            <span class="tab-icon">⚙️</span>
+            <span class="tab-label">restaurant-workflow.json</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-ai-phone-logic-js" data-file="ai-phone-logic.js">
+            <span class="tab-icon">⚡</span>
+            <span class="tab-label">ai-phone-logic.js</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-Restaurant-Welcome-md" data-file="Restaurant-Welcome.md">
+            <span class="tab-icon">📝</span>
+            <span class="tab-label">Restaurant-Welcome.md</span>
+            <span class="tab-close">×</span>
+          </div>
+          <div class="tab" id="tab-index-html" data-file="index.html">
+            <span class="tab-icon">🌐</span>
+            <span class="tab-label">index.html</span>
+            <span class="tab-close">×</span>
+          </div>
+        </div>
+
+        <!-- Split Workspace (Code/Note Editor Left, Live Preview Right) -->
+        <div class="editor-split-workspace">
+          
+          <!-- Code Editor Pane -->
+          <div class="code-editor-pane" id="editor-left-pane">
+            <div class="editor-line-numbers" id="line-numbers">
+              <!-- Line numbers -->
+            </div>
+            <pre class="code-pre"><code class="code-code" id="code-content-container"></code></pre>
+            <div class="editor-scroll-arrows">
+              <button class="editor-scroll-btn" id="editor-scroll-up" aria-label="Subir">▲</button>
+              <button class="editor-scroll-btn" id="editor-scroll-down" aria-label="Bajar">▼</button>
+            </div>
+          </div>
+
+          <!-- Live Preview Pane (N8N, Phone Widget, or Obsidian Graph) -->
+          <div class="live-preview-pane">
+            <div class="preview-header">
+              <span class="preview-title" id="preview-title-label">👁️ Live Preview</span>
+              
+              <!-- Carousel navigation controls -->
+              <div class="carousel-navigation">
+                <button class="btn-carousel" id="prev-carousel-btn" title="Fase Anterior">◀</button>
+                <span class="carousel-step-indicator" id="carousel-indicator">Fase: Inicio (1/3)</span>
+                <button class="btn-carousel" id="next-carousel-btn" title="Fase Siguiente">▶</button>
+              </div>
+
+              <div class="preview-controls">
+                <button class="btn-preview" id="autopilot-btn">Autopilot: ON</button>
+              </div>
+            </div>
+
+            <!-- Canvas Area (Displays the selected Graphic Container) -->
+            <div class="canvas-area">
+              <div class="technical-grid"></div>
+              
+              <!-- SVG Drawing Panel -->
+              <div class="svg-container">
+                <svg class="svg-canvas" id="vector-canvas" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <!-- Phone linear gradients -->
+                    <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#1e1e2f" />
+                      <stop offset="100%" stop-color="#0f0f1b" />
+                    </linearGradient>
+
+                    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#090d16" />
+                      <stop offset="100%" stop-color="#121324" />
+                    </linearGradient>
+
+                    <linearGradient id="greenWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#C4956A" />
+                      <stop offset="50%" stop-color="#DBA878" />
+                      <stop offset="100%" stop-color="#9C2E2E" />
+                    </linearGradient>
+
+                    <!-- Obsidian node glows -->
+                    <filter id="purple-node-glow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="5" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <!-- 1. GROUP GRAPHIC: N8N FLOW -->
+                  <g id="group-n8n">
+                    <!-- n8n S-Curves -->
+                    <path id="n8n-path-1" class="n8n-connection-path" d="M 0 0" />
+                    <path id="n8n-path-2" class="n8n-connection-path" d="M 0 0" />
+                    <path id="n8n-path-3" class="n8n-connection-path" d="M 0 0" />
+
+                    <!-- Glowing Data Pulses -->
+                    <circle id="n8n-pulse-1" class="n8n-data-pulse" r="4.5" />
+                    <circle id="n8n-pulse-2" class="n8n-data-pulse" r="4.5" />
+                    <circle id="n8n-pulse-3" class="n8n-data-pulse" r="4.5" />
+
+                    <!-- Webhook Card -->
+                    <g id="node-webhook" class="n8n-node-group" transform="translate(60, 210)">
+                      <rect class="n8n-node-bg" width="100" height="80" rx="8" />
+                      <rect class="n8n-node-header webhook" width="100" height="22" rx="8" />
+                      <circle cx="16" cy="11" r="4.5" fill="#fff" opacity="0.9" />
+                      <text class="n8n-node-header-text" x="29" y="15">Incoming Call</text>
+                      <text class="n8n-node-title" x="12" y="46">Voice Webhook</text>
+                      <text class="n8n-node-status" id="status-webhook" x="12" y="66">Ready</text>
+                      <circle class="n8n-port-out" cx="100" cy="40" r="4" />
+                    </g>
+
+                    <!-- AI Agent Card -->
+                    <g id="node-ai-agent" class="n8n-node-group" transform="translate(190, 210)">
+                      <rect class="n8n-node-bg" width="100" height="80" rx="8" />
+                      <rect class="n8n-node-header ai-agent" width="100" height="22" rx="8" />
+                      <circle cx="16" cy="11" r="4.5" fill="#fff" opacity="0.9" />
+                      <text class="n8n-node-header-text" x="29" y="15">Gemini Voice</text>
+                      <text class="n8n-node-title" x="12" y="46">Intent Router</text>
+                      <text class="n8n-node-status" id="status-ai" x="12" y="66">Ready</text>
+                      <circle class="n8n-port-in" cx="0" cy="40" r="4" />
+                      <circle class="n8n-port-out" cx="100" cy="40" r="4" />
+                    </g>
+
+                    <!-- JS Transformer Card -->
+                    <g id="node-js-transformer" class="n8n-node-group" transform="translate(320, 210)">
+                      <rect class="n8n-node-bg" width="100" height="80" rx="8" />
+                      <rect class="n8n-node-header js-transformer" width="100" height="22" rx="8" />
+                      <circle cx="16" cy="11" r="4.5" fill="#fff" opacity="0.9" />
+                      <text class="n8n-node-header-text" x="29" y="15">JS Order Form</text>
+                      <text class="n8n-node-title" x="12" y="46">Clean Booking</text>
+                      <text class="n8n-node-status" id="status-js" x="12" y="66">Ready</text>
+                      <circle class="n8n-port-in" cx="0" cy="40" r="4" />
+                      <circle class="n8n-port-out" cx="100" cy="40" r="4" />
+                    </g>
+
+                    <!-- Postgres Database Card -->
+                    <g id="node-database" class="n8n-node-group" transform="translate(450, 210)">
+                      <rect class="n8n-node-bg" width="100" height="80" rx="8" />
+                      <rect class="n8n-node-header database" width="100" height="22" rx="8" />
+                      <circle cx="16" cy="11" r="4.5" fill="#fff" opacity="0.9" />
+                      <text class="n8n-node-header-text" x="29" y="15">PostgreSQL</text>
+                      <text class="n8n-node-title" x="12" y="46">Save Booking</text>
+                      <text class="n8n-node-status" id="status-db" x="12" y="66">Ready</text>
+                      <circle class="n8n-port-in" cx="0" cy="40" r="4" />
+                    </g>
+                  </g>
+
+                  <!-- 2. GROUP GRAPHIC: PHONE CALL WIDGET -->
+                  <g id="group-phone" style="display: none;">
+                    <!-- Phone outer frame -->
+                    <rect x="160" y="30" width="280" height="440" rx="32" fill="url(#phoneGrad)" stroke="#4e4f73" stroke-width="6" />
+                    <!-- Inner screen -->
+                    <rect x="175" y="45" width="250" height="410" rx="20" fill="url(#screenGrad)" />
+                    <!-- Smartphone speaker -->
+                    <rect x="270" y="38" width="60" height="6" rx="3" fill="#313247" />
+
+                    <!-- Header inside screen -->
+                    <text x="300" y="80" fill="#DBA878" font-size="12" font-weight="700" text-anchor="middle" font-family="'Anton', sans-serif">📞 LA RUSTICA VOICE AGENT</text>
+                    <text id="phone-call-status" x="300" y="105" fill="#C4956A" font-size="9" text-anchor="middle" font-family="'Inter', sans-serif">Call Active: 00:03s</text>
+
+                    <!-- Pulse rings for phone -->
+                    <circle cx="300" cy="210" r="65" fill="none" stroke="rgba(0, 243, 255, 0.08)" stroke-width="2" class="phone-pulse-ring" />
+                    <circle cx="300" cy="210" r="85" fill="none" stroke="rgba(157, 78, 221, 0.04)" stroke-width="1.5" class="phone-pulse-ring-slow" />
+
+                    <!-- Audio Waveforms -->
+                    <g transform="translate(185, 210)">
+                      <path id="voice-wave-1" class="neon-voice-wave" d="M 0 0 C 30 -40, 60 40, 90 -20 C 120 10, 150 -50, 180 30 C 210 -10, 230 10, 230 0" fill="none" stroke="url(#greenWaveGrad)" stroke-width="3" stroke-linecap="round" />
+                      <path id="voice-wave-2" class="neon-voice-wave" d="M 0 0 C 30 20, 60 -30, 90 10 C 120 -40, 150 20, 180 -10 C 210 30, 230 -20, 230 0" fill="none" stroke="rgba(157, 78, 221, 0.3)" stroke-width="1.5" stroke-linecap="round" />
+                    </g>
+
+                    <!-- Realtime Call Transcript Panel inside phone screen -->
+                    <rect x="185" y="310" width="230" height="90" rx="8" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.05)" />
+                    <text x="195" y="328" fill="#94a3b8" font-size="7.5" font-family="'JetBrains Mono', monospace" font-weight="700">LIVE TRANSCRIPT:</text>
+                    <text id="transcript-line-1" x="195" y="348" fill="#e2e8f0" font-size="8" font-family="'Inter', sans-serif">"Quiero reservar una mesa para 4"</text>
+                    <text id="transcript-line-2" x="195" y="368" fill="#C4956A" font-size="8" font-family="'Inter', sans-serif">AI: "Claro, ¿para qué hora y qué día?"</text>
+                    <text id="transcript-line-3" x="195" y="388" fill="#DBA878" font-size="7.5" font-family="'Inter', sans-serif">Intent: RESERVATION (Confidence: 0.99)</text>
+
+                    <!-- Call control buttons on mockup screen -->
+                    <circle cx="260" cy="425" r="16" fill="#ef4444" class="phone-call-btn" id="phone-btn-hangup" />
+                    <text x="260" y="429" fill="#fff" font-size="12" text-anchor="middle" font-family="'Inter', sans-serif" style="pointer-events: none;">✖</text>
+
+                    <circle cx="340" cy="425" r="16" fill="#10b981" class="phone-call-btn" id="phone-btn-call" />
+                    <text x="340" y="429" fill="#fff" font-size="12" text-anchor="middle" font-family="'Inter', sans-serif" style="pointer-events: none;">📞</text>
+                  </g>
+
+                  <!-- 3. GROUP GRAPHIC: OBSIDIAN GRAPH VIEW -->
+                  <g id="group-obsidian" style="display: none;">
+                    <!-- Network Edges (Connections) -->
+                    <line id="obs-edge-1" class="obs-graph-edge" x1="0" y1="0" x2="0" y2="0" />
+                    <line id="obs-edge-2" class="obs-graph-edge" x1="0" y1="0" x2="0" y2="0" />
+                    <line id="obs-edge-3" class="obs-graph-edge" x1="0" y1="0" x2="0" y2="0" />
+                    <line id="obs-edge-4" class="obs-graph-edge" x1="0" y1="0" x2="0" y2="0" />
+                    <line id="obs-edge-5" class="obs-graph-edge" x1="0" y1="0" x2="0" y2="0" />
+                    <line id="obs-edge-6" class="obs-graph-edge" x1="0" y1="0" x2="0" y2="0" />
+
+                    <!-- Note Nodes -->
+                    <g id="obs-node-Welcome" class="obs-node-group" transform="translate(300, 250)">
+                      <circle r="14" class="obs-node welcome" />
+                      <text class="obs-node-label" y="24">Restaurant-Welcome.md</text>
+                    </g>
+                    <g id="obs-node-Architecture" class="obs-node-group" transform="translate(180, 160)">
+                      <circle r="10" class="obs-node" />
+                      <text class="obs-node-label" y="18">System-Architecture.md</text>
+                    </g>
+                    <g id="obs-node-Integrations" class="obs-node-group" transform="translate(420, 160)">
+                      <circle r="10" class="obs-node" />
+                      <text class="obs-node-label" y="18">Caller-Experience.md</text>
+                    </g>
+                    <g id="obs-node-workflow" class="obs-node-group" transform="translate(130, 310)">
+                      <circle r="8" class="obs-node tech" />
+                      <text class="obs-node-label" y="16">restaurant-workflow.json</text>
+                    </g>
+                    <g id="obs-node-transform" class="obs-node-group" transform="translate(260, 370)">
+                      <circle r="8" class="obs-node tech" />
+                      <text class="obs-node-label" y="16">ai-phone-logic.js</text>
+                    </g>
+                    <g id="obs-node-index" class="obs-node-group" transform="translate(470, 310)">
+                      <circle r="8" class="obs-node tech" />
+                      <text class="obs-node-label" y="16">env-config.env</text>
+                    </g>
+                  </g>
+
+                </svg>
+              </div>
+
+              <!-- CARRUSEL CINEMATOGRÁFICO — Portada.md -->
+              <div class="portada-carousel" id="portada-carousel" style="display: none;">
+                <div class="pc-slide pc-slide-precios is-active" data-pc-slide="0">
+                  <img src="../assets/img/logo.svg" class="pc-watermark" alt="">
+                  <span class="pc-kicker">apexcloudworkcompany.com</span>
+                  <div class="pc-eyebrow-rule"></div>
+                  <h2 class="pc-title">Precios</h2>
+                  <p class="pc-sub">$350 · $900 · $2,000+ — todo en USD, sin costos ocultos</p>
+                </div>
+                <div class="pc-slide pc-slide-portafolio" data-pc-slide="1">
+                  <img src="../assets/img/logo.svg" class="pc-watermark" alt="">
+                  <span class="pc-kicker">Proyectos reales</span>
+                  <div class="pc-eyebrow-rule"></div>
+                  <h2 class="pc-title">Portafolio</h2>
+                  <p class="pc-sub">EcoPollo Cartago</p>
+                </div>
+                <div class="pc-slide pc-slide-testimonios" data-pc-slide="2">
+                  <img src="../assets/img/logo.svg" class="pc-watermark" alt="">
+                  <span class="pc-kicker">★ ★ ★ ★ ★</span>
+                  <div class="pc-eyebrow-rule"></div>
+                  <h2 class="pc-title">Testimonios</h2>
+                  <p class="pc-sub">Clientes reales, resultados medibles</p>
+                </div>
+                <div class="pc-dots">
+                  <span class="pc-dot is-active" data-pc-dot="0"></span>
+                  <span class="pc-dot" data-pc-dot="1"></span>
+                  <span class="pc-dot" data-pc-dot="2"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Keyframe Timeline Section -->
+            <div class="timeline-inside-preview">
+              <div class="timeline-controls-header">
+                <button class="timeline-btn" id="play-btn"><span>⏸</span> Pause</button>
+                <span class="time-counter" id="time-counter">0.00s</span>
+                <span class="timeline-title-label" id="timeline-track-title">Workflow Cycle Tracker (60 FPS)</span>
+              </div>
+              <div class="timeline-tracks" id="timeline-tracks-container">
+                <div class="timeline-ruler" id="timeline-ruler"></div>
+                <div class="playhead" id="playhead"></div>
+                
+                <div class="track-row">
+                  <span class="track-label" id="t-label-1">Webhook Req</span>
+                  <div class="track-timeline">
+                    <div class="keyframe-node garett" style="left: 0%;"></div>
+                    <div class="keyframe-node garett" style="left: 10%;"></div>
+                    <div class="keyframe-node garett" style="left: 100%;"></div>
+                  </div>
+                </div>
+                <div class="track-row">
+                  <span class="track-label" id="t-label-2">AI Analysis</span>
+                  <div class="track-timeline">
+                    <div class="keyframe-node liz" style="left: 15%;"></div>
+                    <div class="keyframe-node liz" style="left: 45%;"></div>
+                    <div class="keyframe-node liz" style="left: 100%;"></div>
+                  </div>
+                </div>
+                <div class="track-row">
+                  <span class="track-label" id="t-label-3">JS Format</span>
+                  <div class="track-timeline">
+                    <div class="keyframe-node emma" style="left: 50%;"></div>
+                    <div class="keyframe-node emma" style="left: 70%;"></div>
+                    <div class="keyframe-node emma" style="left: 100%;"></div>
+                  </div>
+                </div>
+                <div class="track-row">
+                  <span class="track-label" id="t-label-4">DB Insert</span>
+                  <div class="track-timeline">
+                    <div class="keyframe-node leo" style="left: 75%;"></div>
+                    <div class="keyframe-node leo" style="left: 95%;"></div>
+                    <div class="keyframe-node leo" style="left: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM CONSOLE / PANEL -->
+      <footer class="bottom-panel" id="ide-bottom-panel">
+        <div class="panel-tabs">
+          <div class="p-tab" id="ptab-problems">Problems <span class="problem-count">0</span></div>
+          <div class="p-tab" id="ptab-output">Output</div>
+          <div class="p-tab active" id="ptab-terminal">Terminal</div>
+          <div class="p-tab" id="ptab-debug">Debug Console</div>
+        </div>
+        
+        <div class="panel-console-content" id="terminal-output-container">
+          <!-- Terminal logs will display here -->
+        </div>
+      </footer>
+    </div>
+
+    <!-- RIGHT PANEL: ANTIGRAVITY AI CHAT -->
+    <aside class="sidebar chat-sidebar" id="ide-chat-sidebar">
+      <div class="panel-header">
+        <div class="chat-header-meta">
+          <span class="panel-title">Antigravity AI Chat</span>
+          <div class="ai-status">
+            <span class="status-dot"></span>
+            <span id="ai-status-label">Active</span>
+          </div>
+        </div>
+        <div class="chat-actions">
+          <button class="chat-action-btn" id="restart-chat-btn" title="Reiniciar Simulación">🔄</button>
+        </div>
+      </div>
+      
+      <!-- Chat Messages Container -->
+      <div class="panel-content chat-messages" id="chat-messages">
+        <!-- Messages -->
+      </div>
+      
+      <!-- Input Panel Mockup -->
+      <div class="chat-input-area">
+        <div class="chat-model-selector">
+          <span>Gemini 3.5 Flash (High)</span>
+          <span class="mcp-badge">🔌 MCP Active</span>
+        </div>
+        <div class="chat-input-box">
+          <textarea class="chat-textarea" placeholder="Pregunta a Antigravity..." readonly></textarea>
+          <button class="chat-send-btn" disabled>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+        <div class="chat-input-footer">
+          <span>Press Enter to send, Shift+Enter for new line</span>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- STATUS BAR -->
+  <footer class="status-bar">
+    <div class="status-left">
+      <div class="status-item git-branch">
+        <span class="status-icon">🌿</span> main*
+      </div>
+      <div class="status-item status-sync">
+        <span class="status-icon">🔄</span> Synced
+      </div>
+      <div class="status-item status-errors">
+        <span class="error-circle"></span> 0
+        <span class="warning-triangle"></span> 0
+      </div>
+    </div>
+    
+    <div class="status-right">
+      <div class="status-item line-col" id="status-line-col">Ln 1, Col 1</div>
+      <div class="status-item encoding">Spaces: 2</div>
+      <div class="status-item filetype" id="status-filetype">UTF-8</div>
+      <div class="status-item js-state" id="status-lang">Markdown</div>
+      <div class="status-item go-live-btn" onclick="window.location.href='../'">
+        <span class="status-icon">📡</span> Go Live (Port 9999)
+      </div>
+      <div class="status-item notification-bell">🔔</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/script.js?v=27"></script>
+</body>
+</html>

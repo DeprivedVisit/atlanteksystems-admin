@@ -1,7 +1,16 @@
 // Galiz CR — Google Apps Script Backend
 // Implementar como: Aplicación web → Cualquiera → Ejecutar como: Yo
+// ⚙️ Configuración del proyecto → Propiedades del script → agregar GALIZ_TOKEN
+// con la contraseña real del panel de admin (nunca vive en el código).
 
 const SHEET_ID = '1Xtb2o4Ww8gP16M4BpmOhZP1AeoPvkrxEU46jdbyt72w';
+const GALIZ_TOKEN = PropertiesService.getScriptProperties().getProperty('GALIZ_TOKEN');
+
+function requireAdmin(token) {
+  if (!GALIZ_TOKEN || token !== GALIZ_TOKEN) {
+    throw new Error('No autorizado');
+  }
+}
 
 function getDB() {
   return SpreadsheetApp.openById(SHEET_ID);
@@ -36,10 +45,18 @@ function doGet(e) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+// Acciones administrativas — cambian/cancelan citas ya confirmadas o bloquean
+// disponibilidad. addBooking y upsertClient quedan abiertas porque son parte
+// del flujo público de reserva (cualquier visitante debe poder agendar).
+const ADMIN_ACTIONS = ['cancelBooking', 'completeBooking', 'updateClientNote', 'blockDate', 'unblockDate', 'blockSlot', 'unblockSlot'];
+
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
     const action = body.action;
+    if (action === 'checkAdminToken') { requireAdmin(body.token); return ContentService.createTextOutput('OK'); }
+    if (ADMIN_ACTIONS.indexOf(action) !== -1) requireAdmin(body.token);
+
     if      (action === 'addBooking')       addBooking(body.booking);
     else if (action === 'cancelBooking')    updateStatus(body.id, 'cancelada');
     else if (action === 'completeBooking')  updateStatus(body.id, 'completada');
@@ -85,6 +102,77 @@ function addBooking(b) {
     b.domicilio ? 'Sí' : 'No', b.address || '', b.notes || '',
     'confirmada', b.createdAt
   ]);
+  notifyNewBooking(b);
+}
+
+// Reemplaza el nodo Gmail de N8N que notificaba al instante — ya no hay que
+// esperar a que N8N esté "vigilando" la Sheet, se manda apenas se guarda la cita.
+function notifyNewBooking(b) {
+  const html = '<div style="font-family:Arial,sans-serif;max-width:540px">'
+    + '<h2 style="color:#C9A84C;margin-bottom:4px">💛 Nueva cita agendada</h2>'
+    + '<table style="border-collapse:collapse;width:100%;margin:16px 0">'
+    + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold;width:120px">Clienta</td><td style="padding:9px 12px;border:1px solid #eee">' + b.name + '</td></tr>'
+    + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">WhatsApp</td><td style="padding:9px 12px;border:1px solid #eee">' + b.phone + '</td></tr>'
+    + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Fecha</td><td style="padding:9px 12px;border:1px solid #eee">' + b.date + '</td></tr>'
+    + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Hora</td><td style="padding:9px 12px;border:1px solid #eee">' + b.time + '</td></tr>'
+    + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Servicio</td><td style="padding:9px 12px;border:1px solid #eee">' + b.service + ' (' + b.durationMinutes + ' min)</td></tr>'
+    + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Domicilio</td><td style="padding:9px 12px;border:1px solid #eee">' + (b.domicilio ? 'Sí' : 'No') + (b.address ? ' — ' + b.address : '') + '</td></tr>'
+    + '</table></div>';
+  MailApp.sendEmail({
+    to: 'apexcloudworkscompany@gmail.com',
+    subject: '💛 Nueva cita — ' + b.name + ' · ' + b.date + ' ' + b.time,
+    htmlBody: html,
+  });
+}
+
+// Reemplaza el nodo Wait de N8N (uno por cita, gastaba una ejecución cada vez).
+// Se corre una sola vez por hora vía trigger instalable — ver instalarTriggerRecordatorios().
+function enviarRecordatorios() {
+  const sh = getDB().getSheetByName('Citas');
+  if (!sh) return;
+  const headers = ['ID','Fecha','Hora','SlotMinutos','Servicio','Categoría','Duración(min)','Precio','Nombre','WhatsApp','Domicilio','Dirección','Notas','Estado','Creado','RecordatorioEnviado'];
+  const curHeaders = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
+  const idxRec = curHeaders.indexOf('RecordatorioEnviado');
+  if (idxRec === -1) sh.getRange(1, curHeaders.length + 1).setValue('RecordatorioEnviado');
+  const iRec = idxRec === -1 ? curHeaders.length : idxRec; // 0-based
+
+  const data = sh.getDataRange().getValues();
+  const ahora = new Date();
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    const estado = row[13], fecha = row[1], hora = row[2], yaEnviado = row[iRec];
+    if (estado !== 'confirmada' || yaEnviado === 'Sí') continue;
+    const horaLimpia = String(hora).replace(' PM', '').replace(' AM', '');
+    const fechaHora = new Date(fecha + 'T' + horaLimpia);
+    if (isNaN(fechaHora.getTime())) continue;
+    const horasFaltantes = (fechaHora - ahora) / (1000 * 60 * 60);
+    if (horasFaltantes > 0 && horasFaltantes <= 24) {
+      const html = '<div style="font-family:Arial,sans-serif;max-width:540px">'
+        + '<h2 style="color:#C9A84C">🔔 Cita mañana</h2>'
+        + '<p>Recordatorio automático de cita agendada para mañana.</p>'
+        + '<table style="border-collapse:collapse;width:100%;margin:16px 0">'
+        + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold;width:120px">Clienta</td><td style="padding:9px 12px;border:1px solid #eee">' + row[8] + '</td></tr>'
+        + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">WhatsApp</td><td style="padding:9px 12px;border:1px solid #eee">' + row[9] + '</td></tr>'
+        + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Hora</td><td style="padding:9px 12px;border:1px solid #eee">' + hora + '</td></tr>'
+        + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Servicio</td><td style="padding:9px 12px;border:1px solid #eee">' + row[4] + '</td></tr>'
+        + '</table></div>';
+      MailApp.sendEmail({
+        to: 'apexcloudworkscompany@gmail.com',
+        subject: '🔔 Recordatorio — Cita mañana: ' + row[8] + ' a las ' + hora,
+        htmlBody: html,
+      });
+      sh.getRange(i + 1, iRec + 1).setValue('Sí');
+    }
+  }
+}
+
+// Ejecutar UNA SOLA VEZ manualmente desde el editor de Apps Script (▶ Ejecutar)
+// para instalar el trigger horario. Después de eso queda corriendo solo.
+function instalarTriggerRecordatorios() {
+  ScriptApp.getProjectTriggers()
+    .filter(function(t){ return t.getHandlerFunction() === 'enviarRecordatorios'; })
+    .forEach(function(t){ ScriptApp.deleteTrigger(t); }); // evita duplicados si se corre dos veces
+  ScriptApp.newTrigger('enviarRecordatorios').timeBased().everyHours(1).create();
 }
 
 function updateStatus(id, status) {

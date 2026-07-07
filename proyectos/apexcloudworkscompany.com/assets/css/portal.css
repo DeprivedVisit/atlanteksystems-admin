@@ -3,7 +3,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -57,8 +57,9 @@ body {
 }
 
 .login-title {
+  font-family: 'Anton', sans-serif;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text);
   margin-bottom: 6px;
 }
@@ -471,8 +472,9 @@ body {
 }
 
 .lead-hero-title {
+  font-family: 'Anton', sans-serif;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--gold2);
   margin-bottom: 10px;
 }
@@ -630,18 +632,7 @@ body {
 
 /* ── MODAL NUEVA CONSULTA ── */
 
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal-overlay.open { display: flex; }
+/* .modal-overlay base vive en components.css (compartido admin + portal) */
 
 .modal-box {
   width: 100%;
@@ -666,32 +657,15 @@ body {
   margin-top: 20px;
 }
 
-.btn-cancel {
-  padding: 10px 18px;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text3);
-  font-family: inherit;
-  font-size: 13px;
-  border-radius: var(--r-sm);
-  cursor: pointer;
-}
-
-.btn-send {
-  padding: 10px 20px;
-  background: var(--gold);
-  color: #0a0704;
-  font-family: inherit;
+/* ── BOTONES (forma/color compartidos en components.css) ── */
+.btn-gold, .btn-ghost {
   font-size: 13px;
   font-weight: 700;
-  border: none;
+  padding: 10px 20px;
   border-radius: var(--r-sm);
-  cursor: pointer;
-  transition: background 0.2s;
 }
-
-.btn-send:hover    { background: var(--gold2); }
-.btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-ghost { border: 1px solid var(--border); color: var(--text3); font-weight: 400; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .form-field { margin-bottom: 16px; }
 
@@ -792,4 +766,12 @@ body {
 
   .services-grid,
   .services-list { grid-template-columns: 1fr; }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .etapa-dot.en_progreso { animation: none; box-shadow: 0 0 0 4px rgba(196,149,106,0.25); }
+  .preview-dot { animation: none; opacity: 1; }
+  .spinner { animation-duration: 1.6s; }
+  * { transition-duration: 0.01ms !important; }
 }

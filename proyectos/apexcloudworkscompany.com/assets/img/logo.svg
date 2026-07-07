@@ -3,28 +3,28 @@
   <defs>
     <!-- Facet 3 (Right-center light) -->
     <linearGradient id="facet3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F0956E"/>
-      <stop offset="100%" stop-color="#DA7756"/>
+      <stop offset="0%" stop-color="#C4956A"/>
+      <stop offset="100%" stop-color="#A67C4A"/>
     </linearGradient>
     <!-- Facet 4 (Rightmost highlight) -->
     <linearGradient id="facet4" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFE5D9"/>
-      <stop offset="100%" stop-color="#F0956E"/>
+      <stop offset="0%" stop-color="#F0D4A8"/>
+      <stop offset="100%" stop-color="#C4956A"/>
     </linearGradient>
 
     <!-- Cloud Sunset Gradient - 3D volumetric lighting -->
     <linearGradient id="cloudSunset" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#311E3B" stop-opacity="0.95"/> <!-- Deep purple base -->
-      <stop offset="35%" stop-color="#C4664A"/>                    <!-- Warm terracotta -->
-      <stop offset="70%" stop-color="#E2B97A"/>                    <!-- Golden sunlight -->
+      <stop offset="0%" stop-color="#1A140D" stop-opacity="0.95"/> <!-- Deep purple base -->
+      <stop offset="35%" stop-color="#C4956A"/>                    <!-- Warm terracotta -->
+      <stop offset="70%" stop-color="#DBA878"/>                    <!-- Golden sunlight -->
       <stop offset="100%" stop-color="#FFFFFF"/>                   <!-- Pure white crest -->
     </linearGradient>
 
     <!-- Ring gradient -->
     <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#DA7756" stop-opacity="0.1"/>
-      <stop offset="50%" stop-color="#FFE5D9" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#DA7756" stop-opacity="0.1"/>
+      <stop offset="0%" stop-color="#A67C4A" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#F0D4A8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#A67C4A" stop-opacity="0.1"/>
     </linearGradient>
 
     <!-- Glow filter for cloud and peak -->
@@ -61,17 +61,17 @@
     <polygon points="58,48 55,75 70,72" fill="url(#facet4)"/> <!-- Facet 6 (Main Peak light slope) -->
     <polygon points="70,72 55,75 62,94" fill="url(#facet3)"/> <!-- Facet 7 (Saddle transition) -->
     <polygon points="70,72 62,94 82,65" fill="url(#facet4)"/> <!-- Facet 8 (Second Peak light slope) -->
-    <polygon points="82,65 62,94 90,85" fill="#DA7756"/>       <!-- Facet 9 (Second Peak right slope) -->
+    <polygon points="82,65 62,94 90,85" fill="#A67C4A"/>       <!-- Facet 9 (Second Peak right slope) -->
     <polygon points="90,85 62,94 60,118" fill="url(#facet3)"/> <!-- Facet 10 (Lower Right facet 1) -->
     <polygon points="90,85 60,118 105,118" fill="url(#facet4)"/> <!-- Facet 11 (Lower Right facet 2) -->
-    <polygon points="82,65 90,85 105,118" fill="#DA7756"/>      <!-- Facet 12 (Rightmost slope) -->
+    <polygon points="82,65 90,85 105,118" fill="#A67C4A"/>      <!-- Facet 12 (Rightmost slope) -->
 
     <!-- Rugged Faceted Snow Cap (Main Peak) -->
-    <polygon points="58,48 51,58 56,61" fill="#FFE5D9" opacity="0.9"/>
+    <polygon points="58,48 51,58 56,61" fill="#F0D4A8" opacity="0.9"/>
     <polygon points="58,48 56,61 64,59" fill="#FFFFFF" opacity="0.95"/>
 
     <!-- Rugged Faceted Snow Cap (Second Peak) -->
-    <polygon points="82,65 77,71 82,73" fill="#FFE5D9" opacity="0.9"/>
+    <polygon points="82,65 77,71 82,73" fill="#F0D4A8" opacity="0.9"/>
     <polygon points="82,65 82,73 89,71" fill="#FFFFFF" opacity="0.95"/>
   </g>
 
@@ -79,8 +79,8 @@
   <path d="M105,85 C105,98 15,98 15,85" fill="none" stroke="url(#ringGrad)" stroke-width="2.5" opacity="0.8"/>
 
   <!-- Connection beam between peaks and clouds -->
-  <line x1="58" y1="48" x2="58" y2="34" stroke="#FFE5D9" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.5"/>
-  <line x1="82" y1="65" x2="82" y2="40" stroke="#FFE5D9" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.4"/>
+  <line x1="58" y1="48" x2="58" y2="34" stroke="#F0D4A8" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.5"/>
+  <line x1="82" y1="65" x2="82" y2="40" stroke="#F0D4A8" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.4"/>
 
   <!-- 3D ORGANIC VOLUMETRIC CLOUDS (TOWARDS THE TOP) -->
   <g id="clouds" filter="url(#glow)">

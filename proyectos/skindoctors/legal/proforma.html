@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Proforma PRF-2026-001 — Apex Cloud Works</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0f0d0b;line-height:1.7}
+.container{width:min(800px,92%);margin-inline:auto;padding-block:4rem}
+.navbar{background:#0a0908;padding:1rem 0;border-bottom:1px solid rgba(200,149,74,.12)}
+.nav-inner{width:min(800px,92%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Noto Serif Display',Georgia,serif;font-size:1.1rem;color:#fff;text-decoration:none}
+.nav-logo span{color:#c8954a;font-style:italic}
+.nav-doc{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(200,149,74,.6)}
+/* HEADER DEL DOCUMENTO */
+.doc-header{background:linear-gradient(135deg,#0a0908 0%,#1c1208 100%);border-radius:16px;padding:2.5rem;margin-bottom:2rem;border:1px solid rgba(200,149,74,.12)}
+.doc-header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1.5rem}
+.brand-block .brand-name{font-family:'Noto Serif Display',Georgia,serif;font-size:1.6rem;font-weight:300;color:#fff}
+.brand-block .brand-name strong{font-weight:600;color:#c8954a}
+.brand-block .brand-sub{font-size:.76rem;color:rgba(255,255,255,.3);margin-top:.25rem}
+.doc-id-block{text-align:right}
+.doc-type{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,149,74,.6);margin-bottom:.3rem}
+.doc-number{font-family:'Noto Serif Display',Georgia,serif;font-size:1.4rem;color:#c8954a;font-weight:600}
+.doc-dates{display:flex;gap:2rem;margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid rgba(200,149,74,.1);flex-wrap:wrap}
+.doc-date-item{}
+.doc-date-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,149,74,.55);margin-bottom:.2rem}
+.doc-date-value{font-size:.9rem;color:#e8e0d8;font-weight:600}
+/* STATUS BADGE */
+.status-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:50px;font-size:.75rem;font-weight:700;letter-spacing:.05em}
+.status-pending{background:rgba(220,130,0,.12);border:1px solid rgba(220,130,0,.3);color:#e08030}
+.status-partial{background:rgba(50,120,220,.1);border:1px solid rgba(50,120,220,.3);color:#5090e0}
+.status-paid{background:rgba(30,180,80,.1);border:1px solid rgba(30,180,80,.3);color:#30b860}
+.status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+/* PARTIES */
+.parties-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2rem}
+.party-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,149,74,.12);border-radius:12px;padding:1.25rem 1.5rem}
+.party-title{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c8954a;margin-bottom:.75rem}
+.party-name{font-family:'Noto Serif Display',Georgia,serif;font-size:1.05rem;color:#fff;font-weight:400;margin-bottom:.4rem}
+.party-detail{font-size:.8rem;color:rgba(232,224,216,.5);line-height:1.6}
+/* SERVICES TABLE */
+.section-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,149,74,.6);margin-bottom:.75rem}
+.inv-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem}
+.inv-table thead tr{background:rgba(200,149,74,.06);border-bottom:1px solid rgba(200,149,74,.15)}
+.inv-table th{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(200,149,74,.7);padding:.65rem .85rem;text-align:left}
+.inv-table th:last-child{text-align:right}
+.inv-table td{font-size:.85rem;color:rgba(232,224,216,.75);padding:.65rem .85rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.inv-table td:last-child{text-align:right;font-weight:700;color:#c8954a}
+.inv-table tr:last-child td{border-bottom:none}
+.inv-table .row-subtotal{border-top:1px solid rgba(200,149,74,.12);background:rgba(255,255,255,.02)}
+.inv-table .row-subtotal td{color:rgba(232,224,216,.5);font-size:.8rem;font-weight:400}
+.inv-table .row-total{background:rgba(200,149,74,.07);border-top:2px solid rgba(200,149,74,.2)}
+.inv-table .row-total td{font-size:.95rem;font-weight:700;color:#e8e0d8;padding:.85rem}
+.inv-table .row-total td:last-child{font-size:1.1rem;color:#c8954a}
+/* PAYMENT */
+.payment-block{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2rem}
+.pay-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,149,74,.12);border-radius:12px;padding:1.25rem 1.5rem}
+.pay-card-title{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c8954a;margin-bottom:.6rem}
+.pay-card-methods{display:flex;flex-direction:column;gap:.4rem}
+.pay-method{font-size:.82rem;color:rgba(232,224,216,.65);display:flex;align-items:baseline;gap:.4rem}
+.pay-method::before{content:"→";color:#c8954a;font-size:.7rem}
+.pay-summary .pay-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.83rem}
+.pay-summary .pay-row:last-child{border-bottom:none;font-weight:700;color:#e8e0d8;padding-top:.7rem;margin-top:.2rem}
+.pay-summary .pay-row:last-child .pay-val{color:#c8954a;font-size:.95rem}
+.pay-label{color:rgba(232,224,216,.5)}
+.pay-val{color:#e8e0d8;font-weight:600}
+.pay-val.paid{color:#30b860}
+.pay-val.pending{color:#e08030}
+/* NOTE */
+.note-box{background:rgba(200,149,74,.05);border:1px solid rgba(200,149,74,.12);border-left:3px solid #c8954a;border-radius:0 10px 10px 0;padding:1rem 1.25rem;font-size:.8rem;color:rgba(232,224,216,.6);line-height:1.7;margin-bottom:2rem}
+.note-box.mirror{border-color:rgba(80,144,224,.3);border-left-color:#5090e0;background:rgba(50,120,220,.05)}
+/* FOOTER */
+.doc-footer{border-top:1px solid rgba(200,149,74,.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.doc-footer-brand{font-family:'Noto Serif Display',Georgia,serif;font-size:.9rem;color:rgba(255,255,255,.3)}
+.doc-footer-brand strong{color:rgba(200,149,74,.5)}
+.doc-footer-contact{font-size:.75rem;color:rgba(255,255,255,.2);text-align:right}
+.legal-footer{background:#0a0908;border-top:1px solid rgba(200,149,74,.08);color:rgba(255,255,255,.2);text-align:center;padding:1.5rem 1rem;font-size:.72rem;margin-top:3rem}
+.legal-footer a{color:#c8954a;opacity:.5}
+@media print{
+  .navbar{display:none}
+  body{background:#fff;color:#111;font-size:11pt}
+  .doc-header{background:#0a0908;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .container{padding-block:1.5rem}
+}
+@media(max-width:620px){
+  .doc-header-top,.parties-row,.payment-block{grid-template-columns:1fr}
+  .doc-id-block{text-align:left}
+  .doc-footer{flex-direction:column}
+  .doc-footer-contact{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="https://apexcloudworkcompany.com/" class="nav-logo">Apex <span>Cloud Works</span></a>
+    <span class="nav-doc">Documento Privado · No publicar</span>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ENCABEZADO DEL DOCUMENTO -->
+  <div class="doc-header">
+    <div class="doc-header-top">
+      <div class="brand-block">
+        <div class="brand-name">Apex <strong>Cloud Works</strong></div>
+        <div class="brand-sub">Garett Johan Barrantes Benavides · Cartago, Costa Rica<br>apexcloudworkscompany@gmail.com · +506 6314-4171</div>
+      </div>
+      <div class="doc-id-block">
+        <div class="doc-type">Proforma de Cobro</div>
+        <div class="doc-number">PRF-2026-001</div>
+        <div style="margin-top:.6rem">
+          <span class="status-badge status-pending">
+            <span class="status-dot"></span>Pendiente de pago
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-dates">
+      <div class="doc-date-item">
+        <div class="doc-date-label">Fecha de emisión</div>
+        <div class="doc-date-value">24 de junio de 2026</div>
+      </div>
+      <div class="doc-date-item">
+        <div class="doc-date-label">Fecha de vencimiento</div>
+        <div class="doc-date-value">09 de julio de 2026</div>
+      </div>
+      <div class="doc-date-item">
+        <div class="doc-date-label">Referencia de contrato</div>
+        <div class="doc-date-value">CTR-2026-SKD-001</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTA DE ESPEJO -->
+  <div class="note-box mirror">
+    <strong>Nota:</strong> Este documento es un espejo de <strong>PRF-2026-001</strong> (también disponible en <a href="https://apexcloudworkcompany.com/Legal/proforma.html" style="color:#5090e0">apexcloudworkcompany.com/Legal/proforma.html</a>). No es una proforma adicional ni un cobro separado — se aloja aquí únicamente por referencia operativa dentro del proyecto de Skindoctors CR. Los montos, fechas y estado de cobro deben coincidir siempre con el original.
+  </div>
+
+  <!-- PARTES -->
+  <div class="parties-row">
+    <div class="party-card">
+      <div class="party-title">Emitido por</div>
+      <div class="party-name">Apex Cloud Works</div>
+      <div class="party-detail">
+        Garett Johan Barrantes Benavides<br>
+        Cartago, Costa Rica<br>
+        apexcloudworkscompany@gmail.com<br>
+        +506 6314-4171
+      </div>
+    </div>
+    <div class="party-card">
+      <div class="party-title">Facturado a</div>
+      <div class="party-name">Skindoctors CR</div>
+      <div class="party-detail">
+        Andrés Loría<br>
+        Plaza Cristal, Curridabat, San José<br>
+        info@skindoctorscr.com<br>
+        +506 6314-4171
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="section-label">Detalle de servicios</div>
+  <table class="inv-table">
+    <thead>
+      <tr>
+        <th>Descripción</th>
+        <th style="text-align:center">Cant.</th>
+        <th>Precio unitario</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong>Landing page — Melasblock BB Cream</strong><br>
+          <span style="font-size:.75rem;color:rgba(232,224,216,.4)">Diseño, desarrollo HTML/CSS/JS · Deploy AWS S3 + CloudFront + SSL · Sistema de leads N8N + Google Sheets + Gmail API · Activa en producción</span>
+        </td>
+        <td style="text-align:center">1</td>
+        <td>$150.00 USD</td>
+        <td>$150.00 USD</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Landing page — CBD Oil Balance</strong><br>
+          <span style="font-size:.75rem;color:rgba(232,224,216,.4)">Diseño, desarrollo HTML/CSS/JS · Deploy AWS S3 + CloudFront + SSL · Sistema de leads N8N + Google Sheets · Activa en producción</span>
+        </td>
+        <td style="text-align:center">1</td>
+        <td>$150.00 USD</td>
+        <td>$150.00 USD</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Landing page — Producto #3 (a definir)</strong><br>
+          <span style="font-size:.75rem;color:rgba(232,224,216,.4)">Incluida en el paquete · Desarrollo pendiente de brief del cliente</span>
+        </td>
+        <td style="text-align:center">1</td>
+        <td>$150.00 USD</td>
+        <td>$150.00 USD</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Setup de infraestructura AWS</strong><br>
+          <span style="font-size:.75rem;color:rgba(232,224,216,.4)">Configuración S3 bucket · CloudFront CDN · SSL automático · Route 53 · IAM · Workflows N8N · Documentación técnica entregada</span>
+        </td>
+        <td style="text-align:center">1</td>
+        <td>Incluido</td>
+        <td>$0.00 USD</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Documentos legales (Skindoctors)</strong><br>
+          <span style="font-size:.75rem;color:rgba(232,224,216,.4)">Términos y Condiciones + Política de Privacidad · HTML · Activos en producción</span>
+        </td>
+        <td style="text-align:center">1</td>
+        <td>Incluido</td>
+        <td>$0.00 USD</td>
+      </tr>
+      <tr class="row-subtotal">
+        <td colspan="3">Subtotal</td>
+        <td>$450.00 USD</td>
+      </tr>
+      <tr class="row-subtotal">
+        <td colspan="3">Descuentos</td>
+        <td>$0.00 USD</td>
+      </tr>
+      <tr class="row-total">
+        <td colspan="3"><strong>TOTAL A PAGAR</strong></td>
+        <td><strong>$450.00 USD</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PAGOS -->
+  <div class="payment-block">
+    <div class="pay-card">
+      <div class="pay-card-title">Métodos de pago aceptados</div>
+      <div class="pay-card-methods">
+        <div class="pay-method">SINPE Móvil al +506 6314-4171 (Garett Barrantes)</div>
+        <div class="pay-method">Transferencia bancaria en USD (coordinar por WhatsApp)</div>
+        <div class="pay-method">Wise o PayPal (coordinar por WhatsApp)</div>
+      </div>
+    </div>
+    <div class="pay-card">
+      <div class="pay-card-title">Estado del cobro</div>
+      <div class="pay-summary">
+        <div class="pay-row">
+          <span class="pay-label">Total del contrato</span>
+          <span class="pay-val">$450.00 USD</span>
+        </div>
+        <div class="pay-row">
+          <span class="pay-label">Adelanto recibido (50%)</span>
+          <span class="pay-val paid">$0.00 USD</span>
+        </div>
+        <div class="pay-row">
+          <span class="pay-label">Saldo pendiente</span>
+          <span class="pay-val pending">$450.00 USD</span>
+        </div>
+        <div class="pay-row">
+          <span class="pay-label">Vence el</span>
+          <span class="pay-val">09 jul 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTA LEGAL -->
+  <div class="note-box">
+    <strong>Nota legal:</strong> Esta proforma tiene validez de <strong>15 días naturales</strong> desde su emisión (vence el 09 de julio de 2026). Los dos sitios en producción (Melasblock y CBD Oil Balance) permanecen activos durante ese período. Pasado ese plazo sin pago, Apex Cloud Works se reserva el derecho de suspender el acceso público a los sitios hasta recibir el pago completo, conforme a las condiciones del contrato CTR-2026-SKD-001. Para cualquier consulta: WhatsApp +506 6314-4171 o apexcloudworkscompany@gmail.com.
+  </div>
+
+  <!-- FOOTER DEL DOC -->
+  <div class="doc-footer">
+    <div class="doc-footer-brand">Apex <strong>Cloud Works</strong><br><span style="font-size:.72rem;color:rgba(255,255,255,.15)">Cartago, Costa Rica · 2026</span></div>
+    <div class="doc-footer-contact">
+      apexcloudworkscompany@gmail.com<br>
+      +506 6314-4171 · WhatsApp
+    </div>
+  </div>
+
+</div>
+
+<footer class="legal-footer">
+  Documento confidencial · Apex Cloud Works · PRF-2026-001 (espejo) · No publicar en sitio web ·
+  <a href="terminos.html">Términos</a> · <a href="politica-privacidad.html">Privacidad</a>
+</footer>
+
+</body>
+</html>

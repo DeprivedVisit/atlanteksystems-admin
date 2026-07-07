@@ -1,15 +1,15 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-#  deploy-ec2.sh — Apex Cloud Works.com
-#  Garett Barrantes Benavides · Curridabat, Costa Rica
+#  deploy-ec2.sh — Apex Cloud Works
+#  Garett Barrantes Benavides · Cartago, Costa Rica
 #  Ejecutar UNA SOLA VEZ en EC2 Ubuntu 22.04 LTS
 #  Uso: chmod +x deploy-ec2.sh && sudo ./deploy-ec2.sh
 # ══════════════════════════════════════════════════════════════
 set -e
-echo "🚀 Iniciando deploy de Apex Cloud Works.com en EC2..."
+echo "🚀 Iniciando deploy de Apex Cloud Works en EC2..."
 
 # ── Variables — CAMBIAR ANTES DE EJECUTAR ────────────────────
-DOMAIN="apex-cloudworks.com"
+DOMAIN="api.apexcloudworkcompany.com"
 DB_NAME="apex_cloudworks"
 DB_USER="apex_user"
 DB_PASS="$(openssl rand -base64 32)"  # Genera password seguro
@@ -77,12 +77,12 @@ echo "5. Migrar datos JSON → MySQL:"
 echo "   node scripts/migrate-json-to-mysql.js"
 echo ""
 echo "6. Configurar Nginx:"
-echo "   cp src/nginx.conf /etc/nginx/sites-available/apex-cloudworks"
+echo "   cp nginx.conf /etc/nginx/sites-available/apex-cloudworks"
 echo "   ln -s /etc/nginx/sites-available/apex-cloudworks /etc/nginx/sites-enabled/"
 echo "   nginx -t && systemctl reload nginx"
 echo ""
 echo "7. SSL con Certbot:"
-echo "   certbot --nginx -d $DOMAIN -d www.$DOMAIN"
+echo "   certbot --nginx -d $DOMAIN"
 echo ""
 echo "8. Iniciar con PM2:"
 echo "   pm2 start ecosystem.config.js --env production"

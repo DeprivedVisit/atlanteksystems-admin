@@ -48,7 +48,7 @@ aws cloudfront create-invalidation \
 ### Apex Landing
 | Recurso | Valor |
 |---------|-------|
-| Dominio | apexcloudworkscompany.com |
+| Dominio | apexcloudworkcompany.com |
 | Paleta | Gold/cream sobre `#060402` |
 | Admin | `/admin.html` — mock data |
 | Pendiente | Foto Garett + auth Cognito + Google Sheets |

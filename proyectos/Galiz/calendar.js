@@ -4,7 +4,7 @@ const CONFIG = {
   maxDaysAhead: 60,
   whatsappGaliz: '50663144171',
   sheetsUrl: 'https://script.google.com/macros/s/AKfycbzayD4JdAXic9EPfFwRANXYf2xzgd7i7NCriuH8_UvanYZSomvx8tGFj3BwGfgR_f82/exec',
-  adminPassword: 'Galiz2024',
+  adminToken: '', // se llena al pasar el login — el Apps Script es quien valida, nunca vive hardcodeado acá
 };
 
 const SERVICES = {
@@ -95,12 +95,12 @@ const Store = {
   async sheetsGet(action){
     if(!this.sheetsReady()) return null;
     try{ return await (await fetch(`${CONFIG.sheetsUrl}?action=${action}`)).json(); }
-    catch(e){ console.warn('GET:',e); return null; }
+    catch(e){ return null; }
   },
   async sheetsPost(body){
     if(!this.sheetsReady()) return;
     try{ await fetch(CONFIG.sheetsUrl,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body),redirect:'follow'}); }
-    catch(e){ console.warn('POST:',e); }
+    catch(e){}
   },
 
   async syncFromSheets(){
@@ -148,23 +148,30 @@ const Store = {
   async cancel(id){
     this._b=this.bookings().map(b=>b.id===id?{...b,status:'cancelada'}:b);
     localStorage.setItem('galiz_b',JSON.stringify(this._b));
-    await this.sheetsPost({action:'cancelBooking',id});
+    await this.sheetsPost({action:'cancelBooking',id,token:CONFIG.adminToken});
   },
   async complete(id){
     this._b=this.bookings().map(b=>b.id===id?{...b,status:'completada'}:b);
     localStorage.setItem('galiz_b',JSON.stringify(this._b));
-    await this.sheetsPost({action:'completeBooking',id});
+    await this.sheetsPost({action:'completeBooking',id,token:CONFIG.adminToken});
   },
   async updateClientNote(phone,note){
     const arr=this.clients(), idx=arr.findIndex(c=>c.phone.replace(/\D/g,'')===phone.replace(/\D/g,''));
     if(idx>=0){ arr[idx].notes=note; this._c=arr; localStorage.setItem('galiz_c',JSON.stringify(arr)); }
-    await this.sheetsPost({action:'updateClientNote',phone,note});
+    await this.sheetsPost({action:'updateClientNote',phone,note,token:CONFIG.adminToken});
   },
 
-  async blockDay(d){ const a=this.blockedDays(); if(!a.includes(d)){a.push(d);this._bl=a;localStorage.setItem('galiz_bl',JSON.stringify(a));} await this.sheetsPost({action:'blockDate',date:d}); },
-  async unblockDay(d){ const a=this.blockedDays().filter(x=>x!==d); this._bl=a; localStorage.setItem('galiz_bl',JSON.stringify(a)); await this.sheetsPost({action:'unblockDate',date:d}); },
-  async blockSlot(d,s){ const k=d+'|'+s,a=this.blockedSlots(); if(!a.includes(k)){a.push(k);localStorage.setItem('galiz_bls',JSON.stringify(a));} await this.sheetsPost({action:'blockSlot',date:d,slot:s}); },
-  async unblockSlot(d,s){ const a=this.blockedSlots().filter(x=>x!==d+'|'+s); localStorage.setItem('galiz_bls',JSON.stringify(a)); await this.sheetsPost({action:'unblockSlot',date:d,slot:s}); },
+  async blockDay(d){ const a=this.blockedDays(); if(!a.includes(d)){a.push(d);this._bl=a;localStorage.setItem('galiz_bl',JSON.stringify(a));} await this.sheetsPost({action:'blockDate',date:d,token:CONFIG.adminToken}); },
+  async unblockDay(d){ const a=this.blockedDays().filter(x=>x!==d); this._bl=a; localStorage.setItem('galiz_bl',JSON.stringify(a)); await this.sheetsPost({action:'unblockDate',date:d,token:CONFIG.adminToken}); },
+  async blockSlot(d,s){ const k=d+'|'+s,a=this.blockedSlots(); if(!a.includes(k)){a.push(k);localStorage.setItem('galiz_bls',JSON.stringify(a));} await this.sheetsPost({action:'blockSlot',date:d,slot:s,token:CONFIG.adminToken}); },
+  async unblockSlot(d,s){ const a=this.blockedSlots().filter(x=>x!==d+'|'+s); localStorage.setItem('galiz_bls',JSON.stringify(a)); await this.sheetsPost({action:'unblockSlot',date:d,slot:s,token:CONFIG.adminToken}); },
+
+  async checkAdminToken(token){
+    try {
+      const res = await fetch(CONFIG.sheetsUrl,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'checkAdminToken',token})});
+      return (await res.text()).trim() === 'OK';
+    } catch(e){ return false; }
+  },
 
   weekRevenue(){
     const sw=new Date(today); sw.setDate(today.getDate()-today.getDay());
@@ -559,8 +566,11 @@ const Admin = {
     setTimeout(()=>document.getElementById('admin-pw').focus(),80);
   },
 
-  checkPw(){
-    if(document.getElementById('admin-pw').value===CONFIG.adminPassword){
+  async checkPw(){
+    const pw = document.getElementById('admin-pw').value;
+    const ok = await Store.checkAdminToken(pw);
+    if(ok){
+      CONFIG.adminToken = pw;
       document.getElementById('admin-login').style.display='none';
       document.getElementById('admin-dash').style.display='block';
       this.startDash();

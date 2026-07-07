@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Cliente — Apex Cloud Works</title>
   <meta name="robots" content="noindex, nofollow">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/img/logo-mountain.png?v=1">
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/portal.css">
@@ -17,7 +17,7 @@
     <div class="login-card">
 
       <div class="login-logo">
-        <img src="../assets/img/logo.svg?v=5" alt="Apex">
+        <img src="../assets/img/logo-mountain.png?v=1" alt="Apex">
         <div>
           <div class="login-logo-text">APEX <span>CLOUD WORKS</span></div>
         </div>
@@ -55,7 +55,7 @@
           Ingresar al portal
         </button>
 
-        <div class="login-error" id="login-error"></div>
+        <div class="login-error" id="login-error" role="alert"></div>
       </form>
 
       <div class="login-footer">
@@ -66,7 +66,7 @@
     </div>
   </div>
 
-  <script>window.APEX_API_BASE = 'http://localhost:3000';</script>
+  <script src="../assets/js/env.js"></script>
   <script src="../assets/js/portal.js"></script>
   <script>
     // Si ya hay sesión activa, redirigir al dashboard

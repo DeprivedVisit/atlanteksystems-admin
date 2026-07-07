@@ -10,7 +10,7 @@
 // ─────────────────────────────────────────────
 
 const SPREADSHEET_ID = '1d4dVBf8Cb5m8sG72YWrEAUmpuBb7kxhYmrscHDh5cP0';
-const ADMIN_TOKEN     = 'apexAdmin2026!';
+const ADMIN_TOKEN     = 'fe7458021c94d9215fd97dd8b19076dd83c6e1e1b784cb5cd24084642c24011f';
 
 // ── HEADERS DE CADA HOJA ──
 const SHEET_HEADERS = {

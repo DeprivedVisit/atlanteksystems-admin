@@ -1,5 +1,5 @@
 # Auditoría Senior — Apex Cloud Works
-> **Proyecto:** `apexcloudworkscompany.com`  
+> **Proyecto:** `apexcloudworkcompany.com`  
 > **Fecha:** 25 junio 2026 · **Versión:** 1.0  
 > **Auditor:** Claude Sonnet 4.6 — Rol: Senior Web Auditor  
 > **Archivos analizados:** `index.html`, `style.css` (~1870 líneas), `script.js` (~280 líneas), `admin.html`, `portal/`, `Seguridad/`, `Legal/`
@@ -72,7 +72,7 @@
 
 ### Estado actual
 ```
-apexcloudworkscompany.com/
+apexcloudworkcompany.com/
 ├── index.html                    ← Landing principal
 ├── admin.html                    ← Panel interno (sin auth)
 ├── PRODUCT.md                    ← Contexto del skill (no debería deployarse)
@@ -98,7 +98,7 @@ apexcloudworkscompany.com/
 
 ### Arquitectura recomendada
 ```
-apexcloudworkscompany.com/
+apexcloudworkcompany.com/
 ├── index.html
 ├── admin.html
 ├── 404.html                      ← FALTA · necesario para CloudFront
@@ -226,10 +226,10 @@ Las reglas `.section-light .srv-card { background: #ffffff; }` y similares (lín
 | `og:title` | ✅ Presente | — |
 | `og:description` | ✅ Presente | — |
 | `og:image` | ❌ FALTA | Crear `assets/img/og-image.jpg` 1200x630px con logo + tagline. **Crítico para compartir en redes.** |
-| `og:url` | ❌ FALTA | Añadir `<meta property="og:url" content="https://apexcloudworkscompany.com/">` |
+| `og:url` | ❌ FALTA | Añadir `<meta property="og:url" content="https://apexcloudworkcompany.com/">` |
 | `og:type` | ❌ FALTA | Añadir `<meta property="og:type" content="website">` |
 | Twitter Card | ❌ FALTA | Añadir `twitter:card`, `twitter:title`, `twitter:image` |
-| `canonical` URL | ❌ FALTA | `<link rel="canonical" href="https://apexcloudworkscompany.com/">` |
+| `canonical` URL | ❌ FALTA | `<link rel="canonical" href="https://apexcloudworkcompany.com/">` |
 | `robots.txt` | ❌ FALTA | Crear con: `User-agent: * / Allow: / / Disallow: /admin.html / Disallow: /portal/` |
 | `sitemap.xml` | ❌ FALTA | Crear con las páginas principales. Subir a S3 y registrar en Google Search Console |
 | Schema.org `LocalBusiness` | ❌ FALTA | Agregar JSON-LD con nombre, dirección (Cartago CR), teléfono, servicios |

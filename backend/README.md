@@ -1,22 +1,27 @@
 # Apex Cloud Works — Backend
 
 > Node.js 20 + MySQL 8.0 + EC2 + Nginx + PM2 + SSL
-> Migrado desde Loop-Landing.com
 
 ## Stack
+
+**Instalado (ver `package.json`):**
 - Runtime: Node.js 20 LTS
 - Framework: Express.js 4.22
 - DB: MySQL 8.0 (mysql2)
-- Auth: bcryptjs + sessions
+- Auth: bcryptjs + express-session (express-mysql-session)
+- CORS: cors
+- Config: dotenv
+- Proxy: Nginx
+- Process: PM2
+- SSL: Let's Encrypt
+
+**Planeado, NO instalado todavía** (no confundir con capacidad real — agregar la dependencia antes de asumir que existe):
 - Real-time: Socket.io
 - Pagos: Stripe Checkout
 - Email: Nodemailer
 - PDF: PDFKit
 - Notif: Telegram Bot
-- Files: AWS S3
-- Proxy: Nginx
-- Process: PM2
-- SSL: Let's Encrypt
+- Files: AWS S3 (usar IAM Role cuando se agregue, no keys)
 
 ## Deploy en EC2
 ```bash

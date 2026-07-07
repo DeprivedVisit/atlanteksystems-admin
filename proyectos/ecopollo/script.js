@@ -519,10 +519,7 @@ async function doRegister() {
 
 function cerrarSesion() {
   clearSession();
-  setNavLoggedIn(null);
-  const drop = document.getElementById('navUserDropdown');
-  if (drop) drop.style.display = 'none';
-  dropdownOpen = false;
+  window.location.reload();
 }
 
 // ── CARRITO ───────────────────────────────────────────────────────────────────

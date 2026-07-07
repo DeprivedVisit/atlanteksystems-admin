@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Términos y Condiciones — EcoPollo</title>
+<meta name="description" content="Términos y condiciones de EcoPollo: venta y entrega de pollo fresco en Costa Rica."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;color:#2d3a34;background:#f8f5f0;line-height:1.7}
+a{color:#e08a3e;text-decoration:underline}
+a:hover{color:#c9702a}
+.container{width:min(760px,92%);margin-inline:auto;padding-block:4rem}
+.navbar{background:#1b4332;padding:1rem 0;position:sticky;top:0;z-index:100}
+.nav-inner{width:min(760px,92%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Syne',system-ui,sans-serif;font-weight:800;font-size:1.15rem;color:#fff;text-decoration:none}
+.nav-logo span{color:#f4a261}
+.nav-back{font-size:.78rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:#f4a261}
+.legal-hero{background:linear-gradient(135deg,#1b4332 0%,#0f2b1e 100%);padding:4rem 0 3rem;color:#fff}
+.legal-hero .inner{width:min(760px,92%);margin-inline:auto}
+.legal-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#f4a261;opacity:.85;margin-bottom:.75rem}
+.legal-title{font-family:'Syne',system-ui,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:.85rem}
+.legal-meta{font-size:.78rem;color:rgba(255,255,255,.5);display:flex;gap:1.5rem;flex-wrap:wrap}
+.legal-body{display:flex;flex-direction:column;gap:2rem}
+.legal-section{background:#fff;border-radius:16px;padding:1.75rem 2rem;border:1px solid #e4dcc8}
+.legal-section h2{font-family:'Syne',system-ui,sans-serif;font-size:1.1rem;font-weight:700;color:#1b4332;margin-bottom:.85rem;padding-bottom:.6rem;border-bottom:1px solid #e4dcc8}
+.legal-section h3{font-size:.88rem;font-weight:700;color:#e08a3e;margin:.85rem 0 .35rem}
+.legal-section p{font-size:.86rem;line-height:1.78;color:#5a6b62;margin-bottom:.7rem}
+.legal-section p:last-child{margin-bottom:0}
+.legal-section ul{padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem;margin-bottom:.7rem}
+.legal-section ul li{font-size:.86rem;line-height:1.68;color:#5a6b62}
+.legal-section ul li::marker{color:#e08a3e}
+.highlight-box{background:#f8f5f0;border:1px solid #e4dcc8;border-left:3px solid #e08a3e;border-radius:0 10px 10px 0;padding:.85rem 1.1rem;font-size:.82rem;color:#4a5a52;line-height:1.68;margin-top:.75rem}
+.highlight-box.alert{background:rgba(220,80,50,.05);border-color:rgba(220,80,50,.25);border-left-color:#d4502f;color:#8a3a24}
+.pricing-table{width:100%;border-collapse:collapse;margin:.75rem 0}
+.pricing-table th{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a9a90;padding:.5rem .75rem;text-align:left;border-bottom:1px solid #e4dcc8}
+.pricing-table td{font-size:.82rem;color:#5a6b62;padding:.55rem .75rem;border-bottom:1px solid #f0ece0}
+.pricing-table tr:last-child td{border-bottom:none}
+.pricing-table td:last-child{font-weight:700;color:#e08a3e;text-align:right}
+.zone-table{width:100%;border-collapse:collapse;margin:.75rem 0}
+.zone-table th{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a9a90;padding:.5rem .75rem;text-align:left;border-bottom:1px solid #e4dcc8}
+.zone-table td{font-size:.82rem;color:#5a6b62;padding:.55rem .75rem;border-bottom:1px solid #f0ece0}
+.zone-table tr:last-child td{border-bottom:none}
+.fill{color:#e08a3e;font-style:italic}
+.contact-card{background:linear-gradient(135deg,#1b4332,#0f2b1e);color:#fff;border-radius:16px;padding:2rem;text-align:center}
+.contact-card h2{font-family:'Syne',system-ui,sans-serif;font-size:1.1rem;font-weight:700;color:#f4a261;margin-bottom:.5rem}
+.contact-card p{font-size:.84rem;color:rgba(255,255,255,.6);margin-bottom:1.25rem}
+.contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.contact-link{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.25rem;border-radius:50px;font-size:.8rem;font-weight:700;text-decoration:none;transition:all .2s}
+.contact-link.wa{background:#25D366;color:#fff}
+.contact-link.wa:hover{background:#1ea855}
+.contact-link.email{background:rgba(255,255,255,.1);color:#f4a261;border:1px solid rgba(255,255,255,.2)}
+.contact-link.email:hover{background:rgba(255,255,255,.18)}
+.legal-footer{background:#1b4332;color:rgba(255,255,255,.4);text-align:center;padding:1.75rem 1rem;font-size:.72rem;margin-top:3rem}
+.legal-footer a{color:#f4a261;opacity:.7}
+@media(max-width:600px){.legal-section{padding:1.25rem 1.1rem}.container{padding-block:2.5rem}.legal-hero{padding:2.5rem 0 2rem}.pricing-table td:last-child,.zone-table td:last-child{text-align:left}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Eco<span>Pollo</span></a>
+    <a href="javascript:history.back()" class="nav-back">← Volver</a>
+  </div>
+</nav>
+
+<div class="legal-hero">
+  <div class="inner">
+    <div class="legal-eyebrow">EcoPollo · Documentos legales</div>
+    <h1 class="legal-title">Términos y Condiciones</h1>
+    <div class="legal-meta">
+      <span>Última actualización: julio 2026</span>
+      <span>Versión 1.0</span>
+      <span>Vigencia: inmediata</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="legal-body">
+
+    <div class="legal-section">
+      <h2>1. Identificación del negocio</h2>
+      <ul>
+        <li><strong>Nombre comercial:</strong> EcoPollo</li>
+        <li><strong>Titular / responsable:</strong> <span class="fill">[NOMBRE COMPLETO DEL TITULAR]</span></li>
+        <li><strong>Actividad:</strong> Distribución y venta de pollo fresco y productos avícolas al consumidor final</li>
+        <li><strong>Zona de operación:</strong> Cartago y Gran Área Metropolitana, Costa Rica</li>
+        <li><strong>WhatsApp:</strong> +506 8888-0000</li>
+        <li><strong>Correo:</strong> ecopollo@gmail.com</li>
+        <li><strong>Instagram:</strong> @ecopollo_cr</li>
+      </ul>
+      <p>Al utilizar el cotizador en línea, nuestro WhatsApp o realizar un pedido con EcoPollo, usted acepta estos términos y condiciones en su totalidad.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>2. Productos y precios</h2>
+      <p>Todos los precios están expresados en <strong>colones costarricenses (₡)</strong> por kilogramo y pueden variar sin previo aviso según el precio de mercado del pollo. El precio mostrado en el cotizador es referencial; el precio final se confirma al coordinar el pedido por WhatsApp.</p>
+      <table class="pricing-table">
+        <thead>
+          <tr><th>Producto</th><th>Precio referencial</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pollo entero</td><td>₡1,950/kg</td></tr>
+          <tr><td>Pollo limpio</td><td>₡2,100/kg</td></tr>
+          <tr><td>Pechuga con hueso</td><td>₡2,800/kg</td></tr>
+          <tr><td>Pechuga deshuesada</td><td>₡3,025/kg</td></tr>
+          <tr><td>Muslo entero</td><td>₡1,475/kg</td></tr>
+          <tr><td>Cuarto de muslo</td><td>₡1,800/kg</td></tr>
+          <tr><td>Ala entera</td><td>₡2,250/kg</td></tr>
+          <tr><td>Trocito corriente</td><td>₡1,800/kg</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. Proceso de pedido y cotización</h2>
+      <p>El cotizador en línea le permite armar una cotización estimada en minutos: producto, cantidad, zona de entrega y datos de contacto. Al finalizar, el pedido se envía por WhatsApp para su confirmación.</p>
+      <p>Un pedido se considera <strong>confirmado</strong> únicamente cuando el cliente y EcoPollo acuerdan explícitamente por WhatsApp: producto, cantidad, precio final, zona/dirección de entrega y fecha u horario de entrega. La cotización web por sí sola no genera obligación de compra ni de venta.</p>
+      <div class="highlight-box">Respondemos las cotizaciones enviadas por el sitio en menos de 2 horas durante horario de atención.</div>
+    </div>
+
+    <div class="legal-section">
+      <h2>4. Zonas y condiciones de entrega</h2>
+      <table class="zone-table">
+        <thead>
+          <tr><th>Zona</th><th>Condición</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cartago</td><td>Entrega sin costo</td></tr>
+          <tr><td>San José</td><td>Coordinamos flete</td></tr>
+          <tr><td>Heredia</td><td>Coordinamos flete</td></tr>
+          <tr><td>Alajuela</td><td>Coordinamos flete</td></tr>
+          <tr><td>Limón</td><td>Consultar disponibilidad</td></tr>
+          <tr><td>Otras zonas</td><td>Coordinamos juntos por WhatsApp</td></tr>
+        </tbody>
+      </table>
+      <p>El día y horario exacto de entrega se coordina con el cliente por WhatsApp una vez confirmado el pedido. EcoPollo mantiene la cadena de frío del producto hasta el momento de la entrega.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>5. Métodos de pago aceptados</h2>
+      <ul>
+        <li><span class="fill">[MÉTODOS DE PAGO A CONFIRMAR — ej. SINPE Móvil, efectivo contra entrega, transferencia bancaria]</span></li>
+      </ul>
+      <p>El método de pago se acuerda con el cliente al confirmar el pedido por WhatsApp.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>6. Política de cambios y devoluciones — producto perecedero</h2>
+      <p>El pollo y sus derivados son <strong>productos frescos y perecederos</strong>. Por razones de higiene y seguridad alimentaria, no se aceptan devoluciones de producto una vez entregado y recibido conforme por el cliente.</p>
+      <h3>Reclamos por producto en mal estado</h3>
+      <p>Si el producto presenta un problema de calidad o frescura, debe reportarse a EcoPollo dentro de las <strong>2 horas siguientes</strong> a la entrega, adjuntando evidencia fotográfica por WhatsApp. Evaluaremos cada caso de forma individual y, de confirmarse el defecto, se ofrecerá reposición del producto o el reembolso correspondiente.</p>
+      <h3>Errores en el pedido</h3>
+      <p>Si el producto entregado no corresponde a lo pedido (producto o cantidad equivocada), el cambio se gestiona sin costo siempre que se reporte el mismo día de la entrega.</p>
+      <div class="highlight-box alert">Por tratarse de alimento fresco, no se aceptan devoluciones por cambio de opinión una vez coordinada y realizada la entrega.</div>
+    </div>
+
+    <div class="legal-section">
+      <h2>7. Cancelaciones</h2>
+      <p>El cliente puede cancelar un pedido <strong>sin costo</strong> siempre que se notifique antes de que el producto haya salido para su entrega. Una vez despachado el pedido, no aplica cancelación ni reembolso, salvo error atribuible a EcoPollo.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>8. Cuenta de usuario</h2>
+      <p>El sitio permite crear una cuenta para ver el historial de pedidos y guardar la dirección de entrega. Esto es opcional: usted puede cotizar y pedir como invitado sin necesidad de registrarse.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>9. Propiedad intelectual</h2>
+      <p>Todo el contenido del sitio (textos, imágenes, catálogo, logo) es propiedad de EcoPollo. El diseño y desarrollo web fue realizado por <strong>Apex Cloud Works</strong> y está protegido por derechos de autor. Queda prohibida su reproducción total o parcial sin autorización.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>10. Ley aplicable</h2>
+      <p>Estos términos se rigen por las leyes de la <strong>República de Costa Rica</strong>. Ante cualquier disputa, las partes buscarán resolverla primero de buena fe por WhatsApp o correo. De no llegar a acuerdo, corresponde a los tribunales competentes de Costa Rica.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>11. Modificaciones</h2>
+      <p>Estos términos pueden actualizarse en cualquier momento. La versión vigente estará siempre disponible en <strong>este sitio web</strong>.</p>
+    </div>
+
+    <div class="contact-card">
+      <h2>¿Dudas sobre nuestros términos?</h2>
+      <p>Respondemos en menos de 2 horas por WhatsApp</p>
+      <div class="contact-links">
+        <a href="https://wa.me/50688880000?text=Hola%2C%20tengo%20una%20consulta%20sobre%20los%20t%C3%A9rminos%20de%20EcoPollo" target="_blank" rel="noopener" class="contact-link wa">💬 WhatsApp</a>
+        <a href="mailto:ecopollo@gmail.com" class="contact-link email">✉️ Correo</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="legal-footer">
+  © 2026 EcoPollo · Costa Rica · <a href="politica-privacidad.html">Política de Privacidad</a> · Desarrollado por <a href="https://apexcloudworkcompany.com" target="_blank" rel="noopener">Apex Cloud Works</a>
+</footer>
+
+</body>
+</html>

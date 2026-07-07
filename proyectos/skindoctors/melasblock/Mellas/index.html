@@ -1005,7 +1005,7 @@ section{padding:7rem 0}
     </div>
     <div class="footer-bottom">
       <span>© 2026 Skindoctors CR · Todos los derechos reservados</span>
-      <span class="footer-dev">Desarrollado por <a href="https://apexcloudworkscompany.com" target="_blank" rel="noopener noreferrer">Apex Cloud Works</a> — Cartago, Costa Rica</span>
+      <span class="footer-dev">Desarrollado por <a href="https://apexcloudworkcompany.com" target="_blank" rel="noopener noreferrer">Apex Cloud Works</a> — Cartago, Costa Rica</span>
     </div>
   </div>
 </footer>
@@ -1105,7 +1105,10 @@ section{padding:7rem 0}
 // ═══════════════════════════════════════════
 const WA_NUMBER = '50663144171'; // Cambiar al número de Skindoctors al firmar
 
-// N8N Webhook — pegá la URL del nodo Webhook de tu flujo N8N aquí:
+// N8N Webhook — TODO Garett: este Apps Script no vive en el repo (solo en el editor
+// de Google), así que hay que agregarle a mano la misma función notifyLead() con
+// MailApp.sendEmail() que ya se agregó al de CBD Balance (apps-script.gs). Una vez
+// confirmado con un lead real que el correo llega, borrar este bloque y su llamada.
 const N8N_WEBHOOK = 'https://apexcloudworkscompany.app.n8n.cloud/webhook/6dfdd8e0-8ce5-4159-a433-1849fc1fe06e';
 
 // Google Apps Script (respaldo — si N8N no está activo, sigue funcionando):

@@ -28,12 +28,12 @@
   /* ── Texto — cool whites (acero, no crema) ── */
   --text:     #E8ECF0;
   --text2:    #8A9AAA;
-  --text3:    #5A6A7A;
+  --text3:    #6E7E8E; /* aclarado 05 jul 2026 — el valor anterior daba ~3.55:1 sobre --bg, bajo el mínimo AA de 4.5:1 en texto pequeño */
 
   /* ── Utilidades ── */
   --green:    #4ADE80;
   --blue:     #60A5FA;
-  --red:      #F87171;
+  --red-alert: #F87171;
   --tap:      48px;
 
   /* ── Spacing (4px base) ── */
@@ -64,7 +64,7 @@
   --z-raised:   10;
   --z-float:    20;
   --z-toast:    90;
-  --z-overlay:  97;
+  --z-overlay:  250; /* por encima del chrome de admin (sidebar 150) y portal (header 100) */
   --z-dropdown: 98;
   --z-nav:      99;
 

@@ -2,33 +2,47 @@
   "owner": "Garett",
   "timezone": "America/Costa_Rica",
   "version": "5.0",
-  "notes": "Rutina v5.0 — Desde jueves 4 junio 2026. Alineado con CLAUDE.md v11.0.",
+  "notes": "Rutina v7.0 — Rediseño psicológico/productividad. Prueba desde viernes 5 julio 2026, oficial desde lunes 8 julio 2026. Alineado con CLAUDE.md v13.3. Sin madrugada — todo consolidado en horario diurno/noche temprana. Cada bloque de proyecto tiene un tipo de tarea fijo distinto (rompe monotonía sin tocar duración). Balance del día ahora incluye métricas duras (plata/leads/líneas), no solo bloques tachados.",
+  "diagnostico_previo": {
+    "problema_real": "No es cansancio físico ni aislamiento — es monotonía (5 bloques idénticos día tras día) y falta de sensación de avance real",
+    "solucion_aplicada": "Cada bloque de proyecto tiene un rol fijo distinto + registro diario de números concretos en vez de checklist genérico",
+    "sueño": "Irregular — se agrega rutina de cierre/wind-down 10 min antes de dormir para generar consistencia"
+  },
   "schedule": [
-    { "id": "wake",        "time": "07:00", "duration_min": 15,  "title": "Despertar + Noticias inglés",                "type": "morning",   "reminder_min": 0 },
-    { "id": "ritual",      "time": "07:15", "duration_min": 30,  "title": "Ritual — Café",                             "type": "morning",   "reminder_min": 5 },
-    { "id": "breakfast",   "time": "07:45", "duration_min": 15,  "title": "Desayuno + Agenda del día",                 "type": "morning",   "reminder_min": 5 },
-    { "id": "work1",       "time": "08:00", "duration_min": 120, "title": "PROYECTO — Bloque 1",                       "type": "work",      "reminder_min": 5 },
-    { "id": "netacad",     "time": "10:00", "duration_min": 60,  "title": "Netacad",                                   "type": "learning",  "reminder_min": 5 },
-    { "id": "openenglish", "time": "11:00", "duration_min": 60,  "title": "Open English",                              "type": "learning",  "reminder_min": 5 },
-    { "id": "lunch",       "time": "12:00", "duration_min": 45,  "title": "Almuerzo sin pantalla",                     "type": "break",     "reminder_min": 5 },
-    { "id": "work2",       "time": "12:45", "duration_min": 120, "title": "PROYECTO — Bloque 2",                       "type": "work",      "reminder_min": 5 },
-    { "id": "jsreact",     "time": "14:45", "duration_min": 60,  "title": "JS/React — Video + Práctica",               "type": "learning",  "reminder_min": 5 },
-    { "id": "work3",       "time": "15:45", "duration_min": 120, "title": "PROYECTO — Bloque 3",                       "type": "work",      "reminder_min": 5 },
-    { "id": "exercise",    "time": "17:45", "duration_min": 75,  "title": "Bici / Clase (según día)",                  "type": "health",    "reminder_min": 10 },
-    { "id": "work4",       "time": "19:00", "duration_min": 120, "title": "PROYECTO — Bloque 4",                       "type": "work",      "reminder_min": 5 },
-    { "id": "work5",       "time": "21:00", "duration_min": 90,  "title": "PROYECTO — Bloque 5 Sprint",                "type": "work",      "reminder_min": 5 },
-    { "id": "english",     "time": "22:30", "duration_min": 30,  "title": "Inglés nocturno — Serie sin subtítulos",    "type": "learning",  "reminder_min": 5 },
-    { "id": "codewars",    "time": "23:00", "duration_min": 30,  "title": "Codewars — 1 kata",                         "type": "learning",  "reminder_min": 5 },
-    { "id": "review",      "time": "23:30", "duration_min": 20,  "title": "Balance del día",                           "type": "planning",  "reminder_min": 5 },
-    { "id": "minecraft",   "time": "23:50", "duration_min": 10,  "title": "Minecraft",                                 "type": "free",      "reminder_min": 0 },
-    { "id": "sleep",       "time": "00:00", "duration_min": 420, "title": "Dormir 7h",                                 "type": "sleep",     "reminder_min": 0 }
+    { "id": "wake",        "time": "06:00", "duration_min": 15,  "title": "Despertar + Noticias inglés",                          "type": "morning",   "reminder_min": 0 },
+    { "id": "ritual",      "time": "06:15", "duration_min": 30,  "title": "Ritual — Café",                                       "type": "morning",   "reminder_min": 5 },
+    { "id": "breakfast",   "time": "06:45", "duration_min": 15,  "title": "Desayuno + Agenda del día",                           "type": "morning",   "reminder_min": 5 },
+    { "id": "work1",       "time": "07:00", "duration_min": 120, "title": "BLOQUE 1 — BUILD",                                    "type": "work",      "task_role": "Lo más difícil/técnico del día. Mente fresca = feature dif​ícil, no admin.", "reminder_min": 5 },
+    { "id": "netacad",     "time": "09:00", "duration_min": 60,  "title": "Netacad",                                             "type": "learning",  "reminder_min": 5 },
+    { "id": "openenglish", "time": "10:00", "duration_min": 60,  "title": "Open English",                                        "type": "learning",  "reminder_min": 5 },
+    { "id": "lunch",       "time": "11:00", "duration_min": 45,  "title": "Almuerzo sin pantalla",                               "type": "break",     "reminder_min": 5 },
+    { "id": "work2",       "time": "11:45", "duration_min": 120, "title": "BLOQUE 2 — VENTAS / CIERRE",                          "type": "work",      "task_role": "WhatsApp a clientes, seguimiento de cobros, outreach a negocios nuevos. Nada de código.", "reminder_min": 5 },
+    { "id": "jsreact",     "time": "13:45", "duration_min": 60,  "title": "JS/React — Video + Práctica",                         "type": "learning",  "reminder_min": 5 },
+    { "id": "work3",       "time": "14:45", "duration_min": 120, "title": "BLOQUE 3 — CLIENTE ACTIVO",                           "type": "work",      "task_role": "Proyecto prioritario de la semana (rota: Skindoctors/EcoPollo/RFLX/Apex).", "reminder_min": 5 },
+    { "id": "exercise",    "time": "16:45", "duration_min": 75,  "title": "Bici / Clase (según día)",                            "type": "health",    "reminder_min": 10 },
+    { "id": "work4",       "time": "18:00", "duration_min": 120, "title": "BLOQUE 4 — AUTOMATIZACIÓN / SEGURIDAD",               "type": "work",      "task_role": "Wilson, n8n, Apex admin/seguridad (tokens.css, críticos de seguridad pendientes).", "reminder_min": 5 },
+    { "id": "work5",       "time": "20:00", "duration_min": 75,  "title": "BLOQUE 5 — REMATE / SPRINT",                          "type": "work",      "task_role": "QA, deploy, lo que quedó pendiente del día. Cierre, no cosas nuevas.", "reminder_min": 5 },
+    { "id": "english",     "time": "21:15", "duration_min": 30,  "title": "Inglés nocturno — Serie sin subtítulos",              "type": "learning",  "reminder_min": 5 },
+    { "id": "cursoscloud", "time": "21:45", "duration_min": 45,  "title": "Cursos Cloud/IA — Anthropic Skilljar + AWS",          "type": "learning",  "reminder_min": 5 },
+    { "id": "review",      "time": "22:30", "duration_min": 10,  "title": "Balance del día — números concretos (plata/leads/líneas)", "type": "planning", "reminder_min": 5 },
+    { "id": "minecraft",   "time": "22:40", "duration_min": 10,  "title": "Minecraft",                                           "type": "free",      "reminder_min": 0 },
+    { "id": "winddown",    "time": "22:50", "duration_min": 10,  "title": "Cierre — apagar pantallas, luz baja",                 "type": "winddown",  "reminder_min": 0 },
+    { "id": "sleep",       "time": "23:00", "duration_min": 420, "title": "Dormir 7h",                                           "type": "sleep",     "reminder_min": 0 }
   ],
   "learning_blocks": {
     "morning_1": { "id": "netacad",      "platform": "Netacad",        "url": "https://netacad.com" },
     "morning_2": { "id": "openenglish",  "platform": "Open English",   "url": "https://openenglish.com" },
     "afternoon": { "id": "jsreact",      "platform": "JS/React videos" },
     "night_1":   { "id": "english",      "platform": "Serie sin subtítulos" },
-    "night_2":   { "id": "codewars",     "platform": "Codewars",       "url": "https://codewars.com" }
+    "night_2":   { "id": "cursoscloud",  "platform": "Anthropic Skilljar + AWS Skill Builder",
+      "orden": [
+        { "curso": "Claude Platform 101",        "plataforma": "Anthropic Skilljar", "url": "https://anthropic.skilljar.com/claude-platform-101" },
+        { "curso": "Building with the Claude API","plataforma": "Anthropic Skilljar", "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api" },
+        { "curso": "Introduction to Model Context Protocol", "plataforma": "Anthropic Skilljar", "url": "https://anthropic.skilljar.com/introduction-to-model-context-protocol" },
+        { "curso": "Claude with Amazon Bedrock",  "plataforma": "Anthropic Skilljar", "url": "https://anthropic.skilljar.com/claude-in-amazon-bedrock" },
+        { "curso": "AWS Skill Builder — S3/CloudFront security + WAF", "plataforma": "AWS Skill Builder", "url": "https://skillbuilder.aws" }
+      ]
+    }
   },
   "work_blocks": ["work1", "work2", "work3", "work4", "work5"],
   "classes": {

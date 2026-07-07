@@ -76,7 +76,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
     <div class="eyebrow">Apex Cloud Works · Seguridad Operacional</div>
     <h1 class="hero-title">Política de <strong>Seguridad</strong></h1>
     <div class="hero-meta">
-      <span>Versión 1.0 · junio 2026</span>
+      <span>Versión 1.1 · julio 2026</span>
       <span>Revisión mensual</span>
       <span>Solo uso interno — Garett Barrantes</span>
     </div>
@@ -108,11 +108,11 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         </div>
       </div>
 
-      <div class="check-item warn">
-        <span class="chk">⚠</span>
+      <div class="check-item done">
+        <span class="chk">✓</span>
         <div class="check-label">
           <strong>Tokens no hardcodeados en JS público</strong>
-          <span>Ningún secret, token de API, ni clave de acceso en archivos .js del cliente. Usar Apps Script intermediario o Cognito. <em>admin.js actualmente tiene token ofuscado — migrar a Cognito cuando UserPool esté activo.</em></span>
+          <span>Resuelto — <span class="code">backend/</span> (Express + MySQL + bcrypt + sessions) mueve el token de Apps Script y la contraseña admin al servidor. <span class="code">admin.js</span> ya no trae ningún secreto, solo llama a <span class="code">/api/admin/gs</span> con sesión. Pendiente: apuntar <span class="code">env.js</span> a la API real una vez que <span class="code">api.apexcloudworkcompany.com</span> esté deployado.</span>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <span class="chk">○</span>
         <div class="check-label">
           <strong>N8N webhooks con token de autenticación</strong>
-          <span>Cada webhook de N8N debe validar un <span class="code">token</span> en los headers o body. Sin token = rechazar con 401.</span>
+          <span>Verificado 06/07/2026 — los 4 workflows reales exportados (<span class="code">n8n-workflow-ecopollo.json</span>, <span class="code">n8n-galiz.json</span>, <span class="code">n8n-workflow-cbd.json</span>, <span class="code">n8n-workflow-melasblock.json</span>) tienen <span class="code">authentication: "none"</span> en el nodo Webhook. Acción pendiente (manual, en n8n.cloud — no se resuelve editando el JSON exportado): entrar a cada workflow → nodo Webhook → agregar credencial Header Auth → redeploy/activar de nuevo.</span>
         </div>
       </div>
 
@@ -136,7 +136,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <span class="chk">○</span>
         <div class="check-label">
           <strong>Google Sheets con permisos restringidos</strong>
-          <span>Sheets de leads = acceso solo a la cuenta de servicio de N8N y al email de Garett. Nunca compartir públicamente.</span>
+          <span>Revisar puntualmente los Sheets de leads de EcoPollo, Galiz, CBD Balance, Melasblock y Skindoctors: Compartir → confirmar que solo la cuenta de servicio de N8N y el email de Garett tengan acceso. (Este ítem también aparece en la revisión mensual — no duplicar el chequeo, solo asegurarse de que se hizo al menos una vez la primera pasada.)</span>
         </div>
       </div>
 
@@ -152,7 +152,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <span class="chk">○</span>
         <div class="check-label">
           <strong>Código fuente no en repositorio público</strong>
-          <span>GitHub repos de clientes = privados. El código de Apex Cloud Works no se publica sin autorización del cliente.</span>
+          <span>No verificable desde el repo local. Acción pendiente: entrar a github.com/apexcloudworkcompany y confirmar manualmente que cada repo de cliente está en modo Private (Settings → General → Danger Zone → Change visibility si alguno quedó público).</span>
         </div>
       </div>
 
@@ -160,15 +160,15 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <span class="chk">○</span>
         <div class="check-label">
           <strong>AWS IAM: principio de mínimo privilegio</strong>
-          <span>El usuario IAM de deploy solo tiene permisos sobre los buckets S3 correspondientes y la distribución CloudFront del proyecto. No usar el root account para operaciones de deploy.</span>
+          <span>Sin infraestructura como código en el repo — es trabajo 100% manual de consola. Acción pendiente: AWS Console → IAM → Users → confirmar que el usuario de deploy no tiene <span class="code">AdministratorAccess</span>, solo permisos scoped a los buckets S3 y la distribución CloudFront correspondientes.</span>
         </div>
       </div>
 
-      <div class="check-item">
-        <span class="chk">○</span>
+      <div class="check-item done">
+        <span class="chk">✓</span>
         <div class="check-label">
           <strong>Sin console.log() en producción</strong>
-          <span>Remover todos los <span class="code">console.log</span>, <span class="code">console.error</span> y datos de debug antes del deploy final.</span>
+          <span>Limpiado 06/07/2026 — se removieron los 3 <span class="code">console.error</span>/<span class="code">console.warn</span> que quedaban en <span class="code">admin.js</span> y <span class="code">Galiz/calendar.js</span>. Verificar de nuevo antes de cada deploy grande.</span>
         </div>
       </div>
 
@@ -176,7 +176,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <span class="chk">○</span>
         <div class="check-label">
           <strong>CloudFront headers de seguridad activos</strong>
-          <span>Response Headers Policy debe incluir: <span class="code">X-Content-Type-Options</span>, <span class="code">X-Frame-Options: DENY</span>, <span class="code">Strict-Transport-Security</span>.</span>
+          <span>Response Headers Policy debe incluir: <span class="code">X-Content-Type-Options</span>, <span class="code">X-Frame-Options: DENY</span>, <span class="code">Strict-Transport-Security</span>. Acción: CloudFront → Distributions → seleccionar la distribución → Behaviors → editar → Response headers policy → asignar una policy con esos headers. Nota: los headers ya configurados en <span class="code">backend/nginx.conf</span> solo cubren el subdominio <span class="code">api.</span> (Node/EC2) — los sitios estáticos en S3+CloudFront necesitan esta policy aparte.</span>
         </div>
       </div>
 
@@ -294,7 +294,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
       <div class="incident-step">
         <div class="incident-body">
           <strong>Rotar todos los tokens relacionados</strong>
-          Cambiar contraseña del panel admin (<span class="code">localStorage.removeItem('apx_g_v1')</span> en DevTools y configurar nueva clave). Actualizar token en admin.js y Apps Script.
+          Generar nuevo hash de contraseña admin (<span class="code">node -e "console.log(require('bcryptjs').hashSync('NUEVA_PASSWORD', 10))"</span>) y actualizar <span class="code">ADMIN_PASSWORD_HASH</span> en <span class="code">.env</span>. Rotar también <span class="code">APPS_SCRIPT_ADMIN_TOKEN</span> y <span class="code">SESSION_SECRET</span> en <span class="code">.env</span>, y reiniciar el backend (<span class="code">pm2 restart</span>) para invalidar todas las sesiones activas.
         </div>
       </div>
       <div class="incident-step">

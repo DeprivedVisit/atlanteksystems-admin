@@ -1,5 +1,5 @@
 # 🧠 CLAUDE.md — Garett Barrantes Benavides
-> Memoria permanente · Versión 12.0 · 24 Junio 2026
+> Memoria permanente · Versión 13.5 · 04 Julio 2026
 > Leer completo antes de cualquier sesión.
 
 ---
@@ -13,7 +13,7 @@
 | **Nacimiento** | 25/09/1998 — 27 años |
 | **Origen** | Guápiles, Pococí, Limón, Costa Rica |
 | **Base** | Cartago — Barrio Ánimas · ₡250,000/mes · 2 cuartos · cochera · nuevo |
-| **Email empresa** | apexcloudworkscompany@gmail.com |
+| **Email empresa** | apexcloudworkcompany@gmail.com |
 | **Email personal** | garettjohan12@gmail.com |
 | **Modo** | Home Office · madrugada = zona de flujo natural |
 | **Visión** | 35 años → CEO empresa propia automatizada |
@@ -73,8 +73,8 @@
 | Campo | Dato |
 |-------|------|
 | **Nombre** | Apex Cloud Works |
-| **Email** | apexcloudworkscompany@gmail.com |
-| **Dominio** | apexcloudworkscompany.com |
+| **Email** | apexcloudworkcompany@gmail.com |
+| **Dominio** | apexcloudworkcompany.com |
 | **WhatsApp** | +506 6314-4171 |
 | **Legal** | Persona física · pendiente Tributación actividad 62010 |
 
@@ -87,7 +87,7 @@
 **Dispositivos:** iPhone · VS Code · Google Calendar + Apple Calendar
 **AWS deployado:** S3 · CloudFront · Route 53 · Apps Script · N8N webhooks en producción
 **GitHub:** github.com/apexcloudworkscompany
-**Jarvis:** PY local · brief 07:00 AM · /lead · /deploy · /revisar · /refactor · auto-review código
+**Wilson:** PY local · Telegram bot · Claude Sonnet 4.6 via Bedrock · brief 07:00 AM · /lead · /deploy · /revisar · /refactor · wake word "hey wilson"
 
 **Stack oficial:**
 - Frontend: HTML · CSS · JS → React
@@ -130,7 +130,8 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | 3 | **VisionaryFilm** | Fabian | Pendiente datos Fabian (WA, fotos, YouTube ID) | TBD |
 | 4 | **RFLX** | Andrés | En cartera | TBD |
 | 5 | **Arte Verde** | Tía Estefany | En cartera | TBD |
-| 9 | **Jarvis** | Interno | ✅ Funcional — brief, /lead, /deploy, /revisar | — |
+| 9 | **Wilson** | Interno | ✅ Funcional · renombrado jun 2026 · wake word "hey wilson" · Notion fix aplicado | — |
+| 10 | **AutoCAD/Arquitectura** | Interno (nueva línea) | 🆕 Fase 1 en diseño — visualizador web APS Viewer para clientes rubro Arquitectura | Add-on $150-300 |
 
 ### Skindoctors — Infraestructura
 
@@ -143,15 +144,21 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | Presentación | `/presentacion/index.html` · `/presentacion/entrega-final.html` |
 | WA actual | `+506 6314-4171` (Garett) → cambiar a número Skindoctors al firmar |
 
-### Apex Landing — apexcloudworkscompany.com
+### Apex Landing — apexcloudworkcompany.com
 
 | Elemento | Detalle |
 |---------|---------|
 | Paleta | Warm gold/cream — `#C4956A` / `#E2B97A` · fondo `#060402` |
 | Estructura | `index.html` + `assets/css/` + `assets/js/` — completamente separado |
 | Fondos | 5 estados animados generados por `backgrounds.js` |
-| Admin | `/admin.html` · mock data · pendiente conectar Google Sheets |
-| Pendiente | Foto real Garett · auth Cognito · dashboard cliente |
+| Admin | `/admin.html` + `admin.js` (1350+ líneas) + `admin.css` (900+ líneas) · sidebar colapsable · dashboard con sparklines/revenue ring/lead funnel/kanban DnD · conectado a `portal-apps-script.gs` (Google Sheets real) |
+| Portal cliente | `/portal/index.html` + `/portal/dashboard.html` — login separado |
+| Legal/Seguridad | `Legal/` (contrato, proforma, T&C, privacidad) · `Bienvenida/` (kit cliente) · `Seguridad/` (política) · `sitemap.xml` + `robots.txt` ya creados |
+| Auditoría v2.0 | 25 jun 2026 — Score global **C+** (24 hallazgos: 6 críticos · 7 altos · 10 medios · 1 bajo). Seguridad D+ · Accesibilidad C+ · Performance B- · SEO A- · UX/UI B · Mantenibilidad C+ · AWS B- |
+| 🔴 Críticos seguridad | 1) Admin token hardcodeado en `admin.js` línea 13 (visible en DevTools) · 2) URL de Apps Script expuesta en JS público · 3) Auth con localStorage+SHA-256 sin expiración — XSS = acceso admin total. Además 3 estrategias de auth inconsistentes (admin=localStorage, portal=sessionStorage, `auth.js`=Cognito sin conectar) |
+| CoreUI | `MIGRATION_COREUI.md` — decidido NO migrar aún (stack sin deps no lo justifica hasta escalar panel) |
+| **Foco actual** | 🔥 Seguir trabajando **UI y librerías generales de diseño** (design tokens, unificar tipografía/color/spacing entre landing-admin-portal, dividir CSS/JS monolíticos en módulos) |
+| Pendiente | Foto real Garett · resolver 3 críticos de seguridad (prioridad antes de escalar) · auth Cognito real · dashboard cliente · tablas→cards en mobile |
 
 ---
 
@@ -174,7 +181,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | **Liz** | Novia ❤️ | Mano derecha · trabajo hostil · Apex = salida para los dos |
 | **Andrés** | Mejor amigo operativo | Abrió Skindoctors · hablar comisión ANTES del primer cobro |
 | **Fabian** | Amigo | VisionaryFilm · inspiró el camino |
-| **Derek** | Hermano | Arquitecto · comparte techo · ve el mapa |
+| **Derek** | Hermano | Va a estudiar arquitectura (aún no) · comparte techo · ve el mapa · socio a futuro en línea AutoCAD/Arquitectura de Apex |
 | **Jan** | Mejor amigo holandés | Guápiles |
 | **Tío Michael** | Familia | EcoPollo |
 | **Tía Estefany** | Familia | Arte Verde |
@@ -182,31 +189,46 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 
 ---
 
-## 🗓️ Rutina v5.0 — Desde jueves 4 junio 2026
+## 🗓️ Rutina v7.0 — Rediseño psicológico/productividad · Prueba desde vie 5 jul 2026 · Oficial desde lun 8 jul 2026
 
-| Hora | Bloque |
-|------|--------|
-| 07:00 | 🌅 Despertar + Noticias inglés |
-| 07:15 | ☕ Ritual |
-| 07:45 | 🍳 Desayuno + Agenda |
-| 08:00 | 🔥 PROYECTO — Bloque 1 (120 min) |
-| 10:00 | 📡 Netacad |
-| 11:00 | 🌐 Open English |
-| 12:00 | 🍽️ Almuerzo sin pantalla |
-| 12:45 | 🔥 PROYECTO — Bloque 2 (120 min) |
-| 14:45 | 📚 JS/React Video + Proyecto |
-| 15:45 | 🔥 PROYECTO — Bloque 3 (120 min) |
-| 17:45 | 🚴 Bici / 🎓 Clase según día |
-| 19:00 | 🔥 PROYECTO — Bloque 4 (120 min) |
-| 21:00 | 🔥 PROYECTO — Bloque 5 Sprint (90 min) |
-| 22:30 | 🇺🇸 Inglés nocturno |
-| 23:00 | 🏋️ Codewars |
-| 23:30 | 📋 Balance |
-| 23:50 | 🎮 Minecraft |
-| 00:00 | 😴 Dormir 7h |
+**Diagnóstico que motivó el rediseño:** el problema no era cansancio físico ni aislamiento (trabajar solo no molesta) — era **monotonía** (5 bloques de proyecto idénticos día tras día) y falta de sensación de avance real más allá de tachar bloques. Sueño irregular, no un número fijo. Se dejó atrás la madrugada como zona de trabajo — todo consolidado en horario diurno/noche temprana.
 
-**Clases:** Mar Desarrollo Web · Mié IT Support · 19:00–21:00
-**Bici:** Mar · Jue · Sáb · 16:45
+**Qué cambia respecto a v6.0:**
+- Cada bloque de PROYECTO ahora tiene un **rol fijo distinto** (no todos son "lo mismo") — rompe la monotonía sin tocar duración ni horario
+- El Balance del día pasa de checklist genérico a **números concretos**: plata cobrada, leads, líneas shippeadas — se loguea en Notion + resumen semanal en LOG.md
+- Se agrega un **wind-down de 10 min** antes de dormir (apagar pantallas, luz baja) para generarle consistencia al sueño irregular
+- Bloque 5 se acorta a 75 min (de 90) para sostener las 7h de sueño completas
+
+| Hora | Bloque | Rol |
+|------|--------|-----|
+| 06:00 | 🌅 Despertar + Noticias inglés | |
+| 06:15 | ☕ Ritual | |
+| 06:45 | 🍳 Desayuno + Agenda | |
+| 07:00 | 🔥 BLOQUE 1 — BUILD (120 min) | Lo más difícil/técnico del día, mente fresca |
+| 09:00 | 📡 Netacad | |
+| 10:00 | 🌐 Open English | |
+| 11:00 | 🍽️ Almuerzo sin pantalla | |
+| 11:45 | 🔥 BLOQUE 2 — VENTAS/CIERRE (120 min) | WhatsApp clientes, cobros, outreach. Cero código. |
+| 13:45 | 📚 JS/React Video + Práctica | |
+| 14:45 | 🔥 BLOQUE 3 — CLIENTE ACTIVO (120 min) | Proyecto prioritario de la semana (rota) |
+| 16:45 | 🚴 Bici / 🎓 Clase según día | |
+| 18:00 | 🔥 BLOQUE 4 — AUTOMATIZACIÓN/SEGURIDAD (120 min) | Wilson, n8n, Apex admin/seguridad |
+| 20:00 | 🔥 BLOQUE 5 — REMATE/SPRINT (75 min) | QA, deploy, cerrar lo pendiente — nada nuevo |
+| 21:15 | 🇺🇸 Inglés nocturno |
+| 21:45 | ☁️ **Cursos Cloud/IA (45 min)** |
+| 22:30 | 📋 Balance — números concretos (plata/leads/líneas) |
+| 22:40 | 🎮 Minecraft (10 min) |
+| 22:50 | 🌙 Wind-down — pantallas apagadas, luz baja (10 min) |
+| 23:00 | 😴 Dormir 7h |
+
+**Bloque Cursos Cloud/IA (21:45, 45 min) — orden fijado:**
+1. Claude Platform 101 (Anthropic Skilljar)
+2. Building with the Claude API (Anthropic Skilljar)
+3. Introduction to Model Context Protocol (Anthropic Skilljar)
+4. Claude with Amazon Bedrock (Anthropic Skilljar)
+5. AWS Skill Builder — seguridad S3/CloudFront + WAF (aplica directo a los 3 críticos de seguridad de Apex Landing)
+
+**Bici:** Mar · Jue · Sáb · 16:45 (ya no hay clases de Viteck — dadas de baja)
 
 ---
 
@@ -217,9 +239,8 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | Netacad | JS Essentials · diario 10:00 |
 | Open English | Nivel 1 · 71% · meta C2 · se traba al hablar |
 | JS/React | Semana 2 ✅ · Semana 3 en curso |
-| Inglés nocturno | Serie sin subtítulos · 22:30 |
-| Codewars | 1 kata · 23:00 |
-| Viteck | Mar Desarrollo Web · Mié IT Support |
+| Inglés nocturno | Serie sin subtítulos · 21:15 |
+| Codewars | Pausado — reemplazado por Cursos Cloud/IA |
 
 ---
 
@@ -230,29 +251,38 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 
 ---
 
-## 🔮 Roadmap
+## 🔮 Roadmap — Escalera de MRR (revisado 04 jul 2026)
 
-| Etapa | Meta | Estado |
-|-------|------|--------|
-| Q2 2026 | Cerrar Skindoctors $450 · EcoPollo cotizador live | 🔥 En curso |
-| Q3 2026 | 2 clientes nuevos · subir a plan $900/trimestral | ⏳ |
-| Q4 2026 | Liz sale del trabajo hostil · Apex cubre sus gastos | ⏳ |
-| 2027 | React + APIs propias · primer producto interno | ⏳ |
-| 2028–2030 | Equipo pequeño · automatización total | ⏳ |
-| 2033 | CEO empresa propia automatizada · tranquilidad real | 🎯 |
+> Cada trimestre tiene una meta de ingreso recurrente (MRR) + una habilidad que la destraba. Si el MRR no llega a la meta, NO se avanza al siguiente paso (no se contrata, no se lanza producto) — se ajusta el plan.
 
-**Pendientes críticos (24 jun 2026):**
+| Trimestre | Meta MRR | Foco de negocio | Habilidad que lo destraba |
+|-----------|---------|-----------------|---------------------------|
+| **Q3 2026** (jul-sep) | $150-400 | Cobrar lo ya ganado (Skindoctors $450, revisar RFLX) · todo cliente nuevo entra con mantenimiento por defecto, no solo setup único | Node+Express+PostgreSQL (habilita tier $800-2k) + resolver 3 críticos seguridad Apex |
+| **Q4 2026** (oct-dic) | $500-800 | Migrar el admin panel de Apex (Sheets → Postgres real) para que sea reutilizable · 2 clientes nuevos directo a modelo recurrente | Certificación seguridad AWS → nace servicio de "hardening" como línea de ingreso |
+| **Q1 2027** (ene-mar) | $1000-1500 | Primera venta de PRODUCTO no de proyecto: panel admin productizado a 2-3 clientes · formalizar comisión de Andrés (libera Bloque 2) | — |
+| **Q2 2027** (abr-jun) | $1200-1800 sostenido | Evaluar primera ayuda real de entrega (Derek u otro) bajo tu supervisión · vos te movés a arquitectura, no construcción línea por línea | — |
+| 2028–2030 | — | Equipo pequeño formalizado · automatización total (Wilson como base operativa) | ⏳ |
+| 2033 | — | CEO empresa propia automatizada · tranquilidad real | 🎯 |
+
+**Pendientes críticos (04 jul 2026):**
+- [ ] Autorizar conector Notion en Cowork (Settings → Connectors) para poder crear ahí las páginas de cursos y seguimiento
+- [ ] 🔥 Apex Landing — seguir trabajando **UI y librerías generales de diseño** (tokens.css unificado, dividir `admin.js`/`style.css` en módulos, unificar tipografía/color/spacing entre landing-admin-portal)
+- [ ] Apex Landing — resolver 3 críticos de seguridad: token admin hardcodeado, URL Apps Script expuesta, auth localStorage sin expiración
 - [ ] Activar workflow N8N CBD en n8n.cloud (toggle Active)
 - [ ] Agendar reunión Skindoctors → presentar `presentacion/index.html`
 - [ ] Hablar comisión con Andrés **antes** del cobro
 - [ ] Firma + cobro $450 USD
 - [ ] Cambiar WA Skindoctors al número oficial del cliente
-- [ ] Conectar Jarvis a n8n → WhatsApp Business (leads auto-registrados)
+- [ ] Conectar Wilson a n8n → WhatsApp Business (leads auto-registrados)
 - [ ] Foto real de Garett para sección "Sobre mí" del Apex Landing
-- [ ] Auditar y mejorar Jarvis (fase B pendiente)
 
 **Completados (24 jun 2026):**
 - [x] Apex Landing — separación limpia HTML/CSS/JS
 - [x] Mente/ — fuente de verdad única, actualizada, sin duplicados
 - [x] SYSTEM.md v2.0 · README.md · LOG.md actualizados
 - [x] Regla de código establecida: archivos siempre separados
+- [x] Marco legal completo: contrato-servicio · proforma PRF-2026-001 · T&C v2.0 · Privacidad v2.0
+- [x] Kit de bienvenida cliente (Bienvenida/index.html)
+- [x] Agente de seguridad: password gate admin · XSS fix · CSS claro · Seguridad/ · security_monitor.py
+- [x] Wilson: renombrado (ex Jarvis) · wake word "hey wilson" · Notion API fix · README v2.0
+- [x] Duplicados eliminados: terminos.html y politica-privacidad.html v1.0 de raíz

@@ -47,3 +47,17 @@
   letter-spacing: 1px;
   white-space: nowrap;
 }
+
+/* ── MODAL OVERLAY (base — admin + portal) ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(6px);
+  z-index: var(--z-overlay);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }

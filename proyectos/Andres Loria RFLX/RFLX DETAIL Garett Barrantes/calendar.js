@@ -9,6 +9,7 @@ const CONFIG = {
   maxDaysAhead: 60,
   whatsappNumber: "50670352618",
   sheetsUrl: "https://script.google.com/macros/s/AKfycbxaTAhYv33Q_xg9_W8x_K5lEZagIF4p1KqlqHKedMfn2H8j9uQVk7POJVNXTQ_VQYF1/exec",
+  adminToken: '', // se llena al pasar el login — el Apps Script es quien valida, nunca vive hardcodeado acá
 };
 
 /* Escapa HTML — previene XSS en el panel admin */
@@ -116,12 +117,12 @@ const Store = {
 
   async cancel(id){
     this._saveLocal(this.bookings().map(b=>b.id===id?{...b,status:'cancelada'}:b));
-    await this.sheetsPost({ action:'cancelBooking', id });
+    await this.sheetsPost({ action:'cancelBooking', id, token:CONFIG.adminToken });
   },
 
   async complete(id){
     this._saveLocal(this.bookings().map(b=>b.id===id?{...b,status:'completada'}:b));
-    await this.sheetsPost({ action:'completeBooking', id });
+    await this.sheetsPost({ action:'completeBooking', id, token:CONFIG.adminToken });
   },
 
   async updateNote(id, note){
@@ -131,24 +132,36 @@ const Store = {
   async blockDay(date){
     const arr = this.blockedDays();
     if(!arr.includes(date)){ arr.push(date); this._blocked=arr; localStorage.setItem('rflx_blocked',JSON.stringify(arr)); }
-    await this.sheetsPost({ action:'blockDate', date });
+    await this.sheetsPost({ action:'blockDate', date, token:CONFIG.adminToken });
   },
   async unblockDay(date){
     const arr = this.blockedDays().filter(d=>d!==date);
     this._blocked=arr; localStorage.setItem('rflx_blocked',JSON.stringify(arr));
-    await this.sheetsPost({ action:'unblockDate', date });
+    await this.sheetsPost({ action:'unblockDate', date, token:CONFIG.adminToken });
   },
 
   async blockSlot(date, slot){
     const key = date+'|'+slot;
     const arr = this.blockedSlots();
     if(!arr.includes(key)){ arr.push(key); localStorage.setItem('rflx_blocked_slots', JSON.stringify(arr)); }
-    await this.sheetsPost({ action:'blockSlot', date, slot });
+    await this.sheetsPost({ action:'blockSlot', date, slot, token:CONFIG.adminToken });
   },
   async unblockSlot(date, slot){
     const arr = this.blockedSlots().filter(s=>s!==date+'|'+slot);
     localStorage.setItem('rflx_blocked_slots', JSON.stringify(arr));
-    await this.sheetsPost({ action:'unblockSlot', date, slot });
+    await this.sheetsPost({ action:'unblockSlot', date, slot, token:CONFIG.adminToken });
+  },
+
+  async checkAdminToken(token){
+    try{
+      const r = await fetch(CONFIG.sheetsUrl, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ action:'checkAdminToken', token }),
+      });
+      const data = await r.json();
+      return !!(data && data.ok);
+    }catch(e){ return false; }
   },
 };
 
@@ -399,14 +412,11 @@ const Admin = {
     setTimeout(()=>document.getElementById('admin-pass-input').focus(), 100);
   },
 
-  // Generar hash de tu contraseña en consola del navegador:
-  // crypto.subtle.digest('SHA-256',new TextEncoder().encode('TuContraseña')).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
-  // Reemplazá HASH_AQUI con el valor obtenido
   async checkPassword(){
     const val = document.getElementById('admin-pass-input').value;
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
-    const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-    if(hex === '3482d52674d022e0b0203067772721eee78dff09732ff883abd77d31ead43265'){
+    const ok = await Store.checkAdminToken(val);
+    if(ok){
+      CONFIG.adminToken = val;
       document.getElementById('admin-login-view').style.display = 'none';
       document.getElementById('admin-dashboard-view').style.display = 'block';
       this.startDashboard();

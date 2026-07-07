@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skindoctors CR — Propuesta Digital 2026 · Apex Cloud Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,600;1,400;1,600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',system-ui,sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+.container{width:min(1100px,92%);margin-inline:auto}
+
+:root{
+  --cream:    #FBF5EF;
+  --surface:  #FFFFFF;
+  --beige:    #E0C3AE;
+  --peach:    #FFAF83;
+  --coral:    #FF7671;
+  --earth:    #8F6149;
+  --earth-lt: #B07D62;
+  --dark:     #231F20;
+  --text:     #231F20;
+  --muted:    #7A6558;
+  --muted2:   #5C4A3E;
+  --border:   #EDD9C8;
+  --teal:     #1b7343;
+  --teal-lt:  #25a35a;
+  --teal-pale:#C8E6C9;
+  --gold:     #E8A050;
+  --serif:    'Noto Serif Display',Georgia,serif;
+  --sans:     'Quicksand',system-ui,sans-serif;
+}
+
+.anim{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.anim.visible{opacity:1;transform:translateY(0)}
+
+/* ── Agency bar ── */
+.agency-bar{
+  background:var(--dark);
+  color:rgba(255,255,255,.6);
+  text-align:center;
+  padding:.5rem 1rem;
+  font-size:.72rem;
+  letter-spacing:.06em;
+}
+.agency-bar strong{color:var(--beige)}
+
+/* ── Hero ── */
+.pres-hero{
+  background:linear-gradient(135deg,var(--dark) 0%,#3a1e10 60%,#2d1a1a 100%);
+  padding:5rem 0 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.pres-hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 50%,rgba(224,195,174,.08) 0%,transparent 65%);
+}
+.hero-inner{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:3rem;
+  align-items:center;
+  position:relative;z-index:1;
+}
+.hero-brand{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.75rem}
+.hero-tagline-sm{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:.2rem;
+}
+.pres-eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--beige);margin-bottom:.7rem;
+}
+.pres-eyebrow::before{content:'';width:24px;height:2px;background:var(--coral)}
+.pres-title{
+  font-family:var(--serif);
+  font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:600;line-height:1.08;
+  color:#fff;margin-bottom:1.1rem;
+}
+.pres-title em{font-style:italic;color:var(--peach)}
+.pres-sub{
+  font-size:.95rem;line-height:1.75;
+  color:rgba(255,255,255,.6);
+  max-width:540px;
+}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;margin-top:2.5rem;
+}
+.hstat{
+  display:flex;flex-direction:column;gap:.2rem;
+  padding:1rem 1.25rem;border-radius:14px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  text-align:center;
+}
+.hstat-n{
+  font-family:var(--serif);font-size:1.8rem;font-weight:600;
+  color:var(--beige);line-height:1;
+}
+.hstat-l{
+  font-size:.64rem;font-weight:700;
+  color:rgba(255,255,255,.45);
+  text-transform:uppercase;letter-spacing:.07em;
+}
+.hero-date-badge{
+  background:rgba(224,195,174,.12);
+  border:1px solid rgba(224,195,174,.25);
+  border-radius:50px;
+  padding:.5rem 1.25rem;
+  font-size:.72rem;font-weight:700;
+  color:var(--beige);
+  white-space:nowrap;
+  align-self:flex-start;
+}
+
+/* ── Section base ── */
+section{padding:6rem 0}
+.eyebrow{
+  display:inline-block;font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.15em;
+  color:var(--earth);margin-bottom:.5rem;
+}
+.sec-title{
+  font-family:var(--serif);
+  font-size:clamp(1.6rem,2.6vw,2.3rem);
+  font-weight:600;color:var(--text);
+  line-height:1.2;margin-bottom:.9rem;
+}
+.sec-desc{font-size:.92rem;line-height:1.78;color:var(--muted2);max-width:540px}
+.sec-header{margin-bottom:3rem}
+.sec-header.center{text-align:center}
+.sec-header.center .sec-desc{margin-inline:auto}
+
+/* ── Productos ── */
+.products-section{background:var(--surface)}
+.products-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+.product-card{
+  border-radius:24px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  background:var(--cream);
+  transition:transform .25s,box-shadow .25s;
+  display:flex;flex-direction:column;
+}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(35,31,32,.1)}
+
+.card-img-wrap{
+  height:300px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.card-img-mela{background:linear-gradient(145deg,#FBF5EF,#E0C3AE)}
+.card-img-cbd{background:linear-gradient(145deg,#e8f5e9,#C8E6C9)}
+.card-img-wrap img{
+  height:240px;width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 12px 28px rgba(0,0,0,.18));
+  transition:transform .35s;
+}
+.product-card:hover .card-img-wrap img{transform:translateY(-6px) scale(1.03)}
+
+.card-status{
+  position:absolute;top:1rem;left:1rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(35,31,32,.85);
+  backdrop-filter:blur(6px);
+  color:#fff;font-size:.62rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .85rem;border-radius:50px;
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--coral);flex-shrink:0;
+}
+.status-dot.green{background:#4CAF50}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.status-dot{animation:blink 2s infinite}
+
+.card-body{padding:1.75rem;display:flex;flex-direction:column;gap:1rem;flex:1}
+.card-eyebrow{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.card-title{font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--text);line-height:1.2}
+.card-desc{font-size:.83rem;line-height:1.65;color:var(--muted2)}
+.card-features{list-style:none;display:flex;flex-direction:column;gap:.32rem}
+.card-features li{
+  font-size:.78rem;color:var(--muted2);
+  display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;
+}
+.card-features li::before{
+  content:'✓';
+  width:16px;height:16px;border-radius:50%;
+  background:rgba(143,97,73,.1);color:var(--earth);
+  font-size:.56rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:.1rem;
+}
+.card-features li.cbd::before{background:rgba(27,115,67,.1);color:var(--teal)}
+
+.card-url-wrap{
+  padding:.7rem .9rem;border-radius:10px;
+  background:rgba(35,31,32,.04);
+  border:1px solid var(--border);
+}
+.url-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);display:block;margin-bottom:.2rem}
+.url-link{font-size:.73rem;color:var(--earth);font-weight:600;word-break:break-all}
+.url-link:hover{text-decoration:underline}
+.url-link.green{color:var(--teal)}
+
+.card-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.85rem 1.5rem;border-radius:50px;
+  font-family:var(--sans);font-weight:700;font-size:.88rem;
+  cursor:pointer;border:none;
+  transition:transform .2s,box-shadow .2s;
+  margin-top:auto;
+}
+.card-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.btn-coral{background:var(--coral);color:#fff}
+.btn-teal{background:var(--teal);color:#fff}
+
+/* ── Entregables ── */
+.deliverables{background:var(--cream)}
+.del-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.25rem;
+}
+.del-card{
+  padding:1.75rem 1.5rem;border-radius:20px;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;flex-direction:column;gap:.75rem;
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.del-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(143,97,73,.1);border-color:var(--beige)}
+.del-icon{font-size:1.8rem}
+.del-card h4{font-size:.92rem;font-weight:700;color:var(--text)}
+.del-card p{font-size:.78rem;line-height:1.6;color:var(--muted)}
+
+/* ── Pricing ── */
+.pricing{background:var(--surface)}
+.pricing-card{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  background:var(--cream);border-radius:28px;
+  border:1px solid var(--border);
+  padding:3rem 3.5rem;
+}
+.pricing-left .sec-desc{max-width:100%}
+.price-note-sub{
+  font-size:.8rem;line-height:1.6;color:var(--muted);
+  margin-top:.8rem;
+  padding:.75rem 1rem;
+  border-radius:10px;
+  background:rgba(143,97,73,.06);
+  border:1px solid rgba(143,97,73,.14);
+}
+
+.price-table{width:100%;border-collapse:collapse}
+.price-table thead tr{background:var(--dark)}
+.price-table thead th{
+  padding:.7rem 1rem;text-align:left;
+  font-size:.72rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.65);
+}
+.price-table thead th:last-child{text-align:right}
+.price-table tbody tr{border-bottom:1px solid var(--border)}
+.price-table tbody tr:last-child{border-bottom:none}
+.price-table tbody td{
+  padding:.8rem 1rem;
+  font-size:.82rem;color:var(--muted2);
+}
+.price-table tbody td:last-child{
+  text-align:right;font-weight:700;color:var(--text);
+}
+.price-table tbody tr.incl td{color:var(--muted);font-style:italic}
+.price-table tbody tr.incl td:last-child{color:var(--teal);font-style:normal}
+.price-table tfoot tr{background:linear-gradient(90deg,var(--dark),#3a1e10)}
+.price-table tfoot td{
+  padding:1rem;
+  font-size:.9rem;font-weight:700;
+}
+.price-table tfoot td:first-child{color:rgba(255,255,255,.8)}
+.price-table tfoot td:last-child{
+  text-align:right;
+  font-family:var(--serif);font-size:1.3rem;
+  color:var(--peach);
+}
+.price-table{border-radius:14px;overflow:hidden}
+
+/* ── Próximos pasos ── */
+.next-steps{background:var(--cream)}
+.steps-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.25rem;
+}
+.nstep{
+  padding:1.5rem 1.25rem;border-radius:18px;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;flex-direction:column;gap:.75rem;
+  position:relative;
+  transition:transform .2s,box-shadow .2s;
+}
+.nstep:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(143,97,73,.1)}
+.step-num-badge{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--earth),var(--earth-lt));
+  color:#fff;font-family:var(--serif);font-size:1.2rem;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(143,97,73,.3);
+}
+.nstep.done .step-num-badge{background:linear-gradient(135deg,var(--teal),var(--teal-lt))}
+.nstep h4{font-size:.88rem;font-weight:700;color:var(--text)}
+.nstep p{font-size:.76rem;line-height:1.58;color:var(--muted)}
+.nstep-done-tag{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:rgba(27,115,67,.08);border:1px solid rgba(27,115,67,.2);
+  color:var(--teal);font-size:.64rem;font-weight:700;
+  padding:.2rem .65rem;border-radius:50px;
+  width:fit-content;
+}
+
+/* ── Footer ── */
+.pres-footer{
+  background:var(--dark);
+  padding:3rem 0 2rem;
+  color:rgba(255,255,255,.5);
+}
+.footer-inner{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:2.5rem;margin-bottom:2rem;
+}
+.footer-col h5{
+  font-size:.75rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:rgba(255,255,255,.35);
+  margin-bottom:.75rem;
+}
+.footer-col p,.footer-col a{
+  font-size:.8rem;color:rgba(255,255,255,.5);
+  line-height:1.9;display:block;
+}
+.footer-col a:hover{color:var(--beige)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:.75rem;
+  font-size:.7rem;color:rgba(255,255,255,.25);
+}
+.footer-bottom a{color:var(--beige);opacity:.6}
+.footer-bottom a:hover{opacity:1}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:1.5rem}
+  .hero-date-badge{align-self:auto;width:fit-content}
+  .products-grid{grid-template-columns:1fr}
+  .del-grid{grid-template-columns:1fr 1fr}
+  .pricing-card{grid-template-columns:1fr;gap:2rem;padding:2rem}
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:580px){
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .del-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- Agency bar -->
+<div class="agency-bar">
+  Preparado por <strong>Apex Cloud Works</strong> · Cartago, Costa Rica · Junio 2026 · Documento confidencial
+</div>
+
+<!-- Hero -->
+<header class="pres-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-brand">
+          <!-- Logo Skindoctors SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 40" height="38" aria-label="Skindoctors CR">
+            <circle cx="19" cy="20" r="14" fill="none" stroke="#E0C3AE" stroke-width="0.8" opacity="0.4"/>
+            <circle cx="19" cy="20" r="5.5" fill="#E0C3AE"/>
+            <g stroke="#E0C3AE" stroke-linecap="round">
+              <line x1="19" y1="4"  x2="19" y2="2"  stroke-width="1.3"/>
+              <line x1="19" y1="36" x2="19" y2="38" stroke-width="1.3"/>
+              <line x1="4"  y1="20" x2="2"  y2="20" stroke-width="1.3"/>
+              <line x1="34" y1="20" x2="36" y2="20" stroke-width="1.3"/>
+              <line x1="9.1"  y1="10.1" x2="7.7"  y2="8.7"  stroke-width="1.1" opacity="0.6"/>
+              <line x1="28.9" y1="10.1" x2="30.3" y2="8.7"  stroke-width="1.1" opacity="0.6"/>
+              <line x1="9.1"  y1="29.9" x2="7.7"  y2="31.3" stroke-width="1.1" opacity="0.6"/>
+              <line x1="28.9" y1="29.9" x2="30.3" y2="31.3" stroke-width="1.1" opacity="0.6"/>
+            </g>
+            <text x="44" y="24" font-family="Georgia,serif" font-size="17" font-weight="600" fill="#FFFFFF">Skin</text>
+            <text x="80" y="24" font-family="Georgia,serif" font-size="17" font-style="italic" fill="#E0C3AE">doctors</text>
+            <text x="44" y="35" font-family="Arial,sans-serif" font-size="5.8" letter-spacing="1.5" fill="rgba(255,255,255,0.35)">CIENCIA APLICADA A LA BELLEZA</text>
+          </svg>
+          <span class="hero-tagline-sm">Propuesta Digital · Apex Cloud Works</span>
+        </div>
+
+        <span class="pres-eyebrow">Proyecto completado · 2026</span>
+        <h1 class="pres-title">Dos landings entregadas.<br><em>Listas para convertir.</em></h1>
+        <p class="pres-sub">Sistema completo de captación de leads con N8N, Google Sheets y WhatsApp — dos productos activos en CloudFront CDN, desarrollado 100% en HTML sin frameworks ni costos de suscripción.</p>
+
+        <div class="hero-stats">
+          <div class="hstat"><span class="hstat-n">2</span><span class="hstat-l">Landings activas</span></div>
+          <div class="hstat"><span class="hstat-n">100%</span><span class="hstat-l">En producción</span></div>
+          <div class="hstat"><span class="hstat-n">0</span><span class="hstat-l">Frameworks · HTML puro</span></div>
+        </div>
+      </div>
+
+      <div class="hero-date-badge">
+        📅 Junio 2026 · Deadline 15 jun
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Productos -->
+<section class="products-section">
+  <div class="container">
+    <div class="sec-header center anim">
+      <span class="eyebrow">Entregables completados</span>
+      <h2 class="sec-title">Dos productos. Dos landings. Un sistema.</h2>
+      <p class="sec-desc">Cada landing tiene identidad visual propia, sistema de captación de leads y deploy en AWS CloudFront.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Card Melasblock -->
+      <div class="product-card anim">
+        <div class="card-img-wrap card-img-mela">
+          <div class="card-status">
+            <span class="status-dot"></span>
+            ACTIVA EN PRODUCCIÓN
+          </div>
+          <img
+            src="https://d3suiaystvdco4.cloudfront.net/melasblock/melasblock.png"
+            alt="Melasblock BB Cream SPF 50"
+            loading="eager"
+            onerror="this.style.display='none'"
+          />
+        </div>
+        <div class="card-body">
+          <span class="card-eyebrow">Landing 1 — BB Cream · SPF 50</span>
+          <h3 class="card-title">Melasblock BB Cream</h3>
+          <p class="card-desc">Corrector facial con color y protección solar SPF 50. 7 tonos calibrados para piel centroamericana.</p>
+          <ul class="card-features">
+            <li>Hero fotográfico 4K con glass card</li>
+            <li>Guía interactiva de 7 tonos de piel</li>
+            <li>Sección ciencia — 4 tipos de radiación</li>
+            <li>Lead modal → N8N → Sheets · <strong>ACTIVO</strong></li>
+            <li>WhatsApp flotante + mensaje pre-llenado</li>
+            <li>SEO: JSON-LD Product Schema + Open Graph</li>
+          </ul>
+          <div class="card-url-wrap">
+            <span class="url-label">URL de producción</span>
+            <a href="https://d3suiaystvdco4.cloudfront.net/melasblock/" target="_blank" rel="noopener" class="url-link">
+              d3suiaystvdco4.cloudfront.net/melasblock/ ↗
+            </a>
+          </div>
+          <a href="https://d3suiaystvdco4.cloudfront.net/melasblock/" target="_blank" rel="noopener" class="card-cta btn-coral">
+            Ver landing en vivo →
+          </a>
+        </div>
+      </div>
+
+      <!-- Card CBD -->
+      <div class="product-card anim">
+        <div class="card-img-wrap card-img-cbd">
+          <div class="card-status">
+            <span class="status-dot green"></span>
+            ACTIVA EN PRODUCCIÓN
+          </div>
+          <img
+            src="https://d3suiaystvdco4.cloudfront.net/cbd-balance/Espuma-Facial-CBD.png"
+            alt="Espuma Limpiadora CBD Oil Balance"
+            loading="eager"
+            onerror="this.style.display='none'"
+          />
+        </div>
+        <div class="card-body">
+          <span class="card-eyebrow">Landing 2 — Espuma Limpiadora Facial</span>
+          <h3 class="card-title">CBD Oil Balance</h3>
+          <p class="card-desc">Espuma limpiadora con activos BioTolife + AC.Net. Restablece microbiota y regula sebo.</p>
+          <ul class="card-features">
+            <li>Hero con fondo fotográfico propio</li>
+            <li class="cbd">Sección microbiota — explica el ecosistema</li>
+            <li class="cbd">Activos BioTolife + AC.Net detallados</li>
+            <li>Lead modal con campo Tipo de Piel</li>
+            <li class="cbd">Integración N8N + Sheets (activar post-firma)</li>
+            <li>SEO: JSON-LD Product Schema + Open Graph</li>
+          </ul>
+          <div class="card-url-wrap">
+            <span class="url-label">URL de producción</span>
+            <a href="https://d3suiaystvdco4.cloudfront.net/cbd-balance/" target="_blank" rel="noopener" class="url-link green">
+              d3suiaystvdco4.cloudfront.net/cbd-balance/ ↗
+            </a>
+          </div>
+          <a href="https://d3suiaystvdco4.cloudfront.net/cbd-balance/" target="_blank" rel="noopener" class="card-cta btn-teal">
+            Ver landing en vivo →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Entregables del paquete -->
+<section class="deliverables">
+  <div class="container">
+    <div class="sec-header center anim">
+      <span class="eyebrow">Paquete completo</span>
+      <h2 class="sec-title">Todo lo que incluye el proyecto</h2>
+      <p class="sec-desc">Más que tres páginas web — un sistema digital completo listo para vender desde el primer día.</p>
+    </div>
+
+    <div class="del-grid">
+      <div class="del-card anim">
+        <div class="del-icon">🌐</div>
+        <h4>3 Landings HTML</h4>
+        <p>Código limpio, sin frameworks ni dependencias. Velocidad máxima, mantenimiento mínimo.</p>
+      </div>
+      <div class="del-card anim">
+        <div class="del-icon">🔗</div>
+        <h4>Integración N8N</h4>
+        <p>Webhook → Gmail → Google Sheets. Cada lead notifica al equipo en tiempo real sin costo mensual adicional.</p>
+      </div>
+      <div class="del-card anim">
+        <div class="del-icon">📊</div>
+        <h4>Google Sheets CRM</h4>
+        <p>Base de datos de prospectos separada por producto. Nombre, teléfono, email, tipo de piel y provincia.</p>
+      </div>
+      <div class="del-card anim">
+        <div class="del-icon">☁️</div>
+        <h4>Deploy AWS CloudFront</h4>
+        <p>CDN global, HTTPS incluido, S3 configurado. Tiempo de carga menor a 1 segundo desde Costa Rica.</p>
+      </div>
+      <div class="del-card anim">
+        <div class="del-icon">💬</div>
+        <h4>WhatsApp Integration</h4>
+        <p>Mensajes pre-llenados con los datos del cliente para que el equipo cierre más rápido por WhatsApp.</p>
+      </div>
+      <div class="del-card anim">
+        <div class="del-icon">📄</div>
+        <h4>Documentación técnica</h4>
+        <p>Brand books, instrucciones de activación N8N, guía de cambio de número y términos de entrega incluidos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing">
+  <div class="container">
+    <div class="pricing-card anim">
+      <div class="pricing-left">
+        <span class="eyebrow">Inversión</span>
+        <h2 class="sec-title">Un sistema digital completo.<br>Un solo pago.</h2>
+        <p class="sec-desc">Sin suscripciones. Sin mensualidades. Sin sorpresas. Un pago al firmar — tres landings profesionales en producción.</p>
+        <div class="price-note-sub">
+          ✓ Hasta 2 rondas de revisión por landing incluidas<br>
+          ✓ 30 días de soporte técnico post-entrega<br>
+          ✓ Deploy en AWS incluido — sin hosting mensual<br>
+          ✓ Dominio propio configurable sin costo adicional
+        </div>
+      </div>
+      <div class="pricing-right">
+        <table class="price-table">
+          <thead>
+            <tr>
+              <th>Entregable</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Landing 1 — Melasblock BB Cream</td>
+              <td>$150 USD</td>
+            </tr>
+            <tr>
+              <td>Landing 2 — CBD Oil Balance</td>
+              <td>$150 USD</td>
+            </tr>
+            <tr>
+              <td>Landing 3 — Producto a definir</td>
+              <td>$150 USD</td>
+            </tr>
+            <tr class="incl">
+              <td>Deploy AWS S3 + CloudFront CDN</td>
+              <td>Incluido</td>
+            </tr>
+            <tr class="incl">
+              <td>Integraciones N8N + Google Sheets</td>
+              <td>Incluido</td>
+            </tr>
+            <tr class="incl">
+              <td>Brand books + Documentación técnica</td>
+              <td>Incluido</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Total del proyecto</td>
+              <td>$450 USD</td>
+            </tr>
+          </tfoot>
+        </table>
+        <p style="font-size:.7rem;color:var(--muted);margin-top:.75rem;text-align:right">* Pago único al firmar el contrato</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Próximos pasos -->
+<section class="next-steps">
+  <div class="container">
+    <div class="sec-header center anim">
+      <span class="eyebrow">Para cerrar el proyecto</span>
+      <h2 class="sec-title">Próximos pasos</h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="nstep done anim">
+        <div class="step-num-badge">✓</div>
+        <div class="nstep-done-tag">Completado</div>
+        <h4>Landings 1 y 2 en producción</h4>
+        <p>Melasblock y CBD Oil Balance activas en CloudFront con sistema de leads completo.</p>
+      </div>
+      <div class="nstep anim">
+        <div class="step-num-badge">1</div>
+        <h4>Definir Landing 3</h4>
+        <p>Confirmar el tercer producto o servicio a promocionar. Misma calidad, mismo sistema.</p>
+      </div>
+      <div class="nstep anim">
+        <div class="step-num-badge">2</div>
+        <h4>Firma del contrato</h4>
+        <p>Contrato de servicios digitales con Apex Cloud Works. Pago de $450 USD al firmar.</p>
+      </div>
+      <div class="nstep anim">
+        <div class="step-num-badge">3</div>
+        <h4>Activar número WhatsApp</h4>
+        <p>Cambiar al número oficial de Skindoctors en ambas landings. Proceso de 10 minutos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="pres-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h5>Desarrollado por</h5>
+        <p><strong style="color:rgba(255,255,255,.75)">Apex Cloud Works</strong></p>
+        <p>Cartago, Costa Rica</p>
+        <a href="https://apexcloudworkcompany.com" target="_blank" rel="noopener">apexcloudworkcompany.com</a>
+        <a href="mailto:apexcloudworkscompany@gmail.com">apexcloudworkscompany@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        <h5>Proyecto</h5>
+        <p>Skindoctors CR · 3 Landings</p>
+        <p>Deadline: 15 junio 2026</p>
+        <p>Valor total: $450 USD</p>
+        <a href="entrega-final.html" target="_blank">Ver acta de entrega →</a>
+      </div>
+      <div class="footer-col">
+        <h5>Landings en producción</h5>
+        <a href="https://d3suiaystvdco4.cloudfront.net/melasblock/" target="_blank" rel="noopener">Melasblock BB Cream ↗</a>
+        <a href="https://d3suiaystvdco4.cloudfront.net/cbd-balance/" target="_blank" rel="noopener">CBD Oil Balance ↗</a>
+        <a href="https://wa.me/50663144171" target="_blank" rel="noopener" style="margin-top:.5rem">WhatsApp Apex →</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Apex Cloud Works — Todos los derechos reservados</span>
+      <span>Documento confidencial preparado para Skindoctors CR</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+if('IntersectionObserver' in window){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') });
+  },{threshold:0.08});
+  document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+}else{
+  document.querySelectorAll('.anim').forEach(el=>el.classList.add('visible'));
+}
+</script>
+
+</body>
+</html>

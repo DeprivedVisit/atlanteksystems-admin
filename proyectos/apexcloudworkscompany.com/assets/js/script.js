@@ -2,56 +2,6 @@
    APEX CLOUDWORKS — script.js
 ══════════════════════════════════════════════ */
 
-
-/* ── Claude typing animation ────────────────── */
-(function () {
-  const el = document.getElementById('claude-output');
-  if (!el) return;
-  const messages = [
-    { role:'user',   text:'Quiero una landing para Skindoctors CR' },
-    { role:'claude', text:'Perfecto. Creo la landing mobile-first con sistema de leads a WhatsApp y Google Sheets. Deploy en AWS CloudFront. Lista en 48h.' },
-    { role:'user',   text:'Necesito automatización de leads también y analíticas' },
-    { role:'gemini', text:'Yo me encargo: configuro un workflow en n8n + analíticas en tiempo real integradas a Google Sheets. Todo en producción en 24h.' },
-    { role:'user',   text:'¡Excelente equipo!' },
-  ];
-  let mIdx=0, cIdx=0, div=null;
-  function next() {
-    if (mIdx >= messages.length) {
-      mIdx = 0;
-      // Limpiar sin innerHTML
-      while (el.firstChild) el.removeChild(el.firstChild);
-    }
-    const m = messages[mIdx];
-    div = document.createElement('div');
-    div.className = 'ct-msg ct-' + m.role;
-    if (m.role === 'claude' || m.role === 'gemini') {
-      const avatar = document.createElement('div');
-      avatar.className = 'ct-avatar';
-      avatar.textContent = m.role === 'claude' ? '◆' : '✦';
-      const text = document.createElement('span');
-      text.className = m.role === 'claude' ? 'ct-text' : 'ct-gemini-text';
-      div.appendChild(avatar);
-      div.appendChild(text);
-    } else {
-      const text = document.createElement('span');
-      text.className = 'ct-user-text';
-      div.appendChild(text);
-    }
-    el.appendChild(div);
-    el.scrollTop = el.scrollHeight;
-    cIdx = 0;
-    type();
-  }
-  function type() {
-    const m=messages[mIdx];
-    const s=div.querySelector('.ct-text,.ct-user-text,.ct-gemini-text');
-    if(cIdx<m.text.length){ s.textContent+=m.text[cIdx++]; el.scrollTop=el.scrollHeight; setTimeout(type,m.role==='claude'?20:32); }
-    else { mIdx++; setTimeout(next,1600); }
-  }
-  setTimeout(next,900);
-})();
-
-
 /* ── Proceso Accordion ──────────────────────── */
 function toggleStep(btn) {
   const item = btn.closest('.proc-item');
@@ -114,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+
 /* ── Scroll reveal ──────────────────────────── */
 const ro = new IntersectionObserver(
   es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }),
@@ -161,6 +112,31 @@ window.addEventListener('scroll', () => {
       sessionStorage.setItem('claude_toast_dismissed', '1');
     });
   }
+
+  // El toast es fixed bottom-left — en vez de adivinar qué secciones lo tapan,
+  // se revisa en cada scroll si su propio rectángulo choca con texto real (títulos,
+  // párrafos, listas, tarjetas) y se auto-oculta. Generaliza a cualquier sección/tarjeta
+  // sin necesitar una lista de IDs a mano.
+  const textNodes = Array.from(document.querySelectorAll(
+    '.sec-head, p, li, h1, h2, h3, label, input, textarea, select, button, a, ' +
+    '.pr-card, .pf-card, .srv-card, .test-card, .sobre-card, .cf-field, .wa-portal-link'
+  ));
+  let suppressRAF = null;
+  function checkOverlap() {
+    suppressRAF = null;
+    const tRect = toast.getBoundingClientRect();
+    if (tRect.width === 0) return;
+    const hit = textNodes.some(el => {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) return false;
+      return !(r.right < tRect.left || r.left > tRect.right || r.bottom < tRect.top || r.top > tRect.bottom);
+    });
+    toast.classList.toggle('suppressed', hit);
+  }
+  window.addEventListener('scroll', () => {
+    if (suppressRAF) return;
+    suppressRAF = requestAnimationFrame(checkOverlap);
+  }, { passive: true });
 })();
 
 function dismissClaudeToast() {
@@ -171,50 +147,6 @@ function dismissClaudeToast() {
     sessionStorage.setItem('claude_toast_dismissed', '1');
   }
 }
-
-/* ── VS Code scroll scenes ───────────────────── */
-(function initVscScenes() {
-  const vsc = document.querySelector('.vsc');
-  if (!vsc) return;
-
-  const sceneMap = {
-    'proceso':    { scene: 'proceso',   chat: 'chat-proceso'  },
-    'servicios':  { scene: 'servicios', chat: 'chat-servicios'},
-    'trabajo':    { scene: 'servicios', chat: 'chat-servicios'},
-    'resultados': { scene: 'servicios', chat: 'chat-servicios'},
-    'precios':    { scene: 'precios',   chat: 'chat-precios'  },
-    'calculadora':{ scene: 'precios',   chat: 'chat-precios'  },
-  };
-
-  function activateScene(sectionId) {
-    const map = sceneMap[sectionId];
-    const sceneName = map ? map.scene : 'hero';
-    const chatId    = map ? map.chat  : 'chat-hero';
-
-    vsc.dataset.scene = sceneName;
-
-    document.querySelectorAll('.vsc-chat-scene').forEach(el => {
-      el.classList.toggle('active', el.id === chatId);
-    });
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) activateScene(entry.target.id);
-    });
-  }, { threshold: 0.35 });
-
-  const sections = ['proceso','servicios','trabajo','resultados','precios','calculadora'];
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  // Reset to hero when scrolled to top
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < window.innerHeight * 0.5) activateScene('hero');
-  }, { passive: true });
-})();
 
 /* ── Dropdown ───────────────────────────────── */
 const _exploreBtn = document.getElementById('nav-explore-btn');
@@ -373,7 +305,7 @@ function closeMobileNav() {
 
 /* ── Contact Form ───────────────────────────── */
 (function initContactForm() {
-  const CONTACT_AS_URL = 'https://script.google.com/macros/s/AKfycbz5OuFMXArst7-uol6k9Lx-qYtQusr1tpBEVbNl0HAavWG9G5T0KLXH9VoxM6D4izcHVA/exec';
+  const CONTACT_AS_URL = 'https://script.google.com/macros/s/AKfycby-vSmwXS5nfmYz9KcvabijWjSQth6S_oa-QzWHBqp118Hbguzr_fWIg8TF1B8YHRSoIg/exec';
 
   const form    = document.getElementById('contact-form');
   const errEl   = document.getElementById('cf-error');
@@ -455,26 +387,26 @@ function closeMobileNav() {
   }, { passive: true });
 })();
 
-/* ── Claude card 3D tilt ────────────────────── */
-(function initCardTilt() {
-  const card = document.querySelector('.claude-card');
-  if (!card) return;
+/* ── Hero scene: descenso al hacer scroll ────── */
+(function initApexBgParallax() {
+  const scene   = document.querySelector('.apex-bg-scene');
+  const circuit = document.querySelector('.apex-circuit');
+  if (!scene || !circuit) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  card.addEventListener('mouseenter', () => {
-    card.style.transition = 'transform 0.12s ease';
-  });
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    card.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 7}deg) scale(1.025)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transition = 'transform 0.5s ease';
-    card.style.transform  = '';
-    setTimeout(() => { card.style.transition = ''; }, 500);
-  });
+  let ticking = false;
+  function update() {
+    const y = window.scrollY;
+    // Montaña: se mueve lento (lejos). Circuitos: casi estático (más cerca del observador).
+    scene.style.transform   = `translate(-50%, ${y * -0.12}px)`;
+    circuit.style.transform = `translateY(${y * -0.03}px)`;
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
 })();
 
 /* ── Hero typewriter ────────────────────────── */
@@ -597,3 +529,267 @@ function closeMobileNav() {
     requestAnimationFrame(update);
   }, 100);
 })();
+
+/* ── COLLABORATIVE BACKGROUND SIMULATION ── */
+(function initBackgroundCollaboration() {
+  const scene = document.querySelector('.apex-bg-scene');
+  const cursorContainer = document.getElementById('apex-collab-cursors');
+  if (!scene || !cursorContainer) return;
+
+  // Don't run on mobiles or when prefers-reduced-motion is active
+  if (window.matchMedia('(max-width: 767px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Mountain polygon elements
+  const polyF1 = document.getElementById('poly-f1');
+  const polyF2 = document.getElementById('poly-f2');
+  const polyF3 = document.getElementById('poly-f3');
+  const polyF4 = document.getElementById('poly-f4');
+  const polyF5 = document.getElementById('poly-f5');
+  const polyF6 = document.getElementById('poly-f6');
+
+  // Nodes and Guide Lines
+  const bgNodeSummit = document.getElementById('bg-node-summit');
+  const bgNodeSaddle = document.getElementById('bg-node-saddle');
+  const bgNodeLeftRidge = document.getElementById('bg-node-left-ridge');
+  const bgNodeRightRidge = document.getElementById('bg-node-right-ridge');
+
+  const bgLineSummitSaddle = document.getElementById('bg-line-summit-saddle');
+  const bgLineSummitLeft = document.getElementById('bg-line-summit-left');
+  const bgLineSummitRight = document.getElementById('bg-line-summit-right');
+  const stars = document.querySelectorAll('.hs-star');
+
+  if (!polyF1 || !bgNodeSummit) return;
+
+  // State of the Mountain Nodes in local SVG space (viewBox 0 0 520 460)
+  const nodes = {
+    summit: { x: 260, y: 64, cx: 260, cy: 64, tx: 260, ty: 64 },
+    saddle: { x: 260, y: 232, cx: 260, cy: 232, tx: 260, ty: 232 },
+    leftRidge: { x: 224, y: 182, cx: 224, cy: 182, tx: 224, ty: 182 },
+    rightRidge: { x: 300, y: 172, cx: 300, cy: 172, tx: 300, ty: 172 }
+  };
+
+  // Bot states
+  const bots = {
+    wilson: {
+      name: 'Wilson Bot 🤖',
+      class: 'wilson',
+      cx: 100, cy: 100, tx: 100, ty: 100,
+      state: 'WANDERING', timer: 80, speed: 0.04,
+      targetNode: 'summit'
+    },
+    garett: {
+      name: 'Garett 💻',
+      class: 'garett',
+      cx: 400, cy: 350, tx: 400, ty: 400,
+      state: 'WANDERING', timer: 150, speed: 0.03,
+      targetNode: 'saddle'
+    }
+  };
+
+  function createCursors() {
+    for (const key in bots) {
+      const bot = bots[key];
+      const el = document.createElement('div');
+      el.className = `collab-cursor ${bot.class}`;
+      el.innerHTML = `
+        <svg class="collab-cursor-svg" width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 2V17.5L7.2 12.8L12.5 18L15 15.5L9.8 10.2L15.5 9.8L2.5 2Z" stroke="#07090e" stroke-width="1.8" fill="currentColor"/>
+        </svg>
+        <div class="collab-cursor-label">${bot.name}</div>
+        <div class="collab-click-ring"></div>
+      `;
+      cursorContainer.appendChild(el);
+      bot.element = el;
+      // Fade in
+      setTimeout(() => el.classList.add('visible'), 500);
+    }
+  }
+
+  function triggerClick(bot) {
+    if (!bot.element) return;
+    const ring = bot.element.querySelector('.collab-click-ring');
+    if (ring) {
+      ring.classList.remove('collab-click-anim');
+      void ring.offsetWidth;
+      ring.classList.add('collab-click-anim');
+    }
+  }
+
+  let time = 0;
+
+  function update() {
+    time++;
+
+    // Bounding rect for coordinate mapping
+    const rect = scene.getBoundingClientRect();
+    const scaleX = rect.width / 520;
+    const scaleY = rect.height / 460;
+
+    const wilsonEditing = bots.wilson.state === 'EDITING_NODE';
+    const garettEditing = bots.garett.state === 'EDITING_NODE';
+
+    for (const key in bots) {
+      const bot = bots[key];
+      bot.timer--;
+
+      switch (bot.state) {
+        case 'WANDERING':
+          if (bot.timer <= 0) {
+            bot.state = 'APPROACHING_NODE';
+            bot.timer = 300; // safety
+          }
+          break;
+
+        case 'APPROACHING_NODE':
+          const targetCoords = nodes[bot.targetNode];
+          bot.tx = targetCoords.cx;
+          bot.ty = targetCoords.cy;
+
+          // Reached node check
+          if (Math.hypot(bot.tx - bot.cx, bot.ty - bot.cy) < 6) {
+            triggerClick(bot);
+            bot.state = 'EDITING_NODE';
+            bot.timer = 200 + Math.random() * 200; // Editing duration
+          }
+          break;
+
+        case 'EDITING_NODE':
+          // Modifying the node coordinates gently
+          const node = nodes[bot.targetNode];
+          const cycleSpeed = bot.class === 'wilson' ? 0.02 : 0.015;
+          const amplitude = bot.class === 'wilson' ? 8 : 10;
+          
+          node.tx = node.x + Math.sin(time * cycleSpeed) * amplitude;
+          node.ty = node.y + Math.cos(time * cycleSpeed * 1.5) * (amplitude * 0.6);
+          
+          // Cursor follows the moving node
+          bot.tx = node.cx;
+          bot.ty = node.cy;
+
+          if (bot.timer <= 0) {
+            bot.state = 'PAUSING';
+            bot.timer = 50 + Math.random() * 80;
+          }
+          break;
+
+        case 'PAUSING':
+          if (bot.timer <= 0) {
+            bot.state = 'WANDERING';
+            // Choose random next target in top/mid area
+            bot.tx = 60 + Math.random() * 400;
+            bot.ty = 40 + Math.random() * 320;
+            bot.timer = 150 + Math.random() * 150;
+          }
+          break;
+      }
+
+      // Smooth bot movement
+      bot.cx += (bot.tx - bot.cx) * bot.speed;
+      bot.cy += (bot.ty - bot.cy) * bot.speed;
+
+      // Update cursor position relative to viewport / fixed background container
+      if (bot.element) {
+        const screenX = rect.left + bot.cx * scaleX - 2;
+        const screenY = rect.top + bot.cy * scaleY - 2;
+        bot.element.style.transform = `translate3d(${screenX}px, ${screenY}px, 0)`;
+      }
+    }
+
+    // Nodes Easing
+    for (const key in nodes) {
+      const n = nodes[key];
+      // If no bot is editing this node, return to default position
+      let beingEdited = false;
+      for (const botKey in bots) {
+        if (bots[botKey].state === 'EDITING_NODE' && bots[botKey].targetNode === key) {
+          beingEdited = true;
+        }
+      }
+      if (!beingEdited) {
+        n.tx = n.x;
+        n.ty = n.y;
+      }
+
+      n.cx += (n.tx - n.cx) * 0.12;
+      n.cy += (n.ty - n.cy) * 0.12;
+    }
+
+    // Dynamic Nodes active class mapping
+    if (wilsonEditing) {
+      bgNodeSummit.setAttribute('class', 'bg-node node-summit active-editing');
+    } else {
+      bgNodeSummit.setAttribute('class', 'bg-node node-summit');
+    }
+    
+    if (garettEditing) {
+      bgNodeSaddle.setAttribute('class', 'bg-node node-saddle active-editing');
+    } else {
+      bgNodeSaddle.setAttribute('class', 'bg-node node-saddle');
+    }
+
+    // Dynamic line class mapping (laser colors)
+    if (wilsonEditing) {
+      bgLineSummitLeft.setAttribute('class', 'bg-node-line active-editing line-wilson-active');
+      bgLineSummitRight.setAttribute('class', 'bg-node-line active-editing line-wilson-active');
+    } else {
+      bgLineSummitLeft.setAttribute('class', 'bg-node-line');
+      bgLineSummitRight.setAttribute('class', 'bg-node-line');
+    }
+
+    if (wilsonEditing && garettEditing) {
+      bgLineSummitSaddle.setAttribute('class', 'bg-node-line active-editing line-both-active');
+    } else if (wilsonEditing) {
+      bgLineSummitSaddle.setAttribute('class', 'bg-node-line active-editing line-wilson-active');
+    } else if (garettEditing) {
+      bgLineSummitSaddle.setAttribute('class', 'bg-node-line active-editing line-garett-active');
+    } else {
+      bgLineSummitSaddle.setAttribute('class', 'bg-node-line');
+    }
+
+    // Redraw Mountain Polygons
+    const dx = nodes.summit.cx - 260;
+    const dy = nodes.summit.cy - 64;
+
+    polyF1.setAttribute('points', `${nodes.summit.cx},${nodes.summit.cy} 148,232 ${nodes.leftRidge.cx},${nodes.leftRidge.cy}`);
+    polyF2.setAttribute('points', `${nodes.summit.cx},${nodes.summit.cy} ${nodes.leftRidge.cx},${nodes.leftRidge.cy} ${nodes.saddle.cx},${nodes.saddle.cy}`);
+    polyF3.setAttribute('points', `${nodes.summit.cx},${nodes.summit.cy} ${nodes.saddle.cx},${nodes.saddle.cy} ${nodes.rightRidge.cx},${nodes.rightRidge.cy}`);
+    polyF4.setAttribute('points', `${nodes.summit.cx},${nodes.summit.cy} ${nodes.rightRidge.cx},${nodes.rightRidge.cy} 372,232`);
+    polyF5.setAttribute('points', `${nodes.summit.cx},${nodes.summit.cy} ${246 + dx},${98 + dy} ${276 + dx},${98 + dy}`);
+    polyF6.setAttribute('points', `${nodes.summit.cx},${nodes.summit.cy} ${276 + dx},${98 + dy} ${286 + dx},${90 + dy}`);
+
+    // Stars offset and pulse sync with summit
+    stars.forEach(star => {
+      if (wilsonEditing) {
+        star.classList.add('active-pulse');
+      } else {
+        star.classList.remove('active-pulse');
+      }
+      star.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+    });
+
+    // Redraw nodes and guide lines
+    bgNodeSummit.setAttribute('cx', nodes.summit.cx); bgNodeSummit.setAttribute('cy', nodes.summit.cy);
+    bgNodeSaddle.setAttribute('cx', nodes.saddle.cx); bgNodeSaddle.setAttribute('cy', nodes.saddle.cy);
+    bgNodeLeftRidge.setAttribute('cx', nodes.leftRidge.cx); bgNodeLeftRidge.setAttribute('cy', nodes.leftRidge.cy);
+    bgNodeRightRidge.setAttribute('cx', nodes.rightRidge.cx); bgNodeRightRidge.setAttribute('cy', nodes.rightRidge.cy);
+
+    bgLineSummitSaddle.setAttribute('x1', nodes.summit.cx); bgLineSummitSaddle.setAttribute('y1', nodes.summit.cy);
+    bgLineSummitSaddle.setAttribute('x2', nodes.saddle.cx); bgLineSummitSaddle.setAttribute('y2', nodes.saddle.cy);
+
+    bgLineSummitLeft.setAttribute('x1', nodes.summit.cx); bgLineSummitLeft.setAttribute('y1', nodes.summit.cy);
+    bgLineSummitLeft.setAttribute('x2', nodes.leftRidge.cx); bgLineSummitLeft.setAttribute('y2', nodes.leftRidge.cy);
+
+    bgLineSummitRight.setAttribute('x1', nodes.summit.cx); bgLineSummitRight.setAttribute('y1', nodes.summit.cy);
+    bgLineSummitRight.setAttribute('x2', nodes.rightRidge.cx); bgLineSummitRight.setAttribute('y2', nodes.rightRidge.cy);
+
+    requestAnimationFrame(update);
+  }
+
+  createCursors();
+  // Small delay to let bounding rect calculate properly on page load
+  setTimeout(() => {
+    requestAnimationFrame(update);
+  }, 300);
+})();
+

@@ -17,7 +17,7 @@ const _nativeFetch = window.fetch.bind(window);
 window.fetch = (input, init = {}) => _nativeFetch(input, { ...init, credentials: 'include' });
 
 // ── LIVE DATA CACHE ──
-const LIVE = { proyectos: [], leads: [], tickets: [], finanzas: [], loaded: false };
+const LIVE = { proyectos: [], leads: [], tickets: [], finanzas: [], testimonios: [], loaded: false };
 
 // ── VIEW STATE ──
 let leadsFilter   = 'all';
@@ -40,15 +40,22 @@ if (localStorage.getItem('apex_sb') === '1') {
 async function apiFetch(params) {
   const url = new URL(PORTAL_AS_URL, window.location.origin);
   Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), { credentials: 'include' });
   return res.json();
 }
 
 async function apiPost(body) {
   const res = await fetch(PORTAL_AS_URL, {
     method: 'POST',
+    credentials: 'include',
     body: JSON.stringify(body),
   });
+  return res.json();
+}
+
+/* Fetch directo a endpoints nuevos que NO pasan por el proxy /gs (testimonios, metrics) */
+async function apiFetchDirect(path, options = {}) {
+  const res = await fetch(`${API_BASE}${path}`, { credentials: 'include', ...options });
   return res.json();
 }
 
@@ -67,8 +74,8 @@ async function fetchAdminData() {
     if (rt.success) LIVE.tickets   = rt.tickets   || [];
     if (rf.success) LIVE.finanzas  = rf.finanzas  || [];
     LIVE.loaded = true;
+    _lastSync = new Date();
   } catch (err) {
-    console.error('fetchAdminData error:', err);
   }
   setLoadingState(false);
 }
@@ -107,6 +114,14 @@ function formatDate(d) {
   return new Date(str + 'T00:00:00').toLocaleDateString('es-CR', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
+/* Para DATETIME de MySQL — mysql2 los devuelve como Date real, no como string de Sheets */
+function formatDateSQL(d) {
+  if (!d) return '—';
+  const date = d instanceof Date ? d : new Date(d);
+  if (isNaN(date.getTime())) return '—';
+  return date.toLocaleDateString('es-CR', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
 function emptyState(icon, text) {
   return `<div class="empty-state"><div class="empty-icon">${icon}</div><p class="empty-text">${text}</p></div>`;
 }
@@ -115,6 +130,7 @@ function emptyState(icon, text) {
 
 let _autoRefreshTimer = null;
 let _metaMensual = Number(localStorage.getItem('apex_meta_mensual')) || 500;
+let _lastSync = null;
 
 function renderDashboard() {
   const activos     = LIVE.proyectos.filter(p => p.estado === 'live' || p.estado === 'dev').length;
@@ -130,7 +146,7 @@ function renderDashboard() {
   document.getElementById('m-proyectos-sub').textContent = `${LIVE.proyectos.filter(p => p.estado === 'pending').length} pendientes`;
   document.getElementById('m-tickets').textContent      = openTickets;
   document.getElementById('m-tickets-sub').innerHTML    = urgentes > 0
-    ? `<span style="color:var(--red)">⚠ ${urgentes} urgente${urgentes > 1 ? 's' : ''}</span>`
+    ? `<span class="urgent-pill">⚠ ${urgentes} urgente${urgentes > 1 ? 's' : ''}</span>`
     : 'Sin urgentes';
   document.getElementById('m-leads').textContent        = newLeads;
   document.getElementById('m-leads-sub').textContent    = `${totalLeads} total`;
@@ -155,12 +171,11 @@ function renderDashboard() {
   // Progress groups (ingresos por mes)
   document.getElementById('dash-progress-groups').innerHTML = buildProgressGroups();
 
-  // Sparklines
-  const seed = activos + openTickets + newLeads;
-  document.getElementById('sp-proyectos').innerHTML = sparklineSVG(decorativePoints(seed, 7, 1),  '#60a5fa');
-  document.getElementById('sp-tickets').innerHTML   = sparklineSVG(decorativePoints(seed + 3, 7, -0.5), '#fbbf24');
-  document.getElementById('sp-leads').innerHTML     = sparklineSVG(leadsLast7Days(),               '#C4956A');
-  document.getElementById('sp-ingresos').innerHTML  = sparklineSVG(finanzas6Months(),              '#34d399');
+  // Sparklines — todos con datos reales (nada decorativo/inventado)
+  document.getElementById('sp-proyectos').innerHTML = proyectosDistribucion();
+  document.getElementById('sp-tickets').innerHTML   = sparklineSVG(ticketsLast7Days(), '#fbbf24');
+  document.getElementById('sp-leads').innerHTML     = sparklineSVG(leadsLast7Days(),   '#C4956A');
+  document.getElementById('sp-ingresos').innerHTML  = sparklineSVG(finanzas6Months(),  '#34d399');
 
   // Proyectos activos
   const actList = LIVE.proyectos.filter(p => p.estado === 'live' || p.estado === 'dev');
@@ -186,6 +201,98 @@ function renderDashboard() {
 
   // Activity feed
   document.getElementById('dash-activity').innerHTML = buildActivityFeed();
+
+  // Panel piloto — datos reales de MySQL, independiente de las tarjetas de arriba (Sheets)
+  cargarMetricasMySQL();
+  cargarTablero();
+}
+
+/* ── MÉTRICAS MYSQL — panel piloto, no reemplaza las tarjetas de Sheets ──
+   Falla en silencio (deja "—") si el backend todavía no está deployado. */
+async function cargarMetricasMySQL() {
+  const elLeads = document.getElementById('mm-leads');
+  const elIngresos = document.getElementById('mm-ingresos');
+  const elClientes = document.getElementById('mm-clientes');
+  const elHoras = document.getElementById('mm-horas');
+  const elHorasSpark = document.getElementById('mm-horas-spark');
+  if (!elLeads) return;
+
+  try {
+    const data = await apiFetchDirect('/api/admin/metrics');
+    if (!data.success) return;
+    elLeads.textContent = data.leadsResumen.length;
+    const totalIngresos = data.ingresosMensuales.reduce((a, m) => a + (Number(m.total) || 0), 0);
+    elIngresos.textContent = `$${totalIngresos.toLocaleString()}`;
+    elClientes.textContent = data.clientesActivos.length;
+
+    // Horas — completar los 7 días aunque el backend solo devuelva los días con registro
+    const porDia = {};
+    (data.horasUltimos7Dias || []).forEach(r => { porDia[String(r.work_date).slice(0, 10)] = Number(r.hours) || 0; });
+    const hoy = new Date();
+    const serie = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(hoy);
+      d.setDate(d.getDate() - (6 - i));
+      const key = d.toISOString().slice(0, 10);
+      return porDia[key] || 0;
+    });
+    elHoras.textContent = serie.reduce((a, v) => a + v, 0).toFixed(1);
+    if (elHorasSpark) elHorasSpark.innerHTML = sparklineSVG(serie, '#60A5FA');
+  } catch (err) {
+    // backend MySQL no disponible todavía — se queda en "—", no es un error visible
+  }
+}
+
+/* ── TABLERO FINANCIERO — Plan Maestro v2 Sección 6 ──
+   4 indicadores reales (MySQL) + 2 manuales guardados en localStorage
+   (utilidad real y fondo de emergencia no tienen tabla que los respalde). */
+async function cargarTablero() {
+  const elMrr = document.getElementById('tb-mrr');
+  if (!elMrr) return;
+
+  // Campos manuales — cargar de localStorage y guardar al editar (listener una sola vez)
+  const utilidadInput = document.getElementById('tb-utilidad-input');
+  const fondoInput = document.getElementById('tb-fondo-input');
+  utilidadInput.value = localStorage.getItem('apex_tablero_utilidad') || '';
+  fondoInput.value = localStorage.getItem('apex_tablero_fondo') || '';
+  if (!utilidadInput.dataset.bound) {
+    utilidadInput.dataset.bound = '1';
+    utilidadInput.addEventListener('change', () => localStorage.setItem('apex_tablero_utilidad', utilidadInput.value));
+    fondoInput.dataset.bound = '1';
+    fondoInput.addEventListener('change', () => localStorage.setItem('apex_tablero_fondo', fondoInput.value));
+  }
+
+  try {
+    const data = await apiFetchDirect('/api/admin/tablero');
+    if (!data.success) return;
+
+    const setSemaforo = (id, isGreen) => {
+      const el = document.getElementById(id);
+      el.classList.remove('is-green', 'is-red');
+      el.classList.add(isGreen ? 'is-green' : 'is-red');
+    };
+
+    document.getElementById('tb-mrr').textContent = `$${Math.round(data.mrr).toLocaleString()}`;
+
+    const facturado = data.facturadoMes;
+    document.getElementById('tb-facturado').textContent = `$${facturado.toLocaleString()}`;
+    setSemaforo('tb-facturado-tile', facturado >= 700);
+
+    const pct = data.concentracion.porcentaje;
+    document.getElementById('tb-concentracion').textContent = data.concentracion.cliente ? `${pct}%` : '—';
+    document.getElementById('tb-concentracion-sub').textContent = data.concentracion.cliente
+      ? `${h(data.concentracion.cliente)} · rojo si > 40%`
+      : 'rojo si un cliente > 40%';
+    setSemaforo('tb-concentracion-tile', pct <= 40);
+
+    const cxc = data.cuentasPorCobrar;
+    document.getElementById('tb-cobrar').textContent = `$${cxc.total.toLocaleString()}`;
+    document.getElementById('tb-cobrar-sub').textContent = cxc.items.length
+      ? `${cxc.items.length} pendiente${cxc.items.length > 1 ? 's' : ''} · máx ${cxc.maxDiasAtraso}d`
+      : 'sin pendientes';
+    setSemaforo('tb-cobrar-tile', cxc.maxDiasAtraso <= 15);
+  } catch (err) {
+    // backend MySQL no disponible todavía — se queda en "—"
+  }
 }
 
 /* ── REVENUE RING (SVG donut) ── */
@@ -206,7 +313,7 @@ function buildRevenueRing(cobrado, pendiente) {
           stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}"
           stroke-dashoffset="${(circ / 4).toFixed(1)}"
           stroke-linecap="round" class="ring-arc"/>
-        <text x="65" y="58" text-anchor="middle" fill="${color}" font-size="18" font-weight="700" font-family="Unbounded,sans-serif">${pctLabel}</text>
+        <text x="65" y="58" text-anchor="middle" fill="${color}" font-size="18" font-weight="400" font-family="Anton,sans-serif">${pctLabel}</text>
         <text x="65" y="74" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="JetBrains Mono,monospace">$${cobrado} / $${meta}</text>
         <text x="65" y="86" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-size="8" font-family="JetBrains Mono,monospace">meta mensual</text>
       </svg>
@@ -317,12 +424,28 @@ function sparklineSVG(points, color) {
   </svg>`;
 }
 
-function decorativePoints(seed, n = 7, trend = 1) {
-  let v = (seed % 8) + 3;
-  return Array.from({ length: n }, (_, i) => {
-    v = Math.max(1, v + Math.sin(i * 1.9 + seed * 0.3) * 1.5 + trend * 0.4);
-    return v;
+function ticketsLast7Days() {
+  const hoy = new Date();
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(hoy);
+    d.setDate(d.getDate() - (6 - i));
+    const key = d.toLocaleDateString('es-CR');
+    return LIVE.tickets.filter(t => t.fecha === key).length;
   });
+}
+
+/* Proyectos no tiene fecha de creación en el sheet — no hay forma honesta de
+   armar un histórico de 7 días. En vez de inventar una tendencia, mostramos
+   la distribución real de estados actuales (live/dev/pendiente-pausado). */
+function proyectosDistribucion() {
+  const live    = LIVE.proyectos.filter(p => p.estado === 'live').length;
+  const dev     = LIVE.proyectos.filter(p => p.estado === 'dev').length;
+  const otros   = LIVE.proyectos.filter(p => p.estado !== 'live' && p.estado !== 'dev').length;
+  const total   = Math.max(live + dev + otros, 1);
+  const seg = (n, color) => `<span style="flex:${n || 0.001};background:${color}"></span>`;
+  return `<div class="mc-dist" title="Live ${live} · Desarrollo ${dev} · Otros ${otros}">
+    ${seg(live, '#4ADE80')}${seg(dev, '#60A5FA')}${seg(otros, 'var(--text3)')}
+  </div>`;
 }
 
 function leadsLast7Days() {
@@ -484,11 +607,24 @@ function buildActivityFeed() {
 }
 
 /* ── AUTO-REFRESH + CLOCK ── */
+function relativeSyncLabel() {
+  if (!_lastSync) return 'sin datos aún';
+  const secs = Math.floor((Date.now() - _lastSync.getTime()) / 1000);
+  if (secs < 10)  return 'hace instantes';
+  if (secs < 60)  return `hace ${secs}s`;
+  const mins = Math.floor(secs / 60);
+  if (mins < 60)  return `hace ${mins}m`;
+  const hrs = Math.floor(mins / 60);
+  return `hace ${hrs}h`;
+}
+
 function startClock() {
   const el = document.getElementById('dash-clock');
+  const syncEl = document.getElementById('dash-last-sync');
   if (!el) return;
   const tick = () => {
     el.textContent = new Date().toLocaleTimeString('es-CR', { timeZone: 'America/Costa_Rica', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    if (syncEl) syncEl.textContent = `Sync: ${relativeSyncLabel()}`;
   };
   tick();
   setInterval(tick, 1000);
@@ -529,7 +665,7 @@ function renderProyectos() {
         <td><span style="font-size:18px;margin-right:8px">${h(p.emoji || '📁')}</span><strong>${h(p.nombre)}</strong></td>
         <td style="color:var(--text2)">${h(p.cliente)}</td>
         <td>${estadoBadge(p.estado)}</td>
-        <td style="color:var(--gold2);font-family:'Unbounded',sans-serif;font-weight:700">${Number(p.valor) > 0 ? '$' + h(p.valor) : '—'}</td>
+        <td style="color:var(--gold2);font-family:'Inter',sans-serif;font-weight:700">${Number(p.valor) > 0 ? '$' + h(p.valor) : '—'}</td>
         <td style="color:var(--text2)">${h(formatDate(p.entrega))}</td>
         <td style="min-width:140px">
           <div class="progress-bar"><div class="progress-fill" style="width:${h(p.progreso || 0)}%"></div></div>
@@ -593,13 +729,36 @@ function renderLeads() {
 }
 
 /* ── TAB SWITCHING ── */
+const IDE_FILE_META = {
+  dashboard: { file: 'dashboard.html', lang: 'JSON' },
+  proyectos: { file: 'proyectos.js',   lang: 'JavaScript' },
+  leads:     { file: 'leads.json',     lang: 'JSON' },
+  finanzas:  { file: 'finanzas.js',    lang: 'JavaScript' },
+  tickets:   { file: 'tickets.js',     lang: 'JavaScript' },
+  clientes:  { file: 'clientes.js',    lang: 'JavaScript' },
+  testimonios: { file: 'testimonios.sql', lang: 'SQL' },
+  contratos: { file: 'contratos.sql', lang: 'SQL' },
+};
+
 function switchTab(name) {
   document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
   document.getElementById('tab-' + name)?.classList.add('active');
   document.querySelectorAll('.sb-item').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === name);
   });
+  document.querySelectorAll('.ide-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === name);
+  });
+  const meta = IDE_FILE_META[name];
+  if (meta) {
+    const titlebar = document.getElementById('ide-titlebar-name');
+    const lang = document.getElementById('ide-status-lang');
+    if (titlebar) titlebar.textContent = `${meta.file} — apex-admin — Visual Studio Code`;
+    if (lang) lang.textContent = meta.lang;
+  }
   if (name === 'clientes') cargarClientes();
+  if (name === 'testimonios') cargarTestimonios();
+  if (name === 'contratos') cargarContratos();
 }
 
 /* ── MODALES ── */
@@ -647,6 +806,10 @@ function bindAdminEvents() {
   document.getElementById('sb-toggle').addEventListener('click', toggleSidebar);
 
   document.querySelectorAll('.sb-item[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  document.querySelectorAll('.ide-tab[data-tab]').forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
@@ -941,6 +1104,93 @@ function tipoBadge(tipo) {
   return '<span class="badge badge-pending">Lead</span>';
 }
 
+/* ── TESTIMONIOS: moderación (MySQL real, no pasa por Sheets) ── */
+async function cargarTestimonios() {
+  const tbody = document.getElementById('tbody-testimonios');
+  tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text3)">Cargando…</td></tr>`;
+
+  try {
+    const data = await apiFetchDirect('/api/admin/testimonios');
+    if (!data.success) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#fca5a5;padding:20px">${h(data.error)}</td></tr>`;
+      return;
+    }
+    LIVE.testimonios = data.testimonios || [];
+    renderTestimonios();
+    updateTabBadge('testimonios', LIVE.testimonios.filter(t => !t.approved).length);
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#fca5a5;padding:20px">Error: ${h(err.message)}</td></tr>`;
+  }
+}
+
+function renderTestimonios() {
+  const tbody = document.getElementById('tbody-testimonios');
+  if (!LIVE.testimonios.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:28px">No hay testimonios todavía.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = LIVE.testimonios.map(t => `
+    <tr>
+      <td><strong>${h(t.user_name)}</strong><div style="color:var(--text3);font-size:11px">${h(t.user_email)}</div></td>
+      <td style="color:var(--text2)">${h(t.company || '—')}</td>
+      <td>${'★'.repeat(Number(t.rating) || 0)}${'☆'.repeat(5 - (Number(t.rating) || 0))}</td>
+      <td style="color:var(--text2);max-width:340px">${h(t.text)}</td>
+      <td>${t.approved ? '<span class="badge badge-live">Aprobado</span>' : '<span class="badge badge-pending">Pendiente</span>'}</td>
+      <td style="color:var(--text3);font-size:12px">${formatDateSQL(t.created_at)}</td>
+      <td style="display:flex;gap:6px;flex-wrap:wrap">
+        ${t.approved
+          ? `<button class="action-btn danger btn-rechazar-testimonio" data-id="${h(t.id)}">Ocultar</button>`
+          : `<button class="action-btn gold btn-aprobar-testimonio" data-id="${h(t.id)}">Aprobar</button>`}
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function setTestimonioAprobado(id, approved) {
+  try {
+    const data = await apiFetchDirect(`/api/admin/testimonios/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approved }),
+    });
+    if (!data.success) { alert(data.error || 'Error actualizando el testimonio.'); return; }
+    const t = LIVE.testimonios.find(x => String(x.id) === String(id));
+    if (t) t.approved = approved ? 1 : 0;
+    renderTestimonios();
+    updateTabBadge('testimonios', LIVE.testimonios.filter(x => !x.approved).length);
+  } catch (err) {
+    alert('Error de conexión: ' + err.message);
+  }
+}
+
+/* ── CONTRATOS: trazabilidad legal (MySQL real) ── */
+async function cargarContratos() {
+  const tbody = document.getElementById('tbody-contratos');
+  tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text3)">Cargando…</td></tr>`;
+
+  try {
+    const data = await apiFetchDirect('/api/admin/contratos');
+    if (!data.success) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#fca5a5;padding:20px">${h(data.error)}</td></tr>`;
+      return;
+    }
+    if (!data.contratos.length) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:28px">No hay contratos firmados todavía.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = data.contratos.map(c => `
+      <tr>
+        <td><strong>${h(c.user_name)}</strong><div style="color:var(--text3);font-size:11px">${h(c.user_email)}</div></td>
+        <td style="color:var(--text2)">${h(c.lead_service || '—')}</td>
+        <td style="color:var(--text2)">${h(formatDateSQL(c.signed_at))}</td>
+        <td style="color:var(--text3);font-size:12px">${h(c.ip || '—')}</td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#fca5a5;padding:20px">Error: ${h(err.message)}</td></tr>`;
+  }
+}
+
 /* ── CLIENTES: Ver etapas ── */
 async function verEtapas(proyectoId) {
   if (!PORTAL_AS_URL) return;
@@ -1147,7 +1397,7 @@ async function crearCliente() {
 const KANBAN_COLS = [
   { key: 'pending', label: 'Pendiente', color: 'var(--text3)' },
   { key: 'dev',     label: 'Desarrollo', color: 'var(--yellow)' },
-  { key: 'paused',  label: 'Pausado',    color: 'var(--red)' },
+  { key: 'paused',  label: 'Pausado',    color: 'var(--red-alert)' },
   { key: 'live',    label: 'Live',       color: 'var(--green)' },
 ];
 
@@ -1225,7 +1475,7 @@ function renderFinanzas() {
       <tr>
         <td><strong>${h(f.cliente)}</strong></td>
         <td style="color:var(--text2)">${h(f.proyecto)}</td>
-        <td style="color:var(--gold2);font-family:'Unbounded',sans-serif;font-weight:700">$${h(f.monto)}</td>
+        <td style="color:var(--gold2);font-family:'Inter',sans-serif;font-weight:700">$${h(f.monto)}</td>
         <td><span class="badge ${h(finBadge[f.estado] || 'badge-pending')}">${h(f.estado)}</span></td>
         <td style="color:var(--text2)">${h(f.fecha_factura || '—')}</td>
         <td style="color:var(--text2)">${h(f.fecha_pago || '—')}</td>
@@ -1373,6 +1623,11 @@ document.addEventListener('click', e => {
     verTicketsCliente(verTicketsBtn.dataset.email, verTicketsBtn.dataset.nombre);
     return;
   }
+  // Testimonios: aprobar / ocultar
+  const aprobarTestBtn = e.target.closest('.btn-aprobar-testimonio');
+  if (aprobarTestBtn) { setTestimonioAprobado(aprobarTestBtn.dataset.id, true); return; }
+  const rechazarTestBtn = e.target.closest('.btn-rechazar-testimonio');
+  if (rechazarTestBtn) { setTestimonioAprobado(rechazarTestBtn.dataset.id, false); return; }
   // Responder ticket
   const respBtn = e.target.closest('.btn-responder');
   if (respBtn) {

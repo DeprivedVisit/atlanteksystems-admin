@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Política de Seguridad — Apex Cloud Works</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,400&family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d1117;line-height:1.7}
+.container{width:min(820px,92%);margin-inline:auto;padding-block:3.5rem}
+.navbar{background:#161b22;padding:1rem 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(200,149,74,.2)}
+.nav-inner{width:min(820px,92%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Noto Serif Display',Georgia,serif;font-size:1.05rem;color:#fff;text-decoration:none}
+.nav-logo span{color:#c8954a;font-style:italic}
+.nav-tag{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(200,149,74,.5)}
+.hero{background:linear-gradient(135deg,#161b22 0%,#1c2330 100%);padding:3.5rem 0 2.5rem;border-bottom:1px solid rgba(200,149,74,.15)}
+.hero-inner{width:min(820px,92%);margin-inline:auto}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#c8954a;opacity:.7;margin-bottom:.75rem}
+.hero-title{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:300;color:#fff;margin-bottom:.5rem}
+.hero-title strong{font-weight:600;color:#c8954a}
+.hero-meta{font-size:.76rem;color:rgba(255,255,255,.3);display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:.5rem}
+.body{display:flex;flex-direction:column;gap:1.75rem}
+.sec{background:#161b22;border:1px solid rgba(200,149,74,.12);border-radius:14px;padding:1.6rem 1.8rem}
+.sec h2{font-family:'Noto Serif Display',Georgia,serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:.85rem;padding-bottom:.55rem;border-bottom:1px solid rgba(200,149,74,.1);display:flex;align-items:center;gap:.5rem}
+.sec h3{font-size:.82rem;font-weight:700;color:#c8954a;margin:.9rem 0 .4rem}
+.sec p{font-size:.84rem;color:rgba(232,224,216,.65);line-height:1.75;margin-bottom:.6rem}
+.checklist{display:flex;flex-direction:column;gap:.5rem;margin-top:.25rem}
+.check-item{display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:flex-start;padding:.65rem .85rem;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);font-size:.83rem;color:rgba(232,224,216,.7);transition:border-color .15s;cursor:default}
+.check-item:hover{border-color:rgba(200,149,74,.18)}
+.check-item.done{border-color:rgba(52,211,153,.2);background:rgba(52,211,153,.04)}
+.check-item.done .chk{color:#34d399}
+.check-item.warn{border-color:rgba(251,191,36,.2);background:rgba(251,191,36,.04)}
+.check-item.warn .chk{color:#fbbf24}
+.check-item.fail{border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.04)}
+.check-item.fail .chk{color:#f87171}
+.chk{font-size:1rem;margin-top:.05rem;flex-shrink:0}
+.check-label{font-size:.83rem;line-height:1.5}
+.check-label strong{color:#e8e0d8;display:block;margin-bottom:.1rem}
+.check-label span{font-size:.76rem;color:rgba(232,224,216,.45)}
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:.5rem}
+.type-card{background:rgba(255,255,255,.03);border:1px solid rgba(200,149,74,.1);border-radius:10px;padding:1rem 1.1rem}
+.type-title{font-size:.75rem;font-weight:700;color:#c8954a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem}
+.type-list{display:flex;flex-direction:column;gap:.3rem}
+.type-item{font-size:.78rem;color:rgba(232,224,216,.6);display:flex;align-items:flex-start;gap:.4rem;line-height:1.45}
+.type-item::before{content:'→';color:rgba(200,149,74,.5);font-size:.7rem;margin-top:.1rem;flex-shrink:0}
+.incident-steps{display:flex;flex-direction:column;gap:.5rem;counter-reset:step}
+.incident-step{display:grid;grid-template-columns:28px 1fr;gap:.75rem;align-items:flex-start;padding:.7rem .85rem;background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.12);border-radius:8px;font-size:.83rem;color:rgba(232,224,216,.7);counter-increment:step}
+.incident-step::before{content:counter(step);background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:#f87171;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:.05rem}
+.incident-body strong{color:#e8e0d8;display:block;margin-bottom:.1rem}
+.monthly-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.25rem}
+.monthly-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:.75rem 1rem;font-size:.82rem;color:rgba(232,224,216,.65);display:flex;align-items:flex-start;gap:.6rem}
+.monthly-item .ico{font-size:1.1rem;flex-shrink:0}
+.monthly-body strong{color:#e8e0d8;display:block;font-size:.8rem}
+.monthly-body span{font-size:.74rem;color:rgba(232,224,216,.4)}
+.hl{background:rgba(200,149,74,.06);border:1px solid rgba(200,149,74,.15);border-left:3px solid #c8954a;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:.8rem;color:rgba(232,224,216,.65);line-height:1.65;margin-top:.75rem}
+.code{font-family:'JetBrains Mono',monospace;font-size:.76rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:.15rem .4rem;color:#c8954a}
+.footer{background:#161b22;border-top:1px solid rgba(200,149,74,.1);padding:1.5rem 1rem;text-align:center;font-size:.7rem;color:rgba(255,255,255,.2);margin-top:3rem}
+@media(max-width:700px){.type-grid{grid-template-columns:1fr}.monthly-grid{grid-template-columns:1fr}.sec{padding:1.25rem 1.1rem}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="https://apexcloudworkcompany.com/" class="nav-logo">Apex <span>Cloud Works</span></a>
+    <span class="nav-tag">Documento Interno · No publicar</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Apex Cloud Works · Seguridad Operacional</div>
+    <h1 class="hero-title">Política de <strong>Seguridad</strong></h1>
+    <div class="hero-meta">
+      <span>Versión 1.1 · julio 2026</span>
+      <span>Revisión mensual</span>
+      <span>Solo uso interno — Garett Barrantes</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="body">
+
+  <!-- CHECKLIST PRE-DEPLOY -->
+  <div class="sec">
+    <h2>✅ Checklist pre-deploy</h2>
+    <p>Verificar cada ítem antes de publicar cualquier sitio a producción en AWS.</p>
+    <div class="checklist">
+
+      <div class="check-item done">
+        <span class="chk">✓</span>
+        <div class="check-label">
+          <strong>noindex en páginas privadas</strong>
+          <span>admin.html, legal/, portal/ deben tener <span class="code">&lt;meta name="robots" content="noindex, nofollow"&gt;</span></span>
+        </div>
+      </div>
+
+      <div class="check-item done">
+        <span class="chk">✓</span>
+        <div class="check-label">
+          <strong>HTTPS forzado en CloudFront</strong>
+          <span>Behavior → Redirect HTTP to HTTPS. SSL via ACM. Verificar que el dominio no sirva HTTP en ningún path.</span>
+        </div>
+      </div>
+
+      <div class="check-item done">
+        <span class="chk">✓</span>
+        <div class="check-label">
+          <strong>Tokens no hardcodeados en JS público</strong>
+          <span>Resuelto — <span class="code">backend/</span> (Express + MySQL + bcrypt + sessions) mueve el token de Apps Script y la contraseña admin al servidor. <span class="code">admin.js</span> ya no trae ningún secreto, solo llama a <span class="code">/api/admin/gs</span> con sesión. Pendiente: apuntar <span class="code">env.js</span> a la API real una vez que <span class="code">api.apexcloudworkcompany.com</span> esté deployado.</span>
+        </div>
+      </div>
+
+      <div class="check-item done">
+        <span class="chk">✓</span>
+        <div class="check-label">
+          <strong>Datos externos sanitizados antes de innerHTML</strong>
+          <span>Todo dato que venga de API, formulario o URL debe pasar por la función <span class="code">h()</span> antes de insertarse en el DOM.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span class="chk">○</span>
+        <div class="check-label">
+          <strong>N8N webhooks con token de autenticación</strong>
+          <span>Verificado 06/07/2026 — los 4 workflows reales exportados (<span class="code">n8n-workflow-ecopollo.json</span>, <span class="code">n8n-galiz.json</span>, <span class="code">n8n-workflow-cbd.json</span>, <span class="code">n8n-workflow-melasblock.json</span>) tienen <span class="code">authentication: "none"</span> en el nodo Webhook. Acción pendiente (manual, en n8n.cloud — no se resuelve editando el JSON exportado): entrar a cada workflow → nodo Webhook → agregar credencial Header Auth → redeploy/activar de nuevo.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span class="chk">○</span>
+        <div class="check-label">
+          <strong>Google Sheets con permisos restringidos</strong>
+          <span>Revisar puntualmente los Sheets de leads de EcoPollo, Galiz, CBD Balance, Melasblock y Skindoctors: Compartir → confirmar que solo la cuenta de servicio de N8N y el email de Garett tengan acceso. (Este ítem también aparece en la revisión mensual — no duplicar el chequeo, solo asegurarse de que se hizo al menos una vez la primera pasada.)</span>
+        </div>
+      </div>
+
+      <div class="check-item done">
+        <span class="chk">✓</span>
+        <div class="check-label">
+          <strong>Formularios sin campos de pago</strong>
+          <span>Ningún formulario web debe pedir número de tarjeta, CVC, cuenta bancaria o datos financieros. Pagos = SINPE/Wise fuera del sitio.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span class="chk">○</span>
+        <div class="check-label">
+          <strong>Código fuente no en repositorio público</strong>
+          <span>No verificable desde el repo local. Acción pendiente: entrar a github.com/apexcloudworkscompany y confirmar manualmente que cada repo de cliente está en modo Private (Settings → General → Danger Zone → Change visibility si alguno quedó público).</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span class="chk">○</span>
+        <div class="check-label">
+          <strong>AWS IAM: principio de mínimo privilegio</strong>
+          <span>Sin infraestructura como código en el repo — es trabajo 100% manual de consola. Acción pendiente: AWS Console → IAM → Users → confirmar que el usuario de deploy no tiene <span class="code">AdministratorAccess</span>, solo permisos scoped a los buckets S3 y la distribución CloudFront correspondientes.</span>
+        </div>
+      </div>
+
+      <div class="check-item done">
+        <span class="chk">✓</span>
+        <div class="check-label">
+          <strong>Sin console.log() en producción</strong>
+          <span>Limpiado 06/07/2026 — se removieron los 3 <span class="code">console.error</span>/<span class="code">console.warn</span> que quedaban en <span class="code">admin.js</span> y <span class="code">Galiz/calendar.js</span>. Verificar de nuevo antes de cada deploy grande.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span class="chk">○</span>
+        <div class="check-label">
+          <strong>CloudFront headers de seguridad activos</strong>
+          <span>Response Headers Policy debe incluir: <span class="code">X-Content-Type-Options</span>, <span class="code">X-Frame-Options: DENY</span>, <span class="code">Strict-Transport-Security</span>. Acción: CloudFront → Distributions → seleccionar la distribución → Behaviors → editar → Response headers policy → asignar una policy con esos headers. Nota: los headers ya configurados en <span class="code">backend/nginx.conf</span> solo cubren el subdominio <span class="code">api.</span> (Node/EC2) — los sitios estáticos en S3+CloudFront necesitan esta policy aparte.</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="hl">Leyenda: ✓ Implementado · ⚠ Parcial/pendiente · ○ Pendiente</div>
+  </div>
+
+  <!-- ESTÁNDARES POR TIPO -->
+  <div class="sec">
+    <h2>📋 Estándares por tipo de proyecto</h2>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-title">🖥️ Landing Page</div>
+        <div class="type-list">
+          <div class="type-item">noindex en páginas de agradecimiento</div>
+          <div class="type-item">Formulario valida campos en frontend Y backend (N8N)</div>
+          <div class="type-item">WhatsApp link con número confirmado del cliente</div>
+          <div class="type-item">SSL via ACM + CloudFront redirect</div>
+          <div class="type-item">Rate limit en webhook N8N (N8N basic auth)</div>
+          <div class="type-item">Imágenes en S3 sin acceso público directo (solo via CloudFront)</div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-title">⚙️ Sistema Web</div>
+        <div class="type-list">
+          <div class="type-item">Auth via Cognito (no passwords hardcodeados)</div>
+          <div class="type-item">Tokens JWT con expiración ≤ 24h</div>
+          <div class="type-item">API Gateway con autenticación en cada endpoint</div>
+          <div class="type-item">PostgreSQL en VPC privada (no IP pública)</div>
+          <div class="type-item">Backups automáticos cada 24h (RDS o exportación manual)</div>
+          <div class="type-item">Logs de acceso en CloudWatch</div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-title">🤖 Automatización N8N</div>
+        <div class="type-list">
+          <div class="type-item">Webhook URL no publicada en código del cliente</div>
+          <div class="type-item">Header <span class="code">x-token</span> en cada llamada al webhook</div>
+          <div class="type-item">Credenciales de Sheets en N8N Credentials (no en nodo)</div>
+          <div class="type-item">Workflow con error handling (nodo Error Trigger)</div>
+          <div class="type-item">Datos de leads no almacenados en N8N más de 24h</div>
+          <div class="type-item">Test en environment de prueba antes de activar en producción</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVISIÓN MENSUAL -->
+  <div class="sec">
+    <h2>📅 Revisión mensual de seguridad</h2>
+    <p>Ejecutar el primer lunes de cada mes. Tiempo estimado: 30–45 minutos.</p>
+    <div class="monthly-grid">
+      <div class="monthly-item">
+        <div class="ico">🔒</div>
+        <div class="monthly-body">
+          <strong>SSL: verificar fecha de expiración</strong>
+          <span>Correr <span class="code">python security_monitor.py</span> → confirmar que todos los certificados tengan &gt;30 días de vigencia.</span>
+        </div>
+      </div>
+      <div class="monthly-item">
+        <div class="ico">☁️</div>
+        <div class="monthly-body">
+          <strong>CloudFront: confirmar distribuciones activas</strong>
+          <span>AWS Console → CloudFront → verificar que todas las distribuciones estén en estado "Deployed" y "Enabled".</span>
+        </div>
+      </div>
+      <div class="monthly-item">
+        <div class="ico">🔄</div>
+        <div class="monthly-body">
+          <strong>N8N: workflows encendidos</strong>
+          <span>Entrar a n8n.cloud → revisar que todos los workflows de clientes activos estén en estado "Active".</span>
+        </div>
+      </div>
+      <div class="monthly-item">
+        <div class="ico">📊</div>
+        <div class="monthly-body">
+          <strong>Google Sheets: permisos de acceso</strong>
+          <span>Compartir → verificar que solo la cuenta de servicio de N8N y el email de Garett tengan acceso a los Sheets de leads.</span>
+        </div>
+      </div>
+      <div class="monthly-item">
+        <div class="ico">🔑</div>
+        <div class="monthly-body">
+          <strong>Rotación de tokens</strong>
+          <span>Cambiar el token del Apps Script de admin si hubo acceso no autorizado. Actualizar <span class="code">_t</span> en admin.js y en el Apps Script.</span>
+        </div>
+      </div>
+      <div class="monthly-item">
+        <div class="ico">💾</div>
+        <div class="monthly-body">
+          <strong>Backup de código</strong>
+          <span>Hacer commit o push de todos los proyectos activos al repositorio privado. Confirmar que el código fuente está respaldado.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INCIDENT RESPONSE -->
+  <div class="sec">
+    <h2>🚨 Respuesta ante incidentes</h2>
+    <p>Si se detecta acceso no autorizado, brecha de datos o compromiso de credenciales, seguir este orden de inmediato.</p>
+    <div class="incident-steps">
+      <div class="incident-step">
+        <div class="incident-body">
+          <strong>Revocar credencial comprometida</strong>
+          Si fue una IAM key: AWS Console → IAM → Access Keys → Deactivate. Si fue el token del Apps Script: publicar una nueva versión del script con token diferente.
+        </div>
+      </div>
+      <div class="incident-step">
+        <div class="incident-body">
+          <strong>Evaluar alcance del acceso</strong>
+          Revisar CloudWatch Logs (si está activo) o los logs del Apps Script en Google Cloud Console. Determinar qué datos fueron accedidos.
+        </div>
+      </div>
+      <div class="incident-step">
+        <div class="incident-body">
+          <strong>Rotar todos los tokens relacionados</strong>
+          Generar nuevo hash de contraseña admin (<span class="code">node -e "console.log(require('bcryptjs').hashSync('NUEVA_PASSWORD', 10))"</span>) y actualizar <span class="code">ADMIN_PASSWORD_HASH</span> en <span class="code">.env</span>. Rotar también <span class="code">APPS_SCRIPT_ADMIN_TOKEN</span> y <span class="code">SESSION_SECRET</span> en <span class="code">.env</span>, y reiniciar el backend (<span class="code">pm2 restart</span>) para invalidar todas las sesiones activas.
+        </div>
+      </div>
+      <div class="incident-step">
+        <div class="incident-body">
+          <strong>Notificar al cliente si aplica</strong>
+          Si el incidente involucra datos de clientes o prospectos de un proyecto, notificar al cliente de inmediato por WhatsApp con descripción clara de qué ocurrió y qué se hizo para resolverlo.
+        </div>
+      </div>
+      <div class="incident-step">
+        <div class="incident-body">
+          <strong>Registrar el incidente</strong>
+          Documentar: fecha, tipo de incidente, qué fue accedido, acciones tomadas, tiempo de resolución. Guardar en <span class="code">apexcloudworkcompany.com/Seguridad/incidentes.md</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="sec" style="background:linear-gradient(135deg,#1c2330,#222c3c);border-color:rgba(200,149,74,.2)">
+    <h2>📞 Contactos de emergencia</h2>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-title">AWS Support</div>
+        <div class="type-list">
+          <div class="type-item">console.aws.amazon.com/support</div>
+          <div class="type-item">Plan Basic: soporte por foros</div>
+          <div class="type-item">Upgrade a Developer si hay incidente crítico</div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-title">Google Workspace</div>
+        <div class="type-list">
+          <div class="type-item">support.google.com/a</div>
+          <div class="type-item">Para revocar acceso a Sheets comprometidos</div>
+          <div class="type-item">Admin Console → Security → Audit</div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-title">N8N Cloud</div>
+        <div class="type-list">
+          <div class="type-item">n8n.io/cloud · soporte en dashboard</div>
+          <div class="type-item">Para desactivar workflows comprometidos</div>
+          <div class="type-item">Rotar credenciales en Settings → Credentials</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer class="footer">
+  Documento confidencial · Apex Cloud Works · Seguridad Operacional v1.1 · Garett Barrantes · Cartago, CR
+</footer>
+</body>
+</html>

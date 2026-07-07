@@ -549,28 +549,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 
 <script>
 /* ══ AUTH ══ */
-async function sha256(s){
-  var b = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
-  return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
-}
 async function doLogin(){
   var pw = document.getElementById('pwInput').value;
-  var h = await sha256(pw);
-  var ok = pw === 'ecopollo2024' || h === 'a1b8f3e2c94d7f5e8b6a2c0d4f9e1b3a7c5d8f2e6b4a0c9d7f3e5b1a8c2d6f4';
-  if(ok){
-    sessionStorage.setItem('ep-auth','1');
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('appScreen').classList.add('on');
-    init();
-  } else {
-    var e = document.getElementById('loginErr');
-    e.classList.add('show');
-    document.getElementById('pwInput').value='';
-    setTimeout(function(){e.classList.remove('show');},3000);
+  var btn = document.querySelector('.btn-ingresar');
+  btn.disabled = true;
+  try {
+    // El Apps Script es quien valida la contraseña (Script Properties → ADMIN_TOKEN).
+    // Nunca hay un secreto correcto hardcodeado en esta página.
+    var r = await fetch(asUrl+'?accion=stats&adminToken='+encodeURIComponent(pw));
+    var data = await r.json();
+    if (data.success) {
+      ADMIN_TOKEN = pw;
+      sessionStorage.setItem('ep-admin-token', pw);
+      sessionStorage.setItem('ep-auth','1');
+      document.getElementById('loginScreen').style.display='none';
+      document.getElementById('appScreen').classList.add('on');
+      init();
+    } else {
+      var e = document.getElementById('loginErr');
+      e.classList.add('show');
+      document.getElementById('pwInput').value='';
+      setTimeout(function(){e.classList.remove('show');},3000);
+    }
+  } catch(ex) {
+    var e2 = document.getElementById('loginErr');
+    e2.textContent = 'Error de conexión con el servidor.';
+    e2.classList.add('show');
+  } finally {
+    btn.disabled = false;
   }
 }
 function doLogout(){
   sessionStorage.removeItem('ep-auth');
+  sessionStorage.removeItem('ep-admin-token');
+  ADMIN_TOKEN = '';
   document.getElementById('appScreen').classList.remove('on');
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('pwInput').value='';
@@ -933,7 +945,8 @@ function generarPDF(){
 }
 
 /* ══ MAIN TABS ══ */
-var ADMIN_TOKEN = 'epAdmin2026';
+// El token real nunca vive en esta página — se pide en el login y lo valida el Apps Script.
+var ADMIN_TOKEN = sessionStorage.getItem('ep-admin-token') || '';
 var AS_DEFAULT = 'https://script.google.com/macros/s/AKfycbx1qqd3Z4-zmPxfCIAeRla493IrROxV_soAqMTyHOj139mewQ1d17QM2zdgRNesqu2n/exec';
 var asUrl = localStorage.getItem('ep-as-url') || AS_DEFAULT;
 var allPedidos = [], allUsuarios = [];

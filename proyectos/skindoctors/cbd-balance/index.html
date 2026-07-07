@@ -731,7 +731,7 @@ section{padding:5rem 0}
     </div>
     <div class="footer-bottom">
       <span>© 2026 Skindoctors CR · Todos los derechos reservados</span>
-      <span class="footer-dev">Desarrollado por <a href="https://apexcloudworkscompany.com" target="_blank" rel="noopener noreferrer">Apex Cloud Works</a> — Cartago, Costa Rica</span>
+      <span class="footer-dev">Desarrollado por <a href="https://apexcloudworkcompany.com" target="_blank" rel="noopener noreferrer">Apex Cloud Works</a> — Cartago, Costa Rica</span>
     </div>
   </div>
 </footer>
@@ -828,11 +828,14 @@ section{padding:5rem 0}
 // ═══════════════════════════════════════════
 const WA_NUMBER = '50663144171';
 
-// N8N Webhook — pegá la URL del webhook de CBD aquí cuando lo crees en N8N:
-const N8N_WEBHOOK = '';
+// N8N Webhook — el Apps Script (SHEETS_URL) ya manda el email de alerta y el de
+// bienvenida (ver apps-script.gs → notifyLead), así que esto quedó redundante.
+// TODO Garett: probar un lead real, confirmar que llegan ambos correos, y recién
+// entonces borrar este bloque + la llamada de abajo para cancelar N8N sin miedo.
+const N8N_WEBHOOK = 'https://apexcloudworkscompany.app.n8n.cloud/webhook/a9c2e4f1-b3d7-4820-cdef-222222222201';
 
 // Google Apps Script — pegá la URL del script de tu Sheet de CBD aquí:
-const SHEETS_URL = '';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzQl-LEVjcFdaTzIp6eMCL1ADqe-wCcZ1K0pOxYSDNlfeVnEn5Ul0jmgA7hubpP1VIg/exec';
 // ═══════════════════════════════════════════
 
 // ── Navbar scroll ──
