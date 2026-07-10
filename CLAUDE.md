@@ -130,8 +130,13 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | 3 | **VisionaryFilm** | Fabian | Pendiente datos Fabian (WA, fotos, YouTube ID) | TBD |
 | 4 | **RFLX** | Andrés | En cartera | TBD |
 | 5 | **Arte Verde** | Tía Estefany | En cartera | TBD |
-| 9 | **Wilson** | Interno | ✅ Funcional · renombrado jun 2026 · wake word "hey wilson" · Notion fix aplicado | — |
-| 10 | **AutoCAD/Arquitectura** | Interno (nueva línea) | 🆕 Fase 1 en diseño — visualizador web APS Viewer para clientes rubro Arquitectura | Add-on $150-300 |
+| 6 | **Galiz** | Galiz CR | ✅ Live — salón belleza con sistema de citas + admin panel | — |
+| 7 | **Megan Tattoo** | Megan | ✅ Built — necesita datos reales de contacto | — |
+| 8 | **TPezQue** | TPezQue El Guarco | ✅ Live — restaurante mariscos caribeños | — |
+| 9 | **Divinas** | bydivinas.me | ✅ Complete — suplementos con admin + dashboard + brand | — |
+| 10 | **Dropshipping** | Interno (guía) | 📄 Documento — sin código | — |
+| 11 | **Wilson** | Interno | ✅ Funcional · renombrado jun 2026 · wake word "hey wilson" · Notion fix aplicado | — |
+| 12 | **AutoCAD/Arquitectura** | Interno (nueva línea) | 🆕 Fase 1 en diseño — visualizador web APS Viewer para clientes rubro Arquitectura | Add-on $150-300 |
 
 ### Skindoctors — Infraestructura
 

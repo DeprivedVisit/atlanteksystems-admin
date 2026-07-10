@@ -8,6 +8,17 @@
    Todos los --custom-properties provienen de tokens.css.
 ── */
 
+/* ── SR-ONLY — visible solo para lectores de pantalla/SEO ── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── SKIP LINK ──────────────────────────────── */
 .skip-link {
   position: absolute;
@@ -469,8 +480,18 @@ body::before {
 @media (min-width:1024px) { .sec-head { margin-bottom:48px; } }
 
 /* ── REVEAL ─────────────────────────────────── */
-.reveal    { opacity:0; transform:translateY(24px); transition:opacity .6s, transform .6s; }
-.reveal.in { opacity:1; transform:none; }
+/* El contenido es visible por defecto — la animación de entrada solo se activa
+   cuando script.js confirma que hay IntersectionObserver (html.reveal-ready).
+   Sin JS, en crawlers o en renders headless la página se ve completa. */
+.reveal { transition: opacity .6s, transform .6s; }
+html.reveal-ready .reveal    { opacity: 0; transform: translateY(24px); }
+html.reveal-ready .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-ready .reveal { opacity: 1; transform: none; transition: none; }
+}
+@media print {
+  html.reveal-ready .reveal { opacity: 1 !important; transform: none !important; }
+}
 
 /* ══════════════════════════════════════════════
    NAV — responsive completo
@@ -483,7 +504,15 @@ body::before {
   background: rgba(6,5,9,.95);
   backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid var(--border);
+  transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
 }
+/* Con JS activo (html.reveal-ready) el nav vive oculto sobre el hero-simulador
+   y entra al scrollear más allá del hero. Sin JS queda fijo y visible. */
+html.reveal-ready .nav:not(.nav-visible) { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) { .nav { transition: none; } }
+
+/* Los anchors no quedan escondidos bajo el nav fijo */
+section[id] { scroll-margin-top: 84px; }
 
 /* ─ Estructura base (mobile-first) ─ */
 .nav-wrap {
@@ -510,17 +539,12 @@ body::before {
   flex-shrink: 0;
 }
 
-/*
-  Logo: PNG con fondo crema baked-in (460×280px).
-  Se usa mask-image radial para desvanecer el fondo crema en los bordes,
-  dejando el ícono (montaña+swirl) visible como si flotara.
-  Perspectiva 3D + drop-shadows multicapa dan profundidad real.
-*/
+/* Logo: logo-mountain.png (cuadrado, fondo oscuro que se funde con el nav) */
 .nav-logo-img {
-  height: 60px;
-  width: 80px;
+  height: 44px;
+  width: 44px;
   object-fit: cover;
-  object-position: center 48%;
+  border-radius: 8px;
   flex-shrink: 0;
   display: block;
   opacity: .95;
@@ -698,7 +722,7 @@ body::before {
     gap: 0;
   }
   .nav-logo        { gap: 10px; }
-  .nav-logo-img    { height: 88px; width: 88px; }
+  .nav-logo-img    { height: 42px; width: 42px; }
   .nav-logo-text   { font-size: 12px; }
   .nav-links       { display: flex; }
   .nav-sep         { display: block; }
@@ -1108,7 +1132,7 @@ body::before {
   overflow: visible;
 }
 /* Con un solo proyecto activo, no estirar la rejilla de 3 columnas — centrar la tarjeta sola */
-.pf-grid:has(.pf-card:only-child) { max-width: 420px; margin: 0 auto; }
+.pf-grid:has(.pf-card:only-child) { grid-template-columns: 1fr !important; max-width: 420px; margin: 0 auto; }
 .pf-card {
   background: rgba(23,27,34, 0.65);
   backdrop-filter: blur(12px);
@@ -1140,6 +1164,16 @@ body::before {
 }
 .pf-cover-art svg { width: 72px; height: 72px; opacity: .55; }
 .pf-card:hover .pf-cover-art { transform: scale(1.04); }
+/* Screenshot real del proyecto como cover */
+.pf-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .5s ease;
+}
+.pf-card:hover .pf-cover-img { transform: scale(1.04); }
 .pf-cover::after {
   content: '';
   position: absolute; inset: 0;
@@ -1164,6 +1198,11 @@ body::before {
 .work-tag  { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.5px; color:var(--text2); padding:3px 8px; border:1px solid var(--border); border-radius:4px; background: rgba(255,255,255,0.01); }
 .pf-card:hover .work-tag { border-color: rgba(196,149,106,0.12); }
 .work-client { display:block; margin-bottom:8px; color: var(--gold); opacity: .85; font-size: 11px; }
+
+/* Utilidades que reemplazan inline styles */
+.sobre-title { margin-top: 12px; margin-bottom: 20px; }
+.pr-kicker   { margin-bottom: 6px; }
+.cpl-label   { display: block; margin-bottom: 10px; }
 
 @media (min-width: 768px) {
   .pf-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -1252,7 +1291,7 @@ body::before {
   grid-template-columns: 1fr;
   gap: 20px;
 }
-.test-grid:has(.test-card:only-child) { max-width: 420px; margin: 0 auto; }
+.test-grid:has(.test-card:only-child) { grid-template-columns: 1fr !important; max-width: 420px; margin: 0 auto; }
 .test-card {
   background: rgba(23,27,34, 0.65);
   backdrop-filter: blur(12px);
@@ -1271,18 +1310,17 @@ body::before {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 30px rgba(196, 149, 106,0.05);
   background-color: rgba(23, 23, 31, 0.8);
 }
-.test-stars {
-  color: var(--gold);
-  font-size: 16px;
+.test-status {
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--text3);
   margin-bottom: 16px;
-  letter-spacing: 2px;
 }
 .test-quote {
   font-size: 14px;
   color: var(--text2);
   line-height: 1.7;
   margin-bottom: 24px;
-  font-style: italic;
   flex-grow: 1;
 }
 .test-author {
@@ -1655,8 +1693,8 @@ body::before {
 .nav-mobile {
   display: none;
   position: fixed;
-  /* 56px en mobile, 60px en desktop — usa el mayor para seguridad */
-  top: 56px; left: 0; right: 0;
+  /* alineado con la altura real del nav-wrap en mobile (72px) */
+  top: 72px; left: 0; right: 0;
   background: rgba(4,3,6,0.98);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(20px);
@@ -2033,7 +2071,7 @@ body::before {
    ══════════════════════════════════════════════ */
 .walking-avatar {
   position: fixed;
-  z-index: 9999;
+  z-index: var(--z-float); /* debajo del nav y del toast — decoración, no chrome */
   pointer-events: none;
   height: 28px;
   width: 28px;

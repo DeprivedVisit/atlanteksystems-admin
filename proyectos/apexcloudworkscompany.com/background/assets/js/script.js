@@ -103,14 +103,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewTitleLabel = document.getElementById('preview-title-label');
   const statusFiletype = document.getElementById('status-filetype');
   const statusLang = document.getElementById('status-lang');
-  
+
+  // Modo Portada — chrome simplificado para visitantes públicos no técnicos
+  const goLiveBtn = document.querySelector('.go-live-btn');
+  const goLiveBtnOriginalHTML = goLiveBtn ? goLiveBtn.innerHTML : '';
+  const PUBLIC_REAL_FILES = ['Portada.md', 'Precios.md', 'Portafolio.md', 'Testimonios.md', 'FAQ.md', 'Sobre-mi.md'];
+
   // --- APP STATE ---
   let isAutopilot = true;
   let isPlaying = true;
   let time = 0;
   const maxTime = 4000; // 4s timeline loop
   let animationFrameId = null;
-  
+
   let currentApp = 'vscode'; // 'vscode' | 'obsidian'
   let currentProject = 'n8n'; // 'n8n' | 'phone' | 'obsidian'
   let activeFile = 'README.md';
@@ -177,17 +182,33 @@ Todos los precios en USD. Sin costos ocultos.
 
 Sistemas en producción, sin relleno.
 
+## Melasblock — LIVE
+**Cliente:** Skindoctors CR · 2026
+Landing de conversión para BB Cream SPF 50. Formulario conectado a n8n: cada lead llega a Google Sheets y notifica por Gmail en segundos.
+*Stack: AWS S3 · CloudFront · n8n · Google Sheets*
+
+## CBD Oil Balance — LIVE
+**Cliente:** Skindoctors CR · 2026
+Segunda landing del sistema Skindoctors: gel limpiador facial CBD. Misma infraestructura AWS, identidad visual propia.
+*Stack: AWS S3 · CloudFront · n8n · Apps Script*
+
 ## EcoPollo — EN DESARROLLO
 **Cliente:** Tío Michael · 2026
 Cotizador de Pedidos — landing con cotizador en tiempo real. Calcula precio por cantidad y corte, genera mensaje de WhatsApp con el pedido listo para confirmar.
 *Stack: AWS S3 · JavaScript · WhatsApp API*`,
 
-    'Testimonios.md': `# Qué dicen nuestros clientes
+    'Testimonios.md': `# Estado real de cada proyecto
 
-## EcoPollo — en desarrollo
-El cotizador de pedidos por WhatsApp está en construcción activa; la meta es reducir a la mitad el tiempo de atención al cliente en el pedido por WhatsApp.
+Sin estrellas infladas ni logos de stock. Esto es lo que hay, hoy:
 
-*Cliente real con proyecto activo — no logos de stock.*`,
+## Skindoctors CR — LIVE
+Dos landings de conversión en producción (Melasblock + CBD Balance) con sistema de leads automático conectado a Google Sheets y Gmail.
+
+## EcoPollo Cartago — EN DEV
+Cotizador de pedidos en tiempo real por WhatsApp, en construcción activa. Meta: atención al cliente en la mitad del tiempo.
+
+## VisionaryFilm — EN PREPARACIÓN
+Landing de portafolio audiovisual + panel de administración. Arranca al completar el material del cliente.`,
 
     'FAQ.md': `# Preguntas frecuentes
 
@@ -233,11 +254,17 @@ Empecé Apex para resolver un problema real: negocios locales que necesitan pres
 *whoami → garett@apex-cloudworks*
 *cat mision.txt → "Sistemas web que operan. Sin excusas, en producción."*`,
 
-    'Portada.md': `# Portada
+    'Portada.md': `# Apex Cloud Works
 
-Vista previa en vivo del homepage real: header, hero, proceso, servicios/portafolio, precios y footer — mirá el panel de la derecha.
+Diseñamos, construimos y mantenemos sitios web y automatizaciones en AWS para negocios de Costa Rica.
 
-*Lo que ves ahí es exactamente cómo está armada la página que ya visitaste.*`,
+* **Landing pages desde $350 USD**, en producción en 72 horas
+* **Sistema de leads automático**: cada contacto llega solo a tu WhatsApp y Google Sheets
+* **Infraestructura AWS**: rápida, segura, sin caídas ni límites de visitas
+
+¿Tenés un proyecto en mente? Tocá **Cotizar** arriba a la derecha y hablamos hoy mismo.
+
+También podés explorar los archivos de la izquierda: Precios.md, Portafolio.md, FAQ.md. Todo lo que ves es información real del negocio.`,
 
     'Arquitectura.js': `// Arquitectura.js — cómo se diseñó este sitio
 // Decisiones tomadas en conjunto entre Gemini (research/copy) y Claude (build)
@@ -618,6 +645,17 @@ El simulador está estructurado en 4 fases principales:
     portadaCarousel.style.display = 'none';
     stopPortadaCarousel();
     document.querySelectorAll('.virtual-cursor').forEach(c => { c.style.display = ''; });
+
+    // Modo Portada: se activa para Portada.md y el resto de archivos reales
+    // del negocio (Precios/Portafolio/Testimonios/FAQ/Sobre-mi). Se reevalúa
+    // en cada llamada, así que cualquier otro archivo (demo de restaurante,
+    // Arquitectura.js, README.md) restaura el chrome completo del IDE.
+    document.documentElement.classList.toggle('mode-portada', PUBLIC_REAL_FILES.includes(fileKey));
+    if (goLiveBtn) {
+      goLiveBtn.innerHTML = PUBLIC_REAL_FILES.includes(fileKey)
+        ? '<span class="status-icon">🚀</span> Ver sitio completo'
+        : goLiveBtnOriginalHTML;
+    }
 
     // Switch Project & Preview Graphic Group
     if (fileKey === 'restaurant-workflow-json' || fileKey === 'restaurant-workflow.json') {
@@ -1415,14 +1453,19 @@ El simulador está estructurado en 4 fases principales:
     let current = 0;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
-    portadaTimer = setInterval(() => {
+    // La slide 0 es la propuesta de valor — se sostiene más para que se lea completa
+    const HOLD_HERO = 8000, HOLD_REST = 4500;
+    const advance = () => {
       current = (current + 1) % slides.length;
       slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
       dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
-    }, 3500);
+      portadaTimer = setTimeout(advance, current === 0 ? HOLD_HERO : HOLD_REST);
+    };
+    portadaTimer = setTimeout(advance, HOLD_HERO);
   }
+
   function stopPortadaCarousel() {
-    if (portadaTimer) clearInterval(portadaTimer);
+    if (portadaTimer) clearTimeout(portadaTimer);
     portadaTimer = null;
   }
 

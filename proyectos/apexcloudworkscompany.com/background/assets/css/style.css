@@ -592,9 +592,49 @@ body {
   overflow: hidden;
 }
 .pc-slide.is-active { opacity: 1; visibility: visible; }
+.pc-slide-hero        { background: radial-gradient(ellipse at 50% 30%, #2a1f14 0%, #0c0b12 70%); }
 .pc-slide-precios     { background: radial-gradient(ellipse at 50% 30%, #2a1f14 0%, #0c0b12 70%); }
 .pc-slide-portafolio  { background: radial-gradient(ellipse at 50% 30%, #1a1a2e 0%, #0c0b12 70%); }
-.pc-slide-testimonios { background: radial-gradient(ellipse at 50% 30%, #2a1414 0%, #0c0b12 70%); }
+
+/* CTA de la slide hero — la propuesta de valor manda en la Portada */
+.pc-cta-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+.pc-slide.is-active .pc-cta-row { opacity: 1; transform: translateY(0); }
+.pc-btn-gold, .pc-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.pc-btn-gold {
+  background: var(--text-accent, #C4956A);
+  color: #1a1206;
+}
+.pc-btn-gold:hover { background: #DBA878; box-shadow: 0 0 18px rgba(196, 149, 106, 0.35); }
+.pc-btn-gold:active { transform: scale(0.98); }
+.pc-btn-ghost {
+  border: 1px solid rgba(196, 149, 106, 0.4);
+  color: #DBA878;
+  background: rgba(196, 149, 106, 0.05);
+}
+.pc-btn-ghost:hover { background: rgba(196, 149, 106, 0.12); }
 
 .pc-watermark {
   position: absolute;
@@ -635,14 +675,12 @@ body {
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .pc-slide.is-active .pc-kicker { opacity: 1; transform: translateY(0); }
-.pc-slide-testimonios .pc-kicker { color: #d97070; }
-
 .pc-title {
   position: relative;
   z-index: 1;
   font-family: 'Anton', sans-serif;
   font-weight: 400;
-  font-size: 3.6rem;
+  font-size: clamp(2.1rem, 5.5vw + 0.8rem, 3.6rem);
   text-transform: uppercase;
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -667,6 +705,35 @@ body {
 }
 .pc-slide.is-active .pc-sub { opacity: 1; transform: translateY(0); }
 
+.pc-portfolio-grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 460px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+.pc-slide.is-active .pc-portfolio-grid { opacity: 1; transform: translateY(0); }
+
+.pc-portfolio-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border: 1px solid rgba(196, 149, 106, 0.25);
+  border-radius: 999px;
+  background: rgba(196, 149, 106, 0.06);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .pc-portfolio-chip:nth-child(n+5) { display: none; }
+}
+
 .pc-dots {
   position: absolute;
   bottom: 18px;
@@ -686,11 +753,61 @@ body {
 .pc-dot.is-active { background: #C4956A; width: 20px; border-radius: 4px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .pc-slide, .pc-watermark, .pc-kicker, .pc-title, .pc-sub, .pc-eyebrow-rule {
+  .pc-slide, .pc-watermark, .pc-kicker, .pc-title, .pc-sub, .pc-eyebrow-rule, .pc-portfolio-grid, .pc-cta-row {
     transition: opacity 0.3s ease !important;
     transform: none !important;
   }
 }
+
+/* ============================================
+   MODO PORTADA — chrome simplificado del IDE
+   Se activa solo cuando setEditorContent() está en uno de los
+   archivos "públicos reales" (ver PUBLIC_REAL_FILES en script.js).
+   No afecta la demo de restaurante ni la navegación manual de esos archivos.
+   ============================================ */
+
+/* Titlebar: oculta el menú falso File/Edit/Selection/View/Go/Run/Terminal/Help.
+   El logo + workspace-pill + traffic lights se quedan (mantienen el "look" de IDE). */
+html.mode-portada .window-titlebar .menu-item { display: none; }
+
+/* Activity bar: solo Explorer queda visible/activo. */
+html.mode-portada .activity-bar #act-obsidian,
+html.mode-portada .activity-bar #act-search,
+html.mode-portada .activity-bar #act-git,
+html.mode-portada .activity-bar #act-antigravity { display: none; }
+
+/* Tab bar: de las 12 tabs, solo dejar visibles las 5 de contenido real de negocio. */
+html.mode-portada .editor-tabs .tab:not([data-file="Portada.md"]):not([data-file="Precios.md"]):not([data-file="Portafolio.md"]):not([data-file="Testimonios.md"]):not([data-file="FAQ.md"]):not([data-file="Sobre-mi.md"]) {
+  display: none;
+}
+
+/* Explorer sidebar: ocultar las carpetas demo (proceso/N8N/Obsidian/background)
+   y sus archivos — solo queda visible "apex-cloud-works" con Precios/Portafolio/etc. */
+html.mode-portada #folder-proceso,
+html.mode-portada #file-01-Briefing-md,
+html.mode-portada #file-02-Analisis-md,
+html.mode-portada #file-03-Build-md,
+html.mode-portada #file-04-Deploy-md,
+html.mode-portada #file-05-Live-md,
+html.mode-portada #folder-n8n,
+html.mode-portada #file-restaurant-workflow-json,
+html.mode-portada #file-ai-phone-logic-js,
+html.mode-portada #file-env-config-env,
+html.mode-portada #folder-obsidian,
+html.mode-portada #file-Restaurant-Welcome-md,
+html.mode-portada #file-Caller-Experience-md,
+html.mode-portada #file-System-Architecture-md,
+html.mode-portada #folder-background,
+html.mode-portada #folder-background ~ .tree-item { display: none; }
+
+/* Status bar: ocultar git branch / sync / errores / línea-columna / encoding / lenguaje.
+   Solo queda el botón "Go Live" (relabeled vía JS) y la campana. */
+html.mode-portada .status-bar .status-left,
+html.mode-portada .status-bar .line-col,
+html.mode-portada .status-bar .encoding,
+html.mode-portada .status-bar .filetype,
+html.mode-portada .status-bar .js-state,
+html.mode-portada .status-bar .notification-bell { display: none; }
 
 .technical-grid {
   position: absolute;
@@ -1702,15 +1819,20 @@ body {
   width: 100%;
 }
 .ide-breadcrumb-path {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 5px;
-  overflow: hidden;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
   font-family: var(--font-mono);
   font-size: 12px;
 }
-@media (min-width: 768px) {
-  .ide-breadcrumb-path { display: flex; }
+.ide-breadcrumb-path::-webkit-scrollbar { display: none; }
+@media (max-width: 767px) {
+  .ide-breadcrumb-path { font-size: 11px; margin-right: 10px; }
+  .crumb-root { display: none; }
+  .crumb:first-of-type::before { content: none; }
 }
 .crumb-root {
   color: var(--text-muted);

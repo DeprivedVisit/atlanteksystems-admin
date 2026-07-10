@@ -66,18 +66,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ── Scroll reveal ──────────────────────────── */
-const ro = new IntersectionObserver(
-  es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }),
-  { threshold: 0.08 }
-);
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+/* Solo se ocultan las secciones si el observer existe y el usuario no pidió
+   reducción de movimiento — el contenido nunca queda gateado por JS. */
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('reveal-ready');
+  const ro = new IntersectionObserver(
+    es => es.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } }),
+    { threshold: 0.08 }
+  );
+  const revealAll = () => document.querySelectorAll('.reveal:not(.in)').forEach(el => { el.classList.add('in'); ro.unobserve(el); });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  // Safety: si a los 5s algo sigue oculto (capturas headless, crawlers sin
+  // scroll, tabs en background), se revela solo — el contenido nunca se pierde.
+  setTimeout(revealAll, 5000);
+  window.addEventListener('beforeprint', revealAll);
+}
 
-/* ── Nav active ─────────────────────────────── */
+/* ── Nav: visibilidad + link activo ─────────── */
 const navLinks = document.querySelectorAll('.nav-links a');
 const pageSecs = document.querySelectorAll('section[id]');
+const siteNav  = document.getElementById('site-nav');
+const heroEl   = document.querySelector('.hero-ide-full');
 window.addEventListener('scroll', () => {
+  // El nav entra cuando el hero-simulador ya casi salió del viewport
+  if (siteNav && heroEl) {
+    siteNav.classList.toggle('nav-visible', window.scrollY > heroEl.offsetHeight - 120);
+  }
   let cur='';
-  pageSecs.forEach(s=>{ if(window.scrollY>=s.offsetTop-80) cur=s.id; });
+  pageSecs.forEach(s=>{ if(window.scrollY>=s.offsetTop-100) cur=s.id; });
   navLinks.forEach(a=>{ a.style.color=(a.hash==='#'+cur)?'var(--text)':''; });
 },{passive:true});
 
@@ -326,6 +342,15 @@ function closeMobileNav() {
 
     if (!nombre || !contacto) {
       errEl.textContent = 'Nombre y WhatsApp/Email son obligatorios.';
+      errEl.classList.add('show');
+      return;
+    }
+
+    // Acepta un email válido o un teléfono con al menos 8 dígitos
+    const esEmail    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contacto);
+    const esTelefono = (contacto.replace(/\D/g, '').length >= 8);
+    if (!esEmail && !esTelefono) {
+      errEl.textContent = 'Revisá el contacto: necesito un email válido o un número de WhatsApp (mínimo 8 dígitos).';
       errEl.classList.add('show');
       return;
     }

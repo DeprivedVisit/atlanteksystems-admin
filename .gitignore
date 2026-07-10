@@ -16,6 +16,9 @@ proyectos/apexcloudworkscompany.com/Github/
 # Proyectos muertos / duplicados archivados (no trackear)
 _archivo/
 
+# Datos privados de clientes (PII)
+_privado/
+
 # Obsidian — estado volátil de la app (el vault sí se trackea)
 .obsidian/workspace.json
 Obsidian/.obsidian/workspace.json

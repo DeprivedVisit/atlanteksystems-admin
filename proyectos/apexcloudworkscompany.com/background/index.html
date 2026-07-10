@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css?v=32">
+  <link rel="stylesheet" href="assets/css/style.css?v=34">
 </head>
 <body>
 
@@ -52,10 +52,10 @@
       <span class="crumb-root">apex-cloudworks</span>
       <a href="#proceso" class="crumb" onclick="event.preventDefault(); top.location.hash = 'proceso';">Proceso</a>
       <a href="#servicios" class="crumb" onclick="event.preventDefault(); top.location.hash = 'servicios';">Servicios</a>
-      <a href="#portafolio" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('Portafolio.md');">Portafolio</a>
-      <a href="#precios" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('Precios.md');">Precios</a>
-      <a href="#faq" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('FAQ.md');">FAQ</a>
-      <a href="#sobre-mi" class="crumb" onclick="event.preventDefault(); setAppMode('vscode'); setEditorContent('Sobre-mi.md');">Nosotros</a>
+      <a href="#trabajo" class="crumb" onclick="event.preventDefault(); top.location.hash = 'trabajo';">Portafolio</a>
+      <a href="#precios" class="crumb" onclick="event.preventDefault(); top.location.hash = 'precios';">Precios</a>
+      <a href="#faq" class="crumb" onclick="event.preventDefault(); top.location.hash = 'faq';">FAQ</a>
+      <a href="#sobre" class="crumb" onclick="event.preventDefault(); top.location.hash = 'sobre';">Nosotros</a>
     </nav>
     <a href="https://wa.me/50663144171" class="ide-cta-chip" target="_blank" rel="noopener"><span aria-hidden="true">▶</span> Cotizar</a>
   </div>
@@ -157,7 +157,7 @@
           </div>
 
           <!-- Folder Proceso — pasos del proyecto, como archivos reales -->
-          <div class="tree-item folder-node open style-nested-1">
+          <div class="tree-item folder-node open style-nested-1" id="folder-proceso">
             <span class="tree-arrow">▼</span>
             <span class="tree-icon">📂</span>
             <span class="tree-label font-bold">proceso</span>
@@ -185,7 +185,7 @@
           </div>
 
           <!-- Folder N8N -->
-          <div class="tree-item folder-node open style-nested-1">
+          <div class="tree-item folder-node open style-nested-1" id="folder-n8n">
             <span class="tree-arrow">▼</span>
             <span class="tree-icon">📂</span>
             <span class="tree-label">N8N</span>
@@ -205,7 +205,7 @@
           </div>
 
           <!-- Folder Obsidian -->
-          <div class="tree-item folder-node open style-nested-1">
+          <div class="tree-item folder-node open style-nested-1" id="folder-obsidian">
             <span class="tree-arrow">▼</span>
             <span class="tree-icon">📂</span>
             <span class="tree-label">Obsidian</span>
@@ -224,7 +224,7 @@
           </div>
 
           <!-- Folder Background -->
-          <div class="tree-item folder-node open style-nested-1">
+          <div class="tree-item folder-node open style-nested-1" id="folder-background">
             <span class="tree-arrow">▼</span>
             <span class="tree-icon">📂</span>
             <span class="tree-label">background</span>
@@ -566,26 +566,37 @@
 
               <!-- CARRUSEL CINEMATOGRÁFICO — Portada.md -->
               <div class="portada-carousel" id="portada-carousel" style="display: none;">
-                <div class="pc-slide pc-slide-precios is-active" data-pc-slide="0">
+                <div class="pc-slide pc-slide-hero is-active" data-pc-slide="0">
                   <img src="../assets/img/logo-mountain.png" class="pc-watermark" alt="">
-                  <span class="pc-kicker">apexcloudworkcompany.com</span>
+                  <span class="pc-kicker">Apex Cloud Works · Cartago, Costa Rica</span>
                   <div class="pc-eyebrow-rule"></div>
-                  <h2 class="pc-title">Precios</h2>
-                  <p class="pc-sub">$350 · $900 · $2,000+ — todo en USD, sin costos ocultos</p>
+                  <h2 class="pc-title">Tu negocio,<br>en línea en 72h</h2>
+                  <p class="pc-sub">Landing pages, cotizadores y automatización de leads en AWS. Desde $350 USD, con cada contacto llegando solo a tu WhatsApp.</p>
+                  <div class="pc-cta-row">
+                    <a href="https://wa.me/50663144171?text=Hola%20Garett%2C%20quiero%20cotizar%20un%20proyecto" class="pc-btn-gold" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+                    <a href="#precios" class="pc-btn-ghost" onclick="event.preventDefault(); top.location.hash = 'precios';">Ver precios</a>
+                  </div>
                 </div>
                 <div class="pc-slide pc-slide-portafolio" data-pc-slide="1">
                   <img src="../assets/img/logo-mountain.png" class="pc-watermark" alt="">
-                  <span class="pc-kicker">Proyectos reales</span>
+                  <span class="pc-kicker">Proyectos reales, deployados en AWS</span>
                   <div class="pc-eyebrow-rule"></div>
                   <h2 class="pc-title">Portafolio</h2>
-                  <p class="pc-sub">EcoPollo Cartago</p>
+                  <div class="pc-portfolio-grid">
+                    <span class="pc-portfolio-chip">EcoPollo Cartago</span>
+                    <span class="pc-portfolio-chip">Skindoctors CR</span>
+                    <span class="pc-portfolio-chip">VisionaryFilm</span>
+                    <span class="pc-portfolio-chip">RFLX Detail</span>
+                    <span class="pc-portfolio-chip">Galiz</span>
+                    <span class="pc-portfolio-chip">ArteVerde</span>
+                  </div>
                 </div>
-                <div class="pc-slide pc-slide-testimonios" data-pc-slide="2">
+                <div class="pc-slide pc-slide-precios" data-pc-slide="2">
                   <img src="../assets/img/logo-mountain.png" class="pc-watermark" alt="">
-                  <span class="pc-kicker">★ ★ ★ ★ ★</span>
+                  <span class="pc-kicker">Todo en USD, sin costos ocultos</span>
                   <div class="pc-eyebrow-rule"></div>
-                  <h2 class="pc-title">Testimonios</h2>
-                  <p class="pc-sub">Clientes reales, resultados medibles</p>
+                  <h2 class="pc-title">Precios</h2>
+                  <p class="pc-sub">Landing $350 · Plan trimestral $900 · Sistema completo desde $2,000</p>
                 </div>
                 <div class="pc-dots">
                   <span class="pc-dot is-active" data-pc-dot="0"></span>
@@ -727,6 +738,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="assets/js/script.js?v=27"></script>
+  <script src="assets/js/script.js?v=29"></script>
 </body>
 </html>
