@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café de Altura · Ecoomerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-icon">☕</span>
+        <span class="logo-text">Café de Altura</span>
+      </a>
+      <button class="cart-btn" id="cartBtn" aria-label="Abrir carrito">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">El verdadero café<br>de altura</h1>
+        <p class="hero-subtitle">Directo de las montañas de Costa Rica a tu taza</p>
+        <a href="#productos" class="hero-cta">Ver nuestros cafés</a>
+      </div>
+    </section>
+
+    <div class="filter-bar">
+      <div class="container">
+        <div class="filter-inner">
+          <div class="filter-regions" id="filterRegions"></div>
+          <select class="sort-select" id="sortSelect">
+            <option value="default">Ordenar por</option>
+            <option value="low">Precio: menor a mayor</option>
+            <option value="high">Precio: mayor a menor</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <section class="products-section" id="productos">
+      <div class="container">
+        <h2 class="section-title">Nuestros orígenes</h2>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3 class="cart-title">Tu carrito</h3>
+      <button class="cart-close" id="closeCart" aria-label="Cerrar carrito">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <span class="cart-empty-icon">🛒</span>
+        <p class="cart-empty-title">Tu carrito está vacío</p>
+        <p class="cart-empty-text">Agregá productos para empezar tu pedido</p>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-totals">
+        <div class="total-row">
+          <span>Subtotal</span>
+          <span id="subtotal">$0.00</span>
+        </div>
+        <div class="total-row">
+          <span>IVA (13%)</span>
+          <span id="iva">$0.00</span>
+        </div>
+        <div class="total-row total-final">
+          <span>Total</span>
+          <span id="total">$0.00</span>
+        </div>
+      </div>
+      <button class="btn-clear" id="clearCart">Vaciar carrito</button>
+      <button class="btn-checkout" disabled>
+        Proceder al pago
+        <span class="btn-checkout-note">Próximamente</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Desarrollado por <strong>Apex Cloud Work</strong> — Cartago, CR</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
