@@ -4,7 +4,7 @@
 ---
 
 ## Project
-**Client:** Interno Apex Cloud Works (nueva línea negocio)
+**Client:** Interno Apex Cloud Work (nueva línea negocio)
 **Industry:** Arquitectura / Ingeniería / BIM
 **Status:** 🟡 Estudio técnico completo — Fase 1 no iniciada
 **Priority:** After Skindoctors closed + roadmap Q4 2026
@@ -27,5 +27,5 @@
 
 ## Rules
 - Mobile-first
-- Footer: "Desarrollado por Apex Cloud Works — Cartago, CR"
+- Footer: "Desarrollado por Apex Cloud Work — Cartago, CR"
 - USD siempre

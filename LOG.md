@@ -4,6 +4,19 @@
 
 ---
 
+## Semana 7 · 13 – 19 Julio 2026
+
+### 2026-07-16 (jueves) — Unificación de nombre/URL/email en todo el repo
+
+- ✅ Footer faltante agregado en `proyectos/Megan/index.html` (único `index.html` de cliente sin crédito "Desarrollado por Apex Cloud Work")
+- ✅ `proyectos/wilson/security_monitor.py` monitoreaba `https://apexcloudworkscompany.com` (con s, dominio inexistente) — corregido a `apexcloudworkcompany.com` (sin s, el real)
+- ✅ Decisión revertida respecto a la entrada del 07 jul: se unificó `apexcloudworkscompany@gmail.com` → `apexcloudworkcompany@gmail.com` **incluyendo contratos/proformas ya entregados** (Skindoctors, EcoPollo, VisionaryFilm, RFLX) y workflows N8N/Apps Script de producción (Skindoctors CBD/Melas, Galiz) — 22 archivos. Decisión explícita de Garett, no accidental.
+- ⚠️ Pendiente: los sitios ya deployados en S3 (Skindoctors melasblock/cbd-balance, Galiz, EcoPollo) siguen sirviendo la versión vieja hasta el próximo redeploy — el fix local no se refleja en producción solo.
+- ⚠️ Pendiente: confirmar que `apexcloudworkcompany@gmail.com` (sin s) es la casilla que se está monitoreando activamente — si los leads reales de Skindoctors/Galiz llegaban a la de "con s", dejan de llegar ahí tras el redeploy.
+- 🔍 Único resto de "Apex Cloud Works" (con s, nombre incorrecto) en todo el repo: metadata del PDF `Mente/tareas-manuales/tareas-manuales-2026-07-07.pdf` (artefacto generado, no se encontró el script fuente que lo produjo — no se tocó el binario)
+
+---
+
 ## Semana 6 · 6 – 12 Julio 2026
 
 ### 2026-07-07 (martes) — Dominio + certificado apexcloudworkcompany.com resueltos

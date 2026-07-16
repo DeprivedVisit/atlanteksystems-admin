@@ -4,7 +4,7 @@
 ---
 
 ## Project
-**Client:** Interno Apex Cloud Works (know-how)
+**Client:** Interno Apex Cloud Work (know-how)
 **Industry:** E-commerce / Dropshipping
 **Status:** 📄 Documento guía — sin código aún
 **Priority:** Low (blueprint stage)
