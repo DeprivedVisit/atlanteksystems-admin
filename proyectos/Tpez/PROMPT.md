@@ -29,7 +29,7 @@
 - [x] WhatsApp CTA
 
 ## Rules
-- Footer: "Desarrollado por Apex Cloud Works — Cartago, CR"
+- Footer: "Desarrollado por Apex Cloud Work — Cartago, CR"
 - WhatsApp flotante obligatorio
 - Mobile-first
 - Precios en colones
