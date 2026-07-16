@@ -1,11 +1,11 @@
-# 🗣️ Brand Voice — Apex Cloud Works
+# 🗣️ Brand Voice — Apex Cloud Work
 > Versión 1.0 · Junio 2026 · Alimenta a Wilson
 
 ---
 
 ## ¿Quiénes somos?
 
-Apex Cloud Works es una agencia digital boutique de Cartago, Costa Rica.  
+Apex Cloud Work es una agencia digital boutique de Cartago, Costa Rica.  
 No somos una fábrica de páginas web. Somos el departamento digital externo de pequeñas empresas que no pueden darse el lujo de equivocarse.
 
 **Posicionamiento:**  
@@ -46,7 +46,7 @@ No somos una fábrica de páginas web. Somos el departamento digital externo de 
 - Asunto claro y directo: "Propuesta Apex — [Nombre Empresa]"
 - Cuerpo: máximo 3 párrafos
 - Siempre incluir: qué se entrega, cuándo, cuánto cuesta
-- Firma: Garett Barrantes · Apex Cloud Works · +506 6314-4171
+- Firma: Garett Barrantes · Apex Cloud Work · +506 6314-4171
 
 ---
 
@@ -91,7 +91,7 @@ No somos una fábrica de páginas web. Somos el departamento digital externo de 
 
 ## Taglines aprobados
 
-1. "Desarrollado por Apex Cloud Works — Cartago, CR" *(footer obligatorio en todo sitio)*
+1. "Desarrollado por Apex Cloud Work — Cartago, CR" *(footer obligatorio en todo sitio)*
 2. "Tu empresa en internet, sin complicaciones."
 3. "Hacemos que los clientes te encuentren."
 

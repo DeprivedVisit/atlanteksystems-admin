@@ -1,5 +1,5 @@
 # 🎧 Customer Support — Protocolo de Atención al Cliente
-> Apex Cloud Works · Wilson debe aplicar esto · Versión 1.0 · Junio 2026
+> Apex Cloud Work · Wilson debe aplicar esto · Versión 1.0 · Junio 2026
 
 ---
 
@@ -48,7 +48,7 @@ PROSPECTO → PRIMER CONTACTO → PROPUESTA → CIERRE → DESARROLLO → ENTREG
 
 ### Primer contacto (referido)
 ```
-Hola [Nombre]! Soy Garett de Apex Cloud Works, [Referido] me comentó que andás buscando presencia en línea para [negocio].
+Hola [Nombre]! Soy Garett de Apex Cloud Work, [Referido] me comentó que andás buscando presencia en línea para [negocio].
 
 Te cuento en dos líneas: hacemos sitios web para pequeñas empresas en 7–10 días, con formulario de contacto y WhatsApp integrado, todo en la nube (muy rápido).
 
@@ -85,7 +85,7 @@ Revisá que todo funcione: el formulario, el botón de WhatsApp, que cargue ráp
 
 Cualquier cosita me avisás. Fue un placer trabajar con vos.
 
-*Desarrollado por Apex Cloud Works — Cartago, CR*
+*Desarrollado por Apex Cloud Work — Cartago, CR*
 ```
 
 ### Cobro de revisión adicional

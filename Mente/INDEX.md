@@ -1,4 +1,4 @@
-# 🧠 Mente de Jarvis — Apex Cloud Works
+# 🧠 Mente de Jarvis — Apex Cloud Work
 > Cerebro del agente. Fuente de verdad única.
 > Versión 2.0 · 24 Junio 2026
 
@@ -22,7 +22,7 @@
 
 ## Resumen ejecutivo para Jarvis
 
-**Quién soy:** Garett Barrantes, 27, Cartago CR. Fundador de Apex Cloud Works.
+**Quién soy:** Garett Barrantes, 27, Cartago CR. Fundador de Apex Cloud Work.
 **Qué hacemos:** Sitios web para pequeñas empresas costarricenses, en 7–10 días, desde $350 USD.
 **Cómo opero:** Home office, madrugada = zona de flujo, WhatsApp con clientes, Claude como socio.
 **Mi meta:** CEO a los 35. La empresa automatizada. Liz sale del trabajo hostil.

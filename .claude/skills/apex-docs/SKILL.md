@@ -1,7 +1,7 @@
 ---
 name: apex-docs
 description: >
-  Skill para generar documentos legales y comerciales de Apex Cloud Works.
+  Skill para generar documentos legales y comerciales de Apex Cloud Work.
   Activar cuando Garett necesite proforma, contrato, orden de inicio,
   propuesta comercial o cualquier documento para un cliente. También activar
   cuando pregunte sobre pricing, condiciones o términos de servicio.
@@ -40,7 +40,7 @@ description: >
 - Máximo 2 revisiones incluidas
 - Cambios adicionales: $25 USD/hora
 - Assets del cliente en máximo 3 días hábiles
-- Footer Apex Cloud Works — no negociable
+- Footer Apex Cloud Work — no negociable
 - Cancelación con 15 días de aviso
 
 ## Pagos aceptados

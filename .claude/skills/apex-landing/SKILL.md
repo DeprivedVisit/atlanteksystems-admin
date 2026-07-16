@@ -1,18 +1,18 @@
 ---
 name: apex-landing
 description: >
-  Skill personalizada de Apex Cloud Works para construir landing pages de alta conversión
+  Skill personalizada de Apex Cloud Work para construir landing pages de alta conversión
   para clientes en Costa Rica. Usar SIEMPRE que Garett pida construir, editar o auditar
   una landing page para un cliente. Incluye el proceso de 8 pasos, paleta por rubro,
   reglas de diseño, estructura de deploy en AWS S3 + Route 53, y las reglas de negocio
-  de Apex Cloud Works. Activar también cuando se mencionen clientes como Skindoctors,
+  de Apex Cloud Work. Activar también cuando se mencionen clientes como Skindoctors,
   EcoPollo, VisionaryFilm, RFLX, Arte Verde, Barbería o Salón de Belleza.
 ---
 
-# Apex Landing — Skill de Garett Barrantes · Apex Cloud Works
+# Apex Landing — Skill de Garett Barrantes · Apex Cloud Work
 
 ## Identidad del desarrollador
-- **Empresa:** Apex Cloud Works · apexcloudworkscompany@gmail.com
+- **Empresa:** Apex Cloud Work · apexcloudworkcompany@gmail.com
 - **WhatsApp:** +506 6314-4171
 - **Deploy:** AWS S3 + Route 53 + HTTPS (ACM)
 - **Stack:** HTML/CSS/JS puro — un solo archivo por landing
@@ -34,7 +34,7 @@ description: >
 
 ## Reglas de diseño — NUNCA ignorar
 
-- ✅ Footer siempre: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- ✅ Footer siempre: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - ✅ Botón WhatsApp flotante en todas las páginas
 - ✅ Responsive mobile-first — diseñar para celular primero
 - ✅ CTA principal visible above the fold

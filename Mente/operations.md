@@ -1,4 +1,4 @@
-# ⚙️ Operations — Manual Operativo de Apex Cloud Works
+# ⚙️ Operations — Manual Operativo de Apex Cloud Work
 > Cómo opera Apex · Wilson debe conocer esto de memoria · Versión 1.0 · Junio 2026
 
 ---
@@ -181,7 +181,7 @@ refactor: limpieza de código
 ## Jarvis — Agente Interno
 
 ### Estado actual (24 jun 2026)
-- Python local · `proyectos/jarvis/jarvis.pyw`
+- Python local · `proyectos/wilson/jarvis.pyw`
 - Brief matutino 07:00 AM
 - Comandos: `/lead`, `/deploy`, `/revisar`, `/refactor`
 

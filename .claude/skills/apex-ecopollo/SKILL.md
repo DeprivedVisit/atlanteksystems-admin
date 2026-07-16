@@ -1,7 +1,7 @@
 ---
 name: apex-ecopollo
 description: >
-  Contexto completo del proyecto EcoPollo en Apex Cloud Works.
+  Contexto completo del proyecto EcoPollo en Apex Cloud Work.
   Activar cuando Garett mencione EcoPollo, tío Michael, el cotizador de pollo,
   distribución de pollo, o cualquier trabajo en la landing/cotizador de EcoPollo.
 ---
@@ -54,5 +54,5 @@ proyectos/ecopollo/
 - Prioridad: después de cerrar Skindoctors ($450 USD cobrado + firmado)
 - Moneda de precios: colones costarricenses (₡)
 - WhatsApp flotante obligatorio
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Mobile-first — mayoría de usuarios desde celular

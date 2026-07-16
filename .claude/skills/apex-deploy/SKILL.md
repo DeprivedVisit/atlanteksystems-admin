@@ -1,7 +1,7 @@
 ---
 name: apex-deploy
 description: >
-  Skill de Apex Cloud Works para el proceso completo de deploy en AWS.
+  Skill de Apex Cloud Work para el proceso completo de deploy en AWS.
   Activar cuando Garett mencione subir un sitio a producción, configurar
   un dominio, SSL, S3, Route 53, CloudFront o cualquier paso del deploy.
 ---

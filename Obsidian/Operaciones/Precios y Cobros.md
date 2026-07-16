@@ -1,4 +1,4 @@
-# Precios y Cobros — Apex Cloud Works
+# Precios y Cobros — Apex Cloud Work
 
 > Moneda: **USD siempre**. Sin excepción.
 

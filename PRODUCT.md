@@ -10,7 +10,7 @@ Dueños de negocios pequeños y medianos en Costa Rica que necesitan presencia d
 
 ## Product Purpose
 
-Apex Cloud Works es una agencia de desarrollo web y cloud fundada por Garett Barrantes en Cartago, CR. Diseña, construye y mantiene sitios web, landings de conversión, e integraciones con AWS para negocios locales. La landing existe para generar confianza inmediata, mostrar trabajo real, y convertir visitantes en clientes que paguen USD.
+Apex Cloud Work es una agencia de desarrollo web y cloud fundada por Garett Barrantes en Cartago, CR. Diseña, construye y mantiene sitios web, landings de conversión, e integraciones con AWS para negocios locales. La landing existe para generar confianza inmediata, mostrar trabajo real, y convertir visitantes en clientes que paguen USD.
 
 ## Brand Personality
 

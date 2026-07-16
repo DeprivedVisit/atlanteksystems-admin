@@ -86,7 +86,7 @@ Dolores secundarios:
 ## Script de primer contacto (WA)
 
 ```
-Hola [Nombre], soy Garett de Apex Cloud Works.
+Hola [Nombre], soy Garett de Apex Cloud Work.
 Andrés [o quien refirió] me contó que andás buscando un sitio web.
 
 Te comento rápido lo que hacemos:

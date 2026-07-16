@@ -1,7 +1,7 @@
 ---
 name: apex-skindoctors
 description: >
-  Contexto completo del proyecto Skindoctors CR en Apex Cloud Works.
+  Contexto completo del proyecto Skindoctors CR en Apex Cloud Work.
   Activar cuando Garett mencione Skindoctors, melasblock, cbd-balance,
   cbd balance, el proyecto de skincare, Andrés (en contexto de cliente),
   N8N de skindoctors, o cualquier trabajo en las landings de Skindoctors.
@@ -61,6 +61,6 @@ proyectos/skindoctors/
 - No hacer cambios sin contrato firmado
 - Máximo 2 rondas de revisión por landing (incluidas en el precio)
 - WhatsApp flotante obligatorio en todas las landings
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Moneda: USD siempre
 - WA actual en producción: +506 6314-4171 (Garett) — cambiar al firmar

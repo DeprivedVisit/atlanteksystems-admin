@@ -1,6 +1,6 @@
 # Flujo de Proyecto — 8 Pasos
 
-> Proceso estándar Apex Cloud Works. No saltarse pasos.
+> Proceso estándar Apex Cloud Work. No saltarse pasos.
 
 ---
 
@@ -34,7 +34,7 @@
 
 **Footer obligatorio:**
 ```
-Desarrollado por Apex Cloud Works — Cartago, CR
+Desarrollado por Apex Cloud Work — Cartago, CR
 ```
 
 ## Paso 5 — S3 PREVIEW

@@ -1,7 +1,7 @@
 ---
 name: apex-arteverde
 description: >
-  Contexto completo del proyecto Arte Verde en Apex Cloud Works.
+  Contexto completo del proyecto Arte Verde en Apex Cloud Work.
   Activar cuando Garett mencione Arte Verde, tía Estefany, vivero,
   plantas, o cualquier trabajo en el proyecto del vivero de la tía.
 ---
@@ -35,5 +35,5 @@ proyectos/ArteVerde_Vivero_Web/
 - Usar /apex-client-brief para recopilar datos al arrancar
 - Máximo 2 rondas de revisión incluidas
 - WhatsApp flotante obligatorio
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Precio: Setup $350 USD + plan trimestral $900 USD

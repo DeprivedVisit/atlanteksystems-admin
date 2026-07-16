@@ -1,4 +1,4 @@
-# 🏔️ Apex Cloud Works — Dashboard
+# 🏔️ Apex Cloud Work — Dashboard
 > Home base. Todo empieza acá. · Recuperado 7 jul 2026
 
 ---
@@ -73,4 +73,4 @@
 
 ---
 
-*Apex Cloud Works · Cartago, CR · apexcloudworkcompany.com*
+*Apex Cloud Work · Cartago, CR · apexcloudworkcompany.com*

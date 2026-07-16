@@ -1,4 +1,4 @@
-# 📋 Apex Cloud Works — Log General
+# 📋 Apex Cloud Work — Log General
 
 > Check-in dominical con Claude · Actualizar cada domingo
 
@@ -86,7 +86,7 @@
 - ✅ `operations.md` — fechas vencidas corregidas, Jarvis renombrado
 - ✅ `rutina.json` v5.0 — alineado con CLAUDE.md v11.0 (wake 07:00, 5 bloques, clases, bici)
 - ✅ `CLAUDE.md` de Mente borrado — el root `CLAUDE.md` es la única fuente
-- ✅ Duplicados en `proyectos/jarvis/` eliminados
+- ✅ Duplicados en `proyectos/wilson/` eliminados
 
 #### Archivos raíz actualizados
 - ✅ `SYSTEM.md` v2.0 — separación de archivos, stack completo, sin deadline vencido

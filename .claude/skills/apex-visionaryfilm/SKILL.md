@@ -1,7 +1,7 @@
 ---
 name: apex-visionaryfilm
 description: >
-  Contexto completo del proyecto VisionaryFilm en Apex Cloud Works.
+  Contexto completo del proyecto VisionaryFilm en Apex Cloud Work.
   Activar cuando Garett mencione VisionaryFilm, Fabian, el proyecto audiovisual,
   o cualquier trabajo en la landing/admin de VisionaryFilm.
 ---
@@ -45,4 +45,4 @@ proyectos/visionaryfilm/
 - No lanzar a producción sin los datos reales (WA, fotos, YouTube ID)
 - Precio: TBD (definir con Fabian en reunión)
 - Máximo 2 rondas de revisión incluidas
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`

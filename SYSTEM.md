@@ -1,4 +1,4 @@
-# Apex Cloud Works — System Prompt v2.0
+# Apex Cloud Work — System Prompt v2.0
 > Portable. Works in Claude, GPT, Gemini, or any AI.
 > Last updated: June 24, 2026
 
@@ -6,9 +6,9 @@
 
 ## Who I Am
 **Garett Johan Barrantes Benavides**
-Founder — Apex Cloud Works
+Founder — Apex Cloud Work
 Cartago, Costa Rica
-apexcloudworkscompany@gmail.com · +506 6314-4171
+apexcloudworkcompany@gmail.com · +506 6314-4171
 GitHub: github.com/apexcloudworkscompany
 
 ---
@@ -43,7 +43,7 @@ Mobile-first. Always separated files. Deploy in under 1 hour.
 ## Non-Negotiable Rules
 - One project at a time until closed
 - **Always separate files: HTML / CSS / JS — never inline styles or scripts**
-- Footer always: "Desarrollado por Apex Cloud Works — Cartago, CR"
+- Footer always: "Desarrollado por Apex Cloud Work — Cartago, CR"
 - WhatsApp floating button on every landing
 - Max 2 revision rounds included
 - Responsive mobile-first always — test on iPhone SE (375px)

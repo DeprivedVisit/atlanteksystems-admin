@@ -1,7 +1,7 @@
 ---
 name: apex-client-brief
 description: >
-  Skill para recopilar y organizar el brief de un cliente nuevo de Apex Cloud Works.
+  Skill para recopilar y organizar el brief de un cliente nuevo de Apex Cloud Work.
   Activar cuando Garett mencione un cliente nuevo, quiera arrancar un proyecto,
   o diga "vamos a arrancar con [cliente]". Genera las preguntas correctas y organiza
   la información en el formato estándar de Apex.

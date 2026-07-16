@@ -1,12 +1,12 @@
 ---
 name: apex-jarvis
 description: >
-  Contexto completo del proyecto Jarvis (asistente interno) de Apex Cloud Works.
+  Contexto completo del proyecto Jarvis (asistente interno) de Apex Cloud Work.
   Activar cuando Garett mencione Jarvis, el brief matutino, /lead, /deploy, /revisar,
   /refactor, la automatización interna, o quiera trabajar en el sistema de IA local.
 ---
 
-# Jarvis — Asistente interno de Apex Cloud Works
+# Jarvis — Asistente interno de Apex Cloud Work
 
 ## Visión
 Jarvis opera todo por Garett. No es un asistente — es un socio que ejecuta.

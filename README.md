@@ -1,8 +1,8 @@
-# Apex Cloud Works
+# Apex Cloud Work
 
 Landing pages y sistemas web para negocios costarricenses. Cartago, CR.
 
-**apexcloudworkcompany.com** · apexcloudworkscompany@gmail.com · +506 6314-4171
+**apexcloudworkcompany.com** · apexcloudworkcompany@gmail.com · +506 6314-4171
 
 ---
 
@@ -90,4 +90,4 @@ aws cloudfront create-invalidation --distribution-id [ID] --paths "/*"
 
 ---
 
-Desarrollado por Garett Barrantes — Apex Cloud Works · Cartago, Costa Rica · 2026
+Desarrollado por Garett Barrantes — Apex Cloud Work · Cartago, Costa Rica · 2026

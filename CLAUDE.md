@@ -72,7 +72,7 @@
 
 | Campo | Dato |
 |-------|------|
-| **Nombre** | Apex Cloud Works |
+| **Nombre** | Apex Cloud Work |
 | **Email** | apexcloudworkcompany@gmail.com |
 | **Dominio** | apexcloudworkcompany.com |
 | **WhatsApp** | +506 6314-4171 |
@@ -102,7 +102,7 @@
 Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revisiones → Deploy → Entrega
 
 **Nunca cambia:**
-- Footer: "Desarrollado por Apex Cloud Works — Cartago, CR"
+- Footer: "Desarrollado por Apex Cloud Work — Cartago, CR"
 - WhatsApp flotante · Mobile-first · USD · Max 2 revisiones
 - **Archivos siempre separados:** `index.html` / `assets/css/style.css` / `assets/js/script.js`
 
@@ -160,10 +160,16 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | Portal cliente | `/portal/index.html` + `/portal/dashboard.html` — login separado |
 | Legal/Seguridad | `Legal/` (contrato, proforma, T&C, privacidad) · `Bienvenida/` (kit cliente) · `Seguridad/` (política) · `sitemap.xml` + `robots.txt` ya creados |
 | Auditoría v2.0 | 25 jun 2026 — Score global **C+** (24 hallazgos: 6 críticos · 7 altos · 10 medios · 1 bajo). Seguridad D+ · Accesibilidad C+ · Performance B- · SEO A- · UX/UI B · Mantenibilidad C+ · AWS B- |
-| 🔴 Críticos seguridad | 1) Admin token hardcodeado en `admin.js` línea 13 (visible en DevTools) · 2) URL de Apps Script expuesta en JS público · 3) Auth con localStorage+SHA-256 sin expiración — XSS = acceso admin total. Además 3 estrategias de auth inconsistentes (admin=localStorage, portal=sessionStorage, `auth.js`=Cognito sin conectar) |
+| 🔴 Críticos seguridad | ✅ Resueltos los 3 (16 jul 2026) — ver detalle abajo. Auditoría 25 jun quedó obsoleta en este punto tras el backend Node real. |
 | CoreUI | `MIGRATION_COREUI.md` — decidido NO migrar aún (stack sin deps no lo justifica hasta escalar panel) |
 | **Foco actual** | 🔥 Seguir trabajando **UI y librerías generales de diseño** (design tokens, unificar tipografía/color/spacing entre landing-admin-portal, dividir CSS/JS monolíticos en módulos) |
-| Pendiente | Foto real Garett · resolver 3 críticos de seguridad (prioridad antes de escalar) · auth Cognito real · dashboard cliente · tablas→cards en mobile |
+| Pendiente | Foto real Garett · **deployar backend a EC2** (los 3 fixes de seguridad viven en `backend/` local, sin deployar) · redeployar `portal-apps-script.gs` con el `ADMIN_TOKEN` rotado (06 jul) · auth Cognito real (opcional, ya no crítico) · dashboard cliente · tablas→cards en mobile |
+
+**Detalle resolución críticos (16 jul 2026):**
+1. ~~Admin token hardcodeado~~ → ya resuelto antes (07 jul): login migrado a sesión de servidor (`express-session` + MySQL store), `admin.js` manda un token placeholder inerte que el backend ignora.
+2. ~~URL de Apps Script expuesta en JS público~~ → resuelto hoy: el formulario de contacto de `index.html` ya no llama a Google directo — pega a `POST /api/contact` (`backend/routes/contact.js`), que valida server-side y reenvía usando `CONTACT_APPS_SCRIPT_URL` (nunca en el browser), con rate limit propio (10/hora por IP).
+3. ~~Auth localStorage+SHA-256 sin expiración~~ → ya resuelto antes (07 jul): cookie `apex_sid` httpOnly, expira a las 8h, `secure`/`sameSite` según `COOKIE_SECURE`.
+- ⚠️ Todo esto vive en `backend/` **en desarrollo local** — hasta que se haga el deploy a EC2 (`deploy-ec2.sh`) y se apunte `assets/js/env.js` a la URL de producción, el sitio live sigue sirviendo el flujo viejo.
 
 ---
 
@@ -272,7 +278,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 **Pendientes críticos (04 jul 2026):**
 - [ ] Autorizar conector Notion en Cowork (Settings → Connectors) para poder crear ahí las páginas de cursos y seguimiento
 - [ ] 🔥 Apex Landing — seguir trabajando **UI y librerías generales de diseño** (tokens.css unificado, dividir `admin.js`/`style.css` en módulos, unificar tipografía/color/spacing entre landing-admin-portal)
-- [ ] Apex Landing — resolver 3 críticos de seguridad: token admin hardcodeado, URL Apps Script expuesta, auth localStorage sin expiración
+- [x] Apex Landing — resolver 3 críticos de seguridad (código listo 16 jul 2026) — [ ] pendiente: **deployar backend a EC2** para que el fix viva en producción, no solo local
 - [ ] Activar workflow N8N CBD en n8n.cloud (toggle Active)
 - [ ] Agendar reunión Skindoctors → presentar `presentacion/index.html`
 - [ ] Hablar comisión con Andrés **antes** del cobro

@@ -1,5 +1,5 @@
 # Guía Obsidian — De cero a operativo
-> Para Garett · Apex Cloud Works · Junio 2026
+> Para Garett · Apex Cloud Work · Junio 2026
 
 ---
 
@@ -242,5 +242,5 @@ Esto es lo que hacés cada domingo a las 23:30 según tu rutina:
 
 ---
 
-*Apex Cloud Works · Cartago, CR*
+*Apex Cloud Work · Cartago, CR*
 *"Lo que no se escribe no existe."*

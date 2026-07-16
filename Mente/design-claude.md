@@ -1,5 +1,5 @@
 # 🎨 Design Claude — Guía de Diseño para Wilson
-> Cómo Claude ejecuta diseño en Apex Cloud Works · Versión 1.0 · Junio 2026
+> Cómo Claude ejecuta diseño en Apex Cloud Work · Versión 1.0 · Junio 2026
 
 ---
 
@@ -109,7 +109,7 @@ text-transform: uppercase;
 ```html
 <footer>
   <!-- contenido del cliente -->
-  <p class="apex-credit">Desarrollado por Apex Cloud Works — Cartago, CR</p>
+  <p class="apex-credit">Desarrollado por Apex Cloud Work — Cartago, CR</p>
 </footer>
 ```
 
@@ -173,7 +173,7 @@ text-transform: uppercase;
 ```
 [ ] Carga en menos de 3 segundos (test en móvil)
 [ ] WhatsApp flotante funciona y abre número correcto
-[ ] Footer dice "Apex Cloud Works — Cartago, CR"
+[ ] Footer dice "Apex Cloud Work — Cartago, CR"
 [ ] Formulario envía a N8N webhook
 [ ] Se ve bien en iPhone SE (375px)
 [ ] Se ve bien en desktop 1440px

@@ -1,7 +1,7 @@
 ---
 name: apex-rflx
 description: >
-  Contexto completo del proyecto RFLX en Apex Cloud Works.
+  Contexto completo del proyecto RFLX en Apex Cloud Work.
   Activar cuando Garett mencione RFLX, Andrés (en contexto de proyecto propio de él),
   lavado de carros, detailing, o cualquier trabajo en el proyecto de autos de Andrés.
 ---
@@ -35,5 +35,5 @@ description: >
 - Definir comisión/acuerdo antes de arrancar
 - Máximo 2 rondas de revisión incluidas
 - WhatsApp flotante obligatorio
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Precio: TBD

@@ -158,7 +158,7 @@ flowchart TD
 
 ```mermaid
 timeline
-    title Apex Cloud Works — Roadmap
+    title Apex Cloud Work — Roadmap
     2026 : Skindoctors cerrado
          : EcoPollo entregado
          : Primeros $$ recurrentes
