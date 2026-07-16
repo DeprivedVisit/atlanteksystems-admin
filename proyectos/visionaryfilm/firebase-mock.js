@@ -1,8 +1,9 @@
 // Demo mode — almacenamiento en localStorage
 // Reemplazar firebase-config.js con Firebase real cuando esté listo
+// ⚠️ Credenciales demo: pedir al admin que ingrese en el popup de login
 
-const DEMO_EMAIL = 'admin@visionaryfilm.cr';
-const DEMO_PASS  = 'vf2024';
+const DEMO_EMAIL = prompt('Email demo (pedir a Fabian)') || 'admin@visionaryfilm.cr';
+const DEMO_PASS  = prompt('Password demo (pedir a Fabian)') || '';
 const P = 'vfdb_';
 
 let _authUser = null;

@@ -101,7 +101,7 @@ En `index.html`, ajustar según el cliente:
 | **Proceso** | 4 pasos: Brief → Pre-producción → Producción → Entrega. |
 | **Precios** | 3 paquetes USD: Básico $350 · Estándar $750 · Premium $1,400. |
 | **Contacto** | Formulario → genera mensaje y abre WhatsApp directo. |
-| **Footer** | Redes sociales + crédito Apex Cloud Works. |
+| **Footer** | Redes sociales + crédito Apex Cloud Work. |
 | **WhatsApp flotante** | Botón fijo esquina inferior derecha. |
 
 ### Panel Admin (`admin.html`)
@@ -238,5 +238,5 @@ El proyecto es HTML/CSS/JS puro (módulos ES). Necesita servirse desde un servid
 
 ## Desarrollado por
 
-**Apex Cloud Works** — Cartago, Costa Rica  
-apexcloudworkscompany@gmail.com · +506 6314-4171
+**Apex Cloud Work** — Cartago, Costa Rica  
+apexcloudworkcompany@gmail.com · +506 6314-4171

@@ -696,5 +696,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (sess) {
     const s = document.getElementById('welcomeSplash');
     if (s) s.remove();
+    return;
   }
+  // ── Bind splash buttons (sin inline onclick) ──
+  const loginBtn = document.getElementById('splashLoginBtn');
+  const guestBtn = document.getElementById('splashGuestBtn');
+  if (loginBtn) loginBtn.addEventListener('click', splashLogin);
+  if (guestBtn) guestBtn.addEventListener('click', splashGuest);
 });

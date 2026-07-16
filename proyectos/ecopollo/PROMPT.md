@@ -42,5 +42,5 @@
 ## Rules
 - Precios en colones (₡), no en USD
 - WhatsApp flotante obligatorio
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Mobile-first — clientes compran desde celular

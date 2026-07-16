@@ -33,4 +33,4 @@
 ## Rules
 - No lanzar sin datos reales del cliente
 - Máximo 2 rondas de revisión incluidas
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
