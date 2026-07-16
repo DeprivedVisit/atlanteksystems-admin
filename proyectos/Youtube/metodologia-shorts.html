@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metodología — Shorts Automatizados · Apex Cloud Work</title>
+  <link rel="stylesheet" href="metodologia-shorts.css">
+</head>
+<body>
+
+  <header class="hero">
+    <p class="hero__tag">Apex Cloud Work · Julio 2026</p>
+    <h1>Shorts de YouTube<br><span>Automatizados</span></h1>
+    <div class="hero__badges">
+      <span class="badge">Semi-automático</span>
+      <span class="badge">Código propio</span>
+      <span class="badge badge--green">$0/mes</span>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#pipeline">Pipeline</a>
+    <a href="#fase0">Nicho</a>
+    <a href="#stack">Stack</a>
+    <a href="#etapas">Etapas</a>
+    <a href="#rutina">Rutina</a>
+    <a href="#riesgos">Riesgos</a>
+    <a href="#plan">Plan</a>
+  </nav>
+
+  <main>
+
+    <!-- PIPELINE -->
+    <section id="pipeline" class="section">
+      <h2><span class="num">01</span> Arquitectura del pipeline</h2>
+      <div class="pipeline">
+        <div class="pipe-step"><div class="pipe-step__icon">💡</div><p>Ideas<br>/Temas</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-step__icon">📝</div><p>Guion<br>(LLM)</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-step__icon">🎙️</div><p>Voz<br>(Kokoro)</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-step__icon">🎬</div><p>Visuales<br>(Pexels)</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-step__icon">⚙️</div><p>Render<br>(FFmpeg)</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-step__icon">💬</div><p>Subtítulos<br>(Whisper)</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step pipe-step--human"><div class="pipe-step__icon">👤</div><p>REVISIÓN<br>(vos)</p></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step pipe-step--final"><div class="pipe-step__icon">📤</div><p>Subida<br>(YT API)</p></div>
+      </div>
+      <p class="note">Un script de Python orquesta todo. Corre local o en EC2. Vos solo aprobás la carpeta de salida.</p>
+    </section>
+
+    <!-- FASE 0 -->
+    <section id="fase0" class="section">
+      <h2><span class="num">02</span> Fase 0 — Elegir nicho</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>1 · Generable por texto</h3>
+          <p>Voz narrada + stock. Datos curiosos, historia, finanzas, psicología, tech. Descartá lo que requiera cara o footage propio.</p>
+        </article>
+        <article class="card">
+          <h3>2 · Temas infinitos</h3>
+          <p>Necesitás 30-90 guiones/mes. Test: ¿100 ideas en 20 min con un LLM? Si no, cambiá de nicho.</p>
+        </article>
+        <article class="card">
+          <h3>3 · RPM decente</h3>
+          <p>Finanzas, negocios y tech pagan más. Shorts rinden ~$0.05-0.15 RPM: la jugada real es volumen o conversión a producto propio.</p>
+        </article>
+        <article class="card">
+          <h3>4 · Idioma</h3>
+          <p>Español: menos competencia, menor RPM. Inglés: escala más si la voz TTS es indistinguible.</p>
+        </article>
+      </div>
+      <div class="callout">
+        <strong>Validación (1 semana, sin código):</strong> hacé 3-5 shorts a mano del nicho candidato. Si el formato aburre a mano, automatizado aburre a escala. Definí <em>una sola plantilla repetible</em>: mismo gancho, misma estructura, 30-45 s.
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" class="section">
+      <h2><span class="num">03</span> Stack — $0/mes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Etapa</th><th>Herramienta</th><th>Nota</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Guiones</td><td>Claude / Ollama</td><td>Lote de 30 por sesión semanal</td></tr>
+            <tr><td>Voz</td><td>Kokoro TTS</td><td>Apache 2.0, corre en CPU, español incluido</td></tr>
+            <tr><td>Subtítulos</td><td>faster-whisper</td><td>Timestamps por palabra del audio TTS</td></tr>
+            <tr><td>Visuales</td><td>Pexels / Pixabay API</td><td>Clips verticales gratis por keyword</td></tr>
+            <tr><td>Ensamblaje</td><td>FFmpeg</td><td>1080×1920, subtítulos quemados, mezcla de audio</td></tr>
+            <tr><td>Música</td><td>YT Audio Library</td><td>Sin copyright</td></tr>
+            <tr><td>Subida</td><td>YouTube Data API v3</td><td>~100 subidas/día gratis desde dic 2025</td></tr>
+            <tr><td>Orquestación</td><td>Python 3 + cron</td><td>Un repo, un script por etapa</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Hardware: 8 GB RAM alcanza. Todo corre en CPU. EC2 solo si querés que corra sin tu máquina encendida.</p>
+    </section>
+
+    <!-- ETAPAS -->
+    <section id="etapas" class="section">
+      <h2><span class="num">04</span> Etapas del pipeline</h2>
+      <div class="accordion" id="accordion">
+        <details open>
+          <summary>2.1 · Guiones por lote <span class="chip">punto de control #1</span></summary>
+          <div class="details-body">
+            <p>Una vez por semana: 20-30 guiones en JSON con id, título, gancho, cuerpo, CTA, keywords visuales, descripción y tags.</p>
+            <p>Reglas: gancho en 1.5 s · 60-110 palabras (≈30-45 s) · una idea por short · CTA de una frase.</p>
+            <p><strong>Revisás guiones en 10 min y borrás los malos.</strong> Más barato corregir texto que video.</p>
+          </div>
+        </details>
+        <details>
+          <summary>2.2 · Voz — tts.py</summary>
+          <div class="details-body"><p>Kokoro genera un .wav por guion. Normalizás con <code>ffmpeg -af loudnorm</code> para volumen consistente.</p></div>
+        </details>
+        <details>
+          <summary>2.3 · Subtítulos — subs.py</summary>
+          <div class="details-body"><p>faster-whisper → timestamps por palabra → archivo .ass: subtítulos grandes, centrados, 2-3 palabras por pantalla.</p></div>
+        </details>
+        <details>
+          <summary>2.4 · Visuales — visuals.py</summary>
+          <div class="details-body"><p>Pexels API (orientation=portrait), clips de 3-5 s. Cambio de clip cada 2-4 s. Cacheá por keyword para reutilizar.</p></div>
+        </details>
+        <details>
+          <summary>2.5 · Ensamblaje — render.py</summary>
+          <div class="details-body"><p>FFmpeg: escala a 1080×1920 @30fps → concatena → mezcla voz + música (-20 dB) → quema subtítulos → exporta a <code>out/review/</code> con metadatos JSON.</p></div>
+        </details>
+        <details>
+          <summary>2.6 · Revisión <span class="chip">punto de control #2</span></summary>
+          <div class="details-body"><p>Mirás cada video (10 videos = 7 min). Aprobar = mover a <code>out/approved/</code>. Opcional: página HTML local con botones aprobar/rechazar.</p></div>
+        </details>
+        <details>
+          <summary>2.7 · Subida — upload.py + cron</summary>
+          <div class="details-body">
+            <p><code>videos.insert</code> con OAuth y <code>publishAt</code> escalonado (1-3/día). #Shorts en título/descripción, ≤60 s, vertical.</p>
+            <p><strong>Ojo:</strong> app de Google Cloud en modo testing alcanza para tu propia cuenta; sin verificación, videos de apps públicas quedan privados.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- RUTINA -->
+    <section id="rutina" class="section">
+      <h2><span class="num">05</span> Rutina semanal</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Día</th><th>Tarea</th><th>Tiempo</th></tr></thead>
+          <tbody>
+            <tr><td>Domingo</td><td>Generar y curar 20-30 guiones</td><td>45 min</td></tr>
+            <tr><td>Domingo</td><td>Correr pipeline (queda solo)</td><td>0 min activo</td></tr>
+            <tr><td>Lun / Mié / Vie</td><td>Revisar y aprobar</td><td>10 min c/u</td></tr>
+            <tr><td>Automático</td><td>Cron sube 1-3/día escalonados</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><span class="stat__big">1.5 h</span><span>por semana</span></div>
+        <div class="stat"><span class="stat__big">15-20</span><span>shorts/semana</span></div>
+        <div class="stat"><span class="stat__big">$0</span><span>costo mensual</span></div>
+      </div>
+      <div class="callout">
+        <strong>Medir:</strong> retención al segundo 3 (el gancho) · % visto promedio (&gt;80% es bueno) · viewed vs swiped away. Iterá sobre la <em>plantilla</em> (el prompt), no sobre videos individuales.
+      </div>
+    </section>
+
+    <!-- RIESGOS -->
+    <section id="riesgos" class="section">
+      <h2><span class="num">06</span> Riesgos</h2>
+      <div class="cards">
+        <article class="card card--risk">
+          <h3>Contenido "inauthentic"</h3>
+          <p>Shorts genéricos sin valor se desmonetizan. Antídoto: tu curación de guiones con ángulo propio.</p>
+        </article>
+        <article class="card card--risk">
+          <h3>Copyright</h3>
+          <p>Solo Pexels, Pixabay y YT Audio Library. Nunca clips de terceros sin licencia.</p>
+        </article>
+        <article class="card card--risk">
+          <h3>Burnout del nicho</h3>
+          <p>60 videos sin señales → matá el canal, reusá el pipeline en otro nicho. El activo es el pipeline.</p>
+        </article>
+        <article class="card card--risk">
+          <h3>Cuota API</h3>
+          <p>Ya no es problema: ~100 subidas/día gratis desde diciembre 2025.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PLAN -->
+    <section id="plan" class="section">
+      <h2><span class="num">07</span> Plan de construcción — 2 fines de semana</h2>
+      <ol class="timeline">
+        <li><strong>Día 1</strong> Guiones (prompt + JSON) + Kokoro TTS funcionando</li>
+        <li><strong>Día 2</strong> Render FFmpeg + Pexels + subtítulos Whisper → primer video completo</li>
+        <li><strong>Día 3</strong> OAuth de YouTube + upload.py + cron</li>
+        <li><strong>Día 4</strong> Página de revisión + pulir plantilla visual → lanzar</li>
+      </ol>
+      <div class="callout callout--scale">
+        <strong>Escalar después:</strong> más canales (mismo código, otro prompt) · TikTok/Reels con el mismo mp4 · EC2 t3.medium (~$10-15/mes) para que corra solo · voz clonada con XTTS-v2.
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Desarrollado por Apex Cloud Work — Cartago, CR</p>
+  </footer>
+
+  <script src="metodologia-shorts.js"></script>
+</body>
+</html>

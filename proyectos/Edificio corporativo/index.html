@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Tower — Edificio Corporativo de Skills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a12;
+      --surface: #101520;
+      --surface2: #181e2a;
+      --border: #1e2638;
+      --ink: #e8ecf0;
+      --ink-dim: #788090;
+      --gold: #C4956A;
+      --gold-glow: rgba(196,149,106,.25);
+      --c1: #4a9eff;
+      --c2: #f59e0b;
+      --c3: #10b981;
+      --c4: #8b5cf6;
+      --c5: #f97316;
+      --c6: #ec4899;
+      --c7: #C4956A;
+      --r: 'Anton', sans-serif;
+      --s: 'Inter', system-ui, sans-serif;
+      --m: 'JetBrains Mono', monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--s);background:var(--bg);color:var(--ink);
+      min-height:100vh;overflow-x:hidden;line-height:1.5;
+    }
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+    header{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1rem 2rem;
+      background:rgba(7,10,18,.85);backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .hd-logo{
+      display:flex;align-items:center;gap:.7rem;
+      font-family:var(--r);font-size:1.2rem;letter-spacing:.06em;
+      color:var(--gold);text-transform:uppercase;
+    }
+    .hd-logo small{font-family:var(--s);font-size:.65rem;color:var(--ink-dim);letter-spacing:0;text-transform:none;display:block;margin-top:-2px}
+    .hd-info{font-size:.75rem;color:var(--ink-dim)}
+
+    .hero{
+      min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;padding:6rem 1.5rem 2rem;position:relative;
+      overflow:hidden;
+    }
+    .hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .hero-bg .star{
+      position:absolute;width:2px;height:2px;border-radius:50%;
+      background:#fff;opacity:.2;animation:twinkle var(--d,4s) ease-in-out infinite;
+    }
+    @keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.6}}
+    .hero-bg .cityline{
+      position:absolute;bottom:0;left:0;right:0;height:180px;
+      background:
+        linear-gradient(0deg,var(--surface) 0%,transparent 100%),
+        repeating-linear-gradient(90deg,
+          transparent 0, transparent 28px,
+          rgba(255,255,255,.02) 28px, rgba(255,255,255,.02) 30px);
+      mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 180'%3E%3Crect x='10' y='40' width='30' height='140'/%3E%3Crect x='50' y='20' width='25' height='160'/%3E%3Crect x='85' y='60' width='20' height='120'/%3E%3Crect x='120' y='30' width='35' height='150'/%3E%3Crect x='170' y='50' width='15' height='130'/%3E%3Crect x='200' y='10' width='40' height='170'/%3E%3Crect x='260' y='45' width='25' height='135'/%3E%3Crect x='300' y='25' width='30' height='155'/%3E%3Crect x='350' y='55' width='20' height='125'/%3E%3Crect x='390' y='15' width='45' height='165'/%3E%3Crect x='460' y='40' width='25' height='140'/%3E%3Crect x='500' y='60' width='30' height='120'/%3E%3Crect x='550' y='20' width='20' height='160'/%3E%3Crect x='590' y='35' width='40' height='145'/%3E%3Crect x='650' y='50' width='15' height='130'/%3E%3Crect x='680' y='10' width='35' height='170'/%3E%3Crect x='740' y='45' width='25' height='135'/%3E%3Crect x='780' y='30' width='20' height='150'/%3E%3Crect x='820' y='55' width='30' height='125'/%3E%3Crect x='870' y='15' width='45' height='165'/%3E%3Crect x='940' y='40' width='20' height='140'/%3E%3Crect x='980' y='25' width='35' height='155'/%3E%3Crect x='1040' y='50' width='25' height='130'/%3E%3Crect x='1080' y='20' width='30' height='160'/%3E%3Crect x='1130' y='45' width='40' height='135'/%3E%3C/svg%3E");
+      -webkit-mask-size:1200px 180px;mask-size:1200px 180px;
+      -webkit-mask-repeat:repeat-x;mask-repeat:repeat-x;
+    }
+    .hero h1{
+      font-family:var(--r);font-size:clamp(2.4rem,8vw,6rem);
+      text-transform:uppercase;letter-spacing:.04em;line-height:1;
+      color:var(--ink);position:relative;z-index:1;
+    }
+    .hero h1 span{color:var(--gold)}
+    .hero p{
+      margin-top:1rem;font-size:.9rem;color:var(--ink-dim);
+      max-width:480px;position:relative;z-index:1;
+    }
+    .hero .scroll-hint{
+      margin-top:2.5rem;font-size:.7rem;color:var(--ink-dim);
+      letter-spacing:.1em;text-transform:uppercase;
+      animation:bounce 2s ease-in-out infinite;position:relative;z-index:1;
+    }
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+    .building-wrap{max-width:640px;margin:0 auto;padding:0 1.5rem 4rem}
+    .building{position:relative;display:flex;flex-direction:column;align-items:center}
+
+    /* === ROOF / CROWN === */
+    .building-roof{width:100%;position:relative;z-index:10}
+    .roof-crown{
+      width:100%;height:24px;
+      background:linear-gradient(135deg,#1a2235,#2a3040);
+      border:2px solid #2a3040;border-bottom:none;
+      display:flex;align-items:center;justify-content:center;gap:1rem;
+      position:relative;
+    }
+    .roof-crown::before{
+      content:'';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+      width:50px;height:12px;
+      background:linear-gradient(135deg,#1a2235,#2a3040);
+      clip-path:polygon(10% 100%,90% 100%,100% 0%,0% 0%);
+    }
+    .roof-crown::after{
+      content:'';position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+      width:4px;height:18px;background:var(--gold);
+      box-shadow:0 0 10px var(--gold-glow);
+      animation:antennaPulse 2s ease-in-out infinite;
+    }
+    @keyframes antennaPulse{0%,100%{opacity:.5}50%{opacity:1}}
+    .roof-crown .r-line{
+      width:30px;height:1px;background:rgba(255,255,255,.08);
+    }
+    .roof-crown .r-text{
+      font-family:var(--m);font-size:.5rem;color:var(--ink-dim);
+      letter-spacing:.2em;
+    }
+
+    /* === BUILDING FRAME === */
+    .building-frame{
+      width:100%;position:relative;
+      border-left:2px solid #2a3040;
+      border-right:2px solid #2a3040;
+      background:#0b101a;
+    }
+    .building-frame::after{
+      content:'';position:absolute;top:0;left:2px;right:2px;height:1px;
+      background:rgba(255,255,255,.04);
+    }
+
+    /* Continuous side columns */
+    .col-left,.col-right{
+      position:absolute;top:0;bottom:0;width:16px;z-index:5;
+      background:linear-gradient(90deg,#1a2235,#2a3040);
+      pointer-events:none;
+    }
+    .col-left{left:0;border-right:1px solid rgba(255,255,255,.06)}
+    .col-right{right:0;border-left:1px solid rgba(255,255,255,.06)}
+    .col-left::after,.col-right::after{
+      content:'';position:absolute;inset:0;
+      background:repeating-linear-gradient(0deg,
+        transparent 0px,transparent 52px,
+        rgba(255,255,255,.03) 52px,rgba(255,255,255,.03) 53px);
+    }
+
+    /* Elevator shaft on right column */
+    .elev-shaft{
+      position:absolute;top:0;right:-18px;width:16px;bottom:0;z-index:6;
+      pointer-events:none;
+    }
+    .elev-track{
+      position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;
+      width:2px;background:rgba(255,255,255,.06);
+    }
+    .elev-car{
+      position:absolute;left:50%;transform:translateX(-50%);
+      width:8px;height:8px;background:var(--gold);
+      border-radius:1px;transition:top .6s cubic-bezier(.22,1,.36,1);
+      box-shadow:0 0 6px var(--gold-glow);z-index:7;
+    }
+    .elev-indicators{
+      position:absolute;right:100%;top:0;display:flex;flex-direction:column;
+      padding:4px 4px 0 0;gap:0;pointer-events:none;
+    }
+    .elev-indicators span{
+      font-family:var(--m);font-size:.45rem;color:rgba(255,255,255,.15);
+      line-height:1;padding:2px 0;text-align:right;
+      transition:color .4s;
+    }
+    .elev-indicators span.on{color:var(--gold)}
+
+    /* === FLOOR === */
+    .floor{
+      position:relative;width:100%;cursor:pointer;
+      padding-left:16px;padding-right:16px;
+      min-height:56px;
+      background:
+        /* Horizontal mullions */
+        repeating-linear-gradient(0deg,
+          transparent 0px,transparent 20px,
+          rgba(255,255,255,.02) 20px,rgba(255,255,255,.02) 21px),
+        /* Vertical mullions */
+        repeating-linear-gradient(90deg,
+          transparent 0px,transparent 28px,
+          rgba(255,255,255,.03) 28px,rgba(255,255,255,.03) 29px),
+        /* Dark glass */
+        linear-gradient(135deg,#0d1420,#111827);
+      transition:all .35s cubic-bezier(.22,1,.36,1);
+      user-select:none;
+    }
+
+    /* Concrete slab divider */
+    .floor-divider{
+      position:absolute;bottom:0;left:16px;right:16px;height:5px;z-index:4;
+      pointer-events:none;
+    }
+    .floor-divider::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,#1a2235,#2a3040);
+      border-radius:1px;
+    }
+    .floor-divider::after{
+      content:'';position:absolute;top:0;left:0;right:0;height:1px;
+      background:rgba(255,255,255,.06);
+    }
+
+    .floor:last-child .floor-divider{bottom:-5px;left:0;right:0}
+    .floor:last-child .floor-divider::before{border-radius:0}
+
+    .floor:hover{
+      z-index:3;
+      background:
+        repeating-linear-gradient(0deg,
+          transparent 0px,transparent 20px,
+          rgba(255,255,255,.02) 20px,rgba(255,255,255,.02) 21px),
+        repeating-linear-gradient(90deg,
+          transparent 0px,transparent 28px,
+          rgba(255,255,255,.03) 28px,rgba(255,255,255,.03) 29px),
+        color-mix(in srgb,var(--color) 8%,#111827);
+      box-shadow:0 0 40px color-mix(in srgb,var(--color) 12%,transparent);
+    }
+    .floor.active{
+      z-index:4;
+      box-shadow:0 0 60px color-mix(in srgb,var(--color) 18%,transparent);
+    }
+    .floor.active .glass-glow{
+      position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:color-mix(in srgb,var(--color) 10%,transparent);
+      transition:all .5s;
+    }
+
+    .floor-hdr{
+      display:flex;align-items:center;gap:.7rem;
+      padding:.55rem .8rem;position:relative;z-index:2;
+      min-height:48px;
+    }
+    .floor-avatar{
+      width:28px;height:28px;flex-shrink:0;border-radius:6px;
+      overflow:hidden;background:rgba(0,0,0,.3);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .floor-avatar canvas{
+      width:100%;height:100%;display:block;
+      image-rendering:pixelated;image-rendering:crisp-edges;
+    }
+    .floor-plaque{
+      font-family:var(--m);font-size:.55rem;color:var(--ink-dim);
+      background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);
+      border-radius:4px;padding:.15rem .45rem;white-space:nowrap;flex-shrink:0;
+    }
+    .floor-name{
+      font-family:var(--r);font-size:.82rem;
+      text-transform:uppercase;letter-spacing:.06em;
+      flex:1;color:var(--ink);line-height:1.1;
+    }
+    .floor-name small{
+      font-family:var(--s);font-size:.6rem;color:var(--ink-dim);
+      display:block;text-transform:none;letter-spacing:0;
+    }
+    .floor-badge{
+      font-family:var(--m);font-size:.55rem;padding:.12rem .5rem;
+      border-radius:3px;background:var(--color);color:var(--bg);
+      font-weight:600;white-space:nowrap;flex-shrink:0;
+    }
+    .floor-arrow{
+      font-size:.65rem;color:var(--ink-dim);
+      transition:transform .3s;flex-shrink:0;opacity:.5;
+    }
+    .floor.active .floor-arrow{transform:rotate(180deg);opacity:1}
+
+    .floor-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.22,1,.36,1);position:relative;z-index:1}
+    .floor.active .floor-body{max-height:800px}
+    .floor-inner{
+      padding:.5rem .8rem .8rem;
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.5rem;
+    }
+
+    .office{
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+      border-radius:8px;padding:.6rem .5rem;cursor:pointer;
+      transition:all .25s;text-align:center;position:relative;
+      backdrop-filter:blur(4px);
+    }
+    .office:hover{
+      background:rgba(255,255,255,.07);border-color:var(--floor-color);
+      transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.4);
+    }
+    .office-avatar{
+      width:42px;height:42px;margin:0 auto .4rem;
+      border-radius:10px;overflow:hidden;background:transparent;
+    }
+    .office-avatar canvas{
+      width:100%;height:100%;display:block;
+      image-rendering:pixelated;image-rendering:crisp-edges;
+    }
+    .office-name{font-size:.7rem;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:.1rem}
+    .office-role{font-size:.58rem;color:var(--ink-dim);line-height:1.2}
+    .office-tag{
+      display:inline-block;margin-top:.3rem;
+      font-size:.5rem;font-family:var(--m);
+      background:rgba(0,0,0,.3);border-radius:3px;
+      padding:.08rem .3rem;color:var(--floor-color);
+    }
+
+    /* === BASE / LOBBY === */
+    .building-base{
+      width:100%;position:relative;z-index:5;
+    }
+    .lobby{
+      border-left:2px solid #2a3040;
+      border-right:2px solid #2a3040;
+      border-bottom:2px solid #2a3040;
+      background:linear-gradient(180deg,#0b101a,#111827);
+      padding:.8rem 16px;
+      display:flex;align-items:center;justify-content:center;gap:1.5rem;
+      position:relative;
+    }
+    .lobby::before{
+      content:'';position:absolute;top:0;left:16px;right:16px;height:0;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .lobby-door{
+      width:32px;height:36px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg,rgba(196,149,106,.08),rgba(196,149,106,.03));
+      border-radius:2px;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;
+    }
+    .lobby-door::after{
+      content:'';display:block;
+      width:2px;height:20px;background:rgba(255,255,255,.08);
+      border-radius:1px;
+    }
+    .lobby-door+.lobby-door::before{
+      content:'';position:absolute;left:-1px;top:2px;bottom:2px;
+      width:1px;background:rgba(255,255,255,.06);
+    }
+    .lobby-text{
+      font-family:var(--m);font-size:.5rem;color:var(--ink-dim);
+      letter-spacing:.2em;text-transform:uppercase;
+      opacity:.5;
+    }
+    .building-plinth{
+      height:6px;
+      background:linear-gradient(135deg,#1a2235,#2a3040);
+      border-left:2px solid #2a3040;
+      border-right:2px solid #2a3040;
+      border-bottom:2px solid #2a3040;
+    }
+
+    .modal-overlay{
+      display:none;position:fixed;inset:0;z-index:200;
+      background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
+      align-items:center;justify-content:center;padding:1rem;
+    }
+    .modal-overlay.open{display:flex}
+    .modal{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:16px;max-width:420px;width:100%;
+      padding:2rem 1.5rem;position:relative;
+      animation:modalIn .3s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes modalIn{from{opacity:0;transform:scale(.92) translateY(12px)}}
+    .modal-close{
+      position:absolute;top:1rem;right:1rem;
+      background:none;border:none;color:var(--ink-dim);
+      font-size:1.2rem;cursor:pointer;padding:.2rem .4rem;
+      border-radius:6px;transition:all .2s;
+    }
+    .modal-close:hover{background:rgba(255,255,255,.05);color:var(--ink)}
+    .modal-avatar{
+      width:72px;height:72px;margin:0 auto 1rem;border-radius:16px;overflow:hidden;
+      background:transparent;
+    }
+    .modal-avatar canvas{width:100%;height:100%;display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+    .modal h2{
+      font-family:var(--r);font-size:1.3rem;text-transform:uppercase;
+      letter-spacing:.04em;text-align:center;color:var(--ink);
+    }
+    .modal .m-role{text-align:center;font-size:.8rem;color:var(--ink-dim);margin:.2rem 0 1rem}
+    .modal .m-desc{font-size:.82rem;color:var(--ink-dim);line-height:1.6;text-align:center}
+    .modal .m-floor{text-align:center;margin-top:1rem;font-size:.65rem;font-family:var(--m);color:var(--m-color)}
+    .modal .m-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem;margin-top:.8rem}
+    .modal .m-tags span{font-size:.6rem;font-family:var(--m);background:rgba(255,255,255,.05);border-radius:4px;padding:.15rem .45rem;color:var(--ink-dim)}
+
+    @media(max-width:480px){
+      header{padding:.7rem 1rem}
+      .hd-logo{font-size:1rem}
+      .hd-logo small{font-size:.55rem}
+      .floor-hdr{padding:.5rem .6rem;gap:.5rem}
+      .floor-avatar{width:22px;height:22px}
+      .floor-plaque{font-size:.5rem;padding:.1rem .35rem}
+      .floor-name{font-size:.7rem}
+      .floor-name small{font-size:.55rem}
+      .floor-badge{font-size:.5rem;padding:.1rem .4rem}
+      .floor-inner{grid-template-columns:repeat(2,1fr);padding:0 .6rem .6rem}
+      .office{padding:.5rem}
+      .office-avatar{width:36px;height:36px}
+      .office-name{font-size:.65rem}
+    }
+    @media(min-width:768px){.floor-inner{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:1024px){.floor-inner{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:600px){
+      .col-left,.col-right{width:8px}
+      .floor{padding-left:8px;padding-right:8px}
+      .floor-divider{left:8px;right:8px}
+      .elev-shaft{display:none}
+      .lobby{padding:.6rem 8px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hd-logo">
+    <span>⌂</span>
+    <div>
+      Apex Tower
+      <small>Edificio Corporativo de Skills</small>
+    </div>
+  </div>
+  <div class="hd-info">7 pisos · 42 expertos</div>
+</header>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="stars"></div>
+    <h1>Skill <span>Tower</span></h1>
+    <p>Los expertos de Apex Cloud Work organizados por especialidad. Tocá un piso para conocerlos.</p>
+    <div class="scroll-hint">↓ Scroll para explorar</div>
+  </section>
+
+<div class="building-wrap">
+  <div class="building" id="building">
+
+    <!-- Roof Crown -->
+    <div class="building-roof">
+      <div class="roof-crown">
+        <span class="r-line"></span>
+        <span class="r-text">APEX TOWER</span>
+        <span class="r-line"></span>
+      </div>
+    </div>
+
+    <!-- Building Body -->
+    <div class="building-frame">
+      <div class="col-left"></div>
+      <div class="col-right"></div>
+
+      <!-- Elevator shaft -->
+      <div class="elev-shaft">
+        <div class="elev-track"></div>
+        <div class="elev-car" id="elev-car" style="top:0"></div>
+        <div class="elev-indicators" id="elev-indicators">
+          <span data-elev-floor="1">P1</span>
+          <span data-elev-floor="2">P2</span>
+          <span data-elev-floor="3">P3</span>
+          <span data-elev-floor="4">P4</span>
+          <span data-elev-floor="5">P5</span>
+          <span data-elev-floor="6">P6</span>
+          <span data-elev-floor="7">P7</span>
+        </div>
+      </div>
+
+      <!-- Floor 7 -->
+      <div class="floor" style="--color:#C4956A" data-floor="7">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P7-SEO"></div>
+          <span class="floor-plaque">P7</span>
+          <div class="floor-name">SEO & Descubrimiento<small>Directorio · CEO del edificio</small></div>
+          <span class="floor-badge">Penthouse</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#C4956A" data-icon="🔎" data-name="SEO Auditor" data-role="seo-audit" data-desc="Auditoría técnica de SEO: crawling, indexación, Core Web Vitals, meta tags, estructura de URLs." data-tags="Technical SEO|Auditoría|Core Web Vitals"></div>
+          <div class="office" style="--floor-color:#C4956A" data-icon="📈" data-name="Programmatic SEO" data-role="programmatic-seo" data-desc="Creación de páginas SEO a escala con templates y datos. Directorios, location pages y listing pages." data-tags="pSEO|Scale|Templates"></div>
+        <div class="office" style="--floor-color:#C4956A" data-icon="🤖" data-name="AI SEO" data-role="ai-seo" data-desc="Optimización para motores de búsqueda de IA: ChatGPT, Perplexity, Gemini. Contenido para respuestas LLM." data-tags="AI Search|LLMO|GEO"></div>
+        <div class="office" style="--floor-color:#C4956A" data-icon="🏗️" data-name="Schema Markup" data-role="schema-markup" data-desc="Datos estructurados JSON-LD: FAQ, Product, Review, Breadcrumb, LocalBusiness. Rich snippets." data-tags="Structured Data|JSON-LD|Rich Snippets"></div>
+        <div class="office" style="--floor-color:#C4956A" data-icon="🗺️" data-name="Site Architecture" data-role="site-architecture" data-desc="Jerarquía de páginas, navegación, URL structure e internal linking. IA limpia y escalable." data-tags="IA|Navigation|Internal Links"></div>
+        <div class="office" style="--floor-color:#C4956A" data-icon="🕵️" data-name="Competitor Intel" data-role="competitor-profiling" data-desc="Perfilado de competidores: backlinks, gap de keywords, posicionamiento y estrategia de contenido." data-tags="Research|Backlinks|Gap Analysis"></div>
+        <div class="office" style="--floor-color:#C4956A" data-icon="📂" data-name="Directory Submissions" data-role="directory-submissions" data-desc="Envío a directorios de startups, SaaS y AI. Backlinks reales y mejora de Domain Rating." data-tags="Backlinks|DR|Directories"></div>
+        <div class="floor-divider"></div>
+      </div>
+
+      <!-- Floor 6 -->
+      <div class="floor" style="--color:#ec4899" data-floor="6">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P6-Conversion"></div>
+          <span class="floor-plaque">P6</span>
+          <div class="floor-name">Conversión & Datos<small>Optimización y analítica</small></div>
+          <span class="floor-badge">6 expertos</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#ec4899" data-icon="📈" data-name="Page CRO" data-role="page-cro" data-desc="Optimización de tasa de conversión en landing pages, pricing pages y feature pages." data-tags="CRO|Landing|Conversion"></div>
+          <div class="office" style="--floor-color:#ec4899" data-icon="🧪" data-name="A/B Testing" data-role="ab-test-setup" data-desc="Experimentos A/B, split tests y multivariantes. Hipótesis, muestra estadística, interpretación." data-tags="A/B Test|Split Test|Experiments"></div>
+          <div class="office" style="--floor-color:#ec4899" data-icon="📊" data-name="Analytics" data-role="analytics-tracking" data-desc="Tracking con GA4, GTM, eventos, conversiones, UTM. Plan de medición de cero a dashboard." data-tags="GA4|GTM|Events"></div>
+          <div class="office" style="--floor-color:#ec4899" data-icon="🔍" data-name="Customer Research" data-role="customer-research" data-desc="Entrevistas, encuestas, Reddit mining, G2 reviews. ICP y Jobs To Be Done." data-tags="Research|ICP|JTBD"></div>
+          <div class="office" style="--floor-color:#ec4899" data-icon="💵" data-name="Pricing Strategy" data-role="pricing-strategy" data-desc="Tiers, packaging, Van Westendorp, freemium, trial. Cuánto cobrar y cómo estructurarlo." data-tags="Pricing|Packaging|Monetization"></div>
+          <div class="office" style="--floor-color:#ec4899" data-icon="🛡️" data-name="Churn Prevention" data-role="churn-prevention" data-desc="Flujos de cancelación, save offers, dunning, recuperación de pagos fallidos." data-tags="Retention|Dunning|Cancel Flow"></div>
+        </div></div>
+        <div class="floor-divider"></div>
+      </div>
+
+      <!-- Floor 5 -->
+      <div class="floor" style="--color:#f97316" data-floor="5">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P5-Marketing"></div>
+          <span class="floor-plaque">P5</span>
+          <div class="floor-name">Marketing & Crecimiento<small>Adquisición y contenido</small></div>
+          <span class="floor-badge">9 expertos</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#f97316" data-icon="✍️" data-name="Copywriting" data-role="copywriting" data-desc="Copy persuasivo para landing pages, hero sections, CTAs, pricing pages." data-tags="Copy|Persuasión|Landing"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="📝" data-name="Copy Editing" data-role="copy-editing" data-desc="Edición y pulido de copy existente. Refrescar contenido desactualizado." data-tags="Edit|Refresh|Polish"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="📋" data-name="Content Strategy" data-role="content-strategy" data-desc="Topic clusters, editorial calendar, content pillars. Qué crear y por qué." data-tags="Strategy|Content|Planning"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="📱" data-name="Social Content" data-role="social-content" data-desc="Posts, threads, carruseles y scripts para LinkedIn, Twitter, Instagram, TikTok." data-tags="Social|LinkedIn|TikTok"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="📧" data-name="Email Sequences" data-role="email-sequence" data-desc="Secuencias automatizadas: onboarding, nurture, re-engagement, welcome series." data-tags="Email|Drip|Automation"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="🎯" data-name="Cold Email" data-role="cold-email" data-desc="Cold emails B2B con follow-ups. Subject lines, personalización y multi-touch." data-tags="Outreach|B2B|Prospecting"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="💰" data-name="Paid Ads" data-role="paid-ads" data-desc="Google Ads, Meta, LinkedIn. Bidding, audiences, retargeting y ROAS." data-tags="PPC|Google Ads|Meta"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="🚀" data-name="Launch Strategy" data-role="launch-strategy" data-desc="Product Hunt, feature releases, GTM. Checklists y coordinación de lanzamiento." data-tags="Launch|GTM|Product Hunt"></div>
+          <div class="office" style="--floor-color:#f97316" data-icon="🔗" data-name="Referral Programs" data-role="referral-program" data-desc="Programas de referidos, afiliados y viral loops para crecimiento orgánico." data-tags="Referral|Affiliate|Viral"></div>
+        </div></div>
+        <div class="floor-divider"></div>
+      </div>
+
+      <!-- Floor 4 -->
+      <div class="floor" style="--color:#8b5cf6" data-floor="4">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P4-Design"></div>
+          <span class="floor-plaque">P4</span>
+          <div class="floor-name">Diseño & Brand<small>Identidad y UI</small></div>
+          <span class="floor-badge">8 expertos</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="💻" data-name="Frontend Design" data-role="frontend-design" data-desc="Interfaces frontend de alta calidad. Componentes, layouts y landing pages distintivas." data-tags="UI|HTML/CSS|Components"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="✨" data-name="Impeccable" data-role="impeccable" data-desc="UX review, jerarquía visual, accesibilidad, tipografía, animación y micro-interacciones." data-tags="UX|Visual|Polish"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="🏷️" data-name="Brand Identity" data-role="brand" data-desc="Brand boards, logo systems, identity decks, guías visuales y mockups premium." data-tags="Branding|Identity|Mockups"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="🎯" data-name="Design System" data-role="design-system" data-desc="Tokens de color, tipografía, spacing y patrones de componentes para marcas conocidas." data-tags="Tokens|System|Matching"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="🎨" data-name="Global Design" data-role="ckm:design" data-desc="Identidad de marca, logo (55 estilos), CIP, banners (22 estilos), icons (15 estilos)." data-tags="Full Suite|Logo|Banner"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="📽️" data-name="Presentations" data-role="ckm:slides" data-desc="Presentaciones HTML con Chart.js, copywriting formulas y diseño responsive." data-tags="Slides|Chart.js|Pitch"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="🏗️" data-name="High-fi Prototypes" data-role="huashu-design" data-desc="Prototipos HTML de alta fidelidad con animaciones y variantes de diseño." data-tags="Prototypes|Interactive|Demo"></div>
+          <div class="office" style="--floor-color:#8b5cf6" data-icon="🎭" data-name="Theme Factory" data-role="theme-factory" data-desc="Toolkit de temas visuales. 10 temas pre-set + generación on-the-fly." data-tags="Themes|Styling|System"></div>
+        </div></div>
+        <div class="floor-divider"></div>
+      </div>
+
+      <!-- Floor 3 -->
+      <div class="floor" style="--color:#10b981" data-floor="3">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P3-Docs"></div>
+          <span class="floor-plaque">P3</span>
+          <div class="floor-name">Documentos & Media<small>Producción de archivos</small></div>
+          <span class="floor-badge">7 expertos</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#10b981" data-icon="📄" data-name="Word Docs" data-role="docx" data-desc="Documentos Word: cartas, reportes, plantillas, TOC y letterheads." data-tags="DOCX|Word|Professional"></div>
+          <div class="office" style="--floor-color:#10b981" data-icon="📊" data-name="PowerPoint" data-role="pptx" data-desc="Pitch decks, slide decks, plantillas, notas del orador y layouts." data-tags="PPTX|Deck|Pitch"></div>
+          <div class="office" style="--floor-color:#10b981" data-icon="📕" data-name="PDF Expert" data-role="pdf" data-desc="Extraer, combinar, dividir, OCR, formularios, watermarks y encriptación." data-tags="PDF|OCR|Merge"></div>
+          <div class="office" style="--floor-color:#10b981" data-icon="📈" data-name="Excel" data-role="xlsx" data-desc="Hojas de cálculo: tablas, fórmulas, charts, limpieza y conversión de datos." data-tags="XLSX|CSV|Sheets"></div>
+          <div class="office" style="--floor-color:#10b981" data-icon="🖼️" data-name="Banners" data-role="banner-design" data-desc="Banners y posters verticales de alto impacto para ads, social y web." data-tags="Banner|Poster|Ad"></div>
+          <div class="office" style="--floor-color:#10b981" data-icon="📱" data-name="Device Mockups" data-role="mockup-device-3d" data-desc="Mockups 3D iPhone y MacBook con HTML real en pantallas y turntable 360°." data-tags="Mockup|3D|Device"></div>
+          <div class="office" style="--floor-color:#10b981" data-icon="🎬" data-name="Video Production" data-role="video" data-desc="Video con AI: Remotion, avatares, talking heads, explainers y demos." data-tags="Video|AI|Remotion"></div>
+        </div></div>
+        <div class="floor-divider"></div>
+      </div>
+
+      <!-- Floor 2 -->
+      <div class="floor" style="--color:#f59e0b" data-floor="2">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P2-Clientes"></div>
+          <span class="floor-plaque">P2</span>
+          <div class="floor-name">Proyectos Cliente<small>Ejecución directa</small></div>
+          <span class="floor-badge">6 expertos</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#f59e0b" data-icon="🐔" data-name="EcoPollo" data-role="apex-ecopollo" data-desc="Cotizador de pollo fresco de 5 pasos con cálculo automático y WhatsApp." data-tags="Cotizador|Pollo|Distribución"></div>
+          <div class="office" style="--floor-color:#f59e0b" data-icon="🧴" data-name="Skindoctors" data-role="apex-skindoctors" data-desc="Landings para clínica skincare: Melasblock + CBD Balance con N8N y Sheets." data-tags="Skincare|Landing|N8N"></div>
+          <div class="office" style="--floor-color:#f59e0b" data-icon="🚗" data-name="RFLX" data-role="apex-rflx" data-desc="Landing para lavado de autos y detailing. Proyecto de Andrés en cartera." data-tags="Autos|Detailing|Landing"></div>
+          <div class="office" style="--floor-color:#f59e0b" data-icon="🎬" data-name="VisionaryFilm" data-role="apex-visionaryfilm" data-desc="Landing + admin para productora audiovisual. Pendiente de datos reales." data-tags="Film|Producción|Landing"></div>
+          <div class="office" style="--floor-color:#f59e0b" data-icon="🌿" data-name="ArteVerde" data-role="apex-arteverde" data-desc="Landing para vivero de zacate natural con galería, testimonios y cotización." data-tags="Vivero|Paisajismo|Landing"></div>
+          <div class="office" style="--floor-color:#f59e0b" data-icon="🤖" data-name="Wilson" data-role="apex-jarvis" data-desc="Asistente interno AI: Telegram bot, brief matutino, comandos /lead, /deploy." data-tags="Bot|AI|Automation"></div>
+        </div></div>
+        <div class="floor-divider"></div>
+      </div>
+
+      <!-- Floor 1 -->
+      <div class="floor" style="--color:#4a9eff" data-floor="1">
+        <div class="glass-glow"></div>
+        <div class="floor-hdr">
+          <div class="floor-avatar" data-floor-seed="P1-Automation"></div>
+          <span class="floor-plaque">P1</span>
+          <div class="floor-name">Automatización & Herramientas<small>Infraestructura técnica</small></div>
+          <span class="floor-badge">5 expertos</span>
+          <span class="floor-arrow">▾</span>
+        </div>
+        <div class="floor-body"><div class="floor-inner">
+          <div class="office" style="--floor-color:#4a9eff" data-icon="🤖" data-name="Claude API" data-role="claude-api" data-desc="Apps con Anthropic SDK: caching, tool use, streaming, thinking, vision." data-tags="Claude|Anthropic|API"></div>
+          <div class="office" style="--floor-color:#4a9eff" data-icon="⚡" data-name="Skill Creator" data-role="skill-creator" data-desc="Crear, editar, optimizar y evaluar skills para Claude Code." data-tags="Skills|Dev|Optimization"></div>
+          <div class="office" style="--floor-color:#4a9eff" data-icon="🧪" data-name="QA Testing" data-role="webapp-testing" data-desc="Testing con Playwright: verificación frontend, debugging y screenshots." data-tags="Testing|Playwright|QA"></div>
+          <div class="office" style="--floor-color:#4a9eff" data-icon="🎞️" data-name="Slack GIFs" data-role="slack-gif-creator" data-desc="GIFs animados optimizados para Slack con constraints y validación." data-tags="GIF|Slack|Animation"></div>
+          <div class="office" style="--floor-color:#4a9eff" data-icon="📸" data-name="Screenshots" data-role="full-page-screenshot" data-desc="Capturas full-page via Chrome DevTools Protocol. Sin dependencias." data-tags="Screenshot|Chrome|Full-Page"></div>
+        </div></div>
+        <div class="floor-divider"></div>
+      </div>
+
+    </div>
+
+    <!-- Base / Lobby -->
+    <div class="building-base">
+      <div class="lobby">
+        <div class="lobby-door"></div>
+        <div class="lobby-door"></div>
+        <span class="lobby-text">LOBBY</span>
+      </div>
+      <div class="building-plinth"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-avatar" id="modal-avatar"></div>
+    <h2 id="modal-name"></h2>
+    <div class="m-role" id="modal-role"></div>
+    <div class="m-desc" id="modal-desc"></div>
+    <div class="m-floor" id="modal-floor"></div>
+    <div class="m-tags" id="modal-tags"></div>
+  </div>
+</div>
+
+<script>
+function hashStr(s){
+  let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0}
+  return Math.abs(h)
+}
+function seedRand(seed){
+  let s=hashStr(seed+'salt');
+  return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
+}
+
+function hexToRgb(h){
+  const r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);
+  return r?{r:parseInt(r[1],16),g:parseInt(r[2],16),b:parseInt(r[3],16)}:{r:128,g:128,b:128}
+}
+
+function drawMonster(canvas, colorHex, seed){
+  const S=16;canvas.width=S;canvas.height=S;
+  const ctx=canvas.getContext('2d');
+  const rng=seedRand(seed);
+  const c=hexToRgb(colorHex);
+
+  const bodyR=c.r+Math.floor((rng()-.5)*40);
+  const bodyG=c.g+Math.floor((rng()-.5)*40);
+  const bodyB=c.b+Math.floor((rng()-.5)*40);
+  const bodyCol=`rgb(${bodyR},${bodyG},${bodyB})`;
+  const darkCol=`rgb(${Math.max(0,bodyR-60)},${Math.max(0,bodyG-60)},${Math.max(0,bodyB-60)})`;
+  const lightCol=`rgb(${Math.min(255,bodyR+40)},${Math.min(255,bodyG+40)},${Math.min(255,bodyB+40)})`;
+  const eyeCol=bodyB>150?'#222':'#fff';
+
+  const type=Math.floor(rng()*4);
+
+  // Clear
+  ctx.clearRect(0,0,S,S);
+
+  if(type===0){
+    // Round blob
+    ctx.fillStyle=bodyCol;
+    ctx.beginPath();ctx.ellipse(8,9,5.5,6,0,0,Math.PI*2);ctx.fill();
+    // Feet
+    ctx.fillStyle=darkCol;
+    ctx.fillRect(4,13,3,2);ctx.fillRect(9,13,3,2);
+    // Eyes
+    ctx.fillStyle=eyeCol;
+    ctx.beginPath();ctx.ellipse(6,7,1.8,2.2,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(10,7,1.8,2.2,0,0,Math.PI*2);ctx.fill();
+    // Pupils
+    ctx.fillStyle=bodyB>150?'#444':bodyCol;
+    ctx.beginPath();ctx.arc(6,7,1,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(10,7,1,0,Math.PI*2);ctx.fill();
+    // Highlights
+    ctx.fillStyle='rgba(255,255,255,.7)';
+    ctx.beginPath();ctx.arc(5.2,6.2,.6,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(9.2,6.2,.6,0,Math.PI*2);ctx.fill();
+    // Mouth
+    ctx.fillStyle=darkCol;
+    ctx.fillRect(6,10,4,1);
+    // Cheeks
+    ctx.fillStyle='rgba(255,150,150,.4)';
+    ctx.beginPath();ctx.ellipse(3.5,9,1.2,.8,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(12.5,9,1.2,.8,0,0,Math.PI*2);ctx.fill();
+  }else if(type===1){
+    // Standing creature
+    ctx.fillStyle=bodyCol;
+    ctx.beginPath();ctx.ellipse(8,7,5,5.5,0,0,Math.PI*2);ctx.fill();
+    // Body
+    ctx.fillStyle=darkCol;
+    ctx.fillRect(5,9,6,5);
+    // Ears
+    ctx.beginPath();ctx.moveTo(4,5);ctx.lineTo(3,2);ctx.lineTo(6,4);ctx.fill();
+    ctx.beginPath();ctx.moveTo(12,5);ctx.lineTo(13,2);ctx.lineTo(10,4);ctx.fill();
+    // Eyes
+    ctx.fillStyle=eyeCol;
+    ctx.beginPath();ctx.ellipse(6,6.5,1.8,2.2,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(10,6.5,1.8,2.2,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=bodyB>150?'#444':bodyCol;
+    ctx.beginPath();ctx.arc(6,6.5,1,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(10,6.5,1,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.7)';
+    ctx.beginPath();ctx.arc(5.2,5.7,.6,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(9.2,5.7,.6,0,Math.PI*2);ctx.fill();
+    // Mouth
+    ctx.fillStyle=darkCol;
+    ctx.beginPath();ctx.arc(8,9,1.2,0,Math.PI);ctx.fill();
+    // Feet
+    ctx.fillStyle=darkCol;
+    ctx.fillRect(5,13,2.5,2);ctx.fillRect(8.5,13,2.5,2);
+    // Belly
+    ctx.fillStyle=lightCol;
+    ctx.beginPath();ctx.ellipse(8,11,2.5,2.5,0,0,Math.PI*2);ctx.fill();
+  }else if(type===2){
+    // Bean / serpentine
+    ctx.fillStyle=bodyCol;
+    ctx.beginPath();ctx.ellipse(8,8,6,4,0,0,Math.PI*2);ctx.fill();
+    // Tail
+    ctx.fillStyle=darkCol;
+    ctx.beginPath();ctx.ellipse(16,10,2.5,1.5,rng()*>4?.3:0,0,Math.PI*2);ctx.fill();
+    // Eyes (big, front)
+    ctx.fillStyle=eyeCol;
+    ctx.beginPath();ctx.ellipse(5.5,7,2,2.5,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(10.5,7,2,2.5,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=bodyB>150?'#444':bodyCol;
+    ctx.beginPath();ctx.arc(5.5,7,1.2,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(10.5,7,1.2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.7)';
+    ctx.beginPath();ctx.arc(4.7,6,0.7,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(9.7,6,0.7,0,Math.PI*2);ctx.fill();
+    // Tiny mouth
+    ctx.fillStyle=darkCol;
+    ctx.beginPath();ctx.arc(8,9.5,.8,0,Math.PI);ctx.fill();
+    // Belly spots
+    ctx.fillStyle=lightCol;
+    ctx.beginPath();ctx.arc(8,9.5,1.5,0,Math.PI*2);ctx.fill();
+  }else{
+    // Winged creature
+    ctx.fillStyle=bodyCol;
+    ctx.beginPath();ctx.ellipse(8,9,4.5,5,0,0,Math.PI*2);ctx.fill();
+    // Wings
+    ctx.fillStyle=`rgba(${bodyR},${bodyG},${bodyB},.5)`;
+    ctx.beginPath();ctx.moveTo(3,7);ctx.lineTo(0,3);ctx.lineTo(0,9);ctx.fill();
+    ctx.beginPath();ctx.moveTo(13,7);ctx.lineTo(16,3);ctx.lineTo(16,9);ctx.fill();
+    // Eyes
+    ctx.fillStyle=eyeCol;
+    ctx.beginPath();ctx.arc(5.5,7.5,1.5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(10.5,7.5,1.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=bodyB>150?'#444':bodyCol;
+    ctx.beginPath();ctx.arc(5.5,7.5,.8,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(10.5,7.5,.8,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.7)';
+    ctx.beginPath();ctx.arc(5,7,.5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(10,7,.5,0,Math.PI*2);ctx.fill();
+    // Mouth (open)
+    ctx.fillStyle=darkCol;
+    ctx.fillRect(6,10,4,2);ctx.fillRect(7,9,2,1);
+    // Fangs
+    ctx.fillStyle='#fff';
+    ctx.fillRect(6.5,9.5,1,1.2);ctx.fillRect(8.5,9.5,1,1.2);
+  }
+  // Small random accessory
+  if(rng()>.6){
+    ctx.fillStyle=darkCol;
+    const ax=Math.floor(rng()*14)+1,ay=Math.floor(rng()*3);
+    ctx.fillRect(ax,ay,2,2);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Stars
+  const stars=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*60+'%';
+    s.style.setProperty('--d',(3+Math.random()*4)+'s');
+    s.style.animationDelay=Math.random()*4+'s';
+    s.style.width=s.style.height=(1+Math.random()*2)+'px';
+    stars.appendChild(s);
+  }
+
+  // Draw monster avatars per office
+  document.querySelectorAll('.office').forEach(o=>{
+    const color=o.style.getPropertyValue('--floor-color')||'#C4956A';
+    const name=o.dataset.name||'';
+    const avatar=document.createElement('div');
+    avatar.className='office-avatar';
+    const cv=document.createElement('canvas');
+    avatar.appendChild(cv);
+    o.prepend(avatar);
+    drawMonster(cv,color,name);
+  });
+
+  // Draw monster avatars per floor
+  document.querySelectorAll('.floor-avatar').forEach(fa=>{
+    const floorEl=fa.closest('.floor');
+    const color=floorEl?.style.getPropertyValue('--color')||'#C4956A';
+    const seed=fa.dataset.floorSeed||'floor';
+    const cv=document.createElement('canvas');cv.width=16;cv.height=16;
+    fa.appendChild(cv);
+    drawMonster(cv,color,seed);
+  });
+
+  // Floor toggle
+  document.querySelectorAll('.floor').forEach(f=>{
+    f.querySelector('.floor-hdr').addEventListener('click',e=>{
+      e.stopPropagation();
+      const was=f.classList.contains('active');
+      document.querySelectorAll('.floor').forEach(fl=>fl.classList.remove('active'));
+      if(!was){
+        f.classList.add('active');
+        moveElevator(f.dataset.floor);
+      }
+    });
+  });
+
+  function moveElevator(floorNum){
+    const car=document.getElementById('elev-car');
+    const indicators=document.querySelectorAll('#elev-indicators span');
+    const floorEl=document.querySelector(`.floor[data-floor="${floorNum}"]`);
+    if(!floorEl)return;
+    const frame=floorEl.closest('.building-frame');
+    const frameRect=frame.getBoundingClientRect();
+    const floorRect=floorEl.getBoundingClientRect();
+    const topPx=(floorRect.top-frameRect.top)+8;
+    car.style.top=topPx+'px';
+    indicators.forEach(s=>{
+      s.classList.toggle('on',s.dataset.elevFloor===floorNum);
+    });
+  }
+
+  // Modal
+  const modal=document.getElementById('modal');
+  document.querySelectorAll('.office').forEach(o=>{
+    o.addEventListener('click',e=>{
+      e.stopPropagation();
+      const color=o.style.getPropertyValue('--floor-color')||'#C4956A';
+      document.getElementById('modal-name').textContent=o.dataset.name;
+      document.getElementById('modal-role').textContent=o.dataset.role;
+      document.getElementById('modal-desc').textContent=o.dataset.desc;
+      const floorEl=o.closest('.floor');
+      const fn=floorEl?.dataset?.floor||'—';
+      const fname=floorEl?.querySelector('.floor-name')?.childNodes[0]?.textContent?.trim()||'';
+      document.getElementById('modal-floor').textContent=`Piso ${fn} · ${fname}`;
+      document.getElementById('modal-floor').style.setProperty('--m-color',color);
+      const tags=(o.dataset.tags||'').split('|');
+      const te=document.getElementById('modal-tags');te.innerHTML='';
+      tags.forEach(t=>{if(t.trim()){const s=document.createElement('span');s.textContent=t.trim();te.appendChild(s)}});
+      // Big monster in modal
+      const ma=document.getElementById('modal-avatar');ma.innerHTML='';
+      const mcv=document.createElement('canvas');mcv.width=24;mcv.height=24;
+      ma.appendChild(mcv);
+      drawMonster(mcv,color,o.dataset.name+'modal'+(o.dataset.role||''));
+      modal.classList.add('open');
+    });
+  });
+  document.getElementById('modal-close').addEventListener('click',()=>modal.classList.remove('open'));
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open')});
+});
+</script>
+</body>
+</html>
