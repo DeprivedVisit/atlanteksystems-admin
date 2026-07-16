@@ -1,19 +1,19 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-#  deploy-ec2.sh — Apex Cloud Works
+#  deploy-ec2.sh — Apex Cloud Work
 #  Garett Barrantes Benavides · Cartago, Costa Rica
 #  Ejecutar UNA SOLA VEZ en EC2 Ubuntu 22.04 LTS
 #  Uso: chmod +x deploy-ec2.sh && sudo ./deploy-ec2.sh
 # ══════════════════════════════════════════════════════════════
 set -e
-echo "🚀 Iniciando deploy de Apex Cloud Works en EC2..."
+echo "🚀 Iniciando deploy de Apex Cloud Work en EC2..."
 
 # ── Variables — CAMBIAR ANTES DE EJECUTAR ────────────────────
 DOMAIN="api.apexcloudworkcompany.com"
 DB_NAME="apex_cloudworks"
 DB_USER="apex_user"
 DB_PASS="$(openssl rand -base64 32)"  # Genera password seguro
-APP_DIR="/home/ec2-user/apex-cloudworks"
+APP_DIR="/home/ubuntu/apex-cloudworks"
 
 echo "📦 Actualizando sistema..."
 apt-get update -qq && apt-get upgrade -y -qq
@@ -60,31 +60,29 @@ echo ""
 echo "─────────────────────────────────────────────"
 echo "PRÓXIMOS PASOS MANUALES:"
 echo "─────────────────────────────────────────────"
-echo "1. Subir el proyecto a $APP_DIR"
-echo "   scp -r Mi\ pagina\ Web/ ec2-user@TU_IP:$APP_DIR"
+echo "1. Subir el proyecto a $APP_DIR (desde tu máquina, dentro de backend/):"
+echo "   scp -r ./ ubuntu@TU_IP:$APP_DIR"
+echo "   scp tu-google-service-account.json ubuntu@TU_IP:$APP_DIR/"
 echo ""
-echo "2. Instalar dependencias:"
+echo "2. Instalar dependencias (ya están todas en package.json):"
 echo "   cd $APP_DIR && npm install"
-echo "   npm install mysql2 express-mysql-session"
 echo ""
-echo "3. Crear .env con los valores de .env.example"
-echo "   DB_PASS generado hoy: $DB_PASS"
+echo "3. Crear .env real en el servidor (subilo directo, NUNCA por git):"
+echo "   scp .env ubuntu@TU_IP:$APP_DIR/.env"
+echo "   DB_PASS generado hoy: $DB_PASS  ← usar este valor en DB_PASS del .env"
 echo ""
 echo "4. Crear schema MySQL:"
-echo "   mysql -u $DB_USER -p$DB_PASS $DB_NAME < src/schema.sql"
+echo "   mysql -u $DB_USER -p$DB_PASS $DB_NAME < schema.sql"
 echo ""
-echo "5. Migrar datos JSON → MySQL:"
-echo "   node scripts/migrate-json-to-mysql.js"
-echo ""
-echo "6. Configurar Nginx:"
+echo "5. Configurar Nginx:"
 echo "   cp nginx.conf /etc/nginx/sites-available/apex-cloudworks"
 echo "   ln -s /etc/nginx/sites-available/apex-cloudworks /etc/nginx/sites-enabled/"
 echo "   nginx -t && systemctl reload nginx"
 echo ""
-echo "7. SSL con Certbot:"
+echo "6. SSL con Certbot:"
 echo "   certbot --nginx -d $DOMAIN"
 echo ""
-echo "8. Iniciar con PM2:"
+echo "7. Iniciar con PM2:"
 echo "   pm2 start ecosystem.config.js --env production"
 echo "   pm2 save && pm2 startup"
 echo ""

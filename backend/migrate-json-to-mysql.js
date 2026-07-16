@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // ══════════════════════════════════════════════════════════════
 //  migrate-json-to-mysql.js
-//  Apex Cloud Works.com · Garett Barrantes Benavides
+//  Apex Cloud Work.com · Garett Barrantes Benavides
 //  Migra TODOS los JSON locales a MySQL sin perder datos
 //  Uso: node migrate-json-to-mysql.js
 //       node migrate-json-to-mysql.js --dry-run  (solo muestra conteo)
@@ -57,7 +57,7 @@ async function getConn() {
 
 // ── Migración principal ───────────────────────────────────────
 async function migrate() {
-  console.log('\n🚀 Apex Cloud Works.com — Migración JSON → MySQL');
+  console.log('\n🚀 Apex Cloud Work.com — Migración JSON → MySQL');
   console.log('━'.repeat(50));
   if (DRY_RUN) console.log('📋 MODO DRY-RUN — no se escribirá nada\n');
 

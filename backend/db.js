@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
 //  db.js — MySQL connection pool
-//  Apex Cloud Works · Garett Barrantes Benavides
+//  Apex Cloud Work · Garett Barrantes Benavides
 //  Compatible: mysql2, EC2 Ubuntu 22.04, RDS MySQL 8.0
 // ══════════════════════════════════════════════════════════════
 'use strict';

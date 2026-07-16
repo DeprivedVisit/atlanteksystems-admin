@@ -1,4 +1,4 @@
-# Apex Cloud Works — Backend
+# Apex Cloud Work — Backend
 
 > Node.js 20 + MySQL 8.0 + EC2 + Nginx + PM2 + SSL
 

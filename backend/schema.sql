@@ -1,5 +1,5 @@
 -- ══════════════════════════════════════════════════════════════
---  schema.sql — Apex Cloud Works MySQL Schema
+--  schema.sql — Apex Cloud Work MySQL Schema
 --  Garett Barrantes Benavides · Cartago, Costa Rica
 --  Migración desde: JSON files → MySQL 8.0
 --  Ejecutar: mysql -u root -p apex_cloudworks < schema.sql
@@ -223,6 +223,47 @@ CREATE TABLE IF NOT EXISTS stats (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT IGNORE INTO stats (metric, value) VALUES ('visits', 0);
+
+-- ── 16. DISPOSITIVOS (Apex RMM — Fase 1) ─────────────────────
+CREATE TABLE IF NOT EXISTS devices (
+  id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ext_id        VARCHAR(30) UNIQUE,
+  name          VARCHAR(120) NOT NULL,
+  hostname      VARCHAR(180),
+  api_key       VARCHAR(64) NOT NULL UNIQUE,
+  owner_user_id INT UNSIGNED NULL,
+  status        ENUM('online','offline') NOT NULL DEFAULT 'offline',
+  last_seen_at  DATETIME NULL,
+  created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (owner_user_id) REFERENCES users(id) ON DELETE SET NULL,
+  INDEX idx_api_key (api_key),
+  INDEX idx_status  (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ── 17. MÉTRICAS DE DISPOSITIVOS ──────────────────────────────
+CREATE TABLE IF NOT EXISTS device_metrics (
+  id           BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  device_id    INT UNSIGNED NOT NULL,
+  cpu_pct      DECIMAL(5,2) NOT NULL,
+  disk_pct     DECIMAL(5,2) NOT NULL,
+  uptime_s     BIGINT UNSIGNED NOT NULL,
+  recorded_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE,
+  INDEX idx_device_recorded (device_id, recorded_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ── 18. ALERTAS DE DISPOSITIVOS ───────────────────────────────
+CREATE TABLE IF NOT EXISTS device_alerts (
+  id           INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  device_id    INT UNSIGNED NOT NULL,
+  type         ENUM('cpu','disk','offline') NOT NULL,
+  threshold    DECIMAL(5,2),
+  triggered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  resolved_at  DATETIME NULL,
+  FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE,
+  INDEX idx_device_id (device_id),
+  INDEX idx_resolved  (resolved_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ── VISTAS ÚTILES PARA ADMIN ─────────────────────────────────
 CREATE OR REPLACE VIEW v_leads_resumen AS
