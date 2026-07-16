@@ -39,6 +39,6 @@
 ## Rules
 - No changes without signed contract
 - Max 2 revision rounds per landing (included in price)
-- Footer: "Desarrollado por Apex Cloud Works — Cartago, CR"
+- Footer: "Desarrollado por Apex Cloud Work — Cartago, CR"
 - Hablar comisión con Andrés ANTES del primer cobro
 - WA actual en producción: +506 6314-4171 (Garett) — cambiar al firmar

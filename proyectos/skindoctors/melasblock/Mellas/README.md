@@ -41,4 +41,4 @@ HTML · CSS · JavaScript vanilla · AWS S3 · CloudFront
 
 ---
 
-Desarrollado por **Apex Cloud Works** — Cartago, Costa Rica · 2026
+Desarrollado por **Apex Cloud Work** — Cartago, Costa Rica · 2026

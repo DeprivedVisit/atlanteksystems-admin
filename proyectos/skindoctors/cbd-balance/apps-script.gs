@@ -82,7 +82,7 @@ function notifyLead(d) {
     + 'Piel: '      + (d.piel     || '—') + '\n'
     + 'Provincia: ' + (d.zona     || '—') + '\n'
     + 'Contexto: '  + (d.contexto || '—');
-  MailApp.sendEmail('apexcloudworkscompany@gmail.com', 'Nuevo lead — CBD Oil Balance', cuerpo);
+  MailApp.sendEmail('apexcloudworkcompany@gmail.com', 'Nuevo lead — CBD Oil Balance', cuerpo);
 
   if (d.email) {
     MailApp.sendEmail(
