@@ -16,6 +16,7 @@ Thumbs.db
 # Repos independientes con su propio git
 proyectos/ArteVerde_Vivero_Web/
 proyectos/jarvis/
+proyectos/wilson/
 proyectos/apexcloudworkscompany.com/Github/
 
 # Proyectos muertos / duplicados archivados (no trackear)
@@ -27,10 +28,3 @@ _privado/
 # Obsidian — estado volátil de la app (el vault sí se trackea)
 .obsidian/workspace.json
 Obsidian/.obsidian/workspace.json
-
-# Wilson — datos volátiles de estado (se regeneran)
-proyectos/wilson/memoria.json
-proyectos/wilson/hechos.json
-proyectos/wilson/alertas.json
-proyectos/wilson/clipboard_hist.json
-proyectos/wilson/overlay_state.json
