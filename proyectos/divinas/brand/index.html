@@ -1,0 +1,286 @@
+﻿﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Libro de Marca — Divinas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #eef2e8;
+      color: #2d2428;
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    nav {
+      background: rgba(45,36,40,0.95);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #eef3ea; }
+    .logo span { color: #c5d7af; }
+    nav a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; }
+
+    .hero-brand {
+      padding: 80px 0 60px;
+      text-align: center;
+      background: linear-gradient(135deg, #eef2e8 0%, #e4ecdc 100%);
+    }
+    .hero-brand h1 { font-size: 2.8rem; margin-bottom: 8px; }
+    .hero-brand p { color: #5a6356; font-size: 1.05rem; }
+
+    section { padding: 60px 0; }
+    section:nth-child(even) { background: #fff; }
+
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #c5d7af;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .section-title { font-size: 2rem; margin-bottom: 24px; }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .palette-item { border-radius: 12px; overflow: hidden; }
+    .palette-swatch {
+      height: 80px;
+    }
+    .palette-info {
+      padding: 12px;
+      background: #f3f6ef;
+      font-size: 0.8rem;
+    }
+    .palette-info strong { display: block; }
+
+    .font-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .font-card {
+      background: #f3f6ef;
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .font-card h3 { margin-bottom: 8px; }
+    .font-card .display-example {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin: 16px 0 8px;
+    }
+    .font-card .body-example {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+    }
+    .font-meta { font-size: 0.8rem; color: #8a9486; margin-top: 12px; }
+
+    .tone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .tone-card {
+      background: #f3f6ef;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .tone-card h4 { margin-bottom: 8px; }
+    .tone-card p { font-size: 0.9rem; color: #5a6356; }
+
+    .usage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .usage-example {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .usage-example .example-header {
+      padding: 16px;
+      text-align: center;
+    }
+    .usage-do .example-header { background: #2d2428; color: #eef3ea; }
+    .usage-dont .example-header { background: #e0e0c8; color: #8a6a3a; }
+
+    footer {
+      background: rgba(45,36,40,0.95);
+      color: #8a9486;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 700px) {
+      .palette { grid-template-columns: repeat(2, 1fr); }
+      .font-grid, .tone-grid, .usage-grid { grid-template-columns: 1fr; }
+      .hero-brand h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="logo">Divinas <span>Brand</span></div>
+      <a href="../index.html">Ver landing</a>
+    </div>
+  </nav>
+
+  <div class="hero-brand">
+    <div class="container">
+      <h1>Libro de Marca</h1>
+      <p>Identidad visual y directrices de marca para Divinas</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <span class="section-label">Identidad</span>
+      <h2 class="section-title">Quiénes somos</h2>
+      <p style="max-width:640px;color:#5a6356;">Divinas es una marca de suplementos dietarios para pérdida de peso, creada para mujeres que buscan transformar su cuerpo con un enfoque natural, elegante y efectivo. Nuestro producto estrella es <strong>Divinas Slim</strong>, una fórmula botánica que acelera el metabolismo, controla el apetito y devuelve la energía.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <span class="section-label">Paleta</span>
+      <h2 class="section-title">Colores</h2>
+      <p style="color:#5a6356;margin-bottom:8px;">Nuestra paleta combina tonos salvia naturales con acentos amarillo mostaza y lavanda.</p>
+      <div class="palette" style="grid-template-columns: repeat(5, 1fr);">
+        <div class="palette-item">
+          <div class="palette-swatch" style="background:#c5d7af;"></div>
+          <div class="palette-info"><strong>Primario</strong>#c5d7af — Verde salvia</div>
+        </div>
+        <div class="palette-item">
+          <div class="palette-swatch" style="background:#fff385;"></div>
+          <div class="palette-info"><strong>Acento</strong>#fff385 — Amarillo mostaza</div>
+        </div>
+        <div class="palette-item">
+          <div class="palette-swatch" style="background:#acc0f5;"></div>
+          <div class="palette-info"><strong>Acento 2</strong>#acc0f5 — Lavanda</div>
+        </div>
+        <div class="palette-item">
+          <div class="palette-swatch" style="background:#8fad72;"></div>
+          <div class="palette-info"><strong>Acento oscuro</strong>#8fad72 — Verde oscuro</div>
+        </div>
+        <div class="palette-item">
+          <div class="palette-swatch" style="background:#2d2428;"></div>
+          <div class="palette-info"><strong>Texto</strong>#2d2428</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <span class="section-label">Tipografía</span>
+      <h2 class="section-title">Fuentes</h2>
+      <div class="font-grid">
+        <div class="font-card">
+          <span class="section-label">Display</span>
+          <h3>Cormorant Garamond</h3>
+          <div class="display-example">Divinas Slim</div>
+          <div class="font-meta">Google Fonts · Serif · Pesos: 400, 600, 700</div>
+        </div>
+        <div class="font-card">
+          <span class="section-label">Cuerpo</span>
+          <h3>DM Sans</h3>
+          <div class="body-example">Controla tu apetito, acelera tu metabolismo y transforma tu cuerpo de forma natural.</div>
+          <div class="font-meta">Google Fonts · Sans-serif · Pesos: 400, 700</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <span class="section-label">Tono</span>
+      <h2 class="section-title">Voz de la marca</h2>
+      <p style="color:#5a6356;margin-bottom:8px;">Divinas habla como una amiga que te anima: cercana, empoderadora, pero siempre con información real.</p>
+      <div class="tone-grid">
+        <div class="tone-card">
+          <h4>✨ Empoderador</h4>
+          <p>"Descubre tu mejor versión. Cada paso cuenta."</p>
+        </div>
+        <div class="tone-card">
+          <h4>📊 Honesto</h4>
+          <p>"Resultados reales con uso constante y hábitos saludables."</p>
+        </div>
+        <div class="tone-card">
+          <h4>🤝 Cercano</h4>
+          <p>"No estás sola en tu camino. Te acompañamos."</p>
+        </div>
+        <div class="tone-card">
+          <h4>🌸 Femenino</h4>
+          <p>"Mujeres como tú que transformaron su vida."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <span class="section-label">Uso</span>
+      <h2 class="section-title">Buenas prácticas</h2>
+      <div class="usage-grid">
+        <div class="usage-example usage-do">
+          <div class="example-header">
+            <strong>✓ Correcto</strong>
+          </div>
+          <div style="padding:24px;background:#fff;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#2d2428;">Descubre tu <span style="color:#c5d7af;">mejor versión</span></p>
+            <p style="font-size:0.85rem;color:#5a6356;margin-top:8px;">Título con acento verde salvia en la palabra clave.</p>
+          </div>
+        </div>
+        <div class="usage-example usage-dont">
+          <div class="example-header">
+            <strong>✗ Incorrecto</strong>
+          </div>
+          <div style="padding:24px;background:#fff;">
+            <p style="font-family:'Arial',sans-serif;font-size:1.2rem;color:#333;">Descubre tu mejor version</p>
+            <p style="font-size:0.85rem;color:#5a6356;margin-top:8px;">Nunca usar Arial, Roboto, Inter. Fuentes genéricas prohibidas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <span class="section-label">Componentes</span>
+      <h2 class="section-title">Botones</h2>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:24px;">
+        <div style="background:#c5d7af;color:#fff;padding:14px 36px;border-radius:100px;font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Sans',sans-serif;">Ordenar ahora</div>
+        <div style="border:1.5px solid #c5d7af;color:#c5d7af;padding:14px 36px;border-radius:100px;font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Sans',sans-serif;">Instagram</div>
+        <div style="background:#25d366;color:#fff;padding:14px 36px;border-radius:100px;font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Sans',sans-serif;">WhatsApp</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Libro de marca Divinas · Desarrollado por <strong style="color:#c5d7af;">Apex Cloud Work</strong> — Cartago, CR</p>
+    </div>
+  </footer>
+
+</body>
+</html>

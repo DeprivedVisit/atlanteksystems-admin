@@ -14,10 +14,10 @@
 - Web: bydivinas.me
 
 ## Design
-- **Primario:** #e8ddd4 (beige)
-- **Acento:** #d4788a (rose) · #f0b8c4 · #b85a6e
+- **Primario:** #c5d7af (verde salvia)
+- **Acento:** #fff385 (amarillo mostaza) · #acc0f5 (lavanda) · #8fad72 (verde oscuro)
 - **Text:** #2d2428
-- **Fuentes:** Playfair Display + Lato
+- **Fuentes:** Cormorant Garamond + DM Sans
 
 ## Products
 | Producto | Precio |
@@ -35,7 +35,7 @@
 - [x] WhatsApp order flow
 
 ## Rules
-- Footer: "Desarrollado por Apex Cloud Works — Cartago, CR"
+- Footer: "Desarrollado por Apex Cloud Work — Cartago, CR"
 - WhatsApp flotante obligatorio
 - Precios en colones
 - Mobile-first

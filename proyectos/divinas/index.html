@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divinas Slim — Tu Mejor Versión</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=4">
+  <link rel="stylesheet" href="assets/css/auth.css?v=3">
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <a href="#hero" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+          <img src="assets/img/logo-divinas.svg" alt="Divinas" height="36">
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#info">Info</a>
+        <a href="#comprar">Comprar</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="auth-logged" id="authLogged">
+        <span id="userNameDisplay"></span>
+        <a href="dashboard.html">Mis pedidos</a>
+        <a id="logoutBtn">Cerrar sesión</a>
+      </div>
+      <button class="user-btn" id="authToggleBtn">Mi Cuenta</button>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Suplemento Dietario</span>
+        <h1>Descubre tu <em>mejor versión</em> con Divinas Slim</h1>
+        <p class="hero-sub">Controla tu apetito, acelera tu metabolismo y transforma tu cuerpo de forma natural.</p>
+        <div class="hero-price">₡35,000 <small>CRC · Envío a toda Costa Rica</small></div>
+        <a href="#comprar" class="hero-cta" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Ordena ahora
+        </a>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>-1 a -3.5 kg</strong>
+            <span>Por semana</span>
+          </div>
+          <div class="hero-stat">
+            <strong>100%</strong>
+            <span>Natural</span>
+          </div>
+          <div class="hero-stat">
+            <strong>1</strong>
+            <span>Cápsula al día</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://bydivinas.com/wp-content/uploads/2025/09/divinas-slim-capsulas-colombia-600x584.webp"
+             alt="Divinas Slim cápsulas"
+             loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits" id="beneficios">
+    <div class="container">
+      <span class="section-label">Beneficios</span>
+      <h2 class="section-title">Transformación real, resultados visibles</h2>
+      <p class="section-sub">Fórmula natural diseñada para acompañar tu cambio de hábitos desde el primer día.</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">⚡</div>
+          <h3>Boost de energía</h3>
+          <p>Energía sostenida durante todo el día sin nerviosismo ni bajones.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📉</div>
+          <h3>Pérdida de peso</h3>
+          <p>Entre 1 y 3.5 kg por semana con uso constante y hábitos saludables.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">💧</div>
+          <h3>Elimina retención</h3>
+          <p>Combate la hinchazón y retención de líquidos desde la primera semana.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🍽️</div>
+          <h3>Control de apetito</h3>
+          <p>Reduce antojos y ansiedad por comida, haciendo tu dieta mucho más fácil.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">✨</div>
+          <h3>Piel más firme</h3>
+          <p>Mejora la apariencia de la piel y reduce la apariencia de celulitis.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📏</div>
+          <h3>Reducción de medidas</h3>
+          <p>Resultados visibles en cintura, caderas y abdomen desde las primeras semanas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonios">
+    <div class="container">
+      <span class="section-label">Testimonios</span>
+      <h2 class="section-title">Historias que inspiran</h2>
+      <p class="section-sub">Mujeres y hombres como tú que transformaron su vida con Divinas Slim.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-imgs">
+            <figure>
+              <img src="https://bydivinas.com/wp-content/uploads/2025/10/0018_Copy-of-WhatsApp-Image-2024-08-15-at-11.37.25.webp" alt="Antes" loading="lazy">
+              <figcaption>Antes</figcaption>
+            </figure>
+            <figure>
+              <img src="https://bydivinas.com/wp-content/uploads/2025/10/0019_Copy-of-WhatsApp-Image-2024-08-15-at-11.29.54.webp" alt="Después" loading="lazy">
+              <figcaption>Después</figcaption>
+            </figure>
+          </div>
+          <blockquote>"Bajé unos 15 kg en tres meses, me siento más ligero, con energía y con ganas de hacer cosas que antes no podía."</blockquote>
+          <cite>— Marco, Costa Rica</cite>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-imgs">
+            <figure>
+              <img src="https://bydivinas.com/wp-content/uploads/2025/10/0006_WhatsApp-Image-2025-10-16-at-11.42.40-AM.webp" alt="Antes" loading="lazy">
+              <figcaption>Antes</figcaption>
+            </figure>
+            <figure>
+              <img src="https://bydivinas.com/wp-content/uploads/2025/10/0007_WhatsApp-Image-2025-10-16-at-11.42.39-AM.webp" alt="Después" loading="lazy">
+              <figcaption>Después</figcaption>
+            </figure>
+          </div>
+          <blockquote>"Cada semana notaba cambios, grandes resultados, y me siento con más energía y seguridad en mí."</blockquote>
+          <cite>— Angie, Colombia</cite>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-imgs">
+            <figure>
+              <img src="https://bydivinas.com/wp-content/uploads/2025/10/0008_WhatsApp-Image-2025-10-15-at-4.06.22-PM.webp" alt="Antes" loading="lazy">
+              <figcaption>Antes</figcaption>
+            </figure>
+            <figure>
+              <img src="https://bydivinas.com/wp-content/uploads/2025/10/0009_WhatsApp-Image-2025-10-15-at-4.06.22-PM-1.webp" alt="Después" loading="lazy">
+              <figcaption>Después</figcaption>
+            </figure>
+          </div>
+          <blockquote>"Me sentía con mucha energía y ligera todos los días. Superfácil de usar y sí funciona."</blockquote>
+          <cite>— Karla, Estados Unidos</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info" id="info">
+    <div class="container">
+      <div class="info-card">
+        <div class="icon">🌿</div>
+        <h3>Ingredientes naturales</h3>
+        <p style="font-size:0.9rem;color:var(--text-light);">Fórmula con ingredientes botánicos cuidadosamente seleccionados.</p>
+        <ul class="info-list">
+          <li>The Seed of Job's Tears</li>
+          <li>Ricebean</li>
+          <li>Raw Hawthorn</li>
+          <li>Cassia Seed</li>
+          <li>Poria Cocos</li>
+          <li>L-Carnitine</li>
+          <li>Lotus Leaf</li>
+          <li>Radish Seed</li>
+          <li>Licorice Root</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="icon">📋</div>
+        <h3>Modo de uso</h3>
+        <p style="font-size:0.9rem;color:var(--text-light);">Simple y efectivo — un solo paso al día.</p>
+        <ol class="usage-steps">
+          <li><span class="usage-num">1</span> Toma 1 cápsula al día con 8 oz de agua</li>
+          <li><span class="usage-num">2</span> En ayunas, 15-30 min antes del desayuno</li>
+          <li><span class="usage-num">3</span> Mantén hábitos saludables para mejores resultados</li>
+        </ol>
+        <div class="contra">
+          <strong>⚠️ Contraindicaciones:</strong> No usar en embarazo, lactancia, problemas cardíacos, hipertensión, menores de edad, mayores de 60 años, o condiciones crónicas sin consultar a su médico.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="combo">
+    <div class="container">
+      <div class="combo-layout">
+        <a class="combo-img" href="iconic-kit.html" title="Ver detalle del Iconic Kit">
+          <img src="assets/img/iconic-kit.jpeg" alt="Divinas Iconic Kit — Detox gummies y Slim cápsulas" loading="lazy">
+        </a>
+      <div class="combo-content">
+        <span class="section-label">Combo</span>
+        <h2 class="section-title">Slim + Detox = Resultados elevados</h2>
+        <p class="section-sub">Potencia tu transformación combinando Divinas Slim con Divinas Detox. La sinergia perfecta.</p>
+        <div class="combo-price">₡45,000 <small>CRC · Ahorra ₡8,500</small></div>
+        <button class="hero-cta wa-btn" data-msg="Hola, quiero el Divinas Iconic Kit (Slim + Detox) — ₡45,000">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Ordenar Iconic Kit
+        </button>
+        <p style="margin-top:18px;"><a href="iconic-kit.html" style="color:var(--text);font-weight:600;text-decoration:underline;">Ver todos los detalles del Iconic Kit →</a></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="checkout" id="comprar">
+    <div class="container">
+      <div class="checkout-layout">
+        <div class="checkout-info">
+          <span class="section-label">Pedido</span>
+          <h2 class="section-title">Haz tu pedido</h2>
+          <p class="section-sub">Completa tus datos y te contactamos para coordinar el envío a toda Costa Rica.</p>
+          <div class="checkout-summary">
+            <div class="checkout-product">
+              <img src="https://bydivinas.com/wp-content/uploads/2025/09/divinas-slim-capsulas-colombia-600x584.webp" alt="Divinas Slim">
+              <div>
+                <h4>Divinas Slim</h4>
+                <p class="checkout-price">₡35,000 c/u</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="checkout-form" id="orderForm">
+          <div class="form-group">
+            <label for="formName">Nombre completo</label>
+            <input type="text" id="formName" required placeholder="Tu nombre">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formPhone">Teléfono</label>
+              <input type="tel" id="formPhone" required placeholder="+506 8888 8888">
+            </div>
+            <div class="form-group">
+              <label for="formQty">Cantidad</label>
+              <select id="formQty">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="formAddress">Dirección de envío</label>
+            <textarea id="formAddress" required placeholder="Provincia, cantón, distrito, señas exactas"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="formProduct">Producto</label>
+            <select id="formProduct">
+              <option value="Slim">Divinas Slim — ₡35,000</option>
+              <option value="Iconic Kit">Divinas Iconic Kit (Slim+Detox) — ₡45,000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formNotes">Notas (opcional)</label>
+            <textarea id="formNotes" placeholder="Alergias, preferencias de entrega..." rows="2"></textarea>
+          </div>
+          <div class="form-total" id="formTotal">
+            <span>Total estimado:</span>
+            <strong>₡35,000</strong>
+          </div>
+          <button type="submit" class="hero-cta" style="width:100%;justify-content:center;">
+            Enviar pedido
+          </button>
+          <p class="form-foot">Te confirmaremos por WhatsApp dentro de 24 horas.</p>
+        </form>
+      </div>
+    </div>
+    <div class="checkout-overlay" id="orderConfirm">
+      <div class="checkout-modal">
+        <div class="modal-icon">✅</div>
+        <h3>Pedido recibido</h3>
+        <p>Gracias, <strong id="confirmName"></strong>. Te contactaremos al <span id="confirmPhone"></span> para coordinar la entrega.</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:8px;">N° pedido: <strong id="confirmId"></strong></p>
+        <button class="hero-cta modal-close" style="margin-top:20px;">Cerrar</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="container">
+      <span class="section-label">Contacto</span>
+      <h2>Comienza tu transformación hoy</h2>
+      <p>Escríbenos por WhatsApp y te asesoramos. Envío a toda Costa Rica.</p>
+      <div class="contact-btns">
+        <button class="hero-cta wa-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp +1 (305) 519-0471
+        </button>
+        <a href="https://www.instagram.com/bydivinas.me/" target="_blank" rel="noopener" class="btn-outline">Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <a class="whatsapp-float" href="#" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <a class="admin-badge" href="admin.html" title="Admin - Pedidos">A</a>
+
+  <div class="auth-modal" id="authModal">
+    <div class="auth-box">
+      <button class="auth-close" id="authModalClose">&times;</button>
+      <div id="authLoginView">
+        <h3>Iniciar sesión</h3>
+        <p class="auth-sub">Accede a tu historial de pedidos.</p>
+        <div class="auth-error" id="authError"></div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="loginEmail" placeholder="tu@correo.com">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="loginPassword" placeholder="••••••">
+        </div>
+        <button class="auth-btn" id="loginBtn">Entrar</button>
+        <div class="auth-toggle">¿No tienes cuenta? <a id="showRegister">Crear cuenta</a></div>
+      </div>
+      <div id="authRegisterView" style="display:none;">
+        <h3>Crear cuenta</h3>
+        <p class="auth-sub">Regístrate para ver tus pedidos.</p>
+        <div class="auth-error" id="regError"></div>
+        <div class="form-group">
+          <label>Nombre completo</label>
+          <input type="text" id="regName" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="regEmail" placeholder="tu@correo.com">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="regPhone" placeholder="+506 8888 8888">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres">
+        </div>
+        <button class="auth-btn" id="registerBtn">Crear cuenta</button>
+        <div class="auth-toggle">¿Ya tienes cuenta? <a id="showLogin">Iniciar sesión</a></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Desarrollado por <strong>Apex Cloud Work</strong> — Cartago, CR · <a href="brand/index.html" style="color:var(--accent);">Libro de Marca</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('authModal');
+    const loginView = document.getElementById('authLoginView');
+    const registerView = document.getElementById('authRegisterView');
+    const authToggleBtn = document.getElementById('authToggleBtn');
+    const authLogged = document.getElementById('authLogged');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    function updateUI() {
+      const s = getSession();
+      if (s && s.type === 'user') {
+        authToggleBtn.style.display = 'none';
+        authLogged.classList.add('show');
+        userNameDisplay.textContent = s.name;
+      } else {
+        authToggleBtn.style.display = '';
+        authLogged.classList.remove('show');
+      }
+    }
+    updateUI();
+
+    authToggleBtn.addEventListener('click', () => modal.classList.add('active'));
+    document.getElementById('authModalClose').addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+    document.getElementById('showRegister').addEventListener('click', () => { loginView.style.display = 'none'; registerView.style.display = ''; document.getElementById('regError').classList.remove('show'); });
+    document.getElementById('showLogin').addEventListener('click', () => { registerView.style.display = 'none'; loginView.style.display = ''; document.getElementById('authError').classList.remove('show'); });
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const err = document.getElementById('authError');
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const adminResult = await loginAdmin(email, password);
+      if (adminResult.ok) { window.location.href = 'admin.html'; return; }
+      const userResult = await loginUser(email, password);
+      if (userResult.ok) { modal.classList.remove('active'); updateUI(); return; }
+      err.textContent = userResult.error;
+      err.classList.add('show');
+    });
+
+    document.getElementById('registerBtn').addEventListener('click', async () => {
+      const err = document.getElementById('regError');
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const password = document.getElementById('regPassword').value;
+      if (!name || !email || !phone || !password) { err.textContent = 'Completa todos los campos.'; err.classList.add('show'); return; }
+      if (password.length < 6) { err.textContent = 'La contraseña debe tener al menos 6 caracteres.'; err.classList.add('show'); return; }
+      const result = await registerUser(name, email, phone, password);
+      if (result.ok) {
+        await loginUser(email, password);
+        modal.classList.remove('active');
+        updateUI();
+        document.getElementById('regName').value = '';
+        document.getElementById('regEmail').value = '';
+        document.getElementById('regPhone').value = '';
+        document.getElementById('regPassword').value = '';
+      } else {
+        err.textContent = result.error;
+        err.classList.add('show');
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => { logout(); updateUI(); });
+  });
+  </script>
+</body>
+</html>

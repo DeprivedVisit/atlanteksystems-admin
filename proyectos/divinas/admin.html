@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Divinas Slim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="admin-page">
+
+  <div class="auth-modal active" id="adminGate" style="display:flex;">
+    <div class="auth-box">
+      <h3>Admin login</h3>
+      <p class="auth-sub">Ingresa para ver los pedidos.</p>
+      <div class="auth-error" id="adminLoginError"></div>
+      <div class="form-group">
+        <label>Correo admin</label>
+        <input type="email" id="adminEmail" value="admin@divinas.com">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="adminPassword" placeholder="••••••">
+      </div>
+      <button class="auth-btn" id="adminLoginBtn">Entrar al admin</button>
+      <div class="auth-toggle"><a href="index.html">Volver a la landing</a></div>
+    </div>
+  </div>
+
+  <nav id="adminNav" style="display:none;">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+          <img src="assets/img/logo-divinas.svg" alt="Divinas" height="30">
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="#pedidos" class="active">Pedidos</a>
+        <a href="brand/index.html">Libro de Marca</a>
+        <a href="index.html">Ver Landing</a>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="auth-logged show" style="display:flex;">
+        <span>Admin</span>
+        <a id="adminLogout" style="cursor:pointer;">Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-main" id="adminMain" style="display:none;">
+    <div class="container">
+      <div class="admin-header">
+        <div>
+          <span class="section-label">Admin</span>
+          <h2 class="section-title">Historial de pedidos</h2>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <strong id="statTotal">0</strong>
+            <span>Total pedidos</span>
+          </div>
+          <div class="admin-stat">
+            <strong id="statPendiente">0</strong>
+            <span>Pendientes</span>
+          </div>
+          <div class="admin-stat">
+            <strong id="statRevenue">₡0</strong>
+            <span>Ingresos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-filters">
+        <input type="text" id="filterSearch" placeholder="Buscar por nombre, teléfono o ID...">
+        <select id="filterStatus">
+          <option value="todas">Todos los estados</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="enviado">Enviado</option>
+          <option value="entregado">Entregado</option>
+        </select>
+        <button class="btn-outline" id="clearOrders" style="border-color:var(--accent3);color:var(--accent3);">Limitar datos</button>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="ordersTable">
+          <thead>
+            <tr>
+              <th>N° Pedido</th>
+              <th>Fecha</th>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Producto</th>
+              <th>Cant</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody">
+          </tbody>
+        </table>
+      </div>
+
+      <p class="admin-empty" id="emptyMsg">No hay pedidos registrados todavía.</p>
+    </div>
+  </main>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gate = document.getElementById('adminGate');
+    const adminNav = document.getElementById('adminNav');
+    const adminMain = document.getElementById('adminMain');
+
+    function checkAdmin() {
+      const s = getSession();
+      if (s && s.type === 'admin') {
+        gate.style.display = 'none';
+        adminNav.style.display = '';
+        adminMain.style.display = '';
+      } else {
+        gate.style.display = 'flex';
+        adminNav.style.display = 'none';
+        adminMain.style.display = 'none';
+      }
+    }
+    checkAdmin();
+
+    document.getElementById('adminLoginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = document.getElementById('adminPassword').value;
+      const result = await loginAdmin(email, password);
+      if (result.ok) { checkAdmin(); return; }
+      const err = document.getElementById('adminLoginError');
+      err.textContent = result.error;
+      err.classList.add('show');
+    });
+
+    document.getElementById('adminPassword').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('adminLoginBtn').click();
+    });
+
+    document.getElementById('adminLogout').addEventListener('click', () => {
+      logout();
+      checkAdmin();
+    });
+  });
+  </script>
+</body>
+</html>

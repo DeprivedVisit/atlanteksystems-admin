@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opciones de logo — Divinas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #eef2e8;
+      color: #2d2428;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    nav {
+      background: rgba(45,36,40,0.95);
+      padding: 14px 0;
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    nav h2 { font-family: 'Cormorant Garamond', serif; color: #eef3ea; font-size: 1.2rem; }
+    nav a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.8rem; }
+
+    header {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+    header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 8px; }
+    header p { color: #5a6356; }
+
+    .options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-bottom: 80px; }
+
+    .option {
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .option:hover { border-color: #c5d7af; box-shadow: 0 4px 24px rgba(197,215,175,0.25); }
+    .option.selected { border-color: #c5d7af; box-shadow: 0 0 0 3px rgba(197,215,175,0.3); }
+    .option.selected .option-badge { opacity: 1; }
+
+    .option-badge {
+      background: #c5d7af;
+      color: #fff;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .option-preview {
+      padding: 48px 32px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8faf5;
+    }
+
+    .option-info {
+      padding: 20px 24px 24px;
+      border-top: 1px solid #eef2e8;
+    }
+    .option-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 4px; }
+    .option-info .desc { font-size: 0.85rem; color: #5a6356; margin-bottom: 12px; }
+    .option-info .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .option-info .tag {
+      font-size: 0.65rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: #e8ede0;
+      color: #5a6356;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+    .tag.rose { background: #eef5e6; color: #8fad72; }
+    .tag.dark { background: #2d2428; color: #eef3ea; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 24px;
+      background: #c5d7af;
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #8fad72; }
+    .btn:disabled { opacity: 0.4; cursor: default; }
+    .btn-outline {
+      background: none;
+      border: 1.5px solid #c5d7af;
+      color: #c5d7af;
+    }
+    .btn-outline:hover { background: #c5d7af; color: #fff; }
+
+    /* Logo Option 1 */
+    .logo1 { text-align: center; }
+    .logo1-symbol {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 12px;
+    }
+    .logo1-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2d2428;
+      letter-spacing: 1px;
+    }
+    .logo1-tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      color: #8fad72;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Logo Option 2 */
+    .logo2 { text-align: center; }
+    .logo2-icon {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: #c5d7af;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .logo2-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: #2d2428;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+    }
+    .logo2-line {
+      width: 32px;
+      height: 2px;
+      background: #c5d7af;
+      margin: 8px auto;
+      border-radius: 1px;
+    }
+
+    /* Logo Option 3 */
+    .logo3 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo3-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+    .logo3-text { text-align: left; }
+    .logo3-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2d2428;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+    .logo3-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      color: #c5d7af;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .action-bar {
+      text-align: center;
+      padding: 32px 0 60px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .options { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <h2>Divinas — Logo</h2>
+      <a href="index.html">Libro de marca</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="container">
+      <h1>Elegí tu logo</h1>
+      <p>3 conceptos. Hacé clic en el que más te guste.</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="options" id="optionsGrid">
+
+      <!-- Option 1: Clásico refinado -->
+      <div class="option" data-id="1" onclick="selectOption(1)">
+        <div class="option-badge">✓ Seleccionado</div>
+        <div class="option-preview">
+          <div class="logo1">
+            <svg class="logo1-symbol" viewBox="0 0 56 56" fill="none">
+              <defs>
+                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#c5d7af"/>
+                  <stop offset="100%" stop-color="#8fad72"/>
+                </linearGradient>
+              </defs>
+              <rect x="2" y="2" width="52" height="52" rx="13" fill="url(#g1)" opacity="0.95"/>
+              <path d="M14 16 L14 40 L20 40 C26 40 31 36 34 30 C37 24 37 18 34 13 C31 11 27 10 22 12 Z" fill="#fff" opacity="0.85"/>
+              <path d="M22 20 L22 36 C26 35 29 31 30 27 C31 23 31 20 29 18 C27 17 24 17 22 20 Z" fill="url(#g1)" opacity="0.5"/>
+            </svg>
+            <div class="logo1-name">Divinas</div>
+            <div class="logo1-tagline">Tu mejor versión</div>
+          </div>
+        </div>
+        <div class="option-info">
+          <h3>Clásico refinado</h3>
+          <div class="desc">Marca-redonda con D estilizada + wordmark con tagline. Elegante, femenino, tradicional.</div>
+          <div class="tags">
+            <span class="tag rose">Verde salvia</span>
+            <span class="tag dark">Cormorant</span>
+            <span class="tag">Icono + texto</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2: Minimalista -->
+      <div class="option" data-id="2" onclick="selectOption(2)">
+        <div class="option-badge">✓ Seleccionado</div>
+        <div class="option-preview">
+          <div class="logo2">
+            <div class="logo2-icon">d</div>
+            <div class="logo2-line"></div>
+            <div class="logo2-name">Divinas</div>
+          </div>
+        </div>
+        <div class="option-info">
+          <h3>Minimalista</h3>
+          <div class="desc">"d" itálica en DM Serif Display + wordmark sans-serif en uppercase. Limpio, moderno, editorial.</div>
+          <div class="tags">
+            <span class="tag rose">Verde salvia</span>
+            <span class="tag">Sans-serif</span>
+            <span class="tag">Solo texto</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3: Icono horizontal -->
+      <div class="option" data-id="3" onclick="selectOption(3)">
+        <div class="option-badge">✓ Seleccionado</div>
+        <div class="option-preview">
+          <div class="logo3">
+            <svg class="logo3-icon" viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="g3" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#c5d7af"/>
+                  <stop offset="100%" stop-color="#8fad72"/>
+                </linearGradient>
+              </defs>
+              <path d="M24 4 C32 4 38 10 40 18 C42 26 40 34 34 40 C28 46 20 46 14 40 C12 34 10 28 12 20 C14 12 18 6 24 4 Z" fill="url(#g3)" opacity="0.9"/>
+              <path d="M24 10 C18 12 16 18 18 24 C20 30 24 34 28 36 C30 30 32 24 30 18 C28 14 26 12 24 10 Z" fill="#fff" opacity="0.7"/>
+              <circle cx="24" cy="22" r="3" fill="url(#g3)" opacity="0.8"/>
+            </svg>
+            <div class="logo3-text">
+              <div class="logo3-name">Divinas</div>
+              <div class="logo3-tag">Tu mejor versión</div>
+            </div>
+          </div>
+        </div>
+        <div class="option-info">
+          <h3>Icono horizontal</h3>
+          <div class="desc">Marca orgánica tipo flor/llama + wordmark a la derecha. Orgánico, natural, energético.</div>
+          <div class="tags">
+            <span class="tag rose">Verde salvia</span>
+            <span class="tag dark">Cormorant</span>
+            <span class="tag">Icono + texto</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn" id="selectBtn" disabled>Seleccioná un logo primero</button>
+    <button class="btn btn-outline" onclick="resetSelection()">Ver de nuevo</button>
+  </div>
+
+  <script>
+    let selected = null;
+
+    function selectOption(id) {
+      selected = id;
+      document.querySelectorAll('.option').forEach(el => {
+        el.classList.toggle('selected', el.dataset.id == id);
+      });
+      const names = { 1: 'Clásico refinado', 2: 'Minimalista', 3: 'Icono horizontal' };
+      const btn = document.getElementById('selectBtn');
+      btn.disabled = false;
+      btn.textContent = '✓ Elegiste: ' + names[id];
+    }
+
+    function resetSelection() {
+      selected = null;
+      document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+      const btn = document.getElementById('selectBtn');
+      btn.disabled = true;
+      btn.textContent = 'Seleccioná un logo primero';
+    }
+  </script>
+
+</body>
+</html>

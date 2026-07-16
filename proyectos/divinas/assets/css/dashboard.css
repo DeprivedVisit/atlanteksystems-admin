@@ -1,0 +1,63 @@
+.dash-main {
+  padding: 120px 0 80px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+.dash-main .section-sub { margin-bottom: 32px; }
+.dash-empty {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.dash-table-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.dash-table thead {
+  background: rgba(42,36,60,0.95);
+  color: #f0e4e6;
+}
+.dash-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dash-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e0d5c8;
+  color: var(--text-light);
+}
+.dash-table tbody tr:hover { background: var(--bg); }
+.dash-table tbody tr:last-child td { border-bottom: none; }
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.status-pendiente { background: #fff5e6; color: #b85a3a; }
+.status-enviado { background: #e8f0fe; color: #3a6ab8; }
+.status-entregado { background: #e8f5e8; color: #2a7a3a; }
+
+@media (max-width: 900px) {
+  .dash-main { padding: 100px 0 60px; }
+  .dash-table td:nth-child(2),
+  .dash-table th:nth-child(2) { display: none; }
+}

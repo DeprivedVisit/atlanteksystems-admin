@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Pedidos — Divinas Slim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+          <img src="assets/img/logo-divinas.svg" alt="Divinas" height="30">
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html#beneficios">Beneficios</a>
+        <a href="index.html#comprar">Comprar</a>
+        <a href="index.html#contacto">Contacto</a>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="auth-logged show" id="authLogged">
+        <span id="userNameDisplay"></span>
+        <a href="dashboard.html">Mis pedidos</a>
+        <a id="logoutBtn">Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dash-main">
+    <div class="container">
+      <span class="section-label">Dashboard</span>
+      <h2 class="section-title">Mis pedidos</h2>
+      <p class="section-sub">Historial de tus compras y estado de entrega.</p>
+
+      <div class="dash-empty" id="dashEmpty">
+        <p>Todavía no tienes pedidos.</p>
+        <a href="index.html#comprar" class="hero-cta" style="display:inline-flex;text-decoration:none;margin-top:16px;">Hacer un pedido</a>
+      </div>
+
+      <div class="dash-table-wrap" id="dashTableWrap" style="display:none;">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>N° Pedido</th>
+              <th>Fecha</th>
+              <th>Producto</th>
+              <th>Cant</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="dashOrders"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Desarrollado por <strong>Apex Cloud Work</strong> — Cartago, CR</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const session = requireAuth('index.html');
+    if (!session) return;
+
+    document.getElementById('userNameDisplay').textContent = session.name;
+    document.getElementById('logoutBtn').addEventListener('click', () => { logout(); window.location.href = 'index.html'; });
+
+    const orders = getOrders().filter(o => o.email?.toLowerCase() === session.email.toLowerCase());
+    const emptyEl = document.getElementById('dashEmpty');
+    const tableWrap = document.getElementById('dashTableWrap');
+    const tbody = document.getElementById('dashOrders');
+
+    if (orders.length === 0) {
+      emptyEl.style.display = 'block';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    tableWrap.style.display = 'block';
+    tbody.innerHTML = orders.map(o => `
+      <tr>
+        <td><strong style="font-size:0.75rem;">${o.id || '—'}</strong></td>
+        <td>${o.date || '—'}</td>
+        <td>${o.product || '—'}</td>
+        <td>${o.quantity || 0}</td>
+        <td><strong>₡${(o.total || 0).toLocaleString()}</strong></td>
+        <td><span class="status-badge status-${o.status}">${o.status || 'pendiente'}</span></td>
+      </tr>
+    `).join('');
+  });
+  </script>
+</body>
+</html>

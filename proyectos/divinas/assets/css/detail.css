@@ -1,0 +1,231 @@
+/* ============================================
+   DIVINAS — Página de detalle Iconic Kit
+   Usa las variables de style.css
+   ============================================ */
+
+:root {
+  --lav:        #eef0fa;
+  --lav-mid:    #dfe4f6;
+  --lav-border: #ccd5f0;
+  --lav-deep:   #acc0f5;
+}
+
+/* === HERO DETALLE === */
+.detail-hero {
+  background: linear-gradient(180deg, var(--lav) 0%, var(--bg) 100%);
+  padding: 140px 0 80px;
+}
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.detail-photo {
+  position: relative;
+}
+.detail-photo img {
+  border-radius: var(--radius);
+  box-shadow: 0 12px 48px rgba(45,36,40,0.14);
+  cursor: zoom-in;
+  transition: transform 0.3s;
+}
+.detail-photo img:hover { transform: scale(1.015); }
+.detail-photo figcaption {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.detail-breadcrumb {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.detail-breadcrumb a { color: var(--accent3); font-weight: 500; }
+.detail-breadcrumb a:hover { text-decoration: underline; }
+.detail-content h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+.detail-content h1 em { font-style: italic; color: var(--accent3); }
+.detail-sub {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+  max-width: 480px;
+}
+.detail-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.detail-price small {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+.detail-save {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+.detail-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+/* === QUÉ INCLUYE === */
+.includes {
+  padding: 90px 0;
+  background: var(--surface);
+}
+.includes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 40px;
+}
+.include-card {
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  border: 1px solid var(--border);
+}
+.include-card.detox { background: #eef4e6; border-color: #d3e0c2; }
+.include-card.slim  { background: var(--lav); border-color: var(--lav-border); }
+.include-card .tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+.include-card.detox .tag { background: #cfe0b8; }
+.include-card.slim .tag  { background: var(--lav-mid); }
+.include-card h3 {
+  font-size: 1.7rem;
+  margin-bottom: 6px;
+}
+.include-card .formato {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.include-card ul {
+  list-style: none;
+}
+.include-card li {
+  padding: 9px 0 9px 26px;
+  position: relative;
+  font-size: 0.92rem;
+  color: var(--text-light);
+  border-bottom: 1px solid rgba(45,36,40,0.06);
+}
+.include-card li:last-child { border-bottom: none; }
+.include-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent3);
+  font-weight: 700;
+}
+
+/* === MODO DE USO (rutina día/noche) === */
+.routine {
+  padding: 90px 0;
+  background: var(--bg);
+}
+.routine-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 40px;
+}
+.routine-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.routine-card .momento {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  display: block;
+}
+.routine-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+.routine-card p {
+  font-size: 0.92rem;
+  color: var(--text-light);
+}
+.routine-note {
+  margin-top: 32px;
+  background: var(--surface);
+  border-left: 3px solid var(--lav-deep);
+  border-radius: 10px;
+  padding: 18px 22px;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.routine-note strong { color: var(--text); }
+
+/* === LIGHTBOX FOTO === */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(45,36,40,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  cursor: zoom-out;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-height: 92vh;
+  max-width: 100%;
+  width: auto;
+  border-radius: 12px;
+}
+
+/* === CTA FINAL === */
+.detail-final {
+  padding: 90px 0;
+  text-align: center;
+  background: linear-gradient(135deg, var(--lav-mid) 0%, var(--lav-deep) 100%);
+}
+.detail-final .section-title { margin-bottom: 10px; }
+.detail-final .section-sub { margin: 0 auto 28px; }
+
+/* === RESPONSIVE === */
+@media (max-width: 860px) {
+  .detail-hero { padding: 120px 0 60px; }
+  .detail-layout,
+  .includes-grid,
+  .routine-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .detail-photo { order: 2; max-width: 440px; margin: 0 auto; }
+  .detail-content h1 { font-size: 2.3rem; }
+}
