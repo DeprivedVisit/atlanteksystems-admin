@@ -321,7 +321,8 @@ function closeMobileNav() {
 
 /* ── Contact Form ───────────────────────────── */
 (function initContactForm() {
-  const CONTACT_AS_URL = 'https://script.google.com/macros/s/AKfycby-vSmwXS5nfmYz9KcvabijWjSQth6S_oa-QzWHBqp118Hbguzr_fWIg8TF1B8YHRSoIg/exec';
+  // La URL de Apps Script vive en el backend (CONTACT_APPS_SCRIPT_URL) — nunca en JS público.
+  const CONTACT_AS_URL = `${window.APEX_API_BASE || ''}/api/contact`;
 
   const form    = document.getElementById('contact-form');
   const errEl   = document.getElementById('cf-error');

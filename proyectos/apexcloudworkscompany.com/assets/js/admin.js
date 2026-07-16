@@ -11,7 +11,8 @@ const h = str => String(str ?? '')
 // ── CONFIG ──
 const API_BASE = window.APEX_API_BASE || '';
 const PORTAL_AS_URL = `${API_BASE}/api/admin/gs`;
-const _t = 'legacy'; // placeholder inerte — el backend ignora/sobrescribe adminToken; queda para no tocar los ~20 call sites que lo mandan
+// _t eliminado — el backend sobrescribe adminToken via session. Los call sites que lo mandan son ignorados.
+const _t = null;
 
 const _nativeFetch = window.fetch.bind(window);
 window.fetch = (input, init = {}) => _nativeFetch(input, { ...init, credentials: 'include' });

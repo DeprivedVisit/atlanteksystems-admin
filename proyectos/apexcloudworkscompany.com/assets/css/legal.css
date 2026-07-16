@@ -1,0 +1,376 @@
+/* ══════════════════════════════════════════════
+   APEX CLOUD WORK — legal.css
+   Documentos legales y formales · v1.0 · 08 jul 2026
+   Requiere tokens.css cargado antes.
+   Cubre: Legal/*.html y Seguridad/ (plantilla base +
+   componentes de contrato, proforma, acta y anexos).
+══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+}
+a { color: var(--gold); text-decoration: underline; }
+a:hover { color: var(--gold2); }
+
+.container { width: min(760px, 92%); margin-inline: auto; padding-block: var(--sp-16); }
+
+/* ── Navbar ── */
+.navbar {
+  background: var(--surface);
+  padding: var(--sp-4) 0;
+  position: sticky; top: 0; z-index: var(--z-nav);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { width: min(760px, 92%); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: var(--fs-base);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--gold); }
+.nav-back { font-size: var(--fs-xs); color: var(--text3); text-decoration: none; transition: color var(--transition-fast); }
+.nav-back:hover { color: var(--gold); }
+.nav-doc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3);
+}
+
+/* ── Hero del documento ── */
+.legal-hero {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--raised) 100%);
+  padding: var(--sp-16) 0 var(--sp-12);
+  border-bottom: 1px solid var(--border2);
+}
+.legal-hero .inner { width: min(760px, 92%); margin-inline: auto; }
+.legal-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--sp-3);
+}
+.legal-eyebrow::before { content: "// "; color: var(--text3); }
+.legal-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: 400; line-height: 1.08;
+  letter-spacing: 0.01em; text-transform: uppercase;
+  margin-bottom: var(--sp-4);
+  color: var(--text);
+}
+.legal-title strong { font-weight: 400; color: var(--gold); }
+.legal-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--fs-xs); color: var(--text3);
+  display: flex; gap: var(--sp-6); flex-wrap: wrap;
+}
+
+/* ── Meta de documento (contratos/actas) ── */
+.doc-meta { display: flex; flex-wrap: wrap; gap: var(--sp-6); margin-top: var(--sp-4); }
+.doc-meta-item {
+  background: var(--gold-dim);
+  border: 1px solid color-mix(in srgb, var(--gold) 15%, transparent);
+  border-radius: var(--r-sm);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: 0.76rem;
+}
+.doc-meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text3); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  display: block; margin-bottom: 2px;
+}
+.doc-meta-value { color: var(--text); font-weight: 600; }
+.doc-meta-value.fill { color: var(--gold); font-style: italic; }
+.doc-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: var(--text3); letter-spacing: 0.08em;
+}
+
+/* ── Cuerpo ── */
+.legal-body { display: flex; flex-direction: column; gap: var(--sp-8); }
+.legal-section {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6) var(--sp-8);
+  border: 1px solid var(--border);
+}
+.legal-section h2 {
+  font-size: var(--fs-md); font-weight: 700; color: var(--text);
+  margin-bottom: var(--sp-4); padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--border2);
+}
+.legal-section h3 { font-size: var(--fs-sm); font-weight: 700; color: var(--gold); margin: var(--sp-4) 0 var(--sp-1); }
+.legal-section p { font-size: var(--fs-sm); line-height: 1.78; color: var(--text2); margin-bottom: var(--sp-3); }
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.legal-section ul li { font-size: var(--fs-sm); line-height: 1.68; color: var(--text2); }
+.legal-section ul li::marker { color: var(--gold); }
+
+.clause-num {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--gold-dim);
+  border: 1px solid var(--border2);
+  border-radius: 4px; padding: 1px 0.45rem;
+  font-size: 0.7rem; font-weight: 500; color: var(--gold);
+  margin-right: var(--sp-2);
+}
+
+/* ── Cajas destacadas ── */
+.highlight-box {
+  background: var(--gold-dim);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--sp-4) var(--sp-5);
+  font-size: 0.82rem; color: var(--text2); line-height: 1.68;
+  margin-top: var(--sp-3);
+}
+.highlight-box.alert {
+  background: color-mix(in srgb, var(--red-alert) 6%, transparent);
+  border-color: color-mix(in srgb, var(--red-alert) 30%, transparent);
+  border-left-color: var(--red-alert);
+  color: color-mix(in srgb, var(--red-alert) 55%, var(--text));
+}
+.note-box {
+  background: var(--gold-dim);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--sp-4) var(--sp-5);
+  font-size: 0.8rem; color: var(--text2); line-height: 1.7;
+  margin-bottom: var(--sp-8);
+}
+.new-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--gold-dim); border: 1px solid var(--border2);
+  border-radius: 4px; font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+  padding: 1px 0.4rem; margin-left: var(--sp-2); vertical-align: middle;
+}
+
+/* ── Partes (contratos) ── */
+.parties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin: var(--sp-3) 0; }
+.party-card {
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-4) var(--sp-5);
+}
+.party-label, .party-title, .sig-label, .wa-label, .pay-card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: var(--sp-3); display: block;
+}
+.party-field { font-size: 0.82rem; color: var(--text2); margin-bottom: var(--sp-1); }
+.party-field strong { color: var(--text); }
+.party-field .fill { color: var(--gold); font-style: italic; }
+.party-name { font-size: var(--fs-md); color: var(--text); font-weight: 600; margin-bottom: var(--sp-2); }
+.party-detail { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+
+/* ── Tablas (servicios / precios / URLs / factura) ── */
+.service-table, .pricing-table, .url-table, .inv-table { width: 100%; border-collapse: collapse; margin: var(--sp-3) 0; }
+.service-table th, .pricing-table th, .url-table th, .inv-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text3);
+  padding: var(--sp-2) var(--sp-3); text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.service-table td, .pricing-table td, .url-table td, .inv-table td {
+  font-size: 0.83rem; color: var(--text2);
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--border);
+}
+.service-table tr:last-child td, .pricing-table tr:last-child td,
+.url-table tr:last-child td, .inv-table tr:last-child td { border-bottom: none; }
+.service-table td.amt, .pricing-table td:last-child, .inv-table td:last-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500; color: var(--gold); text-align: right;
+}
+.service-table td.fill, .url-table td.fill { color: var(--gold); font-style: italic; }
+.total-row { background: var(--gold-dim); border-top: 1px solid var(--border2) !important; }
+.total-row td { font-weight: 700; color: var(--text) !important; padding-top: var(--sp-3) !important; padding-bottom: var(--sp-3) !important; }
+.total-row td.amt { color: var(--gold) !important; font-size: var(--fs-base); }
+
+.inv-table thead tr { background: var(--gold-dim); border-bottom: 1px solid var(--border2); }
+.inv-table th:last-child { text-align: right; }
+.inv-table .row-subtotal { border-top: 1px solid var(--border2); background: var(--raised); }
+.inv-table .row-subtotal td { color: var(--text3); font-size: 0.8rem; font-weight: 400; }
+.inv-table .row-total { background: var(--gold-dim); border-top: 2px solid var(--border2); }
+.inv-table .row-total td { font-size: 0.95rem; font-weight: 700; color: var(--text); padding: var(--sp-4); }
+.inv-table .row-total td:last-child { font-size: var(--fs-md); color: var(--gold); }
+
+/* ── Pagos ── */
+.payment-scheme, .payment-block { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin: var(--sp-3) 0; }
+.payment-step {
+  background: var(--gold-dim); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: var(--sp-4); text-align: center;
+}
+.payment-step .pct { font-family: 'Anton', sans-serif; font-size: var(--fs-xl); color: var(--gold); display: block; }
+.payment-step .when { font-size: 0.75rem; color: var(--text3); margin-top: 2px; }
+.pay-card { background: var(--raised); border: 1px solid var(--border); border-radius: var(--r-md); padding: var(--sp-5) var(--sp-6); }
+.pay-card-methods { display: flex; flex-direction: column; gap: var(--sp-2); }
+.pay-method { font-size: 0.82rem; color: var(--text2); display: flex; align-items: baseline; gap: var(--sp-2); }
+.pay-method::before { content: "→"; color: var(--gold); font-size: 0.7rem; }
+.pay-summary .pay-row { display: flex; justify-content: space-between; align-items: center; padding: var(--sp-2) 0; border-bottom: 1px solid var(--border); font-size: 0.83rem; }
+.pay-summary .pay-row:last-child { border-bottom: none; font-weight: 700; color: var(--text); padding-top: var(--sp-3); margin-top: 2px; }
+.pay-summary .pay-row:last-child .pay-val { color: var(--gold); font-size: 0.95rem; }
+.pay-label { color: var(--text3); }
+.pay-val { font-family: 'JetBrains Mono', monospace; color: var(--text); font-weight: 500; }
+.pay-val.paid { color: var(--green); }
+.pay-val.pending { color: var(--yellow); }
+.price-block { background: var(--gold-dim); border: 1px solid var(--border); border-radius: var(--r-md); padding: var(--sp-5); text-align: center; margin: var(--sp-3) 0; }
+.price-value { font-family: 'Anton', sans-serif; font-size: 2.2rem; color: var(--gold); }
+.price-when { font-size: 0.76rem; color: var(--text3); margin-top: 2px; }
+
+/* ── Estados (proforma) ── */
+.status-badge {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-family: 'JetBrains Mono', monospace;
+  padding: var(--sp-1) var(--sp-4); border-radius: var(--r-full);
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
+}
+.status-pending { background: color-mix(in srgb, var(--yellow) 12%, transparent); border: 1px solid color-mix(in srgb, var(--yellow) 30%, transparent); color: var(--yellow); }
+.status-partial { background: color-mix(in srgb, var(--blue) 10%, transparent); border: 1px solid color-mix(in srgb, var(--blue) 30%, transparent); color: var(--blue); }
+.status-paid { background: color-mix(in srgb, var(--green) 10%, transparent); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); color: var(--green); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ── Encabezado de documento (proforma) ── */
+.doc-header {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--raised) 100%);
+  border-radius: var(--r-lg); padding: var(--sp-10);
+  margin-bottom: var(--sp-8); border: 1px solid var(--border);
+}
+.doc-header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--sp-6); }
+.brand-block .brand-name {
+  font-family: 'Anton', sans-serif; font-size: var(--fs-xl);
+  letter-spacing: 0.03em; text-transform: uppercase; color: var(--text);
+}
+.brand-block .brand-name strong { font-weight: 400; color: var(--gold); }
+.brand-block .brand-sub { font-size: 0.76rem; color: var(--text3); margin-top: var(--sp-1); }
+.doc-id-block { text-align: right; }
+.doc-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: var(--sp-1);
+}
+.doc-number { font-family: 'JetBrains Mono', monospace; font-size: var(--fs-lg); color: var(--gold); font-weight: 500; }
+.doc-dates { display: flex; gap: var(--sp-8); margin-top: var(--sp-6); padding-top: var(--sp-6); border-top: 1px solid var(--border); flex-wrap: wrap; }
+.doc-date-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 2px;
+}
+.doc-date-value { font-size: var(--fs-sm); color: var(--text); font-weight: 600; }
+.parties-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); margin-bottom: var(--sp-8); }
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: var(--sp-3);
+}
+.section-label::before { content: "// "; color: var(--gold); }
+
+/* ── Firmas ── */
+.signature-section { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); margin-top: var(--sp-4); }
+.sig-block { background: var(--raised); border: 1px solid var(--border); border-radius: var(--r-md); padding: var(--sp-5); }
+.sig-line { border-bottom: 1px solid var(--border2); height: 2rem; margin: var(--sp-3) 0; }
+.sig-field { font-size: 0.78rem; color: var(--text3); margin-top: var(--sp-1); }
+.sig-field .fill { color: var(--gold); font-style: italic; }
+
+/* ── Columnas sí/no (mantenimiento) ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); margin: var(--sp-3) 0; }
+.col-card { border-radius: var(--r-md); padding: var(--sp-4) var(--sp-5); }
+.col-card.yes { background: color-mix(in srgb, var(--green) 6%, transparent); border: 1px solid color-mix(in srgb, var(--green) 20%, transparent); }
+.col-card.no { background: color-mix(in srgb, var(--red-alert) 5%, transparent); border: 1px solid color-mix(in srgb, var(--red-alert) 20%, transparent); }
+.col-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: var(--sp-3);
+}
+.col-card.yes .col-title { color: var(--green); }
+.col-card.no .col-title { color: var(--red-alert); }
+.col-card ul { margin-bottom: 0; }
+
+/* ── Checklist (acta de entrega) ── */
+.check-list { list-style: none !important; padding-left: 0 !important; }
+.check-list li { display: flex; align-items: flex-start; gap: var(--sp-2); }
+.check-list li::before { content: "☐"; color: var(--gold); font-size: 0.95rem; flex-shrink: 0; line-height: 1.4; }
+
+/* ── Template WhatsApp (anexo) ── */
+.wa-template {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6) var(--sp-6);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem; line-height: 1.85; color: var(--text2);
+  white-space: pre-wrap; position: relative;
+}
+.wa-template .fill { color: var(--gold); font-style: normal; }
+
+/* ── Tarjeta de contacto (políticas) ── */
+.contact-card {
+  background: linear-gradient(135deg, var(--raised), var(--raised2));
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8); text-align: center;
+}
+.contact-card h2 { font-family: 'Anton', sans-serif; font-size: var(--fs-md); letter-spacing: 0.03em; text-transform: uppercase; color: var(--gold); margin-bottom: var(--sp-2); }
+.contact-card p { font-size: 0.84rem; color: var(--text2); margin-bottom: var(--sp-5); }
+.contact-links { display: flex; gap: var(--sp-4); justify-content: center; flex-wrap: wrap; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5); border-radius: var(--r-full);
+  font-size: 0.8rem; font-weight: 700; text-decoration: none;
+  transition: all var(--transition-fast);
+  min-height: var(--tap);
+}
+.contact-link.wa { background: var(--wa); color: #fff; }
+.contact-link.wa:hover { background: var(--wa2); }
+.contact-link.email { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--border2); }
+.contact-link.email:hover { background: var(--gold-glow); }
+
+/* ── Footers ── */
+.doc-footer { border-top: 1px solid var(--border); padding-top: var(--sp-6); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--sp-4); }
+.doc-footer-brand { font-family: 'Anton', sans-serif; font-size: var(--fs-sm); letter-spacing: 0.04em; text-transform: uppercase; color: var(--text3); }
+.doc-footer-brand strong { color: var(--gold); font-weight: 400; }
+.doc-footer-contact { font-size: 0.75rem; color: var(--text3); text-align: right; }
+.legal-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  color: var(--text3); text-align: center;
+  padding: var(--sp-6) var(--sp-4);
+  font-size: 0.72rem; margin-top: var(--sp-12);
+}
+.legal-footer a { color: var(--gold); }
+
+/* ── Impresión (contratos se firman en papel) ── */
+@media print {
+  .navbar, .nav-back { display: none; }
+  body { background: #fff; color: #111; font-size: 11pt; }
+  .legal-hero, .doc-header { background: var(--surface); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .legal-section { border-color: #ddd; background: #fafafa; }
+  .container { padding-block: 1.5rem; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 620px) {
+  .legal-section { padding: var(--sp-5) var(--sp-4); }
+  .container { padding-block: var(--sp-10); }
+  .legal-hero { padding: var(--sp-10) 0 var(--sp-8); }
+  .parties-grid, .payment-scheme, .signature-section, .two-col,
+  .doc-header-top, .parties-row, .payment-block { grid-template-columns: 1fr; }
+  .doc-id-block { text-align: left; }
+  .doc-footer { flex-direction: column; }
+  .doc-footer-contact { text-align: left; }
+}

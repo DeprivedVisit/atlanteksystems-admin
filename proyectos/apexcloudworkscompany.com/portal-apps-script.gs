@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-//  Apex Cloud Works — Portal Backend
+//  Apex Cloud Work — Portal Backend
 //  Google Apps Script · Conectar con Google Sheets
 //
 //  SETUP:
@@ -10,7 +10,12 @@
 // ─────────────────────────────────────────────
 
 const SPREADSHEET_ID = '1d4dVBf8Cb5m8sG72YWrEAUmpuBb7kxhYmrscHDh5cP0';
-const ADMIN_TOKEN     = 'fe7458021c94d9215fd97dd8b19076dd83c6e1e1b784cb5cd24084642c24011f';
+
+// ── SECURITY: Token via PropertiesService (NO hardcodeado) ──
+// SETUP: En Apps Script Editor → Project Settings → Script Properties
+//   → Agregar propiedad: ADMIN_TOKEN = <tu_token_de_32_bytes_hex>
+//   → Regenerar token con: Utilities.getUuid().replace(/-/g,'')
+const ADMIN_TOKEN = PropertiesService.getScriptProperties().getProperty('ADMIN_TOKEN');
 
 // ── HEADERS DE CADA HOJA ──
 const SHEET_HEADERS = {
@@ -276,7 +281,7 @@ function responderTicket(data) {
 
   var ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
   var sheet = ss.getSheetByName('Respuestas');
-  sheet.appendRow([data.ticketId, 'Garett · Apex Cloud Works', data.mensaje, nowCR()]);
+  sheet.appendRow([data.ticketId, 'Garett · Apex Cloud Work', data.mensaje, nowCR()]);
 
   var rowIdx = findRowIndex('Tickets', 'id', data.ticketId);
   if (rowIdx > 0) setCell('Tickets', rowIdx, 'estado', 'respondido');

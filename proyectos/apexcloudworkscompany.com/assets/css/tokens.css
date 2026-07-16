@@ -34,6 +34,8 @@
   --green:    #4ADE80;
   --blue:     #60A5FA;
   --red-alert: #F87171;
+  --wa:       #25D366; /* verde oficial WhatsApp — solo botones WA */
+  --wa2:      #1EA855; /* hover del botón WA */
   --tap:      48px;
 
   /* ── Spacing (4px base) ── */
@@ -95,5 +97,12 @@
   /* ── Estados extra (admin/portal) ── */
   --yellow:    #FBBF24;
   --blue-lite: #93C5FD;
-  --shadow:    rgba(0, 0, 0, 0.5);
+
+  /* ── Shadows — sistema de elevación ── */
+  --shadow-xs: 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-sm: 0 4px 16px rgba(0,0,0,0.35);
+  --shadow-md: 0 8px 28px rgba(0,0,0,0.45);
+  --shadow-lg: 0 20px 56px rgba(0,0,0,0.55);
+  --shadow-glow: 0 0 30px rgba(196,149,106,0.08);
+  --shadow-glow-hover: 0 0 40px rgba(196,149,106,0.15);
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Apex RMM — Dispositivos</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+<header class="rmm-header">
+  <h1>Apex RMM <span>· Fase 1</span></h1>
+  <p class="rmm-sub">Documento interno · No publicar</p>
+</header>
+
+<main class="rmm-main">
+  <div class="rmm-toolbar">
+    <button id="btn-nuevo" class="rmm-btn">+ Registrar dispositivo</button>
+    <button id="btn-refrescar" class="rmm-btn rmm-btn-ghost">Refrescar</button>
+  </div>
+
+  <div id="rmm-alert-box"></div>
+
+  <div id="rmm-devices" class="rmm-grid">
+    <p class="rmm-empty">Cargando dispositivos…</p>
+  </div>
+</main>
+
+<script src="../assets/js/env.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>

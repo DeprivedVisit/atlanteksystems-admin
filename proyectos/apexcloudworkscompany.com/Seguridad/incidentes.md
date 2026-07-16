@@ -1,4 +1,4 @@
-# Registro de Incidentes de Seguridad — Apex Cloud Works
+# Registro de Incidentes de Seguridad — Apex Cloud Work
 
 > Sigue el proceso de "Respuesta ante incidentes" de `politica-seguridad.html`.
 > Agregar cada incidente nuevo AL INICIO del historial, copiando la plantilla.

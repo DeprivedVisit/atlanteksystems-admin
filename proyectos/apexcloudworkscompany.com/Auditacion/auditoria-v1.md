@@ -1,4 +1,4 @@
-# Auditoría Senior — Apex Cloud Works
+# Auditoría Senior — Apex Cloud Work
 > **Proyecto:** `apexcloudworkcompany.com`  
 > **Fecha:** 25 junio 2026 · **Versión:** 1.0  
 > **Auditor:** Claude Sonnet 4.6 — Rol: Senior Web Auditor  
@@ -12,7 +12,7 @@
 |---|---|---|
 | `lang` en `<html>` | ✅ | `lang="es"` correcto |
 | `<title>` descriptivo | ✅ | "Apex Cloudworks — Sistemas web en AWS · Cartago, CR" |
-| `alt` en imágenes `<img>` | ✅ | Logo `.nav-logo-img` tiene `alt="Apex Cloud Works"` |
+| `alt` en imágenes `<img>` | ✅ | Logo `.nav-logo-img` tiene `alt="Apex Cloud Work"` |
 | Imágenes de portafolio accesibles | ❌ | `.pf-cover` usa `background-image` CSS → invisibles para screen readers. Usar `<img>` con `alt`. |
 | Contraste texto principal `--text` | ✅ | `#E8E8F2` sobre `#0C0C14` → ratio ~14:1 ✅ |
 | Contraste texto secundario `--text2` | ❌ | `#7B7B96` sobre `#0C0C14` → ratio ~3.8:1 · falla WCAG AA (mínimo 4.5:1) |
@@ -221,7 +221,7 @@ Las reglas `.section-light .srv-card { background: #ffffff; }` y similares (lín
 
 | Elemento SEO | Estado actual | Acción recomendada |
 |---|---|---|
-| `<title>` | ✅ Descriptivo con keyword principal | Agregar ciudad: "Apex Cloud Works — Landing Pages en AWS · Cartago Costa Rica" |
+| `<title>` | ✅ Descriptivo con keyword principal | Agregar ciudad: "Apex Cloud Work — Landing Pages en AWS · Cartago Costa Rica" |
 | `meta description` | ✅ Presente | Mejorar con CTA: "…Cotización en 24h. Hablá por WhatsApp." |
 | `og:title` | ✅ Presente | — |
 | `og:description` | ✅ Presente | — |
@@ -358,4 +358,4 @@ Las reglas `.section-light .srv-card { background: #ffffff; }` y similares (lín
 
 ---
 
-*Generado por Claude Sonnet 4.6 · Apex Cloud Works · Cartago, CR · junio 2026*
+*Generado por Claude Sonnet 4.6 · Apex Cloud Work · Cartago, CR · junio 2026*

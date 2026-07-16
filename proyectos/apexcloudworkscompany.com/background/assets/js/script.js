@@ -1,5 +1,5 @@
 // Antigravity IDE - Restaurant Voice Call Automation Simulator
-// Author: Antigravity for Apex Cloud Works
+// Author: Antigravity for Apex Cloud Work
 // 2026-07-05
 
 // Embebido dentro del hero de la página real — el header propio duplica ese nav, se oculta.
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Files Content Mockup for Restaurant Voice Automation
   const files = {
-    // APEX CLOUD WORKS — ARCHIVOS REALES DEL NEGOCIO
+    // APEX CLOUD WORK — ARCHIVOS REALES DEL NEGOCIO
     'Precios.md': `# Precios
 
 Todos los precios en USD. Sin costos ocultos.
@@ -233,7 +233,7 @@ Sí — cuando alguien llena el formulario, el lead llega a tu Google Sheets y t
 ## ¿Qué pasa si necesito cambios después?
 Con el plan trimestral tenés cambios incluidos. Sin plan, cada cambio se cotiza antes de hacerlo — nunca hay sorpresas.`,
 
-    'Sobre-mi.md': `# Garett Barrantes — Fundador, Apex Cloud Works
+    'Sobre-mi.md': `# Garett Barrantes — Fundador, Apex Cloud Work
 
 Desarrollador web y cloud desde Cartago, Costa Rica. Construyo sistemas que operan — no demos, no mockups. Cada proyecto en AWS, cada lead automatizado, cada deploy en producción.
 
@@ -254,7 +254,7 @@ Empecé Apex para resolver un problema real: negocios locales que necesitan pres
 *whoami → garett@apex-cloudworks*
 *cat mision.txt → "Sistemas web que operan. Sin excusas, en producción."*`,
 
-    'Portada.md': `# Apex Cloud Works
+    'Portada.md': `# Apex Cloud Work
 
 Diseñamos, construimos y mantenemos sitios web y automatizaciones en AWS para negocios de Costa Rica.
 
@@ -341,7 +341,7 @@ Formulario conectado a n8n. Cada contacto se registra en Google Sheets y te lleg
 *Tags: n8n.cloud · Google Sheets · Notificaciones*`,
 
     // ROOT FILES
-    'README.md': `# Apex Cloud Works
+    'README.md': `# Apex Cloud Work
 
 Bienvenido. Esta página **es** un editor de código real — así trabajamos.
 
@@ -757,7 +757,7 @@ El simulador está estructurado en 4 fases principales:
     }
     else if (fileKey === 'Precios.md' || fileKey === 'Portafolio.md' || fileKey === 'Testimonios.md' || fileKey === 'FAQ.md' || fileKey === 'Sobre-mi.md'
       || fileKey === '01-Briefing.md' || fileKey === '02-Analisis.md' || fileKey === '03-Build.md' || fileKey === '04-Deploy.md' || fileKey === '05-Live.md') {
-      // Archivos reales de Apex Cloud Works — sin la animación de la demo del restaurante
+      // Archivos reales de Apex Cloud Work — sin la animación de la demo del restaurante
       currentProject = 'apex';
       groupN8N.style.display = 'none';
       groupPhone.style.display = 'none';

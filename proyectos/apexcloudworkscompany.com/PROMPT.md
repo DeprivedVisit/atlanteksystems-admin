@@ -4,7 +4,7 @@
 ---
 
 ## Project
-**Client:** Interno — Apex Cloud Works
+**Client:** Interno — Apex Cloud Work
 **Site:** apexcloudworkcompany.com
 **Status:** ✅ Live — rediseño premium retro completado
 **Priority:** Mejoras continuas (foto real, auth, dashboard cliente)
@@ -44,6 +44,6 @@
 - [ ] Dashboard real por cliente (ver su landing, estado, tráfico)
 
 ## Rules
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Paleta warm gold — no cambiar a azules/morados
 - Mobile-first siempre

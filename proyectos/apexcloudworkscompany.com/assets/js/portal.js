@@ -1,4 +1,4 @@
-/* ── Apex Cloud Works — Portal JS ── */
+/* ── Apex Cloud Work — Portal JS ── */
 
 const API_BASE   = window.APEX_API_BASE || '';
 const PORTAL_API = `${API_BASE}/api/portal`;
@@ -33,6 +33,10 @@ function portalLogout() {
 //  DASHBOARD INIT
 // ─────────────────────────────────────────────
 
+// Preview local sin backend — solo aplica en hosts de desarrollo (localhost o IP privada
+// de Live Server), en producción nunca entra.
+const PORTAL_DEV_PREVIEW = /^(localhost|127\.0\.0\.1|\[::1\]|192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3})$/.test(location.hostname);
+
 async function initDashboard() {
   let me;
   try {
@@ -40,6 +44,7 @@ async function initDashboard() {
     if (r.status === 401) { window.location.href = 'index.html'; return; }
     me = await r.json();
   } catch (err) {
+    if (PORTAL_DEV_PREVIEW) { renderDevPreview(); return; }
     window.location.href = 'index.html';
     return;
   }
@@ -75,6 +80,41 @@ async function initDashboard() {
   }
 }
 
+// Vista demo con datos de ejemplo para trabajar el diseño sin backend.
+// Cambiar de vista con ?vista=landing | plan | lead en la URL.
+function renderDevPreview() {
+  const greetEl = document.getElementById('dh-greeting');
+  if (greetEl) greetEl.innerHTML = 'Hola, <span>Garett</span>';
+
+  const demo = {
+    user: { tipo: 'landing' },
+    proyecto: { nombre_proyecto: 'Demo — Skindoctors CR', etapa_actual: 'Desarrollo', preview_url: '' },
+    etapas: [
+      { etapa: 'Brief y paleta',            estado: 'completado',  fecha_completado: '01 jul 2026' },
+      { etapa: 'Diseño y estructura',       estado: 'completado',  fecha_completado: '03 jul 2026' },
+      { etapa: 'Desarrollo HTML/CSS/JS',    estado: 'en_progreso' },
+      { etapa: 'Preview en S3 + revisiones', estado: 'pendiente' },
+      { etapa: 'Deploy final',              estado: 'pendiente' },
+    ],
+    tickets: [{
+      asunto: 'Ejemplo de consulta', estado: 'respondido', fecha: '05 jul 2026',
+      mensaje: '¿Se puede cambiar la foto del hero?',
+      respuestas: [{ autor: 'Garett — Apex', mensaje: 'Claro, mandámela por WhatsApp y la subo hoy.', fecha: '05 jul 2026' }],
+    }],
+  };
+
+  const vista  = new URLSearchParams(location.search).get('vista') || 'landing';
+  const main   = document.getElementById('dash-main');
+  const banner = '<div class="notice notice-info" style="margin-bottom:16px;">Vista DEMO local — backend apagado, datos de ejemplo. Probá ?vista=plan y ?vista=lead. En producción esto nunca aparece.</div>';
+
+  switch (vista) {
+    case 'plan': main.innerHTML = banner + renderPlanView(demo); break;
+    case 'lead': main.innerHTML = banner + renderLeadView(demo); break;
+    default:     main.innerHTML = banner + renderLandingView(demo);
+  }
+  document.title = 'Portal (demo local) — Apex';
+}
+
 // ─────────────────────────────────────────────
 //  RENDER: LANDING VIEW
 // ─────────────────────────────────────────────
@@ -96,7 +136,7 @@ function renderLandingView(data) {
       <div class="ph-row">
         <div>
           <div class="ph-name">${proyecto.nombre_proyecto}</div>
-          <div class="ph-tipo">Landing Page · Apex Cloud Works</div>
+          <div class="ph-tipo">Landing Page · Apex Cloud Work</div>
         </div>
         <div>${estadoBadge(proyecto.etapa_actual)}</div>
       </div>
@@ -149,7 +189,7 @@ function renderPlanView(data) {
       <div class="ph-row">
         <div>
           <div class="ph-name">${proyecto.nombre_proyecto}</div>
-          <div class="ph-tipo">Plan Trimestral · Apex Cloud Works</div>
+          <div class="ph-tipo">Plan Trimestral · Apex Cloud Work</div>
         </div>
         <div><span class="badge badge-live">● Activo</span></div>
       </div>
@@ -202,7 +242,7 @@ function renderLeadView(data) {
 
   return `
     <div class="lead-hero">
-      <div class="lead-hero-title">Tu propuesta de Apex Cloud Works</div>
+      <div class="lead-hero-title">Tu propuesta de Apex Cloud Work</div>
       <p class="lead-hero-sub">
         Hemos preparado una propuesta personalizada para tu proyecto.
         Revisá los servicios abajo y escribinos para arrancar.

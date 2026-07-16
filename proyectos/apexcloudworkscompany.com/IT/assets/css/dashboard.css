@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
+
+.rmm-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rmm-header h1 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0;
+  color: var(--text);
+}
+
+.rmm-header h1 span {
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.rmm-sub {
+  margin: 4px 0 0;
+  color: var(--text3);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.rmm-main {
+  padding: 24px 32px;
+}
+
+.rmm-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rmm-btn {
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.rmm-btn-ghost {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+
+.rmm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.rmm-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.rmm-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rmm-card-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rmm-card-host {
+  color: var(--text3);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  margin: 0 0 12px;
+}
+
+.rmm-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.rmm-dot.online  { background: var(--green); }
+.rmm-dot.offline { background: var(--text3); }
+
+.rmm-metrics {
+  display: flex;
+  gap: 16px;
+}
+
+.rmm-metric {
+  flex: 1;
+}
+
+.rmm-metric-label {
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 4px;
+}
+
+.rmm-empty {
+  color: var(--text3);
+  grid-column: 1 / -1;
+}
+
+#rmm-alert-box {
+  margin-bottom: 16px;
+}
+
+.rmm-alert {
+  background: var(--gold-dim, rgba(196,149,106,0.12));
+  border: 1px solid var(--border2);
+  color: var(--gold);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
