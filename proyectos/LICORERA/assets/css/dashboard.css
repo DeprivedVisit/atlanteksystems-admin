@@ -1,0 +1,180 @@
+/* ============================================
+   JIMÉNEZ LICORES — Dashboard cliente (mis pedidos)
+   ============================================ */
+
+:root {
+  --bg: #E8D9C0;
+  --bg-card: #F7EFDF;
+  --amber: #C8843C;
+  --amber-dim: #A9692B;
+  --gold: var(--amber);
+  --text: #2B1D12;
+  --text-dim: #6E5A44;
+  --line: #2b1d1222;
+  --radius: 12px;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background:
+    radial-gradient(ellipse 900px 500px at 50% 0%, #C8843C22 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 { font-family: var(--font-display); }
+
+.dash-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: .9rem;
+}
+
+.dash-brand img { object-fit: contain; }
+
+.dash-brand em { font-style: normal; color: var(--gold); }
+
+.dash-new {
+  font-size: .78rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--gold);
+  padding: 9px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.dash-new:hover { opacity: .88; }
+
+.dash-main {
+  width: min(640px, 92%);
+  margin: 54px auto;
+  flex: 1;
+}
+
+.section-label {
+  color: var(--gold);
+  font-size: .72rem;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.dash-main h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); margin-bottom: 10px; }
+
+.dash-sub { color: var(--text-dim); font-size: .85rem; margin-bottom: 26px; }
+
+.dash-search { display: flex; gap: 10px; margin-bottom: 34px; }
+
+.dash-search input {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: .9rem;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.dash-search input:focus { border-color: var(--gold); }
+
+.dash-search button {
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  font-weight: 600;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 24px;
+  cursor: pointer;
+}
+
+.dash-search button:hover { opacity: .88; }
+
+.dash-orders { display: flex; flex-direction: column; gap: 14px; }
+
+.order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+
+.order-card header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.order-id { font-size: .75rem; color: var(--gold); letter-spacing: 1px; }
+
+.status-badge {
+  font-size: .68rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+}
+
+.status-pendiente { color: #b5701f; border-color: #b5701f55; }
+.status-confirmado { color: var(--amber-dim); border-color: #C8843C55; }
+.status-entregado { color: #3e6b47; border-color: #3e6b4755; }
+.status-cancelado { color: #e05a5a; border-color: #e05a5a55; }
+
+.order-product { font-weight: 500; font-size: .9rem; }
+
+.order-meta { color: var(--text-dim); font-size: .72rem; margin: 4px 0 8px; }
+
+.order-total {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.dash-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: .82rem;
+  padding: 30px 0;
+}
+
+.dash-footer {
+  text-align: center;
+  font-size: .68rem;
+  color: var(--text-dim);
+  padding: 24px 16px 30px;
+  border-top: 1px solid var(--line);
+}
+
+.dash-footer a { color: var(--gold); text-decoration: none; }

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jiménez Licores — Licorera en Costa Rica. Tequila, ron, whisky, vodka, gin y licores premium. Pedí por WhatsApp.">
+  <meta name="theme-color" content="#E8D9C0">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jiménez Licores — Licorera Premium · Costa Rica">
+  <meta property="og:description" content="Tequila, ron, whisky, vodka, gin y licores premium. Consultá y pedí por WhatsApp.">
+  <meta property="og:image" content="assets/img/logo.png">
+  <meta property="og:locale" content="es_CR">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <title>Jiménez Licores — Licorera Premium · Costa Rica</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Age Gate -->
+  <div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle" hidden>
+    <div class="age-gate-box">
+      <p class="age-gate-brand">JIMÉNEZ <span>LICORES</span></p>
+      <h2 id="ageGateTitle">¿Sos mayor de 18 años?</h2>
+      <p class="age-gate-note">Este sitio contiene información sobre bebidas alcohólicas.<br>Para ingresar debés ser mayor de edad.</p>
+      <div class="age-gate-actions">
+        <button class="age-yes" id="ageYes">Sí, soy mayor</button>
+        <button class="age-no" id="ageNo">No</button>
+      </div>
+      <p class="age-gate-legal">Prohibida la venta de bebidas alcohólicas a menores de edad — Ley 9047, Costa Rica.</p>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="assets/img/logo.png" alt="RB Licores" class="logo-img" width="44" height="44">
+        <span class="logo-text">JIMÉNEZ <span>LICORES</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#porque">Por qué nosotros</a></li>
+        <li><a href="#pedido">Hacer pedido</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="dashboard.html">Mis pedidos</a></li>
+        <li><a href="https://wa.me/50663144171?text=Hola,+quiero+hacer+un+pedido+en+Jiménez+Licores" class="nav-cta" target="_blank" rel="noopener">Pedir ahora</a></li>
+      </ul>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-split">
+      <div class="hero-content">
+        <p class="hero-eyebrow animate-in">🍷 Licorera en Cartago, Costa Rica</p>
+        <h1 class="animate-in delay-1">Las mejores botellas,<br><span>a un mensaje</span> de distancia</h1>
+        <p class="hero-desc animate-in delay-2">
+          Tequila, ron, whisky, vodka, gin y licores para toda ocasión.
+          Elegí tu botella, pedila por WhatsApp y te la coordinamos de una.
+        </p>
+        <div class="hero-actions animate-in delay-3">
+          <a href="#catalogo" class="btn-gold">Ver el catálogo</a>
+          <a href="#pedido" class="btn-ghost">Hacer un pedido</a>
+        </div>
+        <ul class="hero-badges animate-in delay-3">
+          <li>Marcas 100% originales</li>
+          <li>Entrega coordinada por WhatsApp</li>
+          <li>Solo mayores de 18 — Ley 9047</li>
+        </ul>
+      </div>
+      <div class="hero-media animate-in delay-2">
+        <div class="hero-carousel" aria-hidden="true">
+          <img src="assets/img/products/jw-black.jpg" alt="" fetchpriority="high" style="--i:0">
+          <img src="assets/img/products/chivas-12.jpg" alt="" style="--i:1">
+          <img src="assets/img/products/jd-honey.jpg" alt="" style="--i:2">
+          <img src="assets/img/products/jager-original.jpg" alt="" style="--i:3">
+          <img src="assets/img/products/buchanans-12.jpg" alt="" style="--i:4">
+        </div>
+        <span class="hero-media-tag">Destacados</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Por qué -->
+  <section id="porque">
+    <div class="container">
+      <p class="section-label reveal">POR QUÉ JIMÉNEZ LICORES</p>
+      <h2 class="section-title reveal">Más que una licorera</h2>
+      <div class="porque-grid">
+        <div class="porque-card reveal delay-1">
+          <div class="porque-icon">🥃</div>
+          <h3>Buen surtido</h3>
+          <p>Desde el clásico Old No.7 hasta Patrón y Old Parr 18. Marcas originales, selladas y garantizadas.</p>
+        </div>
+        <div class="porque-card reveal delay-2">
+          <div class="porque-icon">⚡</div>
+          <h3>Pedido rápido</h3>
+          <p>Sin vueltas: escribís por WhatsApp, confirmamos disponibilidad y coordinamos la entrega de una vez.</p>
+        </div>
+        <div class="porque-card reveal delay-3">
+          <div class="porque-icon">🤝</div>
+          <h3>Trato de barrio</h3>
+          <p>Te recomendamos según la ocasión — fiesta, regalo o antojo. Directo, sin intermediarios.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catálogo -->
+  <section id="catalogo">
+    <div class="container">
+      <p class="section-label reveal">NUESTRO CATÁLOGO</p>
+      <h2 class="section-title reveal">Encontrá tu botella</h2>
+      <p class="section-desc reveal">Filtrá por categoría o buscá por nombre. Consultá el precio de cualquier producto por WhatsApp.</p>
+
+      <div class="catalog-controls reveal">
+        <div class="filters" id="filters">
+          <button class="filter active" data-cat="todos">Todos</button>
+          <button class="filter" data-cat="tequila">Tequila</button>
+          <button class="filter" data-cat="ron">Ron</button>
+          <button class="filter" data-cat="whisky">Whisky</button>
+          <button class="filter" data-cat="vodka">Vodka</button>
+          <button class="filter" data-cat="gin">Gin</button>
+          <button class="filter" data-cat="licores">Licores y Cremas</button>
+          <button class="filter" data-cat="aguardiente">Aguardiente</button>
+        </div>
+        <input type="search" id="searchBox" class="search-box" placeholder="Buscar producto…" aria-label="Buscar producto">
+      </div>
+
+      <div class="catalog-grid" id="catalogGrid"><!-- render por JS --></div>
+      <p class="catalog-empty" id="catalogEmpty" hidden>No encontramos productos con ese filtro. Escribinos por WhatsApp y te lo conseguimos.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <h2 class="reveal">¿No ves lo que buscás?</h2>
+      <p class="reveal">Nuestro catálogo crece cada semana. Contanos qué botella querés y te la conseguimos.</p>
+      <a href="https://wa.me/50663144171?text=Hola,+busco+una+botella+que+no+vi+en+el+catálogo" class="btn-gold reveal" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- Pedido -->
+  <section id="pedido">
+    <div class="container">
+      <p class="section-label reveal">HACÉ TU PEDIDO</p>
+      <h2 class="section-title reveal">Formulario de pedido</h2>
+      <p class="section-desc reveal">Completá tus datos y te confirmamos disponibilidad y entrega por WhatsApp.</p>
+
+      <form class="order-form reveal" id="orderForm" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="ordName">Nombre completo *</label>
+            <input type="text" id="ordName" name="name" required autocomplete="name" placeholder="Tu nombre">
+          </div>
+          <div class="form-field">
+            <label for="ordPhone">WhatsApp *</label>
+            <input type="tel" id="ordPhone" name="phone" required autocomplete="tel" placeholder="8888-8888">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="ordProduct">Producto *</label>
+            <select id="ordProduct" name="product" required>
+              <option value="">Elegí tu botella…</option>
+            </select>
+          </div>
+          <div class="form-field form-field-qty">
+            <label for="ordQty">Cantidad *</label>
+            <input type="number" id="ordQty" name="quantity" min="1" max="24" value="1" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="ordAddress">Dirección o zona de entrega *</label>
+          <input type="text" id="ordAddress" name="address" required placeholder="Ej: Cartago centro, Barrio Ánimas">
+        </div>
+        <div class="form-field">
+          <label for="ordNotes">Notas (opcional)</label>
+          <textarea id="ordNotes" name="notes" rows="2" placeholder="Hielo, regalo, hora de entrega…"></textarea>
+        </div>
+        <div class="order-form-footer">
+          <p class="order-total">Total estimado: <strong id="ordTotal">—</strong></p>
+          <button type="submit" class="btn-gold">Enviar pedido por WhatsApp</button>
+        </div>
+        <p class="order-form-legal">Solo mayores de 18 años — Ley 9047. El pedido se confirma por WhatsApp según disponibilidad.</p>
+        <p class="order-form-ok" id="ordOk" hidden>✅ Pedido registrado. Te abrimos WhatsApp para confirmarlo.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <div class="container">
+      <p class="section-label reveal">CONTACTO</p>
+      <h2 class="section-title reveal">Hacé tu pedido</h2>
+      <div class="contacto-grid">
+        <div class="contacto-card reveal delay-1">
+          <div class="contacto-icon">📱</div>
+          <h3>WhatsApp</h3>
+          <p>La forma más rápida de pedir.</p>
+          <a href="https://wa.me/50663144171?text=Hola,+quiero+hacer+un+pedido+en+Jiménez+Licores" target="_blank" rel="noopener">+506 6314-4171</a>
+        </div>
+        <div class="contacto-card reveal delay-2">
+          <div class="contacto-icon">🕐</div>
+          <h3>Horario</h3>
+          <p>Lunes a Sábado<br>10:00 AM — 10:00 PM</p>
+        </div>
+        <div class="contacto-card reveal delay-3">
+          <div class="contacto-icon">📍</div>
+          <h3>Ubicación</h3>
+          <p>Cartago, Costa Rica<br>Entregas coordinadas por WhatsApp</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p class="footer-brand">JIMÉNEZ <span>LICORES</span></p>
+      <p class="footer-motto">Tu licorera de confianza en Cartago, Costa Rica 🇨🇷</p>
+      <p class="footer-legal">El abuso del licor es nocivo para la salud. Prohibida la venta de bebidas con contenido alcohólico a menores de edad — Ley 9047.</p>
+      <p class="footer-credit">Desarrollado por <a href="https://apexcloudworkcompany.com" target="_blank" rel="noopener">Apex Cloud Work</a> — Cartago, CR</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/50663144171?text=Hola,+quiero+hacer+un+pedido+en+Jiménez+Licores" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.5c1.2.5 2.5.8 3.8.8 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.2 0-2.4-.3-3.5-.8l-.6-.3-4.9.9 1-4.7-.3-.6c-.9-1.5-1.4-3.2-1.4-5 0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.5 10.5-9.9 10.5zm5.4-7.3c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4z"/></svg>
+  </a>
+
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

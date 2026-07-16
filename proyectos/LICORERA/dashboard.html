@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mis pedidos — Jiménez Licores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+  <nav class="dash-nav">
+    <a href="index.html" class="dash-brand">
+      <img src="assets/img/logo.png" alt="" width="38" height="38">
+      <span>JIMÉNEZ <em>LICORES</em></span>
+    </a>
+    <a href="index.html#pedido" class="dash-new">+ Nuevo pedido</a>
+  </nav>
+
+  <main class="dash-main">
+    <p class="section-label">MIS PEDIDOS</p>
+    <h1>Seguí el estado de tus pedidos</h1>
+    <p class="dash-sub">Ingresá el número de WhatsApp con el que hiciste tu pedido.</p>
+
+    <div class="dash-search">
+      <input type="tel" id="phoneInput" placeholder="8888-8888" autocomplete="tel">
+      <button id="phoneSearch">Buscar</button>
+    </div>
+
+    <div class="dash-orders" id="dashOrders"></div>
+    <p class="dash-empty" id="dashEmpty" hidden>
+      No encontramos pedidos con ese número en este dispositivo.<br>
+      Si hiciste tu pedido por WhatsApp, escribinos y te confirmamos el estado.
+    </p>
+  </main>
+
+  <footer class="dash-footer">
+    <p>El abuso del licor es nocivo para la salud. Prohibida la venta a menores — Ley 9047.</p>
+    <p>Desarrollado por <a href="https://apexcloudworkcompany.com" target="_blank" rel="noopener">Apex Cloud Work</a> — Cartago, CR</p>
+  </footer>
+
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

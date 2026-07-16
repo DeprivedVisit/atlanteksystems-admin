@@ -1,0 +1,355 @@
+/* ============================================
+   JIMÉNEZ LICORES — Admin panel
+   Paleta rubro Licores: #0a0a0f / #f0c040
+   ============================================ */
+
+:root {
+  --bg: #E8D9C0;
+  --bg-soft: #DFCFB2;
+  --bg-card: #F7EFDF;
+  --wood: #d3c09b;
+  --amber: #C8843C;
+  --amber-dim: #A9692B;
+  --gold: var(--amber);
+  --text: #2B1D12;
+  --text-dim: #6E5A44;
+  --line: #2b1d1222;
+  --danger: #A23B2E;
+  --ok: #3e6b47;
+  --radius: 12px;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 { font-family: var(--font-display); }
+
+/* ---------- Gate ---------- */
+.admin-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(ellipse 800px 500px at 50% 0%, #C8843C26 0%, transparent 60%),
+    var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.gate-box {
+  width: 100%;
+  max-width: 400px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 40px 34px;
+  text-align: center;
+}
+
+.gate-logo { width: 84px; height: 84px; object-fit: contain; margin-bottom: 14px; }
+
+.gate-box h1 { font-size: 1.5rem; margin-bottom: 6px; }
+
+.gate-sub { color: var(--text-dim); font-size: .8rem; margin-bottom: 22px; }
+
+.gate-error {
+  background: #e05a5a22;
+  border: 1px solid #e05a5a55;
+  color: #f0a0a0;
+  font-size: .75rem;
+  border-radius: 8px;
+  padding: 9px 12px;
+  margin-bottom: 16px;
+}
+
+.gate-box label {
+  display: block;
+  text-align: left;
+  font-size: .7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 12px 0 6px;
+}
+
+.gate-box input {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.gate-box input:focus { border-color: var(--gold); }
+
+.gate-box button {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: .9rem;
+  font-weight: 600;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px;
+  margin-top: 22px;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.gate-box button:hover { opacity: .88; }
+
+.gate-back {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: .75rem;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.gate-back:hover { color: var(--gold); }
+
+/* ---------- Top bar ---------- */
+.admin-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--line);
+  background: #e8d9c0ee;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: .9rem;
+}
+
+.admin-brand img { object-fit: contain; }
+
+.admin-brand em { font-style: normal; color: var(--gold); }
+
+.admin-top-actions { display: flex; align-items: center; gap: 18px; }
+
+.admin-top-actions a {
+  color: var(--text-dim);
+  font-size: .78rem;
+  text-decoration: none;
+}
+
+.admin-top-actions a:hover { color: var(--gold); }
+
+.admin-top-actions button {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.admin-top-actions button:hover { border-color: var(--danger); color: var(--danger); }
+
+/* ---------- Main ---------- */
+.admin-main {
+  width: min(1180px, 94%);
+  margin: 30px auto 60px;
+}
+
+/* Dashboard */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.dash-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dash-label {
+  font-size: .66rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.dash-card strong {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.dash-card strong.gold { color: var(--gold); }
+.dash-card strong.warn { color: #b5701f; }
+.dash-card strong.small { font-size: .9rem; line-height: 1.4; }
+
+/* Pedidos */
+.orders-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.orders-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.orders-head h2 { font-size: 1.2rem; }
+
+.orders-filters { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.orders-filters input,
+.orders-filters select {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 9px 12px;
+  outline: none;
+}
+
+.orders-filters input { min-width: 240px; }
+
+.orders-filters input:focus,
+.orders-filters select:focus { border-color: var(--gold); }
+
+.btn-danger {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  background: transparent;
+  border: 1px solid #e05a5a55;
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+
+.btn-danger:hover { background: #e05a5a1a; }
+
+.orders-table-wrap { overflow-x: auto; }
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .76rem;
+}
+
+.orders-table th {
+  text-align: left;
+  font-size: .64rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.orders-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.orders-table .mono { font-size: .7rem; color: var(--gold); }
+
+.cell-ellipsis { max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+
+.wa-link { color: #25d366; text-decoration: none; }
+
+.wa-link:hover { text-decoration: underline; }
+
+.status-select {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  border-radius: 20px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.status-select.status-pendiente { border-color: #b5701f66; color: #b5701f; }
+.status-select.status-confirmado { border-color: #C8843C66; color: var(--amber-dim); }
+.status-select.status-entregado { border-color: #7ddb8a66; color: var(--ok); }
+.status-select.status-cancelado { border-color: #e05a5a66; color: var(--danger); }
+
+.orders-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: .82rem;
+  padding: 40px 0 20px;
+}
+
+/* Footer */
+.admin-footer {
+  text-align: center;
+  font-size: .7rem;
+  color: var(--text-dim);
+  padding: 20px 0 30px;
+}
+
+.admin-footer a { color: var(--gold); text-decoration: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .dash-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .admin-top { padding: 12px 16px; }
+  .dash-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .orders-filters input { min-width: 0; width: 100%; }
+  .orders-filters { width: 100%; flex-direction: column; align-items: stretch; }
+}
