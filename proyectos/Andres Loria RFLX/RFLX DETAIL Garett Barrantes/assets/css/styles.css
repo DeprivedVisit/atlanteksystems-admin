@@ -102,6 +102,19 @@ nav ul a:hover::after { right: 0; }
 .ig-link { color: rgba(240,240,245,.4); transition: color .25s; display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
 .ig-link:hover { color: var(--yellow); }
 
+/* Hamburger menu */
+.nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:.3rem; color:#f2f2f2; }
+.nav-hamburger svg { display:block; }
+.nav-mobile-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(8,8,8,.97); z-index:999; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
+.nav-mobile-menu.open { display:flex; }
+.nav-mobile-menu a { font-family:'Oswald',sans-serif; font-size:1.6rem; letter-spacing:.1em; text-transform:uppercase; color:#f2f2f2; text-decoration:none; transition:color .2s; }
+.nav-mobile-menu a:hover, .nav-mobile-menu a.nav-cta { color:var(--yellow); }
+.nav-mobile-close { position:absolute; top:1.2rem; right:1.2rem; background:none; border:none; color:#686868; font-size:1.8rem; cursor:pointer; line-height:1; }
+@media (max-width: 640px) {
+  nav ul, nav .ig-link { display:none; }
+  .nav-hamburger { display:block; }
+}
+
 /* ══ HERO ══ */
 .hero {
   min-height: 100vh;
@@ -142,22 +155,17 @@ nav ul a:hover::after { right: 0; }
 
 .water-drops { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
 
-/* Global slider */
-.hero-bg-slider { position: fixed; inset: 0; z-index: 0; background: #06060a; }
-.hero-bg-slide {
-  position: absolute; inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 2s ease;
-  will-change: transform, opacity;
+/* Video background */
+.hero-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  object-fit: cover;
+  z-index: 0;
+  background: #06060a;
 }
-.hero-bg-slide.active { opacity: 1; }
-
-@keyframes kb1 { from { transform: scale(1)    translate(0,0)    } to { transform: scale(1.15) translate(-2%,-1%) } }
-@keyframes kb2 { from { transform: scale(1)    translate(0,0)    } to { transform: scale(1.12) translate(2%, 1%)  } }
-@keyframes kb3 { from { transform: scale(1.04) translate(1%,0)   } to { transform: scale(1.14) translate(-1%,-2%) } }
 
 .drop-anim {
   position: absolute;

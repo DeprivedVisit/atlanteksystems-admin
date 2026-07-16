@@ -27,5 +27,5 @@
 - Andrés abrió la puerta con Skindoctors — cuidar bien esta relación
 - Repo: github.com/apexcloudworkscompany/RFLX-Detail
 - Máximo 2 rondas de revisión incluidas
-- Footer: `Desarrollado por Apex Cloud Works — Cartago, CR`
+- Footer: `Desarrollado por Apex Cloud Work — Cartago, CR`
 - Precio: TBD

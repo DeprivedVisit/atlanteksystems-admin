@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -7,73 +7,15 @@
 <meta name="description" content="Auto detail premium a domicilio en Costa Rica. Lavado, detallado interior y exterior, restauración de focos y más. Técnico certificado. Agendá tu cita online.">
 <meta property="og:title" content="RFLX Detail — Auto Detail Premium a Domicilio · CR">
 <meta property="og:description" content="Llegamos donde estás. Lavado, detallado, ceramizado y más. Técnico certificado Buffer. Agendá tu cita.">
-<meta property="og:image" content="./hero-bg.png">
+<meta property="og:image" content="./assets/img/hero-bg.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/css/styles.css">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDgwODA4Ii8+PHRleHQgeD0iNTAlIiB5PSI1NCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayIgZm9udC1zaXplPSIzMCIgZmlsbD0iI2YwYzAwMCI+Ulg8L3RleHQ+PC9zdmc+">
 <style>
-/* Reels grid — pro max */
-.reels-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: .7rem;
-  max-width: 1100px;
-  margin: 2.5rem auto 0;
-}
-.reel-card {
-  position: relative;
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 3px;
-  aspect-ratio: 4/5;
-  display: flex;
-  align-items: flex-end;
-  text-decoration: none;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color .35s, box-shadow .35s;
-}
-.reel-card:hover {
-  border-color: rgba(240,192,0,.45);
-box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
-}
-.reel-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(0deg, rgba(8,8,8,.88) 0%, rgba(8,8,8,.3) 45%, transparent 100%);
-  opacity: 0; transition: opacity .35s; z-index: 1;
-}
-.reel-card:hover::before { opacity: 1; }
-.reel-card::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--yellow), transparent);
-  opacity: 0; transition: opacity .35s; z-index: 3;
-}
-.reel-card:hover::after { opacity: 1; }
-.reel-thumb {
-  position: absolute; inset: 0;
-  background-size: cover;
-  transition: transform .6s cubic-bezier(.25,.46,.45,.94);
-}
-.reel-card:hover .reel-thumb { transform: scale(1.06); }
-.reel-cta {
-  position: relative; z-index: 2;
-  width: 100%; padding: .85rem 1rem;
-  font-size: .7rem; color: var(--white);
-  letter-spacing: .1em; text-transform: uppercase;
-  display: flex; align-items: center; gap: .4rem;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity .3s .05s, transform .3s .05s;
-}
-.reel-card:hover .reel-cta { opacity: 1; transform: translateY(0); }
-@media (max-width: 900px) { .reels-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; } }
-@media (max-width: 480px) { .reels-grid { grid-template-columns: repeat(2, 1fr); gap: .4rem; } }
-.hero-reels { margin-top: 2rem; width: 100%; }
-
 /* Admin modal */
 .admin-modal-inner { background:#111; border:1px solid rgba(240,192,0,.2); border-radius:2px; padding:2rem; width:96%; max-width:900px; max-height:85vh; overflow-y:auto; position:relative; }
 .admin-modal-inner::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#f0c000,transparent); }
@@ -138,42 +80,26 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
 .admin-tag-list { display:flex; flex-wrap:wrap; gap:.35rem; }
 .admin-tag-red { background:rgba(200,50,50,.1); border:1px solid rgba(200,50,50,.3); border-radius:2px; padding:.2rem .55rem; font-size:.72rem; color:#cc3333; }
 
-/* Hamburger menu */
-.nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:.3rem; color:#f2f2f2; }
-.nav-hamburger svg { display:block; }
-.nav-mobile-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(8,8,8,.97); z-index:999; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
-.nav-mobile-menu.open { display:flex; }
-.nav-mobile-menu a { font-family:'Oswald',sans-serif; font-size:1.6rem; letter-spacing:.1em; text-transform:uppercase; color:#f2f2f2; text-decoration:none; transition:color .2s; }
-.nav-mobile-menu a:hover, .nav-mobile-menu a.nav-cta { color:var(--yellow); }
-.nav-mobile-close { position:absolute; top:1.2rem; right:1.2rem; background:none; border:none; color:#686868; font-size:1.8rem; cursor:pointer; line-height:1; }
-@media (max-width: 640px) {
-  nav ul, nav .ig-link { display:none; }
-  .nav-hamburger { display:block; }
-}
 </style>
 </head>
 <body>
 
-<!-- Slideshow de fondo global — reemplazá URLs por fotos locales cuando las tengas -->
-<div class="hero-bg-slider" id="hero-slider">
-  <div class="hero-bg-slide active" style="background-image:url('thumb-reel1.jpg');background-position:center 15%"></div>
-  <div class="hero-bg-slide" style="background-image:url('thumb-reel4.jpg');background-position:center 40%"></div>
-  <div class="hero-bg-slide" style="background-image:url('thumb-reel2.jpg');background-position:center 5%"></div>
-  <div class="hero-bg-slide" style="background-image:url('thumb-reel6.jpg');background-position:center 30%"></div>
-  <div class="hero-bg-slide" style="background-image:url('thumb-reel3.jpg');background-position:center 15%"></div>
-  <div class="hero-bg-slide" style="background-image:url('thumb-reel5.jpg');background-position:center 20%"></div>
-</div>
+<!-- Video background -->
+<video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/poster.jpg">
+  <source src="assets/video/hero.mp4" type="video/mp4">
+</video>
 
 
 <a class="wa-float" href="https://wa.me/50670352618?text=Hola%20RFLX%20Detail!%20Quiero%20agendar%20un%20servicio%20de%20auto%20detail." target="_blank" aria-label="Contactar RFLX Detail por WhatsApp">💬</a>
 
 <!-- NAV -->
 <nav>
-  <a class="logo-img" href="#"><img src="logo-rflx.png" alt="RFLX Detail" height="44"></a>
+  <a class="logo-img" href="#"><img src="assets/img/logo-rflx.png" alt="RFLX Detail" height="44"></a>
   <ul>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#como-funciona">¿Cómo funciona?</a></li>
     <li><a href="#testimonios">Reseñas</a></li>
+    <li><a href="reels.html">Reels</a></li>
     <li><a href="#agendar" class="nav-cta">Agendar</a></li>
   </ul>
   <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="ig-link" aria-label="RFLX Detail en Instagram">
@@ -195,6 +121,7 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
   <a href="#servicios" class="nav-mobile-link">Servicios</a>
   <a href="#como-funciona" class="nav-mobile-link">¿Cómo funciona?</a>
   <a href="#testimonios" class="nav-mobile-link">Reseñas</a>
+  <a href="reels.html" class="nav-mobile-link">Reels</a>
   <a href="#agendar" class="nav-cta nav-mobile-link">Agendar</a>
   <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="nav-mobile-link">@rflxdetail</a>
 </div>
@@ -215,7 +142,7 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
     <!-- Perfil -->
     <div class="hero-profile-row">
       <div class="hero-avatar">
-        <img src="perfil.jpg" alt="Andrés Loría · RFLX Detail">
+        <img src="assets/img/perfil-andres.jpg" alt="Andrés Loría · RFLX Detail">
       </div>
       <div class="hero-profile-info">
         <span class="hero-profile-name">Andrés Loría</span>
@@ -231,10 +158,6 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
     <div class="hero-actions">
       <a href="#agendar" class="btn-primary">Agendar cita</a>
       <a href="#servicios" class="btn-outline">Ver servicios</a>
-      <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="btn-ig">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-        @rflxdetail
-      </a>
     </div>
 
     <!-- Chips info -->
@@ -242,53 +165,6 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
       <div class="hero-chip">🏅 Certificado Buffer</div>
       <div class="hero-chip">🚗 A domicilio</div>
       <div class="hero-chip">📲 WhatsApp / DM</div>
-    </div>
-
-    <!-- Reels grid -->
-    <div class="reels-grid hero-reels">
-
-      <a href="https://www.instagram.com/reel/DU4Qa21CYg1/" target="_blank" rel="noopener" class="reel-card">
-        <div class="reel-thumb" style="background-image:url('thumb-reel1.jpg');background-position:center 15%"></div>
-        <span class="reel-cta">Ver en Instagram
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </span>
-      </a>
-
-      <a href="https://www.instagram.com/reel/DX8ESPksCEM/" target="_blank" rel="noopener" class="reel-card">
-        <div class="reel-thumb" style="background-image:url('thumb-reel2.jpg');background-position:center 5%"></div>
-        <span class="reel-cta">Ver en Instagram
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </span>
-      </a>
-
-      <a href="https://www.instagram.com/reel/DWajpc9Dd6d/" target="_blank" rel="noopener" class="reel-card">
-        <div class="reel-thumb" style="background-image:url('thumb-reel3.jpg');background-position:center 15%"></div>
-        <span class="reel-cta">Ver en Instagram
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </span>
-      </a>
-
-      <a href="https://www.instagram.com/reel/DVNN0o_DeZ2/" target="_blank" rel="noopener" class="reel-card">
-        <div class="reel-thumb" style="background-image:url('thumb-reel4.jpg');background-position:center 40%"></div>
-        <span class="reel-cta">Ver en Instagram
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </span>
-      </a>
-
-      <a href="https://www.instagram.com/reel/DXsfI5SidUa/" target="_blank" rel="noopener" class="reel-card">
-        <div class="reel-thumb" style="background-image:url('thumb-reel5.jpg');background-position:center 20%"></div>
-        <span class="reel-cta">Ver en Instagram
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </span>
-      </a>
-
-      <a href="https://www.instagram.com/reel/DVWeZasCdgK/" target="_blank" rel="noopener" class="reel-card">
-        <div class="reel-thumb" style="background-image:url('thumb-reel6.jpg');background-position:center 30%"></div>
-        <span class="reel-cta">Ver en Instagram
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </span>
-      </a>
-
     </div>
 
   </div>
@@ -716,13 +592,13 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><img src="logo-rflx.png" alt="RFLX Detail" height="38"></div>
+  <div class="footer-logo"><img src="assets/img/logo-rflx.png" alt="RFLX Detail" height="38"></div>
   <div class="footer-info">
     📱 +506 7035-2618<br>
     ✉️ <a href="mailto:reflexdetail323@gmail.com" style="color:var(--yellow)">reflexdetail323@gmail.com</a><br>
     📸 <a href="https://www.instagram.com/rflxdetail/" target="_blank" style="color:var(--yellow)">@rflxdetail</a> · @andr.loria<br>
     <em style="color:var(--muted)">Detail that reflects excellence · Col 3:23</em><br>
-    <span style="color:var(--muted)">Desarrollado por Apex Cloud Works — Cartago, Costa Rica</span>
+    <span style="color:var(--muted)">Desarrollado por Apex Cloud Work — Cartago, Costa Rica</span>
   </div>
   <div class="footer-links">
     <a href="#servicios">Servicios</a>
@@ -845,8 +721,29 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
   </div>
 </div>
 
-<script src="calendar.js"></script>
+<script src="assets/js/calendar.js"></script>
 <script>
+// ── Video de fondo: forzar play si el navegador bloquea autoplay ──
+(function(){
+  const v = document.querySelector('.hero-video');
+  if(!v) return;
+  // muted por propiedad además del atributo — algunos navegadores lo exigen
+  v.muted = true;
+  const gestos = ['touchstart','touchend','pointerdown','click','scroll','keydown'];
+  function limpiar(){ gestos.forEach(e=>window.removeEventListener(e, intentar)); }
+  function intentar(){
+    if(!v.paused){ limpiar(); return; }
+    v.play().then(limpiar).catch(()=>{});
+  }
+  intentar();
+  window.addEventListener('load', intentar);
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) intentar(); });
+  // Cualquier gesto en la página (toque, scroll, click) dispara el video —
+  // se reintenta hasta que arranque, luego se limpian los listeners
+  gestos.forEach(e=>window.addEventListener(e, intentar, { passive: true }));
+  v.addEventListener('playing', limpiar);
+})();
+
 // ── Nav transparente al inicio, sólido al scroll ──
 (function(){
   const nav = document.querySelector('nav');
@@ -855,26 +752,7 @@ box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
   }, { passive: true });
 })();
 
-// ── Hero background slideshow con Ken Burns 3D ──
-(function(){
-  const slides = document.querySelectorAll('.hero-bg-slide');
-  if(!slides.length) return;
-  const ANIMS = ['kb1 8s ease-out forwards', 'kb2 8s ease-out forwards', 'kb3 8s ease-out forwards'];
-  function activateSlide(el, idx){
-    el.style.animation = 'none';
-    el.offsetHeight; // reflow para reiniciar animación
-    el.style.animation = ANIMS[idx % ANIMS.length];
-    el.classList.add('active');
-  }
-  let cur = 0;
-  activateSlide(slides[0], 0);
-  if(slides.length < 2) return;
-  setInterval(function(){
-    slides[cur].classList.remove('active');
-    cur = (cur + 1) % slides.length;
-    activateSlide(slides[cur], cur);
-  }, 6000);
-})();
+
 
 // ── Hamburger menu ──
 (function(){

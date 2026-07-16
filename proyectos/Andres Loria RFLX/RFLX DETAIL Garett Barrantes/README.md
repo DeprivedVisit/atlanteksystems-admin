@@ -1,6 +1,6 @@
 # RFLX Detail — Sitio web oficial
 
-Desarrollado por **Apex Cloud Works** · Cartago, Costa Rica  
+Desarrollado por **Apex Cloud Work** · Cartago, Costa Rica  
 Cliente: **Andrés Loria** · Auto detail premium a domicilio · CR
 
 ---
@@ -105,6 +105,6 @@ Para activarlo en producción:
 
 ## 📞 Soporte
 
-**Apex Cloud Works**  
-apexcloudworkscompany@gmail.com  
+**Apex Cloud Work**  
+apexcloudworkcompany@gmail.com  
 WhatsApp: +506 6314-4171

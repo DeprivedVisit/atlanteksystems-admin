@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RFLX Detail | Reels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+body { padding-top: 5rem; }
+.reels-page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+.reels-page h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  letter-spacing: .1em;
+  color: var(--yellow);
+  text-align: center;
+  margin-bottom: .5rem;
+}
+.reels-page .subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 2.5rem;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  transition: color .2s;
+}
+.back-link:hover { color: var(--yellow); }
+.reels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .7rem;
+}
+.reel-card {
+  position: relative;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 3px;
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color .35s, box-shadow .35s;
+}
+.reel-card:hover {
+  border-color: rgba(240,192,0,.45);
+  box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 20px rgba(240,192,0,.07);
+}
+.reel-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(8,8,8,.88) 0%, rgba(8,8,8,.3) 45%, transparent 100%);
+  opacity: 0; transition: opacity .35s; z-index: 1;
+}
+.reel-card:hover::before { opacity: 1; }
+.reel-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+  opacity: 0; transition: opacity .35s; z-index: 3;
+}
+.reel-card:hover::after { opacity: 1; }
+.reel-thumb {
+  position: absolute; inset: 0;
+  background-size: cover;
+  transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.reel-card:hover .reel-thumb { transform: scale(1.06); }
+.reel-cta {
+  position: relative; z-index: 2;
+  width: 100%; padding: .85rem 1rem;
+  font-size: .7rem; color: var(--white);
+  letter-spacing: .1em; text-transform: uppercase;
+  display: flex; align-items: center; gap: .4rem;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .3s .05s, transform .3s .05s;
+}
+.reel-card:hover .reel-cta { opacity: 1; transform: translateY(0); }
+@media (max-width: 900px) { .reels-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; } }
+@media (max-width: 480px) { .reels-grid { grid-template-columns: repeat(2, 1fr); gap: .4rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo-img" href="index.html"><img src="assets/img/logo-rflx.png" alt="RFLX Detail" height="44"></a>
+  <ul>
+    <li><a href="index.html#servicios">Servicios</a></li>
+    <li><a href="index.html#como-funciona">¿Cómo funciona?</a></li>
+    <li><a href="index.html#testimonios">Reseñas</a></li>
+    <li><a href="index.html#agendar" class="nav-cta">Agendar</a></li>
+  </ul>
+  <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="ig-link" aria-label="RFLX Detail en Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+  <a href="index.html#servicios" class="nav-mobile-link">Servicios</a>
+  <a href="index.html#como-funciona" class="nav-mobile-link">¿Cómo funciona?</a>
+  <a href="index.html#testimonios" class="nav-mobile-link">Reseñas</a>
+  <a href="index.html#agendar" class="nav-cta nav-mobile-link">Agendar</a>
+  <a href="https://www.instagram.com/rflxdetail/" target="_blank" class="nav-mobile-link">@rflxdetail</a>
+</div>
+
+<div class="reels-page">
+  <a href="index.html" class="back-link">← Volver al inicio</a>
+  <h1>Nuestros Reels</h1>
+  <p class="subtitle">Seguinos en Instagram para ver más de nuestro trabajo</p>
+
+  <div class="reels-grid">
+    <a href="https://www.instagram.com/reel/DU4Qa21CYg1/" target="_blank" rel="noopener" class="reel-card">
+      <div class="reel-thumb" style="background-image:url('assets/img/thumb-reel1.jpg');background-position:center 15%"></div>
+      <span class="reel-cta">Ver en Instagram
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </span>
+    </a>
+    <a href="https://www.instagram.com/reel/DX8ESPksCEM/" target="_blank" rel="noopener" class="reel-card">
+      <div class="reel-thumb" style="background-image:url('assets/img/thumb-reel2.jpg');background-position:center 5%"></div>
+      <span class="reel-cta">Ver en Instagram
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </span>
+    </a>
+    <a href="https://www.instagram.com/reel/DWajpc9Dd6d/" target="_blank" rel="noopener" class="reel-card">
+      <div class="reel-thumb" style="background-image:url('assets/img/thumb-reel3.jpg');background-position:center 15%"></div>
+      <span class="reel-cta">Ver en Instagram
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </span>
+    </a>
+    <a href="https://www.instagram.com/reel/DVNN0o_DeZ2/" target="_blank" rel="noopener" class="reel-card">
+      <div class="reel-thumb" style="background-image:url('assets/img/thumb-reel4.jpg');background-position:center 40%"></div>
+      <span class="reel-cta">Ver en Instagram
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </span>
+    </a>
+    <a href="https://www.instagram.com/reel/DXsfI5SidUa/" target="_blank" rel="noopener" class="reel-card">
+      <div class="reel-thumb" style="background-image:url('assets/img/thumb-reel5.jpg');background-position:center 20%"></div>
+      <span class="reel-cta">Ver en Instagram
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </span>
+    </a>
+    <a href="https://www.instagram.com/reel/DVWeZasCdgK/" target="_blank" rel="noopener" class="reel-card">
+      <div class="reel-thumb" style="background-image:url('assets/img/thumb-reel6-clean.jpg');background-position:center 30%"></div>
+      <span class="reel-cta">Ver en Instagram
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo"><img src="assets/img/logo-rflx.png" alt="RFLX Detail" height="38"></div>
+  <div class="footer-info">
+    📱 +506 7035-2618<br>
+    ✉️ <a href="mailto:reflexdetail323@gmail.com" style="color:var(--yellow)">reflexdetail323@gmail.com</a><br>
+    📸 <a href="https://www.instagram.com/rflxdetail/" target="_blank" style="color:var(--yellow)">@rflxdetail</a> · @andr.loria<br>
+    <em style="color:var(--muted)">Detail that reflects excellence · Col 3:23</em><br>
+    <span style="color:var(--muted)">Desarrollado por Apex Cloud Work — Cartago, Costa Rica</span>
+  </div>
+  <div class="footer-links">
+    <a href="index.html#servicios">Servicios</a>
+    <a href="index.html#como-funciona">¿Cómo funciona?</a>
+    <a href="index.html#agendar">Agendar</a>
+    <a href="https://www.instagram.com/rflxdetail/" target="_blank">Instagram</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const hamburger = document.getElementById('nav-hamburger');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+  const closeBtn = document.getElementById('nav-mobile-close');
+  if(!hamburger || !mobileMenu) return;
+  hamburger.addEventListener('click', ()=> mobileMenu.classList.add('open'));
+  closeBtn?.addEventListener('click', ()=> mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('.nav-mobile-link').forEach(a=>{
+    a.addEventListener('click', ()=> mobileMenu.classList.remove('open'));
+  });
+})();
+</script>
+</body>
+</html>
