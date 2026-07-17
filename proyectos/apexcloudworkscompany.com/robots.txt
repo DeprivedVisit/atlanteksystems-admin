@@ -11,4 +11,4 @@ Disallow: /templates/
 Disallow: /*.gs$
 
 # Sitemap
-Sitemap: https://apexcloudworkcompany.com/sitemap.xml
+Sitemap: https://apexcloudworkscompany.com/sitemap.xml

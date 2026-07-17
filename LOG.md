@@ -9,36 +9,36 @@
 ### 2026-07-16 (jueves) — Unificación de nombre/URL/email en todo el repo
 
 - ✅ Footer faltante agregado en `proyectos/Megan/index.html` (único `index.html` de cliente sin crédito "Desarrollado por Apex Cloud Work")
-- ✅ `proyectos/wilson/security_monitor.py` monitoreaba `https://apexcloudworkscompany.com` (con s, dominio inexistente) — corregido a `apexcloudworkcompany.com` (sin s, el real)
-- ✅ Decisión revertida respecto a la entrada del 07 jul: se unificó `apexcloudworkscompany@gmail.com` → `apexcloudworkcompany@gmail.com` **incluyendo contratos/proformas ya entregados** (Skindoctors, EcoPollo, VisionaryFilm, RFLX) y workflows N8N/Apps Script de producción (Skindoctors CBD/Melas, Galiz) — 22 archivos. Decisión explícita de Garett, no accidental.
+- ✅ `proyectos/wilson/security_monitor.py` monitoreaba `https://apexcloudworkscompany.com` (con s, dominio inexistente) — corregido a `apexcloudworkscompany.com` (sin s, el real)
+- ✅ Decisión revertida respecto a la entrada del 07 jul: se unificó `apexcloudworkscompany@gmail.com` → `apexcloudworkscompany@gmail.com` **incluyendo contratos/proformas ya entregados** (Skindoctors, EcoPollo, VisionaryFilm, RFLX) y workflows N8N/Apps Script de producción (Skindoctors CBD/Melas, Galiz) — 22 archivos. Decisión explícita de Garett, no accidental.
 - ⚠️ Pendiente: los sitios ya deployados en S3 (Skindoctors melasblock/cbd-balance, Galiz, EcoPollo) siguen sirviendo la versión vieja hasta el próximo redeploy — el fix local no se refleja en producción solo.
-- ⚠️ Pendiente: confirmar que `apexcloudworkcompany@gmail.com` (sin s) es la casilla que se está monitoreando activamente — si los leads reales de Skindoctors/Galiz llegaban a la de "con s", dejan de llegar ahí tras el redeploy.
+- ⚠️ Pendiente: confirmar que `apexcloudworkscompany@gmail.com` (sin s) es la casilla que se está monitoreando activamente — si los leads reales de Skindoctors/Galiz llegaban a la de "con s", dejan de llegar ahí tras el redeploy.
 - 🔍 Único resto de "Apex Cloud Works" (con s, nombre incorrecto) en todo el repo: metadata del PDF `Mente/tareas-manuales/tareas-manuales-2026-07-07.pdf` (artefacto generado, no se encontró el script fuente que lo produjo — no se tocó el binario)
 
 ---
 
 ## Semana 6 · 6 – 12 Julio 2026
 
-### 2026-07-07 (martes) — Dominio + certificado apexcloudworkcompany.com resueltos
+### 2026-07-07 (martes) — Dominio + certificado apexcloudworkscompany.com resueltos
 
 #### Diagnóstico
-- 🔍 Captura de ACM mostró certificado `PENDING_VALIDATION` para `apexcloudworkcompany.com` (sin "s") — nunca se agregó el CNAME de validación
-- 🔍 Confirmado por CLI: el dominio registrado en Route 53 (04-jul-2026) es realmente `apexcloudworkcompany.com` (sin s) — no es un typo, es el dominio real de la empresa
+- 🔍 Captura de ACM mostró certificado `PENDING_VALIDATION` para `apexcloudworkscompany.com` (sin "s") — nunca se agregó el CNAME de validación
+- 🔍 Confirmado por CLI: el dominio registrado en Route 53 (04-jul-2026) es realmente `apexcloudworkscompany.com` (sin s) — no es un typo, es el dominio real de la empresa
 - 🔍 Bucket S3 con contenido real (`apexcloudworkscompany.com`, con s) y CloudFront `ET4LXKTRYGW7N` no tenían alias de dominio ni certificado conectado
 - 🔍 Bloqueante nuevo encontrado: la zona hospedada de Route 53 no existía (0 zonas), pese a que el dominio sí estaba registrado
 
 #### Migración de infraestructura AWS
-- ✅ Zona hospedada pública creada para `apexcloudworkcompany.com`
+- ✅ Zona hospedada pública creada para `apexcloudworkscompany.com`
 - ✅ Name servers del dominio actualizados (por Garett) para apuntar a la zona nueva
-- ✅ Bucket S3 nuevo `apexcloudworkcompany.com` (sin s) creado — hosting estático + policy pública igual al bucket viejo
+- ✅ Bucket S3 nuevo `apexcloudworkscompany.com` (sin s) creado — hosting estático + policy pública igual al bucket viejo
 - ✅ Contenido migrado con `aws s3 sync` — 47 objetos, 2.4 MB, desde `apexcloudworkscompany.com` (con s)
 - ✅ CNAME de validación agregados por Garett → certificado ACM `b3c4f00d-...` pasó a `ISSUED`
-- ✅ CloudFront `ET4LXKTRYGW7N` actualizado: alias `apexcloudworkcompany.com` + `www.apexcloudworkcompany.com`, certificado ACM adjunto
+- ✅ CloudFront `ET4LXKTRYGW7N` actualizado: alias `apexcloudworkscompany.com` + `www.apexcloudworkscompany.com`, certificado ACM adjunto
 - ✅ Registros ALIAS (A) agregados por Garett — root y `www` apuntando a `d3qo2igs81lk3y.cloudfront.net`
 
 #### Verificación final
-- ✅ `https://apexcloudworkcompany.com` — 200 OK, SSL válido
-- ✅ `https://www.apexcloudworkcompany.com` — 200 OK, SSL válido
+- ✅ `https://apexcloudworkscompany.com` — 200 OK, SSL válido
+- ✅ `https://www.apexcloudworkscompany.com` — 200 OK, SSL válido
 - ✅ `/admin.html` y título de página cargan correctamente desde el bucket nuevo
 
 #### Fuera de alcance (decisión explícita)
@@ -48,10 +48,10 @@
 - ⛔ Bucket viejo `apexcloudworkscompany.com` (con s) — se deja como respaldo, no se borra
 
 #### CLAUDE.md
-- ✅ Corregida línea GitHub: `apexcloudworkcompany` → `apexcloudworkscompany` (con s, el org real)
+- ✅ Corregida línea GitHub: `apexcloudworkscompany` → `apexcloudworkscompany` (con s, el org real)
 
 #### Estado proyecto Apex Landing
-- ✅ Dominio y certificado resueltos — sitio live en `apexcloudworkcompany.com`
+- ✅ Dominio y certificado resueltos — sitio live en `apexcloudworkscompany.com`
 - ⏳ Pendiente: decidir si se borra el bucket viejo (con s) más adelante, resolver los 3 críticos de seguridad ya documentados
 
 ---
@@ -60,7 +60,7 @@
 
 ### 2026-06-26 (jueves) — Apex Landing v2 · full completa · EC2 plan
 
-#### Escaneo general apexcloudworkcompany.com
+#### Escaneo general apexcloudworkscompany.com
 - ✅ Auditoría completa del directorio — 31 archivos, 8,448 líneas totales
 - ✅ Eliminado `templates/` — prototipo muerto (teal/Barlow, nunca deployado, sin referencias)
 - 📋 Problemas detectados: contact form fantasma · scroll-gallery CSS muerta · "Jarvis" en deploy · og-image faltante · foto Garett placeholder · sin testimonios
@@ -86,7 +86,7 @@
 
 ### 2026-06-24 (martes) — Apex Landing + Mente + base del sistema
 
-#### Apex Landing — apexcloudworkcompany.com
+#### Apex Landing — apexcloudworkscompany.com
 - ✅ Separación limpia HTML/CSS/JS — eliminados 100+ líneas de `style=""` inline del `cc-root`
 - ✅ `backgrounds.js` genera los 5 fondos animados dinámicamente
 - ✅ `backgrounds.css` recibe todas las clases + keyframes

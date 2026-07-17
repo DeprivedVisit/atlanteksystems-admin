@@ -25,7 +25,7 @@
 
 | Proyecto | Estado |
 |---------|--------|
-| Apex Landing | ✅ Live en apexcloudworkcompany.com · backend EC2 en curso · 3 críticos seguridad abiertos |
+| Apex Landing | ✅ Live en apexcloudworkscompany.com · backend EC2 en curso · 3 críticos seguridad abiertos |
 | Wilson | ✅ Funcional · pendiente n8n → WhatsApp |
 | AutoCAD/Arquitectura | 🆕 Fase 1 en diseño (con Derek) |
 
@@ -73,4 +73,4 @@
 
 ---
 
-*Apex Cloud Work · Cartago, CR · apexcloudworkcompany.com*
+*Apex Cloud Work · Cartago, CR · apexcloudworkscompany.com*

@@ -2,9 +2,9 @@
     "configurations": [
         {
             "type": "msedge",
-            "name": "http://127.0.0.1:3000/proyectos/apexcloudworkcompany.com/HTML",
+            "name": "http://127.0.0.1:3000/proyectos/apexcloudworkscompany.com/HTML",
             "request": "launch",
-            "url": "http://127.0.0.1:3000/proyectos/apexcloudworkcompany.com/HTML"
+            "url": "http://127.0.0.1:3000/proyectos/apexcloudworkscompany.com/HTML"
         }
     ]
 }

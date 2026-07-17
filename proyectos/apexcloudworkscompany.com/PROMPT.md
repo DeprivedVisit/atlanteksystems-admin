@@ -5,14 +5,14 @@
 
 ## Project
 **Client:** Interno — Apex Cloud Work
-**Site:** apexcloudworkcompany.com
+**Site:** apexcloudworkscompany.com
 **Status:** ✅ Live — rediseño premium retro completado
 **Priority:** Mejoras continuas (foto real, auth, dashboard cliente)
 
 ## Contact
-- **Email:** apexcloudworkcompany@gmail.com
+- **Email:** apexcloudworkscompany@gmail.com
 - **WhatsApp:** +506 6314-4171
-- **GitHub:** github.com/apexcloudworkcompany
+- **GitHub:** github.com/apexcloudworkscompany
 
 ## Design
 - **Fondo:** casi negro (tokens.css `--bg:#090B0E`)
@@ -33,7 +33,7 @@
 - **Admin:** `/admin.html` — mock data, pendiente conectar Google Sheets
 
 ## Infraestructura
-- **Dominio:** apexcloudworkcompany.com (Route 53)
+- **Dominio:** apexcloudworkscompany.com (Route 53)
 - **Hosting:** AWS S3 + CloudFront
 - **SSL:** ACM (HTTPS activo)
 

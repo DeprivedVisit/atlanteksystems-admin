@@ -40,7 +40,7 @@ function doPost(e) {
       data.contacto || '',
       data.servicio || '',
       data.mensaje  || '',
-      'Landing apexcloudworkcompany.com'
+      'Landing apexcloudworkscompany.com'
     ]);
     return respond({ success: true });
   } catch (err) {

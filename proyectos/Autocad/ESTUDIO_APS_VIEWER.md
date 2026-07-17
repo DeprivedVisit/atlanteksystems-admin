@@ -181,7 +181,7 @@ sequenceDiagram
 | **Gestión modelos** | Renombrar, eliminar, duplicar, mover a carpeta, metadatos personalizados | P1 |
 | **Analytics básico** | Vistas únicas, tiempo sesión, dispositivo, país (CloudFront logs + Athena) | P2 |
 
-### 4.2 Visor Cliente Final (Público) — `visor.{cliente}.apexcloudworkcompany.com`
+### 4.2 Visor Cliente Final (Público) — `visor.{cliente}.apexcloudworkscompany.com`
 
 | Feature | Detalle | Prioridad |
 |---------|---------|-----------|
@@ -263,7 +263,7 @@ sequenceDiagram
 ### Semana 5: Integración Stack Apex + Deploy
 - [ ] CDK Stack dedicado por cliente (`VisorStack-{slug}`)
 - [ ] Wilson command: `/deploy visor-cliente-{slug}`
-- [ ] Subdominio `visor.{slug}.apexcloudworkcompany.com` + ACM cert
+- [ ] Subdominio `visor.{slug}.apexcloudworkscompany.com` + ACM cert
 - [ ] Pipeline GitHub Actions → CDK deploy
 - [ ] Migración portal actual (`portal/`) → integrar módulo visor
 

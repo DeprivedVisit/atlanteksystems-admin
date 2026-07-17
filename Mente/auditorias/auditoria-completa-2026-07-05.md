@@ -1,4 +1,4 @@
-# Auditoría completa — apexcloudworkcompany.com
+# Auditoría completa — apexcloudworkscompany.com
 > Fecha: 05 jul 2026 · Alcance: todo el proyecto (`index.html`, `admin.html`, `portal/`, `backend/`, `Legal/`, `Seguridad/`, `.gs`, `sitemap.xml`, `robots.txt`)
 
 ---
@@ -61,7 +61,7 @@ Migrado desde Loop-Landing.com
 Garett Barrantes Benavides · Curridabat, Costa Rica
 DOMAIN="apex-cloudworks.com"
 ```
-El negocio es Apex Cloud Work, Cartago — y el dominio real del sitio es `apexcloudworkcompany.com` (sin guion), no `apex-cloudworks.com` (con guion, que aparecía en nginx/deploy). **Corregido en esta misma pasada.**
+El negocio es Apex Cloud Work, Cartago — y el dominio real del sitio es `apexcloudworkscompany.com` (sin guion), no `apex-cloudworks.com` (con guion, que aparecía en nginx/deploy). **Corregido en esta misma pasada.**
 
 ---
 

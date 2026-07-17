@@ -50,7 +50,7 @@
   1. Generar nuevo key pair en EC2
   2. Copiar `backend/` al EC2 via SCP
   3. Ejecutar `deploy-ec2.sh` en el servidor
-  4. Verificar: `curl https://api.apexcloudworkcompany.com/api/admin/me`
+  4. Verificar: `curl https://api.apexcloudworkscompany.com/api/admin/me`
 - **Dependencias:** Tareas 1 y 2 completadas primero
 - **Tiempo:** 1-2 horas
 
@@ -62,7 +62,7 @@
 
 ### 8. Actualizar CORS para producción
 - **Archivo:** `backend/.env` línea 29
-- **Acción:** Cambiar `FRONTEND_ORIGIN` de `localhost:5500` a `https://apexcloudworkcompany.com`
+- **Acción:** Cambiar `FRONTEND_ORIGIN` de `localhost:5500` a `https://apexcloudworkscompany.com`
 - **Acción 2:** Cambiar `COOKIE_SECURE=false` a `COOKIE_SECURE=true`
 - **Dependencia:** Deploy del backend completado (tarea 6)
 - **Tiempo:** 5 min
@@ -80,7 +80,7 @@
 
 ### 10. Health check diario automático
 - **Opción A:** Agregar a Wilson un cron/check que verifique uptime de todos los dominios
-- **Opción B:** Usar UptimeRobot (gratis) para monitorear apexcloudworkcompany.com, skindoctors, ecopollo, etc.
+- **Opción B:** Usar UptimeRobot (gratis) para monitorear apexcloudworkscompany.com, skindoctors, ecopollo, etc.
 - **Alertas:** WhatsApp si alguno cae
 - **Tiempo:** 1 hora para configurar
 

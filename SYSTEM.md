@@ -8,7 +8,7 @@
 **Garett Johan Barrantes Benavides**
 Founder — Apex Cloud Work
 Cartago, Costa Rica
-apexcloudworkcompany@gmail.com · +506 6314-4171
+apexcloudworkscompany@gmail.com · +506 6314-4171
 GitHub: github.com/apexcloudworkscompany
 
 ---

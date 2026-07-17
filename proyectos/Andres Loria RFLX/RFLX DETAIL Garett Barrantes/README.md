@@ -106,5 +106,5 @@ Para activarlo en producción:
 ## 📞 Soporte
 
 **Apex Cloud Work**  
-apexcloudworkcompany@gmail.com  
+apexcloudworkscompany@gmail.com  
 WhatsApp: +506 6314-4171

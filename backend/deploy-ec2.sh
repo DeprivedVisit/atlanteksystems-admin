@@ -9,7 +9,7 @@ set -e
 echo "🚀 Iniciando deploy de Apex Cloud Work en EC2..."
 
 # ── Variables — CAMBIAR ANTES DE EJECUTAR ────────────────────
-DOMAIN="api.apexcloudworkcompany.com"
+DOMAIN="api.apexcloudworkscompany.com"
 DB_NAME="apex_cloudworks"
 DB_USER="apex_user"
 DB_PASS="$(openssl rand -base64 32)"  # Genera password seguro

@@ -73,7 +73,7 @@ graph TD
 No gastes semanas construyendo una tienda. Sigue este proceso ágil:
 
 1.  **Encuentra 3 productos candidatos:** Que resuelvan un problema, tengan factor "wow" y se puedan vender a más de $25 USD.
-2.  **Diseña una Landing Simple:** Crea un subdirectorio en S3 (`dropship.apexcloudworkcompany.com/producto/`). Usa HTML limpio y CSS rápido.
+2.  **Diseña una Landing Simple:** Crea un subdirectorio en S3 (`dropship.apexcloudworkscompany.com/producto/`). Usa HTML limpio y CSS rápido.
 3.  **Monta un checkout de n8n:** Un formulario simple que recopile los datos y los envíe a una hoja de Google Sheets.
 4.  **Crea 3 creativos de video:** Descarga videos existentes de TikTok/Pinterest, edítalos y hazlos tuyos.
 5.  **Prueba de Tráfico ($20 USD):** Corre una campaña de TikTok Ads o Facebook Ads enfocada a conversiones durante 2 días.

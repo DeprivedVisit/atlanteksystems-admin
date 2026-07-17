@@ -29,8 +29,8 @@ Hemos implementado con éxito el simulador interactivo en la **sección Hero de 
 
 ## 🛠️ Archivos Modificados en el Workspace
 
-* **[index.html](file:///f:/apex-cloudworks/proyectos/apexcloudworkcompany.com/index.html)**: Hero modificado a diseño split con el iframe del simulador incrustado.
-* **[assets/css/style.css](file:///f:/apex-cloudworks/proyectos/apexcloudworkcompany.com/assets/css/style.css)**: Añadidas reglas de layout adaptativas (`.hero-wrap-split`, `.simulator-window-border`, etc.) para pantallas de escritorio y móviles.
-* **[background/index.html](file:///f:/apex-cloudworks/proyectos/apexcloudworkcompany.com/background/index.html)**: Creados contenedores para el Smartphone mockup, ondas de voz y carrusel de fases.
-* **[background/assets/css/style.css](file:///f:/apex-cloudworks/proyectos/apexcloudworkcompany.com/background/assets/css/style.css)**: Estilos para el formulario del ticket, smartphone y animaciones neón de ondas de voz.
-* **[background/assets/js/script.js](file:///f:/apex-cloudworks/proyectos/apexcloudworkcompany.com/background/assets/js/script.js)**: Lógica interactiva que conecta el submit del ticket form con la simulación del workflow.
+* **[index.html](file:///f:/apex-cloudworks/proyectos/apexcloudworkscompany.com/index.html)**: Hero modificado a diseño split con el iframe del simulador incrustado.
+* **[assets/css/style.css](file:///f:/apex-cloudworks/proyectos/apexcloudworkscompany.com/assets/css/style.css)**: Añadidas reglas de layout adaptativas (`.hero-wrap-split`, `.simulator-window-border`, etc.) para pantallas de escritorio y móviles.
+* **[background/index.html](file:///f:/apex-cloudworks/proyectos/apexcloudworkscompany.com/background/index.html)**: Creados contenedores para el Smartphone mockup, ondas de voz y carrusel de fases.
+* **[background/assets/css/style.css](file:///f:/apex-cloudworks/proyectos/apexcloudworkscompany.com/background/assets/css/style.css)**: Estilos para el formulario del ticket, smartphone y animaciones neón de ondas de voz.
+* **[background/assets/js/script.js](file:///f:/apex-cloudworks/proyectos/apexcloudworkscompany.com/background/assets/js/script.js)**: Lógica interactiva que conecta el submit del ticket form con la simulación del workflow.

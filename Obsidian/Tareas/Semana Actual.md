@@ -14,7 +14,7 @@
 
 ## 🔥 BLOQUE 1 — Build
 
-- [ ] Backend EC2 — deploy y levantar `api.apexcloudworkcompany.com` (env.js ya apunta ahí)
+- [ ] Backend EC2 — deploy y levantar `api.apexcloudworkscompany.com` (env.js ya apunta ahí)
 - [ ] Commitear los 8 archivos WIP (backend + landing + background/)
 
 ## 🔥 BLOQUE 4 — Automatización/Seguridad

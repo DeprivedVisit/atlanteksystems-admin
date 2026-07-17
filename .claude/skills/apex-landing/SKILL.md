@@ -12,7 +12,7 @@ description: >
 # Apex Landing — Skill de Garett Barrantes · Apex Cloud Work
 
 ## Identidad del desarrollador
-- **Empresa:** Apex Cloud Work · apexcloudworkcompany@gmail.com
+- **Empresa:** Apex Cloud Work · apexcloudworkscompany@gmail.com
 - **WhatsApp:** +506 6314-4171
 - **Deploy:** AWS S3 + Route 53 + HTTPS (ACM)
 - **Stack:** HTML/CSS/JS puro — un solo archivo por landing

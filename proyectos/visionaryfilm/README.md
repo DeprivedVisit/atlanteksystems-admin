@@ -239,4 +239,4 @@ El proyecto es HTML/CSS/JS puro (módulos ES). Necesita servirse desde un servid
 ## Desarrollado por
 
 **Apex Cloud Work** — Cartago, Costa Rica  
-apexcloudworkcompany@gmail.com · +506 6314-4171
+apexcloudworkscompany@gmail.com · +506 6314-4171

@@ -39,9 +39,9 @@ apex-[proyecto]          → apex-landing-main
 ### Apex Landing
 | Recurso | Valor |
 |---------|-------|
-| Bucket | `apexcloudworkcompany.com` — us-east-1 |
+| Bucket | `apexcloudworkscompany.com` — us-east-1 |
 | CloudFront ID | `[PENDIENTE — correr list-distributions]` |
-| Dominio | apexcloudworkcompany.com |
+| Dominio | apexcloudworkscompany.com |
 | Admin | `/admin.html` — mock data |
 
 ---

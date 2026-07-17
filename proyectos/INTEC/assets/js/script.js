@@ -89,8 +89,11 @@
   }
 
   if (gate && leadFormEl) {
-    /* Al entrar: si no hay usuario, el gate se muestra siempre */
-    if (!getUser()) openGate();
+    /* Al entrar: si no hay usuario, el gate se muestra siempre.
+       ?nogate=1 es solo para previsualizar diseño sin cerrar el modal
+       a cada rato — no cambia el comportamiento real para clientes. */
+    const skipGate = new URLSearchParams(location.search).has('nogate');
+    if (!getUser() && !skipGate) openGate();
     applyAccess();
 
     gateGuest.addEventListener('click', () => {

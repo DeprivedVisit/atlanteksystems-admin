@@ -1,12 +1,12 @@
 ---
-target: apexcloudworkcompany.com live (index.html)
+target: apexcloudworkscompany.com live (index.html)
 total_score: 22
 p0_count: 2
 p1_count: 3
 timestamp: 2026-07-08T02-14-19Z
 slug: proyectos-apexcloudworkscompany-com-index-html
 ---
-# Critique — apexcloudworkcompany.com (live) · 07 jul 2026
+# Critique — apexcloudworkscompany.com (live) · 07 jul 2026
 
 ## Design Health Score
 

@@ -13,7 +13,7 @@
 | **Nacimiento** | 25/09/1998 — 27 años |
 | **Origen** | Guápiles, Pococí, Limón, Costa Rica |
 | **Base** | Cartago — Barrio Ánimas · ₡250,000/mes · 2 cuartos · cochera · nuevo |
-| **Email empresa** | apexcloudworkcompany@gmail.com |
+| **Email empresa** | apexcloudworkscompany@gmail.com |
 | **Email personal** | garettjohan12@gmail.com |
 | **Modo** | Home Office · madrugada = zona de flujo natural |
 | **Visión** | 35 años → CEO empresa propia automatizada |
@@ -73,8 +73,8 @@
 | Campo | Dato |
 |-------|------|
 | **Nombre** | Apex Cloud Work |
-| **Email** | apexcloudworkcompany@gmail.com |
-| **Dominio** | apexcloudworkcompany.com |
+| **Email** | apexcloudworkscompany@gmail.com |
+| **Dominio** | apexcloudworkscompany.com |
 | **WhatsApp** | +506 6314-4171 |
 | **Legal** | Persona física · pendiente Tributación actividad 62010 |
 
@@ -149,7 +149,7 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | Presentación | `/presentacion/index.html` · `/presentacion/entrega-final.html` |
 | WA actual | `+506 6314-4171` (Garett) → cambiar a número Skindoctors al firmar |
 
-### Apex Landing — apexcloudworkcompany.com
+### Apex Landing — apexcloudworkscompany.com
 
 | Elemento | Detalle |
 |---------|---------|

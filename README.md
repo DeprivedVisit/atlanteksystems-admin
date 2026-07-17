@@ -2,7 +2,7 @@
 
 Landing pages y sistemas web para negocios costarricenses. Cartago, CR.
 
-**apexcloudworkcompany.com** · apexcloudworkcompany@gmail.com · +506 6314-4171
+**apexcloudworkscompany.com** · apexcloudworkscompany@gmail.com · +506 6314-4171
 
 ---
 
@@ -38,7 +38,7 @@ apex-cloudworks/
 │   │   └── presentacion/        ← Showcase para reunión con cliente
 │   ├── ecopollo/                ← Cotizador 5 pasos en desarrollo
 │   ├── visionaryfilm/           ← Pendiente datos Fabian
-│   ├── apexcloudworkcompany.com/ ← Apex Landing · live
+│   ├── apexcloudworkscompany.com/ ← Apex Landing · live
 │   └── jarvis/                  ← Agente interno Python
 ├── CLAUDE.md                    ← Contexto y memoria del sistema (v11.0)
 ├── SYSTEM.md                    ← System prompt portable (multi-AI)

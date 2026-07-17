@@ -19,7 +19,7 @@
 
 ## Infraestructura / Técnico
 
-- [ ] Backend EC2 — deploy completo + subdominio `api.apexcloudworkcompany.com`
+- [ ] Backend EC2 — deploy completo + subdominio `api.apexcloudworkscompany.com`
 - [ ] Apex Landing — 3 críticos de seguridad (token, URL Apps Script, localStorage)
 - [ ] Apex Landing — UI/librerías: tokens.css unificado, dividir admin.js/style.css en módulos
 - [ ] Apex Landing — foto real de Garett para "Sobre mí"

@@ -10,8 +10,8 @@
 |----------|---------------|-------|
 | **Nombre** | Apex Cloud Work (3 palabras) | ~~Apex Cloudworks~~ · ~~Apex CloudWorks~~ |
 | **Wordmark** | APEX CLOUD WORK (Anton, uppercase) o `Apex <span gold>Cloud Works</span>` | — |
-| **Dominio** | `apexcloudworkcompany.com` (SIN "s") | ~~apexcloudworkscompany.com~~ (solo GitHub org y N8N llevan "s" — son cuentas, no la marca) |
-| **Email** | apexcloudworkcompany@gmail.com | — |
+| **Dominio** | `apexcloudworkscompany.com` (SIN "s") | ~~apexcloudworkscompany.com~~ (solo GitHub org y N8N llevan "s" — son cuentas, no la marca) |
+| **Email** | apexcloudworkscompany@gmail.com | — |
 | **WhatsApp** | +506 6314-4171 · links `wa.me/50663144171` | — |
 | **Ubicación** | Cartago, Costa Rica (en corto: "Cartago, CR") | — |
 | **Footer estándar** | "Desarrollado por Apex Cloud Work — Cartago, CR" | Cambiarlo o traducirlo |

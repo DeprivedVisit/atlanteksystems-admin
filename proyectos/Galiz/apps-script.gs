@@ -119,7 +119,7 @@ function notifyNewBooking(b) {
     + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Domicilio</td><td style="padding:9px 12px;border:1px solid #eee">' + (b.domicilio ? 'Sí' : 'No') + (b.address ? ' — ' + b.address : '') + '</td></tr>'
     + '</table></div>';
   MailApp.sendEmail({
-    to: 'apexcloudworkcompany@gmail.com',
+    to: 'apexcloudworkscompany@gmail.com',
     subject: '💛 Nueva cita — ' + b.name + ' · ' + b.date + ' ' + b.time,
     htmlBody: html,
   });
@@ -157,7 +157,7 @@ function enviarRecordatorios() {
         + '<tr><td style="padding:9px 12px;border:1px solid #eee;background:#f9f9f9;font-weight:bold">Servicio</td><td style="padding:9px 12px;border:1px solid #eee">' + row[4] + '</td></tr>'
         + '</table></div>';
       MailApp.sendEmail({
-        to: 'apexcloudworkcompany@gmail.com',
+        to: 'apexcloudworkscompany@gmail.com',
         subject: '🔔 Recordatorio — Cita mañana: ' + row[8] + ' a las ' + hora,
         htmlBody: html,
       });
