@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Entrega · Melasblock Landing · Apex Cloud Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF5EF;--beige:#E0C3AE;--peach:#FFAF83;--coral:#FF7671;
+  --earth:#8F6149;--dark:#231F20;--muted:#7A6558;--border:#EDD9C8;
+  --green:#2E8B57;--surface:#fff;
+  --serif:'Noto Serif Display',Georgia,serif;
+  --sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+@media print{
+  body{background:#fff}
+  .no-print{display:none!important}
+  .page-break{page-break-before:always}
+}
+
+/* HERO HEADER */
+.hero-header{
+  background:linear-gradient(135deg,#1a1410 0%,#3d2418 55%,var(--earth) 100%);
+  padding:3.5rem 3rem 3rem;color:#fff;position:relative;overflow:hidden;
+}
+.hero-header::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(224,195,174,.07) 0%,transparent 70%);
+}
+.hero-header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(224,195,174,.3),rgba(255,175,131,.35),rgba(224,195,174,.3),transparent);
+}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.apex-brand{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.6rem}
+.doc-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--peach);opacity:.8;margin-bottom:.4rem}
+.doc-title{font-family:var(--serif);font-size:2.4rem;font-weight:300;line-height:1.08;max-width:520px}
+.doc-title strong{font-weight:600;color:var(--peach)}
+.doc-subtitle{margin-top:.7rem;font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6;max-width:480px}
+.hero-meta{text-align:right;min-width:180px}
+.meta-date{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.35rem}
+.meta-val{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:.15rem}
+.meta-badge{
+  display:inline-block;margin-top:.5rem;
+  background:rgba(46,139,87,.25);border:1px solid rgba(46,139,87,.45);
+  color:#6FCF97;font-size:.7rem;font-weight:700;letter-spacing:.1em;
+  padding:.3rem .85rem;border-radius:50px;
+}
+
+/* WRAP */
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 2rem 3rem}
+
+/* SECTION HEADER */
+.sec-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--earth);margin-bottom:.35rem}
+.sec-title{font-family:var(--serif);font-size:1.35rem;font-weight:600;color:var(--dark);margin-bottom:1.2rem}
+
+/* URL CARD */
+.url-cards{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.5rem}
+.url-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;
+}
+.url-icon{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.url-icon.live{background:rgba(46,139,87,.1)}
+.url-icon.pdf{background:rgba(143,97,73,.1)}
+.url-info{flex:1}
+.url-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.url-link{font-size:.9rem;font-weight:700;color:var(--earth);word-break:break-all}
+.url-desc{font-size:.74rem;color:var(--muted);margin-top:.12rem}
+.url-status{font-size:.65rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;flex-shrink:0}
+.status-live{background:rgba(46,139,87,.12);color:var(--green);border:1px solid rgba(46,139,87,.25)}
+.status-ready{background:rgba(143,97,73,.1);color:var(--earth);border:1px solid rgba(143,97,73,.22)}
+
+/* ENTREGABLES */
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem}
+.deliverable-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;
+}
+.d-icon{font-size:1.4rem;line-height:1}
+.d-title{font-size:.88rem;font-weight:700;color:var(--dark)}
+.d-desc{font-size:.74rem;line-height:1.58;color:var(--muted)}
+.d-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.d-chip{font-size:.6rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;background:rgba(143,97,73,.08);color:var(--earth);border:1px solid rgba(143,97,73,.15)}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0}
+
+/* PROCESO CAMBIOS */
+.steps{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.5rem}
+.step{display:flex;align-items:flex-start;gap:1rem}
+.step-num{
+  width:28px;height:28px;border-radius:50%;background:var(--earth);color:#fff;
+  font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:.05rem;
+}
+.step-body{flex:1}
+.step-title{font-size:.84rem;font-weight:700;color:var(--dark);margin-bottom:.18rem}
+.step-desc{font-size:.76rem;line-height:1.55;color:var(--muted)}
+
+/* PLAN CARD */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2.5rem}
+.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.plan-card.featured{border-color:var(--earth);box-shadow:0 4px 24px rgba(143,97,73,.12)}
+.plan-header{padding:1.2rem 1.4rem;border-bottom:1px solid var(--border)}
+.plan-header.featured-bg{background:linear-gradient(135deg,rgba(143,97,73,.08),rgba(224,195,174,.12))}
+.plan-badge{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .6rem;border-radius:4px;background:var(--coral);color:#fff;display:inline-block;margin-bottom:.5rem}
+.plan-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--dark)}
+.plan-price{font-family:var(--serif);font-size:1.8rem;font-weight:600;color:var(--earth);line-height:1;margin:.4rem 0 .15rem}
+.plan-price span{font-size:.8rem;font-weight:400;color:var(--muted)}
+.plan-items{padding:1.1rem 1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.plan-item{font-size:.76rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
+.plan-item::before{content:'✓';color:var(--green);font-weight:700;font-size:.7rem;margin-top:.05rem;flex-shrink:0}
+.plan-item.missing::before{content:'✗';color:rgba(0,0,0,.2)}
+.plan-item.missing{color:rgba(0,0,0,.3)}
+
+/* GARANTIA */
+.garantia{
+  background:linear-gradient(135deg,rgba(143,97,73,.05),rgba(224,195,174,.1));
+  border:1px solid var(--border);border-radius:14px;
+  padding:1.5rem 1.8rem;margin-bottom:2.5rem;
+}
+.garantia-title{font-family:var(--serif);font-size:1rem;color:var(--dark);margin-bottom:.7rem}
+.garantia-items{display:flex;flex-direction:column;gap:.45rem}
+.g-item{font-size:.8rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start}
+.g-item::before{content:'•';color:var(--earth);font-weight:700;flex-shrink:0}
+
+/* CONTACTO */
+.contact-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.contact-card{
+  flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.2rem;
+}
+.contact-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.contact-val{font-size:.86rem;font-weight:700;color:var(--dark)}
+.contact-sub{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+
+/* FIRMA */
+.firma{
+  border-top:1px solid var(--border);padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;
+}
+.firma-apex{font-family:var(--serif);font-size:1rem;color:var(--earth)}
+.firma-apex small{display:block;font-family:var(--sans);font-size:.62rem;color:var(--muted);font-style:normal;margin-top:.15rem;letter-spacing:.08em;text-transform:uppercase}
+.firma-disclaimer{font-size:.64rem;color:var(--muted);opacity:.5;text-align:right;max-width:260px;line-height:1.5}
+
+/* PRINT BTN */
+.print-btn{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  background:var(--earth);color:#fff;border:none;
+  padding:.7rem 1.4rem;border-radius:50px;font-family:var(--sans);
+  font-size:.8rem;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 16px rgba(143,97,73,.35);
+  transition:transform .2s,box-shadow .2s;z-index:99;
+}
+.print-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(143,97,73,.4)}
+</style>
+</head>
+<body>
+
+<div class="hero-header">
+  <div class="hero-inner">
+    <div>
+      <div class="apex-brand">Apex Cloud Work · Cartago, Costa Rica</div>
+      <div class="doc-eyebrow">Documento de entrega</div>
+      <div class="doc-title">Landing Page <strong>Melasblock</strong><br>BB Cream SPF 50</div>
+      <div class="doc-subtitle">Todo lo entregado, URLs en producción y próximos pasos para Skindoctors CR.</div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-date">Fecha de entrega</div>
+      <div class="meta-val">Junio 2026</div>
+      <div class="meta-date" style="margin-top:.5rem">Cliente</div>
+      <div class="meta-val">Skindoctors CR</div>
+      <div class="meta-badge">✓ Live en producción</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- URLs LIVE -->
+  <div class="sec-eyebrow">Entregables en producción</div>
+  <div class="sec-title">Sus páginas están activas</div>
+  <div class="url-cards">
+    <div class="url-card">
+      <div class="url-icon live">🌐</div>
+      <div class="url-info">
+        <div class="url-label">Landing principal — Melasblock BB Cream</div>
+        <div class="url-link">d3suiaystvdco4.cloudfront.net/melasblock/</div>
+        <div class="url-desc">Página de venta completa con héroe, beneficios, guía de tonos, formulario de consulta y FAQ.</div>
+      </div>
+      <span class="url-status status-live">Live ✓</span>
+    </div>
+    <div class="url-card">
+      <div class="url-icon pdf">📋</div>
+      <div class="url-info">
+        <div class="url-label">Guía visual de tonos — Imprimible</div>
+        <div class="url-link">d3suiaystvdco4.cloudfront.net/melasblock/tipos.html</div>
+        <div class="url-desc">Documento A4 imprimible con los tonos cálidos y fríos, escala visual y guía de selección por temperatura de piel.</div>
+      </div>
+      <span class="url-status status-ready">Listo ✓</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- QUÉ SE ENTREGÓ -->
+  <div class="sec-eyebrow">Qué se construyó</div>
+  <div class="sec-title">Resumen de entrega</div>
+  <div class="deliverables">
+
+    <div class="deliverable-card">
+      <div class="d-icon">🖥️</div>
+      <div class="d-title">Landing de venta Melasblock</div>
+      <div class="d-desc">Página completa de alta conversión con 9 secciones: hero con precio, beneficios SPF, protección UV, guía de tonos interactiva, cómo usar, FAQs y formulario de compra por WhatsApp.</div>
+      <div class="d-chips">
+        <span class="d-chip">Mobile-first</span>
+        <span class="d-chip">WhatsApp integrado</span>
+        <span class="d-chip">SEO básico</span>
+        <span class="d-chip">Formulario leads</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">🎨</div>
+      <div class="d-title">Paleta oficial Brand Book 2025</div>
+      <div class="d-desc">Toda la landing usa los colores Pantone oficiales del Brand Book 2025 de Skindoctors: P4675C, P7410C, P805C, P7525C y Neutral Black C. Tipografías Noto Serif Display + Quicksand.</div>
+      <div class="d-chips">
+        <span class="d-chip">Pantone oficial</span>
+        <span class="d-chip">Brand Book 2025</span>
+        <span class="d-chip">Tipografía premium</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📄</div>
+      <div class="d-title">Guía de tonos — Formato imprimible</div>
+      <div class="d-desc">Documento A4 de la guía de selección de tono BB Cream: columna cálida (C1A, M1A, O3A) y fría (C1, M1, O3) con fotos de modelo, escala visual de tonos y tono neutro B1N. CTA de WhatsApp incluido.</div>
+      <div class="d-chips">
+        <span class="d-chip">A4 imprimible</span>
+        <span class="d-chip">Fotos reales</span>
+        <span class="d-chip">CTA WhatsApp</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">☁️</div>
+      <div class="d-title">Deploy en AWS CloudFront</div>
+      <div class="d-desc">Hosting en Amazon Web Services: S3 para almacenamiento, CloudFront como CDN global con SSL incluido. Carga en menos de 2 segundos. Disponible en todo el mundo.</div>
+      <div class="d-chips">
+        <span class="d-chip">HTTPS / SSL</span>
+        <span class="d-chip">CDN global</span>
+        <span class="d-chip">99.9% uptime</span>
+        <span class="d-chip">AWS S3</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">📱</div>
+      <div class="d-title">Optimización móvil completa</div>
+      <div class="d-desc">Diseñada primero para teléfono. Hero adaptable, menú hamburger, botón WhatsApp siempre visible, imágenes optimizadas por breakpoint. Probada en iPhone y Android.</div>
+      <div class="d-chips">
+        <span class="d-chip">Responsive</span>
+        <span class="d-chip">Touch-friendly</span>
+        <span class="d-chip">iOS / Android</span>
+      </div>
+    </div>
+
+    <div class="deliverable-card">
+      <div class="d-icon">🔗</div>
+      <div class="d-title">WhatsApp integrado con formulario</div>
+      <div class="d-desc">Formulario de consulta que captura nombre, tono de interés y provincia antes de abrir WhatsApp. El mensaje se pre-llena automáticamente con los datos del cliente para agilizar la atención.</div>
+      <div class="d-chips">
+        <span class="d-chip">Pre-llena chat</span>
+        <span class="d-chip">Captura datos</span>
+        <span class="d-chip">Botón flotante</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CÓMO PEDIR CAMBIOS -->
+  <div class="sec-eyebrow">Proceso de trabajo</div>
+  <div class="sec-title">Cómo solicitar cambios</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Me escribís por WhatsApp o correo</div>
+        <div class="step-desc">Describís el cambio que querés: texto, imagen, color, sección nueva. Pueden ser cambios menores (texto, precio, número) o mayores (nueva sección, nuevo producto).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Confirmación y tiempo de entrega</div>
+        <div class="step-desc">Confirmo el cambio solicitado y doy tiempo estimado. Cambios menores: mismo día. Cambios mayores: 1-3 días hábiles. Incluye 2 revisiones por cambio.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Aplico el cambio y actualizo producción</div>
+        <div class="step-desc">Modifico la página y hago el deploy automáticamente a CloudFront. El cambio queda visible en minutos. Les comparto la URL para revisión.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Aprobación final</div>
+        <div class="step-desc">Me confirman que el cambio está correcto. Si necesitan ajuste adicional, lo aplicamos en la misma solicitud (hasta 2 revisiones sin costo extra).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PLANES -->
+  <div class="sec-eyebrow">Opciones de continuidad</div>
+  <div class="sec-title">Qué sigue después de la entrega</div>
+  <div class="plans">
+
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-name">Solo mantenimiento</div>
+        <div class="plan-price">$50–100<span> / mes</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Cambios de texto y precios</div>
+        <div class="plan-item">Actualización de número WhatsApp</div>
+        <div class="plan-item">Ajustes de colores o imágenes</div>
+        <div class="plan-item">Hosting AWS incluido</div>
+        <div class="plan-item missing">Landings nuevas</div>
+        <div class="plan-item missing">Campañas de temporada</div>
+        <div class="plan-item missing">Nuevos productos</div>
+      </div>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-header featured-bg">
+        <div class="plan-badge">Recomendado</div>
+        <div class="plan-name">Plan trimestral</div>
+        <div class="plan-price">$900<span> / 3 meses</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Todo lo del mantenimiento</div>
+        <div class="plan-item">2 landings nuevas (ej. CBD Balance)</div>
+        <div class="plan-item">Campañas de temporada (Día de la Madre, Black Friday)</div>
+        <div class="plan-item">Guías imprimibles por producto</div>
+        <div class="plan-item">Integración Google Analytics</div>
+        <div class="plan-item">Pixel Meta Ads para retargeting</div>
+        <div class="plan-item">Reportes mensuales de visitas</div>
+        <div class="plan-item">Prioridad de atención garantizada</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- GARANTÍA -->
+  <div class="garantia">
+    <div class="garantia-title">✦ Garantía Apex Cloud Work</div>
+    <div class="garantia-items">
+      <div class="g-item">Si la página tiene algún error técnico o no carga correctamente, lo resolvemos en menos de 24 horas sin costo.</div>
+      <div class="g-item">Los cambios dentro del alcance acordado no tienen costo adicional durante el período vigente.</div>
+      <div class="g-item">El código fuente de su landing es suyo. Lo reciben completo si en algún momento deciden cambiar de proveedor.</div>
+      <div class="g-item">Respuesta a mensajes de WhatsApp en menos de 2 horas. Atención disponible 24/7.</div>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="sec-eyebrow">Contacto directo</div>
+  <div class="sec-title">Para cambios o consultas</div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-val">+506 6314-4171</div>
+      <div class="contact-sub">Garett — Apex Cloud Work</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Correo</div>
+      <div class="contact-val">apexcloudworkscompany@gmail.com</div>
+      <div class="contact-sub">Respuesta en menos de 4 horas</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Horario</div>
+      <div class="contact-val">24 / 7</div>
+      <div class="contact-sub">Cartago, Costa Rica</div>
+    </div>
+  </div>
+
+  <div class="firma">
+    <div class="firma-apex">
+      Apex Cloud Work
+      <small>Cartago, Costa Rica · 2026</small>
+    </div>
+    <div class="firma-disclaimer">Documento confidencial preparado para Skindoctors CR. La información de precios y condiciones es válida por 30 días.</div>
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / Guardar PDF</button>
+
+</body>
+</html>

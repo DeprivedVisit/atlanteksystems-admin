@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contrato de Servicio — Apex Cloud Work</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0f0d0b;line-height:1.7}
+a{color:#c8954a;text-decoration:underline}
+.container{width:min(760px,92%);margin-inline:auto;padding-block:4rem}
+.navbar{background:#0a0908;padding:1rem 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(200,149,74,.12)}
+.nav-inner{width:min(760px,92%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Noto Serif Display',Georgia,serif;font-size:1.1rem;color:#fff;text-decoration:none}
+.nav-logo span{color:#c8954a;font-style:italic}
+.nav-doc{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(200,149,74,.6)}
+.legal-hero{background:linear-gradient(135deg,#0a0908 0%,#1c1208 100%);padding:4rem 0 3rem;border-bottom:1px solid rgba(200,149,74,.1)}
+.legal-hero .inner{width:min(760px,92%);margin-inline:auto}
+.legal-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#c8954a;opacity:.75;margin-bottom:.75rem}
+.legal-title{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;line-height:1.1;margin-bottom:.85rem;color:#fff}
+.legal-title strong{font-weight:600;color:#c8954a}
+.doc-meta{display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:1rem}
+.doc-meta-item{background:rgba(200,149,74,.07);border:1px solid rgba(200,149,74,.15);border-radius:8px;padding:.5rem 1rem;font-size:.76rem}
+.doc-meta-label{color:rgba(200,149,74,.6);font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.1rem}
+.doc-meta-value{color:#e8e0d8;font-weight:600}
+.doc-meta-value.fill{color:#c8954a;font-style:italic}
+.legal-body{display:flex;flex-direction:column;gap:2rem}
+.legal-section{background:rgba(255,255,255,.04);border-radius:16px;padding:1.75rem 2rem;border:1px solid rgba(200,149,74,.12)}
+.legal-section h2{font-family:'Noto Serif Display',Georgia,serif;font-size:1.05rem;font-weight:600;color:#fff;margin-bottom:.85rem;padding-bottom:.6rem;border-bottom:1px solid rgba(200,149,74,.12)}
+.legal-section h3{font-size:.88rem;font-weight:700;color:#c8954a;margin:.85rem 0 .35rem}
+.legal-section p{font-size:.86rem;line-height:1.78;color:rgba(232,224,216,.7);margin-bottom:.7rem}
+.legal-section p:last-child{margin-bottom:0}
+.legal-section ul{padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem;margin-bottom:.7rem}
+.legal-section ul li{font-size:.86rem;line-height:1.68;color:rgba(232,224,216,.7)}
+.legal-section ul li::marker{color:#c8954a}
+.highlight-box{background:rgba(200,149,74,.07);border:1px solid rgba(200,149,74,.18);border-left:3px solid #c8954a;border-radius:0 10px 10px 0;padding:.85rem 1.1rem;font-size:.82rem;color:rgba(232,224,216,.75);line-height:1.68;margin-top:.75rem}
+.highlight-box.alert{background:rgba(220,50,50,.05);border-color:rgba(220,50,50,.3);border-left-color:#dc3232}
+.highlight-box.alert{color:rgba(255,200,200,.75)}
+.parties-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.75rem 0}
+.party-card{background:rgba(255,255,255,.03);border:1px solid rgba(200,149,74,.12);border-radius:10px;padding:1rem 1.25rem}
+.party-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c8954a;margin-bottom:.6rem}
+.party-field{font-size:.82rem;color:rgba(232,224,216,.7);margin-bottom:.3rem}
+.party-field strong{color:#e8e0d8}
+.party-field .fill{color:#c8954a;font-style:italic}
+.service-table{width:100%;border-collapse:collapse;margin:.75rem 0}
+.service-table th{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(200,149,74,.7);padding:.55rem .75rem;text-align:left;border-bottom:1px solid rgba(200,149,74,.15)}
+.service-table td{font-size:.82rem;color:rgba(232,224,216,.7);padding:.55rem .75rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.service-table tr:last-child td{border-bottom:none}
+.service-table td.amt{font-weight:700;color:#c8954a;text-align:right}
+.service-table td.fill{color:#c8954a;font-style:italic}
+.total-row{background:rgba(200,149,74,.06);border-top:1px solid rgba(200,149,74,.2)!important}
+.total-row td{font-weight:700;color:#e8e0d8!important;padding-top:.75rem!important;padding-bottom:.75rem!important}
+.total-row td.amt{color:#c8954a!important;font-size:1rem}
+.payment-scheme{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.75rem 0}
+.payment-step{background:rgba(200,149,74,.05);border:1px solid rgba(200,149,74,.12);border-radius:10px;padding:.85rem 1rem;text-align:center}
+.payment-step .pct{font-family:'Noto Serif Display',Georgia,serif;font-size:1.5rem;font-weight:600;color:#c8954a;display:block}
+.payment-step .when{font-size:.75rem;color:rgba(232,224,216,.5);margin-top:.15rem}
+.clause-num{display:inline-block;background:rgba(200,149,74,.1);border:1px solid rgba(200,149,74,.2);border-radius:4px;padding:.1rem .45rem;font-size:.7rem;font-weight:700;color:#c8954a;margin-right:.4rem}
+.signature-section{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem}
+.sig-block{background:rgba(255,255,255,.03);border:1px solid rgba(200,149,74,.12);border-radius:12px;padding:1.25rem}
+.sig-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c8954a;margin-bottom:.85rem}
+.sig-line{border-bottom:1px solid rgba(200,149,74,.2);height:2rem;margin:.75rem 0}
+.sig-field{font-size:.78rem;color:rgba(232,224,216,.45);margin-top:.3rem}
+.sig-field .fill{color:#c8954a;font-style:italic}
+.doc-num{font-family:'Quicksand',monospace;font-size:.72rem;color:rgba(200,149,74,.5);letter-spacing:.08em}
+.legal-footer{background:#0a0908;border-top:1px solid rgba(200,149,74,.08);color:rgba(255,255,255,.2);text-align:center;padding:1.75rem 1rem;font-size:.72rem;margin-top:3rem}
+.legal-footer a{color:#c8954a;opacity:.5}
+.note-box{background:rgba(200,149,74,.05);border:1px solid rgba(200,149,74,.12);border-left:3px solid #c8954a;border-radius:0 10px 10px 0;padding:1rem 1.25rem;font-size:.8rem;color:rgba(232,224,216,.6);line-height:1.7;margin-bottom:2rem}
+@media print{
+  .navbar{display:none}
+  body{background:#fff;color:#111}
+  .legal-hero{background:#0a0908;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .legal-section{border-color:#ddd;background:#fafafa}
+}
+@media(max-width:600px){
+  .legal-section{padding:1.25rem 1.1rem}
+  .container{padding-block:2.5rem}
+  .parties-grid,.payment-scheme,.signature-section{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="https://apexcloudworkscompany.com/" class="nav-logo">Apex <span>Cloud Works</span></a>
+    <span class="nav-doc">Documento Interno · Uso Privado</span>
+  </div>
+</nav>
+
+<div class="legal-hero">
+  <div class="inner">
+    <div class="legal-eyebrow">Apex Cloud Work · Documentos Legales · Cliente: Skindoctors CR</div>
+    <h1 class="legal-title">Contrato de <strong>Servicio</strong></h1>
+    <div class="doc-meta">
+      <div class="doc-meta-item">
+        <span class="doc-meta-label">N.° Contrato</span>
+        <span class="doc-meta-value">CTR-2026-SKD-001</span>
+      </div>
+      <div class="doc-meta-item">
+        <span class="doc-meta-label">Fecha de emisión</span>
+        <span class="doc-meta-value">24 de junio de 2026</span>
+      </div>
+      <div class="doc-meta-item">
+        <span class="doc-meta-label">Estado</span>
+        <span class="doc-meta-value">Pendiente firma</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="note-box">
+    <strong>Nota:</strong> Este contrato corresponde al cliente Skindoctors CR y se aloja en el proyecto del cliente por referencia operativa. Es un documento interno de Apex Cloud Work — la relación contractual y sus cláusulas estándar son las mismas que rigen todos los contratos de Apex.
+  </div>
+  <div class="legal-body">
+
+    <!-- PARTES -->
+    <div class="legal-section">
+      <h2>1. Identificación de las Partes</h2>
+      <div class="parties-grid">
+        <div class="party-card">
+          <div class="party-label">Prestador del servicio</div>
+          <div class="party-field"><strong>Garett Johan Barrantes Benavides</strong></div>
+          <div class="party-field">Apex Cloud Work — Persona física</div>
+          <div class="party-field">Cartago, Costa Rica</div>
+          <div class="party-field">apexcloudworkscompany@gmail.com</div>
+          <div class="party-field">WhatsApp: +506 6314-4171</div>
+        </div>
+        <div class="party-card">
+          <div class="party-label">Cliente</div>
+          <div class="party-field"><strong>Andrés Loría</strong></div>
+          <div class="party-field">Empresa / negocio: Skindoctors CR</div>
+          <div class="party-field">Correo: info@skindoctorscr.com</div>
+          <div class="party-field">WhatsApp: +506 6314-4171 <span class="fill">(número temporal de Garett, cambiar al número oficial de Skindoctors al firmar)</span></div>
+          <div class="party-field">País / ciudad: Plaza Cristal, Curridabat, San José, Costa Rica</div>
+        </div>
+      </div>
+      <p>Ambas partes acuerdan los siguientes términos para la prestación de servicios de desarrollo web, diseño y servicios en la nube por parte de Apex Cloud Work.</p>
+    </div>
+
+    <!-- SERVICIO Y ALCANCE -->
+    <div class="legal-section">
+      <h2>2. Descripción del Servicio y Alcance</h2>
+      <p>El servicio contratado comprende lo siguiente:</p>
+      <table class="service-table">
+        <thead>
+          <tr><th>Entregable</th><th>Descripción</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Landing Melasblock BB Cream</td>
+            <td>Diseño y desarrollo HTML/CSS/JS · Deploy AWS S3 + CloudFront + SSL · Sistema de leads N8N + Google Sheets + Gmail API</td>
+            <td class="amt">$150 USD</td>
+          </tr>
+          <tr>
+            <td>Landing CBD Oil Balance</td>
+            <td>Diseño y desarrollo HTML/CSS/JS · Deploy AWS S3 + CloudFront + SSL · Sistema de leads N8N + Google Sheets</td>
+            <td class="amt">$150 USD</td>
+          </tr>
+          <tr>
+            <td>Landing Producto #3 (a definir)</td>
+            <td>Incluida en el paquete · desarrollo pendiente de brief del cliente</td>
+            <td class="amt">$150 USD</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="2"><strong>TOTAL DEL CONTRATO</strong></td>
+            <td class="amt">$450 USD</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        Todo trabajo fuera del alcance descrito arriba se cotiza por separado antes de ejecutarse. El cliente recibirá confirmación escrita del precio adicional antes de que Apex inicie cualquier tarea extra.
+      </div>
+    </div>
+
+    <!-- PAGOS -->
+    <div class="legal-section">
+      <h2>3. Pagos</h2>
+      <h3>Esquema de pago</h3>
+      <div class="payment-scheme">
+        <div class="payment-step">
+          <span class="pct">50%</span>
+          <div class="when">Al confirmar el proyecto<br>Antes de iniciar el trabajo</div>
+        </div>
+        <div class="payment-step">
+          <span class="pct">50%</span>
+          <div class="when">Al aprobar la entrega final<br>Antes de activar en producción</div>
+        </div>
+      </div>
+      <h3>Métodos de pago aceptados</h3>
+      <ul>
+        <li>SINPE Móvil al +506 6314-4171</li>
+        <li>Transferencia bancaria en USD (cuenta acordada)</li>
+        <li>Wise o PayPal (coordinado por WhatsApp)</li>
+      </ul>
+      <h3>Mora</h3>
+      <p>Si el pago del 50% final no se recibe dentro de los <strong>7 días hábiles</strong> posteriores a la entrega aprobada, se aplicará un recargo por mora del <strong>10% sobre el saldo pendiente</strong> por cada semana de atraso.</p>
+      <div class="highlight-box alert">
+        <strong>Importante:</strong> El sitio web permanecerá activo en producción en modo de revisión durante ese período, pero Apex se reserva el derecho de suspender el acceso público hasta recibir el pago completo, sin que esto implique incumplimiento de contrato por parte de Apex.
+      </div>
+    </div>
+
+    <!-- PROPIEDAD INTELECTUAL -->
+    <div class="legal-section">
+      <h2>4. Propiedad Intelectual</h2>
+      <h3>Código fuente y entregables</h3>
+      <p><span class="clause-num">4.1</span> El código fuente, archivos de diseño y demás entregables desarrollados por Apex Cloud Work permanecen bajo titularidad de Apex hasta recibir el <strong>pago total del contrato</strong>. En ese momento se transfiere la propiedad completa al cliente sin restricciones.</p>
+      <p><span class="clause-num">4.2</span> El cliente no podrá usar, redistribuir ni llevar los entregables a otro proveedor hasta que el pago total esté confirmado.</p>
+      <h3>Materiales del cliente</h3>
+      <p><span class="clause-num">4.3</span> Logos, textos, imágenes y activos de marca que el cliente entregue a Apex son y siguen siendo propiedad del cliente. Apex los usa exclusivamente para ejecutar este contrato.</p>
+      <h3>Portafolio</h3>
+      <p><span class="clause-num">4.4</span> Apex puede mencionar el nombre del proyecto y mostrar capturas del sitio en su portafolio o redes sociales, salvo que el cliente solicite confidencialidad por escrito.</p>
+    </div>
+
+    <!-- PROCESO Y REVISIONES -->
+    <div class="legal-section">
+      <h2>5. Proceso de Trabajo y Revisiones</h2>
+      <h3>Proceso estándar</h3>
+      <p>Brief → Paleta / Fuentes → Secciones → HTML/CSS/JS → Preview S3 → Revisiones → Deploy → Entrega.</p>
+      <h3>Revisiones incluidas</h3>
+      <p>Este contrato incluye <strong>máximo 2 rondas de revisión</strong>. Una ronda es un conjunto consolidado de cambios enviados en un mismo mensaje. Revisiones adicionales se cobran desde <strong>$25 USD por ronda</strong>, previo acuerdo.</p>
+      <h3>Tiempos de entrega</h3>
+      <ul>
+        <li>Landing page estándar: <strong>5–10 días hábiles</strong> desde brief completo con materiales.</li>
+        <li>Cambios menores (texto, precio, número): mismo día o siguiente.</li>
+        <li>Cambios mayores (nueva sección, nuevo producto): 1–3 días hábiles.</li>
+      </ul>
+      <div class="highlight-box">
+        Los plazos corren desde que el cliente entrega todos los materiales necesarios (textos, imágenes, información de contacto). Cada día de retraso en la entrega de materiales extiende el plazo de entrega en la misma proporción.
+      </div>
+    </div>
+
+    <!-- CANCELACIONES -->
+    <div class="legal-section">
+      <h2>6. Cancelaciones y Reembolsos</h2>
+      <h3>Antes de iniciar el trabajo</h3>
+      <p>Reembolso del <strong>100%</strong> del adelanto. Si se canceló después del brief o diseño inicial, se retiene el <strong>30%</strong> por trabajo realizado.</p>
+      <h3>Durante el proyecto</h3>
+      <p>Se cobra proporcional al avance completado. Apex entrega todo lo desarrollado hasta ese punto. El cliente no puede reclamar el código hasta que el saldo proporcional esté cubierto.</p>
+      <h3>Proyecto entregado</h3>
+      <p>Una vez que el cliente aprueba la entrega final (por escrito o implícitamente al no reportar problemas en 48 horas), no aplican reembolsos. Las 2 revisiones incluidas son el mecanismo para resolver insatisfacción.</p>
+    </div>
+
+    <!-- RESPONSABILIDADES -->
+    <div class="legal-section">
+      <h2>7. Responsabilidades de Cada Parte</h2>
+      <h3>Apex Cloud Work se compromete a:</h3>
+      <ul>
+        <li>Entregar los servicios descritos en el alcance acordado.</li>
+        <li>Mantener el sitio accesible en producción (uptime &gt;99%, AWS SLA).</li>
+        <li>Resolver errores técnicos dentro de las 24 horas hábiles siguientes al reporte.</li>
+        <li>Entregar el código fuente al cliente al recibir el pago total.</li>
+        <li>Responder por WhatsApp en menos de 2 horas durante horario laboral.</li>
+      </ul>
+      <h3>El Cliente se compromete a:</h3>
+      <ul>
+        <li>Entregar materiales completos (textos, imágenes, datos de contacto) antes de iniciar.</li>
+        <li>Notificar cambios de precios, números o información clave de forma oportuna.</li>
+        <li>Revisar y aprobar las entregas en un plazo máximo de <strong>3 días hábiles</strong>. Sin respuesta pasado ese plazo, la entrega se considera aprobada.</li>
+        <li>Pagar dentro de los plazos acordados.</li>
+      </ul>
+    </div>
+
+    <!-- LIMITACIÓN DE RESPONSABILIDAD -->
+    <div class="legal-section">
+      <h2>8. Limitación de Responsabilidad</h2>
+      <p>Apex Cloud Work no se responsabiliza por:</p>
+      <ul>
+        <li>Interrupciones en AWS, Google, N8N u otras plataformas de terceros fuera de nuestro control.</li>
+        <li>Resultados de negocio (ventas, conversión, leads) del sitio entregado.</li>
+        <li>Cambios en algoritmos de Google, redes sociales o plataformas externas.</li>
+        <li>Modificaciones al sitio realizadas por el cliente o terceros sin coordinación con Apex.</li>
+      </ul>
+      <p>La responsabilidad máxima de Apex ante cualquier reclamación se limita al monto total cobrado en este contrato.</p>
+    </div>
+
+    <!-- SUBENCARGADOS DE TRATAMIENTO -->
+    <div class="legal-section">
+      <h2>9. Subencargados de Tratamiento de Datos</h2>
+      <p>Para ejecutar el servicio contratado, Apex Cloud Work utiliza las siguientes herramientas de terceros como <strong>subencargados de tratamiento</strong> conforme a la Ley N.° 8968:</p>
+      <ul>
+        <li><strong>N8N:</strong> automatización de los formularios de leads del sitio entregado.</li>
+        <li><strong>Google Sheets:</strong> almacenamiento estructurado de los leads captados.</li>
+        <li><strong>Google Apps Script:</strong> intermediario entre el formulario del sitio y Google Sheets.</li>
+      </ul>
+      <p>El cliente es el <strong>responsable final (controlador)</strong> de los datos de sus propios leads y clientes captados a través del sitio. Apex configura estas herramientas por cuenta del cliente y puede revocar su acceso a solicitud del cliente en cualquier momento tras la entrega.</p>
+    </div>
+
+    <!-- LEY APLICABLE -->
+    <div class="legal-section">
+      <h2>10. Ley Aplicable y Resolución de Disputas</h2>
+      <p>Este contrato se rige por las leyes de la <strong>República de Costa Rica</strong>. Ante cualquier disputa, las partes buscarán resolverla primero de buena fe por WhatsApp o correo en un plazo de 10 días hábiles. De no llegar a acuerdo, la competencia corresponde a los tribunales de <strong>Cartago, Costa Rica</strong>.</p>
+    </div>
+
+    <!-- FIRMA -->
+    <div class="legal-section">
+      <h2>11. Aceptación y Firma</h2>
+      <p>Al firmar este contrato, ambas partes declaran haber leído, entendido y aceptado todas las cláusulas anteriores. La firma puede ser física o digital (confirmación por correo o WhatsApp con nombre completo y fecha).</p>
+      <div class="signature-section">
+        <div class="sig-block">
+          <div class="sig-label">Prestador de servicio</div>
+          <div class="sig-line"></div>
+          <div class="sig-field"><strong>Garett Johan Barrantes Benavides</strong></div>
+          <div class="sig-field">Apex Cloud Work</div>
+          <div class="sig-field">apexcloudworkscompany@gmail.com</div>
+          <div class="sig-field">Fecha: <span class="fill">[DD/MM/AAAA]</span></div>
+        </div>
+        <div class="sig-block">
+          <div class="sig-label">Cliente</div>
+          <div class="sig-line"></div>
+          <div class="sig-field"><strong>Andrés Loría</strong></div>
+          <div class="sig-field">Skindoctors CR</div>
+          <div class="sig-field">info@skindoctorscr.com</div>
+          <div class="sig-field">Fecha: <span class="fill">[DD/MM/AAAA]</span></div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top:1rem">
+        Una confirmación escrita por WhatsApp o correo con el texto <em>"Acepto los términos del contrato CTR-2026-SKD-001"</em> tiene el mismo valor legal que una firma física conforme al artículo 7 de la Ley N.° 8454 de Costa Rica (Ley de Certificados, Firmas Digitales y Documentos Electrónicos).
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="legal-footer">
+  <div class="doc-num">Documento confidencial · Uso interno Apex Cloud Work · No publicar</div>
+  <div style="margin-top:.4rem">© 2026 Apex Cloud Work · Garett Barrantes · Cartago, Costa Rica ·
+  <a href="terminos.html">Términos Públicos</a> · <a href="politica-privacidad.html">Privacidad</a></div>
+</footer>
+
+</body>
+</html>
