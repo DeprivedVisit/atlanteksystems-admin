@@ -127,8 +127,8 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
       <div class="check-item">
         <span class="chk">○</span>
         <div class="check-label">
-          <strong>N8N webhooks con token de autenticación</strong>
-          <span>Verificado 06/07/2026 — los 4 workflows reales exportados (<span class="code">n8n-workflow-ecopollo.json</span>, <span class="code">n8n-galiz.json</span>, <span class="code">n8n-workflow-cbd.json</span>, <span class="code">n8n-workflow-melasblock.json</span>) tienen <span class="code">authentication: "none"</span> en el nodo Webhook. Acción pendiente (manual, en n8n.cloud — no se resuelve editando el JSON exportado): entrar a cada workflow → nodo Webhook → agregar credencial Header Auth → redeploy/activar de nuevo.</span>
+          <strong>Migración fuera de N8N (retirado del stack)</strong>
+          <span>17/07/2026 — decisión de negocio: N8N deja de usarse en servicios y proyectos nuevos. Los workflows existentes (<span class="code">n8n-workflow-ecopollo.json</span>, <span class="code">n8n-galiz.json</span>, <span class="code">n8n-workflow-cbd.json</span>, <span class="code">n8n-workflow-melasblock.json</span>) quedaban con <span class="code">authentication: "none"</span> sin resolver — al migrar la captura de leads a Google Apps Script directo, ese hueco de seguridad queda cerrado por diseño. Acción pendiente: confirmar Apps Script con <span class="code">notifyLead()</span> en cada proyecto y desactivar cada workflow en n8n.cloud.</span>
         </div>
       </div>
 
@@ -136,7 +136,7 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <span class="chk">○</span>
         <div class="check-label">
           <strong>Google Sheets con permisos restringidos</strong>
-          <span>Revisar puntualmente los Sheets de leads de EcoPollo, Galiz, CBD Balance, Melasblock y Skindoctors: Compartir → confirmar que solo la cuenta de servicio de N8N y el email de Garett tengan acceso. (Este ítem también aparece en la revisión mensual — no duplicar el chequeo, solo asegurarse de que se hizo al menos una vez la primera pasada.)</span>
+          <span>Revisar puntualmente los Sheets de leads de EcoPollo, Galiz, CBD Balance, Melasblock y Skindoctors: Compartir → confirmar que solo la cuenta de servicio de Apps Script y el email de Garett tengan acceso. (Este ítem también aparece en la revisión mensual — no duplicar el chequeo, solo asegurarse de que se hizo al menos una vez la primera pasada.)</span>
         </div>
       </div>
 
@@ -192,10 +192,10 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         <div class="type-title">🖥️ Landing Page</div>
         <div class="type-list">
           <div class="type-item">noindex en páginas de agradecimiento</div>
-          <div class="type-item">Formulario valida campos en frontend Y backend (N8N)</div>
+          <div class="type-item">Formulario valida campos en frontend Y backend (Apps Script)</div>
           <div class="type-item">WhatsApp link con número confirmado del cliente</div>
           <div class="type-item">SSL via ACM + CloudFront redirect</div>
-          <div class="type-item">Rate limit en webhook N8N (N8N basic auth)</div>
+          <div class="type-item">Rate limit en Apps Script Web App (validación de origen)</div>
           <div class="type-item">Imágenes en S3 sin acceso público directo (solo via CloudFront)</div>
         </div>
       </div>
@@ -211,14 +211,13 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
         </div>
       </div>
       <div class="type-card">
-        <div class="type-title">🤖 Automatización N8N</div>
+        <div class="type-title">🔗 Automatización — Google Apps Script</div>
         <div class="type-list">
-          <div class="type-item">Webhook URL no publicada en código del cliente</div>
-          <div class="type-item">Header <span class="code">x-token</span> en cada llamada al webhook</div>
-          <div class="type-item">Credenciales de Sheets en N8N Credentials (no en nodo)</div>
-          <div class="type-item">Workflow con error handling (nodo Error Trigger)</div>
-          <div class="type-item">Datos de leads no almacenados en N8N más de 24h</div>
-          <div class="type-item">Test en environment de prueba antes de activar en producción</div>
+          <div class="type-item">URL del Web App no publicada fuera del código fuente del sitio</div>
+          <div class="type-item">Script deployado con acceso "cualquiera puede invocar", ejecución "como yo"</div>
+          <div class="type-item">try/catch en cada función con alerta por email si falla</div>
+          <div class="type-item">Datos de leads solo en el Sheet — sin paso intermedio por terceros</div>
+          <div class="type-item">Test en una copia del Sheet antes de desplegar a producción</div>
         </div>
       </div>
     </div>
@@ -246,15 +245,15 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
       <div class="monthly-item">
         <div class="ico">🔄</div>
         <div class="monthly-body">
-          <strong>N8N: workflows encendidos</strong>
-          <span>Entrar a n8n.cloud → revisar que todos los workflows de clientes activos estén en estado "Active".</span>
+          <strong>Apps Script: cuotas y triggers</strong>
+          <span>Google Cloud Console → verificar que ningún proyecto esté cerca del límite diario de cuota de Apps Script (envío de emails, ejecuciones).</span>
         </div>
       </div>
       <div class="monthly-item">
         <div class="ico">📊</div>
         <div class="monthly-body">
           <strong>Google Sheets: permisos de acceso</strong>
-          <span>Compartir → verificar que solo la cuenta de servicio de N8N y el email de Garett tengan acceso a los Sheets de leads.</span>
+          <span>Compartir → verificar que solo la cuenta de servicio de Apps Script y el email de Garett tengan acceso a los Sheets de leads.</span>
         </div>
       </div>
       <div class="monthly-item">
@@ -330,14 +329,6 @@ body{font-family:'Quicksand',system-ui,sans-serif;color:#e8e0d8;background:#0d11
           <div class="type-item">support.google.com/a</div>
           <div class="type-item">Para revocar acceso a Sheets comprometidos</div>
           <div class="type-item">Admin Console → Security → Audit</div>
-        </div>
-      </div>
-      <div class="type-card">
-        <div class="type-title">N8N Cloud</div>
-        <div class="type-list">
-          <div class="type-item">n8n.io/cloud · soporte en dashboard</div>
-          <div class="type-item">Para desactivar workflows comprometidos</div>
-          <div class="type-item">Rotar credenciales en Settings → Credentials</div>
         </div>
       </div>
     </div>

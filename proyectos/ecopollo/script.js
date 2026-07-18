@@ -1,4 +1,4 @@
-const WEBHOOK_URL = 'https://YOUR_N8N_INSTANCE/webhook/ecopollo-leads';
+const WEBHOOK_URL = 'https://YOUR_WEBHOOK_URL/ecopollo-leads'; // pendiente: apuntar a Apps Script, no a N8N
 
 // ── Fondo rotativo ──────────────────────────────────────────────────────────
 (function () {
@@ -266,7 +266,7 @@ async function sendToWebhook() {
   sending.style.display = 'flex';
 
   try {
-    if (!WEBHOOK_URL.includes('YOUR_N8N_INSTANCE')) {
+    if (!WEBHOOK_URL.includes('YOUR_WEBHOOK_URL')) {
       await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
