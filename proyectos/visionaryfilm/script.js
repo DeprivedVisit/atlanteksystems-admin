@@ -2,9 +2,12 @@
 const WA_NUMBER = '50600000000'; // Número de Fabian sin + ni espacios
 
 // ===== NAV toggle móvil =====
-document.getElementById('navToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
+const navToggleEl = document.getElementById('navToggle');
+if (navToggleEl) {
+  navToggleEl.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+}
 
 // Cerrar nav al hacer click en link
 document.querySelectorAll('.nav-links a').forEach(a => {
@@ -17,26 +20,29 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 document.getElementById('waFloat').href = `https://wa.me/${WA_NUMBER}?text=Hola%2C%20vi%20tu%20web%20y%20me%20interesa%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20audiovisuales.`;
 
 // ===== Formulario de contacto → WhatsApp =====
-document.getElementById('contactForm').addEventListener('submit', e => {
-  e.preventDefault();
+const contactFormEl = document.getElementById('contactForm');
+if (contactFormEl) {
+  contactFormEl.addEventListener('submit', e => {
+    e.preventDefault();
 
-  const nombre   = document.getElementById('cNombre').value.trim();
-  const tel      = document.getElementById('cTel').value.trim();
-  const servicio = document.getElementById('cServicio').value;
-  const mensaje  = document.getElementById('cMensaje').value.trim();
+    const nombre   = document.getElementById('cNombre').value.trim();
+    const tel      = document.getElementById('cTel').value.trim();
+    const servicio = document.getElementById('cServicio').value;
+    const mensaje  = document.getElementById('cMensaje').value.trim();
 
-  const txt = [
-    `Hola VisionaryFilm 👋`,
-    ``,
-    `*Nombre:* ${nombre}`,
-    `*Teléfono:* ${tel}`,
-    servicio ? `*Servicio:* ${servicio}` : '',
-    mensaje  ? `*Mensaje:* ${mensaje}` : '',
-  ].filter(Boolean).join('\n');
+    const txt = [
+      `Hola VisionaryFilm 👋`,
+      ``,
+      `*Nombre:* ${nombre}`,
+      `*Teléfono:* ${tel}`,
+      servicio ? `*Servicio:* ${servicio}` : '',
+      mensaje  ? `*Mensaje:* ${mensaje}` : '',
+    ].filter(Boolean).join('\n');
 
-  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(txt)}`;
-  window.open(url, '_blank', 'noopener');
-});
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(txt)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+}
 
 // ===== Número WhatsApp visible en contact info =====
 const waEl = document.getElementById('waNumber');
@@ -79,3 +85,27 @@ if (reelHolder) {
     }
   });
 }
+
+// ===== Filtro de portafolio (solo en portafolio.html) =====
+const filterBtns = document.querySelectorAll('.filter-btn');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+if (filterBtns.length && portfolioItems.length) {
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      portfolioItems.forEach(item => {
+        const show = cat === 'todos' || item.dataset.category === cat;
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
+}
+
+// ===== Nav activo según página actual =====
+const currentPage = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('.nav-links a').forEach(a => {
+  const href = a.getAttribute('href');
+  if (href === currentPage) a.classList.add('active');
+});
