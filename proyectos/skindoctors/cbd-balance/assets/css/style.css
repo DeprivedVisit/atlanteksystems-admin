@@ -331,12 +331,12 @@ section{padding:5.5rem 0}
   .step:not(:last-child)::after{display:none}
   .proof-stats{gap:1.5rem}
   .stats-bar .container{gap:1rem}
-  /* Hero mobile — sin espacio para franja lateral, degradado vertical */
-  .hero{min-height:78vh}
-  .hero-photo-bg{background-position:center 24%}
-  .hero-scrim{background:linear-gradient(0deg,var(--bg) 0%,rgba(232,245,233,.55) 40%,rgba(20,45,28,.08) 100%)}
+  /* Hero mobile — apila foto (banner) + texto sobre fondo sólido, sin overlay (evita ilegibilidad con mucho texto) */
+  .hero{min-height:auto;display:block;background:var(--bg)}
+  .hero-photo-bg{position:relative;top:auto;bottom:auto;left:auto;width:100%;height:46vw;min-height:200px;max-height:280px;background-position:center 30%}
+  .hero-scrim{position:relative;inset:auto;height:0;background:none}
   .hero-tag-index{top:1rem;left:1rem}
-  .hero .container{padding-block:2.5rem 2rem;display:flex;align-items:flex-end;min-height:78vh}
+  .hero .container{position:static;padding-block:1.6rem 2rem;display:block;min-height:auto}
   .hero-content{width:100%;margin-left:0}
   .hero-title{font-size:2.3rem}
   .hero-desc{font-size:.9rem;line-height:1.68;padding-left:.9rem}
