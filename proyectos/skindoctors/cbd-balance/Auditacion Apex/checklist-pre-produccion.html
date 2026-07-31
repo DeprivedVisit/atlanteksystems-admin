@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Checklist Pre-Producción — CBD Oil Balance · Apex Cloud Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f0f7f2;--border:#c3dcc5;--teal:#1b4332;--teal-lt:#2E8B57;
+  --muted:#4a7060;--dark:#1a2e22;--green:#2E8B57;--yellow:#D4A020;--red:#D04040;
+  --serif:'Noto Serif Display',Georgia,serif;--sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-lt) 100%);padding:2.5rem 3rem 2rem;color:#fff}
+.header-inner{max-width:840px;margin:0 auto}
+.brand-line{font-family:var(--serif);font-size:1rem;color:rgba(195,220,197,.7);margin-bottom:.25rem}
+.brand-line span{color:#86efac;font-style:italic}
+.doc-title{font-family:var(--serif);font-size:1.9rem;font-weight:300}
+.doc-title strong{font-weight:600;color:#86efac}
+.doc-sub{font-size:.8rem;opacity:.7;margin-top:.4rem}
+.wrap{max-width:840px;margin:0 auto;padding:2.5rem 2rem}
+.status-banner{background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:2rem}
+.status-banner strong{color:var(--teal-lt)}
+.status-banner p{font-size:.82rem;line-height:1.6;color:var(--muted);margin-top:.3rem}
+.group{margin-bottom:2rem}
+.group-title{font-family:var(--serif);font-size:1.1rem;color:var(--dark);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.7rem;display:flex;gap:.9rem;align-items:flex-start}
+.item-icon{flex-shrink:0;font-size:1rem;margin-top:.1rem}
+.item.done{opacity:.7}
+.item-body{flex:1}
+.item-title{font-size:.86rem;font-weight:700;color:var(--dark);margin-bottom:.2rem}
+.item.done .item-title{text-decoration:line-through;color:var(--muted)}
+.item-desc{font-size:.78rem;line-height:1.55;color:var(--muted)}
+.item-tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px;margin-top:.35rem}
+.tag-block{background:rgba(208,64,64,.1);color:var(--red)}
+.tag-opt{background:rgba(212,160,32,.12);color:#92400e}
+.tag-done{background:rgba(46,139,87,.1);color:var(--green)}
+.footer-note{text-align:center;padding:1.5rem 0;font-size:.7rem;color:var(--muted);opacity:.6}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="brand-line">Apex Cloud Work · <span>Interno</span></div>
+    <div class="doc-title">Checklist Pre-<strong>Producción</strong></div>
+    <div class="doc-sub">CBD Oil Balance — qué falta de tu lado para subir a prueba con el cliente</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="status-banner">
+    <strong>✓ Nada bloquea la prueba con el cliente ahora mismo.</strong>
+    <p>El sitio ya está desplegado y funcional en producción (preview): <code>d3suiaystvdco4.cloudfront.net/cbd-balance/</code>. Todo lo de código de la auditoría de hoy ya está arreglado y subido. Lo que queda es 100% de tu lado (cuentas, decisiones de negocio) o cosas opcionales que no detienen la demo.</p>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Arreglado hoy en código (ya en producción)</div>
+
+    <div class="item done">
+      <span class="item-icon">✓</span>
+      <div class="item-body">
+        <div class="item-title">JSON-LD Product schema</div>
+        <div class="item-desc">Ya existía en el head del index.html — verificado, correcto.</div>
+        <span class="item-tag tag-done">Hecho</span>
+      </div>
+    </div>
+
+    <div class="item done">
+      <span class="item-icon">✓</span>
+      <div class="item-body">
+        <div class="item-title">sitemap.xml + robots.txt</div>
+        <div class="item-desc">Creados y subidos (robots.txt en la raíz del bucket, sitemap.xml en /cbd-balance/).</div>
+        <span class="item-tag tag-done">Hecho</span>
+      </div>
+    </div>
+
+    <div class="item done">
+      <span class="item-icon">✓</span>
+      <div class="item-body">
+        <div class="item-title">canonical + og:url + og:image apuntando al dominio real</div>
+        <div class="item-desc">Antes apuntaban a una URL vieja de S3-website y a una imagen externa de skindoctorscr.com. Ahora apuntan a CloudFront propio.</div>
+        <span class="item-tag tag-done">Hecho</span>
+      </div>
+    </div>
+
+    <div class="item done">
+      <span class="item-icon">✓</span>
+      <div class="item-body">
+        <div class="item-title">Contraste de texto (accesibilidad)</div>
+        <div class="item-desc">--muted oscurecido para margen extra de contraste AA.</div>
+        <span class="item-tag tag-done">Hecho</span>
+      </div>
+    </div>
+
+    <div class="item done">
+      <span class="item-icon">✓</span>
+      <div class="item-body">
+        <div class="item-title">Sección microbiota sin imagen propia</div>
+        <div class="item-desc">Agregada foto real de fondo (informativa.jpg) con overlay, ya no es solo texto+gradiente.</div>
+        <span class="item-tag tag-done">Hecho</span>
+      </div>
+    </div>
+
+    <div class="item done">
+      <span class="item-icon">✓</span>
+      <div class="item-body">
+        <div class="item-title">Avatares de reviews todos iguales</div>
+        <div class="item-desc">Ahora cada avatar tiene su propio color — variedad visual sin necesitar fotos reales todavía.</div>
+        <span class="item-tag tag-done">Hecho</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="group">
+    <div class="group-title">🔴 Bloquea el LANZAMIENTO final (no la prueba)</div>
+
+    <div class="item">
+      <span class="item-icon">🔒</span>
+      <div class="item-body">
+        <div class="item-title">Crear Google Sheet + Apps Script → pegar URL en SHEETS_URL</div>
+        <div class="item-desc">El modal de leads funciona igual sin esto para la demo (WhatsApp se abre directo), pero sin la URL no hay respaldo de leads guardándose en Sheets.</div>
+        <span class="item-tag tag-block">Antes de lanzar de verdad</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="item-icon">🔒</span>
+      <div class="item-body">
+        <div class="item-title">Cambiar WA_NUMBER al número oficial de Skindoctors</div>
+        <div class="item-desc">Hoy usa tu número (+506 6314-4171) como temporal — cambiar al firmar contrato, no antes.</div>
+        <span class="item-tag tag-block">Al firmar</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="item-icon">🔒</span>
+      <div class="item-body">
+        <div class="item-title">Firmar contrato + cobrar $450 USD</div>
+        <div class="item-desc">Ya redactado en Legal/ — falta la firma y el cobro.</div>
+        <span class="item-tag tag-block">Cierre de negocio</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="group">
+    <div class="group-title">🟡 Opcional — no detiene nada</div>
+
+    <div class="item">
+      <span class="item-icon">💡</span>
+      <div class="item-body">
+        <div class="item-title">Pixel Meta Ads / Google Analytics</div>
+        <div class="item-desc">Solo hace falta si van a correr ads después del lanzamiento.</div>
+        <span class="item-tag tag-opt">Cuando haya presupuesto de ads</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="item-icon">💡</span>
+      <div class="item-body">
+        <div class="item-title">Logo propio de CBD Oil Balance</div>
+        <div class="item-desc">Hoy usa el texto "Skindoctors" — en discusión si vale la pena un logo dedicado a la línea.</div>
+        <span class="item-tag tag-opt">Nice to have</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="item-icon">💡</span>
+      <div class="item-body">
+        <div class="item-title">Fotos/video de modelo real usando el producto</div>
+        <div class="item-desc">Ya hay fotos y videos reales del producto en uso — esto sería un plus adicional con una persona posando.</div>
+        <span class="item-tag tag-opt">Nice to have</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="item-icon">💡</span>
+      <div class="item-body">
+        <div class="item-title">Pop-up exit intent</div>
+        <div class="item-desc">Para recuperar visitas que se van sin convertir — mejora conversión, no bloquea nada.</div>
+        <span class="item-tag tag-opt">Nice to have</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer-note">Apex Cloud Work · Cartago, Costa Rica · Interno · No compartir</div>
+
+</body>
+</html>

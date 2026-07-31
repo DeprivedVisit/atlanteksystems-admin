@@ -158,8 +158,8 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
       <div class="url-icon pending">⚙️</div>
       <div class="url-info">
         <div class="url-label">Sistema de captura de leads — Pendiente configuración</div>
-        <div class="url-link">N8N Webhook + Google Sheets (crear cuenta)</div>
-        <div class="url-desc">El formulario de leads está integrado. Requiere que usted cree el webhook en N8N y una hoja de cálculo en Google Sheets. Ver instrucciones abajo.</div>
+        <div class="url-link">Google Sheets (crear cuenta)</div>
+        <div class="url-desc">El formulario de leads está integrado. Requiere que usted cree una hoja de cálculo en Google Sheets. Ver instrucciones abajo.</div>
       </div>
       <span class="url-status status-pending">Pendiente</span>
     </div>
@@ -167,10 +167,9 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
 
   <div class="alert-box">
     <h4>⚠️ Paso pendiente — Activar captura de leads</h4>
-    <p>Para que los formularios envíen datos a N8N y Google Sheets, debe crear un webhook en su cuenta de N8N para el producto CBD y pegar la URL en el código:<br>
-    <code>const N8N_WEBHOOK = 'URL_AQUÍ';</code><br>
+    <p>Para que los formularios envíen datos a Google Sheets, debe crear la hoja de cálculo y pegar la URL en el código:<br>
     <code>const SHEETS_URL = 'URL_AQUÍ';</code><br>
-    Escríbame cuando tenga las URLs y las configuro en menos de 10 minutos.</p>
+    Escríbame cuando tenga la URL y la configuro en menos de 10 minutos.</p>
   </div>
 
   <div class="divider"></div>
@@ -194,10 +193,9 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
     <div class="deliverable-card">
       <div class="d-icon">📋</div>
       <div class="d-title">Sistema de captura de leads</div>
-      <div class="d-desc">Modal interceptor en todos los botones de WhatsApp. Captura nombre, teléfono, email, tipo de piel y provincia. Envía automáticamente a N8N (automatización) y Google Sheets (respaldo). Pre-llena el chat de WhatsApp con los datos del cliente.</div>
+      <div class="d-desc">Modal interceptor en todos los botones de WhatsApp. Captura nombre, teléfono, email, tipo de piel y provincia. Envía automáticamente a Google Sheets (respaldo). Pre-llena el chat de WhatsApp con los datos del cliente.</div>
       <div class="d-chips">
         <span class="d-chip">Modal verde</span>
-        <span class="d-chip">N8N webhook</span>
         <span class="d-chip">Google Sheets</span>
         <span class="d-chip">WA pre-llenado</span>
       </div>

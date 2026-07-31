@@ -86,19 +86,19 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
 
   <div class="stats-row">
     <div class="stat-box">
-      <div class="stat-num green">12</div>
+      <div class="stat-num green">23</div>
       <div class="stat-lbl">Cambios totales</div>
     </div>
     <div class="stat-box">
-      <div class="stat-num teal">5</div>
+      <div class="stat-num teal">9</div>
       <div class="stat-lbl">Features nuevas</div>
     </div>
     <div class="stat-box">
-      <div class="stat-num coral">4</div>
+      <div class="stat-num coral">7</div>
       <div class="stat-lbl">Bugs corregidos</div>
     </div>
     <div class="stat-box">
-      <div class="stat-num yellow">3</div>
+      <div class="stat-num yellow">6</div>
       <div class="stat-lbl">Deploys a S3</div>
     </div>
   </div>
@@ -112,6 +112,135 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
   </div>
 
   <div class="timeline">
+
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <div class="session-date">Sesión 4 · Julio 22, 2026</div>
+        <div class="session-time">Rediseño con fotos/videos reales + reels + fix imagen rota</div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Hero rediseñado — foto real + tarjeta de info</div>
+          <div class="entry-desc">Se probaron 2 enfoques (video full-bleed cinematico, luego foto oscura full-bleed) antes de asentarse en el definitivo: layout neutral de 2 columnas, tarjeta de info (<code>.hero-content</code>) a la izquierda con fondo <code>--surface</code>/borde/sombra, foto real (<code>background-principal.jpg</code>) a la derecha en <code>.hero-photo-wrap</code>, misma altura via <code>align-items:stretch</code>. Badge de precio integrado dentro de la tarjeta.</div>
+          <span class="entry-tag tag-brand">Brand</span>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Sección "Mirá el producto en acción" — reel vertical</div>
+          <div class="entry-desc">Nueva sección <code>.reels-section</code> con carrusel vertical scroll-snap (<code>.reel-track</code>, un video a la vez). Reposicionada 2 veces (primero fusionada en hero, luego separada de vuelta antes de Reviews). Reel final: <code>video-skindoctors-1.mp4</code> (influencer hablando del producto) en tamaño grande, solo.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Fix video incorrecto en sección producto — swap</div>
+          <div class="entry-desc">Se había puesto <code>video-skindoctors-1.mp4</code> (influencer hablando) en <code>.cta-img-wrap</code> pensando que era el demo de uso. Al extraer frames con ffmpeg se confirmó que <code>portada-hero.mp4</code> es el que muestra la aplicación real (mano + espuma). Swap corregido: demo de uso → sección producto final; influencer → reels-section.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Sección "Cómo usar" — foto real integrada</div>
+          <div class="entry-desc"><code>informativa.jpg</code> (mano aplicando espuma) agregada como <code>.howto-img-wrap</code> a la izquierda de los 4 pasos, layout <code>.howto-grid</code> 2 columnas.</div>
+          <span class="entry-tag tag-brand">Brand</span>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Sección CTA final de WhatsApp</div>
+          <div class="entry-desc">Nueva <code>.wa-cta</code> antes del footer — banner verde con botón "Pedir por WhatsApp", reemplaza el hueco que dejó el segundo reel al moverlo.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Fix imagen rota — Espuma-Facial-CBD.png</div>
+          <div class="entry-desc">El archivo no existía en el repo local (roto en 3 lugares: science, product-cta, lead modal). Se recuperó el original directo del bucket <code>skindoctors-cr-landings/cbd-balance/</code> con <code>aws s3 cp</code> — ya estaba en producción desde sesión de junio, solo faltaba en local.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-audit">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Deploy S3 + CloudFront invalidation</div>
+          <div class="entry-desc">Subido <code>index.html</code>, <code>Espuma-Facial-CBD.png</code> y carpeta <code>assets/</code> completa (css, js, img — incluye 2 videos nuevos ~11MB) a <code>skindoctors-cr-landings/cbd-balance/</code>. Invalidación CloudFront <code>E31U5V9IA0JXSZ</code> en path <code>/cbd-balance/*</code>.</div>
+          <span class="entry-tag tag-deploy">Deploy</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Compresión de media — fix de auditoría</div>
+          <div class="entry-desc">Con ffmpeg: <code>video-skindoctors-1.mp4</code> 5.5MB→2.5MB (h264, crf30, 640x1138, sin audio), <code>portada-hero.mp4</code> 2.5MB→443KB (crf28, 854x480, sin audio). <code>background-principal.jpg</code> 2.4MB→119KB, <code>informativa.jpg</code> 1.97MB→59KB (reescaladas + recomprimidas). Total assets/img: 11.9MB→~3MB.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Hero vuelto a foto total de fondo</div>
+          <div class="entry-desc">Se probó layout neutral (card blanca + foto en recuadro aparte) pero se revirtió: ahora el hero usa el mismo patrón que la sección microbiota — foto de fondo a intensidad total, scrim degradado, texto blanco directo encima. Badge de precio como glass card flotante.</div>
+          <span class="entry-tag tag-brand">Brand</span>
+        </div>
+      </div>
+
+      <div class="entry e-fix">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">SEO + Accesibilidad — cierre de hallazgos de auditoría</div>
+          <div class="entry-desc">canonical y og:url apuntando a CloudFront real (no más URL vieja de S3-website), og:image propio (ya no externo a skindoctorscr.com). Creados <code>sitemap.xml</code> y <code>robots.txt</code>. JSON-LD verificado (ya existía). <code>--muted</code> oscurecido para contraste AA. Avatares de reviews con color propio por review. Sección microbiota con foto real de fondo.</div>
+          <span class="entry-tag tag-fix">Fix</span>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">checklist-pre-produccion.html creado</div>
+          <div class="entry-desc">Doc nuevo que separa lo ya resuelto en código de lo que falta manualmente (Sheets URL, WA_NUMBER, firma+cobro) — confirma que nada bloquea una prueba con el cliente.</div>
+          <span class="entry-tag tag-new">Feature</span>
+        </div>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-time">Jul 22 2026 · Apex</div>
+          <div class="entry-title">Decisión: flujo de leads simplificado</div>
+          <div class="entry-desc">Se descartó la automatización externa para esta landing — el flujo de leads queda solo modal + Google Sheets (Apps Script) + WhatsApp directo, menos piezas que mantener.</div>
+          <span class="entry-tag tag-brand">Brand</span>
+        </div>
+      </div>
+
+    </div>
 
     <div class="session">
       <div class="session-header">
@@ -164,7 +293,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-heigh
         <div class="entry-body">
           <div class="entry-time">Jun 08 2026 · Apex</div>
           <div class="entry-title">Sistema de leads implementado (modal interceptor)</div>
-          <div class="entry-desc">Se replicó el sistema de MelasBlock. Modal con overlay captura: nombre*, teléfono*, email*, tipo de piel (Grasa/Mixta/Seca/Sensible/No sé), provincia*. Todos los botones de WhatsApp reemplazados con <code>onclick="abrirModal('contexto')"</code>. Mensaje WhatsApp pre-llenado con datos del cliente. Config: <code>WA_NUMBER='50663144171'</code>, N8N webhook y Sheets URL pendientes de configuración por el cliente.</div>
+          <div class="entry-desc">Se replicó el sistema de MelasBlock. Modal con overlay captura: nombre*, teléfono*, email*, tipo de piel (Grasa/Mixta/Seca/Sensible/No sé), provincia*. Todos los botones de WhatsApp reemplazados con <code>onclick="abrirModal('contexto')"</code>. Mensaje WhatsApp pre-llenado con datos del cliente. Config: <code>WA_NUMBER='50663144171'</code>, Sheets URL pendiente de configuración por el cliente.</div>
           <span class="entry-tag tag-new">Feature</span>
         </div>
       </div>

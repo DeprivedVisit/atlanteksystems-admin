@@ -73,7 +73,6 @@ function addLead(d) {
   notifyLead(d);
 }
 
-// Reemplaza el nodo Gmail de N8N — mismo contenido, sin costo mensual.
 function notifyLead(d) {
   const cuerpo = 'Nuevo lead de CBD Oil Balance:\n\n'
     + 'Nombre: '    + (d.nombre   || '—') + '\n'

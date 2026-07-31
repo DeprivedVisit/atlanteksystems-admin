@@ -115,9 +115,8 @@ body{font-family:var(--sans);background:#0a1a0f;color:var(--mint);min-height:100
   <div class="alert-pending">
     <h4>⏳ Pendiente del cliente — Activar sistema de leads CBD</h4>
     <p>Para completar la entrega técnica, el cliente debe crear:<br>
-    1. Webhook en N8N para CBD (diferente al de Melasblock) → pegar en <code>const N8N_WEBHOOK = ''</code><br>
-    2. Google Sheet nuevo para CBD → pegar URL Apps Script en <code>const SHEETS_URL = ''</code><br>
-    Tiempo de mi lado: &lt;10 min una vez que manden las URLs.</p>
+    Google Sheet nuevo para CBD → pegar URL Apps Script en <code>const SHEETS_URL = ''</code><br>
+    Tiempo de mi lado: &lt;10 min una vez que manden la URL.</p>
   </div>
 
   <div class="section">
@@ -164,14 +163,6 @@ body{font-family:var(--sans);background:#0a1a0f;color:var(--mint);min-height:100
         <div class="check-body">
           <div class="check-title">Documentos legales creados (Política + T&C)</div>
           <div class="check-desc">politica-privacidad.html + terminos.html. Ley N.° 8968 CR. Listos para subir a S3.</div>
-        </div>
-      </div>
-
-      <div class="check-item" onclick="toggle(this)">
-        <div class="check-box"></div>
-        <div class="check-body">
-          <div class="check-title">Cliente configura N8N webhook CBD</div>
-          <div class="check-desc">Andrés crea webhook nuevo en N8N y manda la URL para pegar en el código.</div>
         </div>
       </div>
 
@@ -245,7 +236,7 @@ body{font-family:var(--sans);background:#0a1a0f;color:var(--mint);min-height:100
       <div class="notes-label">Notas del cierre</div>
       <textarea class="notes-textarea" placeholder="Agregar notas aquí...">- CBD es add-on del deal de Melasblock. Ambos bajo el mismo cliente (Andrés / Skindoctors CR).
 - Hablar COMISIÓN con Andrés antes del primer cobro — él abrió la cuenta.
-- Modal de leads: WA number configurado (50663144171). N8N y Sheets pendientes.
+- Modal de leads: WA number configurado (50663144171). Sheets pendiente.
 - Deadline junio 15 para cerrar los $450.</textarea>
     </div>
   </div>

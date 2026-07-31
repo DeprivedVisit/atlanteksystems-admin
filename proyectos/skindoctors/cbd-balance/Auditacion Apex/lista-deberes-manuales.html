@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Deberes Manuales — CBD Oil Balance · Apex Cloud Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f0f7f2;--border:#c3dcc5;--teal:#1b4332;--teal-lt:#2E8B57;
+  --muted:#4a7060;--dark:#1a2e22;--green:#2E8B57;--yellow:#D4A020;--red:#D04040;
+  --serif:'Noto Serif Display',Georgia,serif;--sans:'Quicksand',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-lt) 100%);padding:2.5rem 3rem 2rem;color:#fff}
+.header-inner{max-width:840px;margin:0 auto}
+.brand-line{font-family:var(--serif);font-size:1rem;color:rgba(195,220,197,.7);margin-bottom:.25rem}
+.brand-line span{color:#86efac;font-style:italic}
+.doc-title{font-family:var(--serif);font-size:1.9rem;font-weight:300}
+.doc-title strong{font-weight:600;color:#86efac}
+.doc-sub{font-size:.8rem;opacity:.7;margin-top:.4rem}
+.wrap{max-width:840px;margin:0 auto;padding:2.5rem 2rem}
+.group{margin-bottom:2rem}
+.group-title{font-family:var(--serif);font-size:1.1rem;color:var(--dark);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.duty{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:.7rem;display:flex;gap:.9rem;align-items:flex-start}
+.duty-tag{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;flex-shrink:0;margin-top:.15rem;white-space:nowrap}
+.tag-alta{background:rgba(208,64,64,.1);color:var(--red)}
+.tag-media{background:rgba(212,160,32,.12);color:#92400e}
+.tag-baja{background:rgba(46,139,87,.1);color:var(--green)}
+.duty-body{flex:1}
+.duty-title{font-size:.86rem;font-weight:700;color:var(--dark);margin-bottom:.2rem}
+.duty-desc{font-size:.78rem;line-height:1.55;color:var(--muted)}
+.duty-who{font-size:.66rem;font-weight:700;color:var(--teal-lt);margin-top:.35rem;text-transform:uppercase;letter-spacing:.06em}
+.footer-note{text-align:center;padding:1.5rem 0;font-size:.7rem;color:var(--muted);opacity:.6}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="brand-line">Apex Cloud Work · <span>Interno</span></div>
+    <div class="doc-title">Deberes <strong>Manuales</strong></div>
+    <div class="doc-sub">Skindoctors CR — CBD Oil Balance + Melasblock · Cosas que NO se resuelven con código, alguien tiene que hacerlas a mano</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="group">
+    <div class="group-title">🔴 Urgente / bloquea cobro</div>
+
+    <div class="duty">
+      <span class="duty-tag tag-alta">Alta</span>
+      <div class="duty-body">
+        <div class="duty-title">Hablar comisión con Andrés antes del primer cobro</div>
+        <div class="duty-desc">Andrés abrió la cuenta de Skindoctors — definir % o monto de comisión ANTES de cobrar los $450, no después.</div>
+        <div class="duty-who">Quién: Garett ↔ Andrés</div>
+      </div>
+    </div>
+
+    <div class="duty">
+      <span class="duty-tag tag-alta">Alta</span>
+      <div class="duty-body">
+        <div class="duty-title">Agendar reunión y presentar propuesta</div>
+        <div class="duty-desc">Mostrar <code>presentacion/index.html</code> a Skindoctors, cerrar firma de contrato.</div>
+        <div class="duty-who">Quién: Garett</div>
+      </div>
+    </div>
+
+    <div class="duty">
+      <span class="duty-tag tag-alta">Alta</span>
+      <div class="duty-body">
+        <div class="duty-title">Firmar contrato + cobrar $450 USD</div>
+        <div class="duty-desc">Proforma y contrato ya redactados (carpeta Legal/). Falta firma del cliente y el cobro en sí.</div>
+        <div class="duty-who">Quién: Garett + cliente</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="group">
+    <div class="group-title">🟡 Configuración del cliente</div>
+
+    <div class="duty">
+      <span class="duty-tag tag-media">Media</span>
+      <div class="duty-body">
+        <div class="duty-title">Crear Google Sheet "Leads CBD" + Apps Script</div>
+        <div class="duty-desc">Hoja con columnas: Fecha, Nombre, Teléfono, Email, Tipo Piel, Zona, Contexto. Pegar URL del Apps Script en <code>const SHEETS_URL</code> de index.html — yo lo configuro en &lt;10 min una vez que llegue la URL.</div>
+        <div class="duty-who">Quién: Cliente (Skindoctors) crea, Garett configura</div>
+      </div>
+    </div>
+
+    <div class="duty">
+      <span class="duty-tag tag-media">Media</span>
+      <div class="duty-body">
+        <div class="duty-title">Cambiar WA_NUMBER al número oficial de Skindoctors</div>
+        <div class="duty-desc">Ahora mismo usa +506 6314-4171 (Garett) como temporal. Cambiar en <code>script.js</code> de ambas landings al firmar contrato.</div>
+        <div class="duty-who">Quién: Garett, apenas el cliente confirme el número</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="group">
+    <div class="group-title">🟢 Baja prioridad / nice-to-have</div>
+
+    <div class="duty">
+      <span class="duty-tag tag-baja">Baja</span>
+      <div class="duty-body">
+        <div class="duty-title">Foto/video real de modelo usando el producto</div>
+        <div class="duty-desc">Ya se agregaron fotos y videos reales del producto (spa, aplicación, reel), pero sería foto propia de modelo — no urgente, mejora conversión.</div>
+        <div class="duty-who">Quién: Cliente coordina sesión de fotos</div>
+      </div>
+    </div>
+
+    <div class="duty">
+      <span class="duty-tag tag-baja">Baja</span>
+      <div class="duty-body">
+        <div class="duty-title">Logo propio de CBD Oil Balance</div>
+        <div class="duty-desc">Actualmente la marca usa solo texto ("Skindoctors"), sin logo SVG dedicado a la línea CBD Oil Balance.</div>
+        <div class="duty-who">Quién: Garett (diseño) — en discusión</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer-note">Apex Cloud Work · Cartago, Costa Rica · Interno · No compartir</div>
+
+</body>
+</html>

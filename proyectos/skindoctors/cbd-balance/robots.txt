@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://d3suiaystvdco4.cloudfront.net/cbd-balance/sitemap.xml
