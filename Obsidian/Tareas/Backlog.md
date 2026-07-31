@@ -12,15 +12,20 @@
 - [ ] VisionaryFilm — recibir datos de Fabian
 - [ ] RFLX — brief con Andrés + resolver TODO técnico (hash admin, Apps Script)
 - [ ] Arte Verde — brief con Tía Estefany
-- [ ] **Galiz — registrar en cartera** (tiene trabajo real: apps-script + n8n, pero no está en CLAUDE.md)
+- [x] ~~Galiz — registrar en cartera~~ — ya está en CLAUDE.md como proyecto #6
 - [ ] AutoCAD/Arquitectura — Fase 1 visualizador APS Viewer (con Derek)
+- [ ] INTEC — redeploy Apps Script (`lead-status`) + decidir cuál de las 2 propuestas comerciales rige
+- [ ] LICORERA — confirmar estado real con cliente + prioridad en el orden
+- [ ] Megan Tattoo — conseguir datos reales de contacto (WA, redes)
+- [ ] Apex RMM — decidir si Fase 2 (alertas) se retoma, dado que no es prioridad de cobro
+- [ ] Divinas — reemplazar auth demo (`admin@divinas.com`/`admin123`) + subir Code.gs a Apps Script real
 
 ---
 
 ## Infraestructura / Técnico
 
-- [ ] Backend EC2 — deploy completo + subdominio `api.apexcloudworkscompany.com`
-- [ ] Apex Landing — 3 críticos de seguridad (token, URL Apps Script, localStorage)
+- [ ] Backend EC2 — deploy completo + subdominio `api.apexcloudworkscompany.com` (los 3 fixes ya viven en `backend/` local, sin producción)
+- [x] Apex Landing — 3 críticos de seguridad resueltos en código (16 jul) — solo falta el deploy de arriba
 - [ ] Apex Landing — UI/librerías: tokens.css unificado, dividir admin.js/style.css en módulos
 - [ ] Apex Landing — foto real de Garett para "Sobre mí"
 - [ ] Skindoctors — cambiar WA flotante a número propio del cliente (al firmar)

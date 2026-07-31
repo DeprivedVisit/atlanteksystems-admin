@@ -20,8 +20,8 @@
 
 | Landing | Ruta | Estado |
 |---------|------|--------|
-| Melasblock | `/melasblock/` | ✅ Live — N8N activo |
-| CBD Balance | `/cbd-balance/` | ⚠️ Toggle pendiente |
+| Melasblock | `/melasblock/` | ✅ Live — Apps Script (rediseño inmersivo full-bleed 30-31 jul, hero video 3D) |
+| CBD Balance | `/cbd-balance/` | ✅ Apps Script + `robots.txt`/`sitemap.xml`/checklist pre-producción agregados |
 | Presentación | `/presentacion/` | ✅ Live |
 
 ---
@@ -37,13 +37,14 @@
 
 ---
 
-## N8N
+## Backend (Apps Script — N8N retirado 16 jul 2026)
 
 ```
-Form submit → Webhook → Google Sheets + Gmail notificación
+Form submit → Apps Script → Google Sheets + Gmail notificación
 ```
 Melasblock: activo en producción
-CBD Balance: importado — pendiente activar
+CBD Balance: activo en producción
+N8N ya no se usa — migración completa a Apps Script en contratos, políticas de seguridad y copy de todos los clientes (commit `6b286b7`).
 
 ---
 

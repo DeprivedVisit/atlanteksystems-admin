@@ -1,5 +1,5 @@
 # 🧠 CLAUDE.md — Garett Barrantes Benavides
-> Memoria permanente · Versión 13.5 · 04 Julio 2026
+> Memoria permanente · Versión 13.6 · 31 Julio 2026
 > Leer completo antes de cualquier sesión.
 
 ---
@@ -85,7 +85,7 @@
 **Nivel JS:** Semana 1 ✅ · Semana 2 ✅ (Closures + .filter()) · Semana 3 en curso
 **Objetivo:** JS → React → APIs → AWS avanzado
 **Dispositivos:** iPhone · VS Code · Google Calendar + Apple Calendar
-**AWS deployado:** S3 · CloudFront · Route 53 · Apps Script · N8N webhooks en producción
+**AWS deployado:** S3 · CloudFront · Route 53 · Apps Script en producción (N8N retirado 16 jul 2026 — migración completa a Apps Script en contratos/políticas/copy de todos los clientes)
 **GitHub:** github.com/apexcloudworkscompany
 **Wilson:** PY local · Telegram bot · Claude Sonnet 4.6 via Bedrock · brief 07:00 AM · /lead · /deploy · /revisar · /refactor · wake word "hey wilson"
 
@@ -137,6 +137,9 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 | 10 | **Dropshipping** | Interno (guía) | 📄 Documento — sin código | — |
 | 11 | **Wilson** | Interno | ✅ Funcional · renombrado jun 2026 · wake word "hey wilson" · Notion fix aplicado | — |
 | 12 | **AutoCAD/Arquitectura** | Interno (nueva línea) | 🆕 Fase 1 en diseño — visualizador web APS Viewer para clientes rubro Arquitectura | Add-on $150-300 |
+| 13 | **INTEC** | INTEC (CCTV/seguridad, Guápiles) | ⚠️ Simulador de venta completo (landing v2 + gate + leads + admin + dashboard) — ⚠️ pendiente redeploy Apps Script (`lead-status`) antes de demo a Daniel; 2 propuestas con precios distintos sin resolver | $350 setup + $50/mes (o precio "de conocido" ₡, ver `PLAN_MIGRACION.md`) |
+| 14 | **LICORERA** | Jimenez Licores | 📦 Primera versión commiteada 16 jul 2026 (landing+admin+dashboard) — falta confirmar estado real con el cliente y prioridad en el orden | TBD |
+| 15 | **Apex RMM** | Interno (posible línea futura) | 🆕 Clon propio de Atera (RMM+PSA) — Fase 1 telemetría verificada 16 jul 2026, extiende `backend/` existente, probado solo contra MySQL local (no toca RDS de producción) | Línea de negocio futura (opcional) |
 
 ### Skindoctors — Infraestructura
 
@@ -144,8 +147,8 @@ Brief → Paleta/Fuentes → Secciones → HTML/CSS/JS → S3 Preview → 2 revi
 |---------|---------|
 | S3 bucket | `skindoctors-cr-landings` — us-east-2 |
 | CloudFront | `E31U5V9IA0JXSZ` · `d3suiaystvdco4.cloudfront.net` |
-| Landing 1 | `/melasblock/` — N8N activo + Google Sheets + Gmail |
-| Landing 2 | `/cbd-balance/` — N8N importado, **pendiente activar toggle** |
+| Landing 1 | `/melasblock/` — Apps Script + Google Sheets + Gmail (rediseño inmersivo full-bleed 30-31 jul) |
+| Landing 2 | `/cbd-balance/` — Apps Script + Google Sheets + Gmail |
 | Presentación | `/presentacion/index.html` · `/presentacion/entrega-final.html` |
 | WA actual | `+506 6314-4171` (Garett) → cambiar a número Skindoctors al firmar |
 
