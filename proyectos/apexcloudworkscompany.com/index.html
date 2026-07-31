@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apex Cloudworks — Sistemas web en AWS · Cartago, CR</title>
-  <meta name="description" content="Landing pages, sistemas web y automatizaciones con IA desplegados en AWS. Cotización en 24h. Cartago, Costa Rica.">
+  <title>Apex Cloud Work — Landing Pages, Sistemas SaaS y Cloud en AWS · Cartago, CR</title>
+  <meta name="description" content="Landing pages, sistemas SaaS a medida, automatizaciones con IA e infraestructura cloud en AWS. Desde $350 hasta proyectos empresariales bajo contrato. Cartago, Costa Rica.">
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://apexcloudworkscompany.com/">
-  <meta property="og:title"       content="Apex Cloud Work — Landing Pages y Sistemas Web en AWS · Cartago CR">
-  <meta property="og:description" content="Diseñamos y desplegamos sitios, landings de conversión y automatizaciones en AWS. Cotización en 24h. Cartago, Costa Rica.">
+  <meta property="og:title"       content="Apex Cloud Work — Landing Pages, SaaS y Cloud en AWS · Cartago CR">
+  <meta property="og:description" content="Diseñamos y desplegamos landings, sistemas SaaS a medida, automatizaciones IA e infraestructura cloud en AWS. Cotización en 24h. Cartago, Costa Rica.">
   <meta property="og:image"       content="https://apexcloudworkscompany.com/assets/img/og-image.jpg">
   <meta property="og:locale"      content="es_CR">
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="Apex Cloud Work — Sistemas web en AWS · Cartago CR">
-  <meta name="twitter:description" content="Landing pages, automatizaciones y sistemas web en AWS. Respuesta en 24h.">
+  <meta name="twitter:title"       content="Apex Cloud Work — Landing Pages, SaaS y Cloud en AWS · Cartago CR">
+  <meta name="twitter:description" content="Landing pages, sistemas SaaS, automatizaciones IA e infraestructura cloud en AWS. Respuesta en 24h.">
   <meta name="twitter:image"       content="https://apexcloudworkscompany.com/assets/img/og-image.jpg">
   <!-- Canonical -->
   <link rel="canonical" href="https://apexcloudworkscompany.com/">
@@ -99,19 +99,24 @@
       },
       {
         "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Sistema Completo", "description": "Sistema web con autenticación, base de datos PostgreSQL, admin panel y automatizaciones con Apps Script + IA." },
+        "itemOffered": { "@type": "Service", "name": "Sistema Completo", "description": "Sistema web con autenticación, base de datos real, admin panel y automatizaciones con Apps Script + IA." },
         "priceCurrency": "USD",
         "priceSpecification": { "@type": "PriceSpecification", "minPrice": "2000", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Proyecto Grande / SaaS", "description": "Desarrollo de SaaS a medida, integraciones de IA empresarial, infraestructura cloud escalable y mesa de soporte IT con sistema de tickets, bajo contrato y SLA." },
+        "priceCurrency": "USD"
       }
     ]
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/tokens.css?v=3">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=5">
   <link rel="stylesheet" href="assets/css/components.css?v=4">
-  <link rel="stylesheet" href="assets/css/style.css?v=17">
+  <link rel="stylesheet" href="assets/css/style.css?v=20">
 </head>
 <body>
 
@@ -121,6 +126,24 @@
 <!-- Skip to content — accesibilidad teclado -->
 <a href="#main-content" class="skip-link">Ir al contenido principal</a>
 
+<!-- BARRA DE CONTACTO — no fija, desaparece al scrollear (solo visible arriba del todo) -->
+<div class="util-bar">
+  <div class="wrap util-bar-inner">
+    <div class="util-links">
+      <a href="mailto:apexcloudworkscompany@gmail.com" class="util-item">apexcloudworkscompany@gmail.com</a>
+      <a href="https://wa.me/50663144171" class="util-item" target="_blank" rel="noopener">+506 6314-4171</a>
+    </div>
+    <div class="util-icons">
+      <a href="https://github.com/apexcloudworkscompany" class="util-icon" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4L4 12L8 20M16 4L20 12L16 20M13 4L11 20"/></svg>
+      </a>
+      <a href="https://wa.me/50663144171" class="util-icon" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4H20V16H9L4 20V4Z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- NAV — aparece al scrollear más allá del hero-simulador; sin JS queda siempre visible -->
 <nav class="nav" id="site-nav" role="navigation" aria-label="Navegación principal">
   <div class="nav-wrap">
@@ -129,16 +152,16 @@
       <span class="nav-logo-text">apex<em>cloudwork</em>company.com</span>
     </a>
     <ul class="nav-links" role="list">
-      <li><a href="#proceso">Proceso</a></li>
-      <li><a href="#servicios">Servicios</a></li>
       <li><a href="#trabajo">Portafolio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
       <li><a href="#precios">Precios</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <div class="nav-actions">
       <a href="portal/index.html" class="nav-icon-btn nav-icon-portal">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V8L12 4L17 8V11"/></svg>
         <span>Portal</span>
       </a>
       <a href="https://wa.me/50663144171" class="btn btn-gold btn-sm nav-cta-btn" target="_blank" rel="noopener">Cotizar →</a>
@@ -148,9 +171,9 @@
     </div>
   </div>
   <div class="nav-mobile" id="nav-mobile">
-    <a href="#proceso">Proceso</a>
-    <a href="#servicios">Servicios</a>
     <a href="#trabajo">Portafolio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#proceso">Proceso</a>
     <a href="#precios">Precios</a>
     <a href="#faq">FAQ</a>
     <a href="#contacto">Contacto</a>
@@ -162,17 +185,147 @@
 <!-- MAIN CONTENT -->
 <main id="main-content">
 
-<!-- HERO — el simulador Antigravity es el fondo/contenido completo (el carrusel de proceso vive DENTRO de él) -->
-<section class="hero hero-ide-full">
-  <h1 class="sr-only">Apex Cloud Work — Landing pages, sistemas web y automatizaciones en AWS · Cartago, Costa Rica</h1>
-  <iframe src="background/index.html?v=27#portada" class="ide-fullbleed-iframe" title="Apex Cloud Work — diseño, arquitectura y precios en vivo" loading="eager"></iframe>
+<!-- HERO — limpio: kicker + titular + sub + CTA. Fondo listo para el video/imagen que estás generando. -->
+<section class="hero">
+  <div class="hero-bg-media" aria-hidden="true">
+    <!-- Esfera de circuitos + anillos coral — recreación limpia del concepto que
+         Garett generó con Higgsfield (el video original tenía alucinaciones de IA:
+         dominio inventado, botón en inglés, iconos sociales falsos — no usable). -->
+    <div class="hero-orb">
+      <div class="hero-orb-glow"></div>
+      <svg class="hero-orb-circuit" viewBox="0 0 400 400" fill="none" stroke="var(--gold2)" stroke-width="1.6" stroke-linejoin="miter">
+        <path d="M370,200 L320.2,320.2 L200,370 L79.8,320.2 L30,200 L79.8,79.8 L200,30 L320.2,79.8 Z"/>
+        <path d="M290,200 L263.6,263.6 L200,290 L136.4,263.6 L110,200 L136.4,136.4 L200,110 L263.6,136.4 Z"/>
+        <path d="M370,200 L290,200 M200,370 L200,290 M30,200 L110,200 M200,30 L200,110"/>
+        <rect x="368" y="198" width="4" height="4" fill="var(--gold2)" stroke="none"/>
+        <rect x="198" y="368" width="4" height="4" fill="var(--gold2)" stroke="none"/>
+        <rect x="28" y="198" width="4" height="4" fill="var(--gold2)" stroke="none"/>
+        <rect x="198" y="28" width="4" height="4" fill="var(--gold2)" stroke="none"/>
+      </svg>
+      <div class="hero-orb-ring hero-orb-ring--1"></div>
+      <div class="hero-orb-ring hero-orb-ring--2"></div>
+      <div class="hero-orb-ring hero-orb-ring--3"></div>
+    </div>
+    <!-- Cuando tengas un video real y limpio (Higgsfield u otro), ponelo en
+         assets/video/hero-bg.mp4 — pinta encima de la esfera automáticamente,
+         sin tocar código. Sin archivo, queda la esfera. -->
+    <video class="hero-bg-video" autoplay muted loop playsinline poster="assets/img/hero-bg-poster.jpg">
+      <source src="assets/video/hero-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-wrap wrap">
+    <div class="hero-card">
+      <span class="hero-kicker">Cartago, Costa Rica · Desplegado en AWS</span>
+      <h1 class="hero-h1">Tu negocio, <em>en producción.</em></h1>
+      <p class="hero-sub">Landing pages, sistemas SaaS a medida, automatización con IA e infraestructura cloud. Un solo equipo que diseña, construye y sostiene — de la primera consulta al contrato firmado.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/50663144171?text=Hola%20Garett%2C%20quiero%20cotizar%20un%20proyecto%20con%20Apex" class="btn-pill-gold" target="_blank" rel="noopener">Cotizar por WhatsApp →</a>
+        <a href="#trabajo" class="btn-pill-ghost">Ver trabajo real</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAFOLIO — prueba antes que pitch -->
+<section class="section section-dark reveal" id="trabajo">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d2">Proyectos reales</h2>
+      <p>Sistemas en producción, sin relleno: clientes reales, resultados medibles.</p>
+    </div>
+    <div class="pf-grid">
+      <article class="pf-card card">
+        <div class="pf-cover">
+          <img src="assets/img/pf-melasblock.webp" alt="Landing page de Melasblock — BB Cream SPF 50 de Skindoctors CR" class="pf-cover-img" loading="lazy" width="900" height="563">
+          <div class="pf-cover-badges"><span class="pf-cover-name">Melasblock</span><span class="pill pill-green">LIVE</span></div>
+        </div>
+        <div class="pf-body">
+          <span class="work-client mono">Skindoctors CR · 2026</span>
+          <div class="work-top"><div class="work-name">Landing de conversión</div></div>
+          <p class="work-desc">Landing en producción para BB Cream con SPF 50. Formulario conectado a n8n: cada lead llega a Google Sheets y notifica por Gmail en segundos.</p>
+          <div class="work-tags"><span class="work-tag">AWS S3</span><span class="work-tag">CloudFront</span><span class="work-tag">n8n</span><span class="work-tag">Google Sheets</span></div>
+        </div>
+      </article>
+      <article class="pf-card card">
+        <div class="pf-cover">
+          <img src="assets/img/pf-cbd-balance.webp" alt="Landing page de CBD Oil Balance — gel limpiador facial de Skindoctors CR" class="pf-cover-img" loading="lazy" width="900" height="563">
+          <div class="pf-cover-badges"><span class="pf-cover-name">CBD Balance</span><span class="pill pill-green">LIVE</span></div>
+        </div>
+        <div class="pf-body">
+          <span class="work-client mono">Skindoctors CR · 2026</span>
+          <div class="work-top"><div class="work-name">Landing de conversión</div></div>
+          <p class="work-desc">Segunda landing del sistema Skindoctors: gel limpiador facial CBD. Misma infraestructura AWS y sistema de leads, identidad visual propia.</p>
+          <div class="work-tags"><span class="work-tag">AWS S3</span><span class="work-tag">CloudFront</span><span class="work-tag">Apps Script</span></div>
+        </div>
+      </article>
+      <article class="pf-card card">
+        <div class="pf-cover">
+          <div class="pf-cover-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L16 9L12 15L8 9Z" stroke="var(--gold2)" stroke-width="1.4"/><path d="M12 15V19" stroke="var(--gold)" stroke-width="1.4"/></svg></div>
+          <div class="pf-cover-badges"><span class="pf-cover-name">EcoPollo</span><span class="pill pill-blue">EN DEV</span></div>
+        </div>
+        <div class="pf-body">
+          <span class="work-client mono">Tío Michael · 2026</span>
+          <div class="work-top"><div class="work-name">Cotizador de Pedidos</div></div>
+          <p class="work-desc">Landing con cotizador en tiempo real. Calcula precio por cantidad y corte, genera mensaje de WhatsApp con el pedido listo para confirmar.</p>
+          <div class="work-tags"><span class="work-tag">AWS S3</span><span class="work-tag">JavaScript</span><span class="work-tag">WhatsApp API</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS — ledger técnico conectado, no cards -->
+<section class="section section-light reveal" id="servicios">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d2">Sistemas en operación</h2>
+      <p>Desde una landing de entrada hasta plataformas SaaS, automatización IA e infraestructura cloud a nivel empresa.</p>
+    </div>
+    <div class="ledger">
+      <div class="ledger-row">
+        <div class="ledger-num">01</div>
+        <div class="ledger-body">
+          <div class="ledger-name">Landing Pages</div>
+          <p class="ledger-desc">Mobile-first, SSL, AWS S3 + CloudFront. Formulario de leads con WhatsApp y Google Sheets. Entrega en 48–72h.</p>
+          <div class="ledger-tags"><span class="ledger-tag">S3</span><span class="ledger-tag">CloudFront</span><span class="ledger-tag">Apps Script</span><span class="ledger-tag">Sheets</span></div>
+          <div class="ledger-price">Desde $350 USD</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-num">02</div>
+        <div class="ledger-body">
+          <div class="ledger-name">Sistemas Web / SaaS a Medida</div>
+          <p class="ledger-desc">Plataformas multi-usuario con autenticación, base de datos real y panel de administración propio. Producto de software construido para tu operación, no una plantilla.</p>
+          <div class="ledger-tags"><span class="ledger-tag">EC2</span><span class="ledger-tag">MySQL/Postgres</span><span class="ledger-tag">Auth</span><span class="ledger-tag">Stripe</span></div>
+          <div class="ledger-price">Desde $2,000 USD</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-num">03</div>
+        <div class="ledger-body">
+          <div class="ledger-name">Automatizaciones + IA</div>
+          <p class="ledger-desc">Flujos de automatización, WhatsApp Business y agentes con AWS Bedrock. Leads, seguimientos y operaciones en piloto automático.</p>
+          <div class="ledger-tags"><span class="ledger-tag">Apps Script</span><span class="ledger-tag">WhatsApp</span><span class="ledger-tag">Bedrock</span><span class="ledger-tag">Claude AI</span></div>
+          <div class="ledger-price">Desde $900 USD</div>
+        </div>
+      </div>
+      <div class="ledger-row flagship">
+        <div class="ledger-num">04</div>
+        <div class="ledger-body">
+          <div class="ledger-name">Infraestructura + Soporte IT</div>
+          <p class="ledger-desc">Arquitectura cloud escalable, hardening de seguridad y mesa de soporte con sistema de tickets propio. Para operaciones que ya no caben en una hoja de cálculo.</p>
+          <div class="ledger-tags"><span class="ledger-tag">AWS</span><span class="ledger-tag">Seguridad</span><span class="ledger-tag">Tickets</span><span class="ledger-tag">SLA</span></div>
+          <div class="ledger-price">Cotización a medida</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- PROCESO -->
 <section class="section section-dark reveal" id="proceso">
   <div class="wrap">
     <div class="sec-head">
-      <span class="mono mono-gold">// Protocolo de construcción</span>
       <h2 class="d2">Cómo operamos</h2>
       <p>De tu idea a producción en días, no semanas.</p>
     </div>
@@ -180,7 +333,7 @@
       <div class="proc-step">
         <div class="proc-node" aria-hidden="true"><span class="proc-node-num">01</span></div>
         <div class="proc-step-content">
-          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M4 4H20V16H9L4 20V4Z"/></svg></span>
           <span class="proc-step-phase">Briefing</span>
           <h3 class="proc-step-name">Todo empieza con una idea</h3>
           <p class="proc-step-desc">Un WhatsApp es suficiente para arrancar. Sin formularios ni reuniones largas: definimos objetivos, referencias visuales y el enfoque de conversión.</p>
@@ -190,7 +343,7 @@
       <div class="proc-step">
         <div class="proc-node" aria-hidden="true"><span class="proc-node-num">02</span></div>
         <div class="proc-step-content">
-          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M12 3v3M8 21h8M12 17v4"/><rect x="4" y="6" width="16" height="11" rx="3"/><circle cx="9" cy="11.5" r="1.2" fill="var(--gold2)" stroke="none"/><circle cx="15" cy="11.5" r="1.2" fill="var(--gold2)" stroke="none"/></svg></span>
+          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M12 3v3M8 21h8M12 17v4"/><rect x="4" y="6" width="16" height="11"/><rect x="8" y="10.5" width="2" height="2" fill="var(--gold2)" stroke="none"/><rect x="14" y="10.5" width="2" height="2" fill="var(--gold2)" stroke="none"/></svg></span>
           <span class="proc-step-phase">Análisis</span>
           <h3 class="proc-step-name">Claude define el plan de diseño</h3>
           <p class="proc-step-desc">Procesamos el brief con IA para estructurar la paleta, fuentes y arquitectura del sitio. Cada rubro tiene su propia identidad visual.</p>
@@ -210,7 +363,7 @@
       <div class="proc-step">
         <div class="proc-node" aria-hidden="true"><span class="proc-node-num">04</span></div>
         <div class="proc-step-content">
-          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M17.6 6.4c1.9 1.9 2.4 6.1 2.4 6.1s-4.2-.5-6.1-2.4c-1.9-1.9-2.3-4.7-1-6 1.3-1.3 4.1-.9 6 1z" transform="rotate(45 12 12)"/><path d="M12 15l-3-3M9 18c-1.5 1.5-5 2-5 2s.5-3.5 2-5"/><path d="M15 5.5A15.9 15.9 0 0 0 5.5 15l3.5 3.5A15.9 15.9 0 0 0 18.5 9z"/></svg></span>
+          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M12 2L16 10H8L12 2Z"/><path d="M8 10H16V16H8V10Z"/><path d="M8 16L5 20M16 16L19 20"/></svg></span>
           <span class="proc-step-phase">Deploy</span>
           <h3 class="proc-step-name">Lanzamiento a producción en AWS</h3>
           <p class="proc-step-desc">Deploy en AWS con S3, CloudFront CDN global (&lt;100ms de latencia), SSL automático y DNS en Route 53. Velocidad en el top 5%.</p>
@@ -220,7 +373,7 @@
       <div class="proc-step">
         <div class="proc-node" aria-hidden="true"><span class="proc-node-num">05</span></div>
         <div class="proc-step-content">
-          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linejoin="round"/></svg></span>
+          <span class="proc-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold2)" stroke-width="1.6" width="22" height="22" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linejoin="miter"/></svg></span>
           <span class="proc-step-phase">Live</span>
           <h3 class="proc-step-name">Automatización de leads activa</h3>
           <p class="proc-step-desc">Formulario conectado a Google Apps Script. Cada contacto se registra en Google Sheets y te llega por WhatsApp o Gmail al instante. El negocio trabaja solo.</p>
@@ -231,12 +384,95 @@
   </div>
 </section>
 
+<!-- EXPLORÁ EL SISTEMA — el simulador Antigravity, ahora como prueba de capacidad técnica, no como primer impacto -->
+<section class="section section-dark reveal" id="explora">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d2">Así trabajamos por dentro</h2>
+      <p>El mismo entorno donde construimos: explorá precios, portafolio y proceso como archivos de un proyecto real.</p>
+    </div>
+    <div class="ide-showcase">
+      <iframe src="background/index.html?v=27#portada" class="ide-showcase-iframe" title="Apex Cloud Work — diseño, arquitectura y precios en vivo" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="section section-light reveal" id="precios">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d2">Precios</h2>
+      <p>Todos los precios en USD. Sin costos ocultos.</p>
+    </div>
+    <div class="pricing-list">
+      <div class="pr-card card">
+        <div class="pr-top">
+          <div><div class="mono pr-kicker">Starter</div><div class="pr-name">Setup Landing</div></div>
+          <div class="pr-price-wrap"><div class="pr-price"><sup>$</sup>350</div><div class="pr-freq">PAGO ÚNICO</div></div>
+        </div>
+        <ul class="pr-items"><li>Landing page mobile-first</li><li>AWS S3 + CloudFront + SSL</li><li>Formulario de leads activo</li><li>WhatsApp integrado</li><li>2 rondas de revisión</li><li>Entrega en 48–72h</li></ul>
+        <a href="https://wa.me/50663144171" class="btn btn-ghost btn-full" target="_blank" rel="noopener">Empezar →</a>
+      </div>
+      <div class="pr-card card feat">
+        <div class="pr-top">
+          <div><div class="mono mono-gold pr-kicker">Más popular</div><div class="pr-name">Plan Trimestral</div></div>
+          <div class="pr-price-wrap"><div class="pr-price"><sup>$</sup>900</div><div class="pr-freq">3 MESES</div></div>
+        </div>
+        <ul class="pr-items"><li>Setup inicial incluido</li><li>Landing adicional por $150 c/u</li><li>Cambios mensuales ilimitados</li><li>Backups + SSL renovado</li><li>Soporte prioritario</li><li>Reportes mensuales</li></ul>
+        <a href="https://wa.me/50663144171" class="btn btn-gold btn-full" target="_blank" rel="noopener">Empezar →</a>
+      </div>
+      <div class="pr-card card">
+        <div class="pr-top">
+          <div><div class="mono pr-kicker">Empresa</div><div class="pr-name">Sistema Completo</div></div>
+          <div class="pr-price-wrap"><div class="pr-price"><sup>$</sup>2k+</div><div class="pr-freq">SEGÚN PROYECTO</div></div>
+        </div>
+        <ul class="pr-items"><li>Sistema web con autenticación</li><li>Base de datos real (MySQL/Postgres)</li><li>Admin panel personalizado</li><li>Automatizaciones con Apps Script + IA</li><li>Infraestructura EC2 escalable</li><li>3 meses de soporte</li></ul>
+        <a href="https://wa.me/50663144171" class="btn btn-ghost btn-full" target="_blank" rel="noopener">Cotizar →</a>
+      </div>
+      <div class="pr-card card">
+        <div class="pr-top">
+          <div><div class="mono pr-kicker">A medida</div><div class="pr-name">Proyecto Grande / SaaS</div></div>
+          <div class="pr-price-wrap"><div class="pr-price" style="font-size:28px">Cotización</div><div class="pr-freq">CONTRATO + SLA</div></div>
+        </div>
+        <ul class="pr-items"><li>SaaS o producto de software propio</li><li>Integraciones IA / automatización empresarial</li><li>Infraestructura cloud a nivel empresa</li><li>Mesa de soporte IT con sistema de tickets</li><li>Contrato de servicio + SLA</li><li>Equipo dedicado por fase</li></ul>
+        <a href="https://wa.me/50663144171?text=Hola%20Garett%2C%20quiero%20cotizar%20un%20proyecto%20grande%20con%20Apex" class="btn btn-ghost btn-full" target="_blank" rel="noopener">Hablar del proyecto →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTADO DE PROYECTOS — transparencia real, sin reviews infladas -->
+<section class="section section-dark reveal" id="testimonios">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d2">Estado real de cada proyecto</h2>
+      <p>Sin estrellas infladas ni logos de stock: esto es lo que está en producción y lo que está en construcción, hoy.</p>
+    </div>
+    <div class="log">
+      <div class="log-row">
+        <span class="log-status live">● LIVE</span>
+        <span class="log-text"><strong>Skindoctors CR</strong> — dos landings de conversión en producción con sistema de leads automático: cada formulario llega a Google Sheets y notifica por Gmail, sin intervención manual.</span>
+        <span class="log-date">desde jun 2026</span>
+      </div>
+      <div class="log-row">
+        <span class="log-status dev">● EN DEV</span>
+        <span class="log-text"><strong>EcoPollo Cartago</strong> — cotizador de pedidos en tiempo real: calcula precio por cantidad y corte, genera el mensaje de WhatsApp listo para confirmar.</span>
+        <span class="log-date">construcción activa</span>
+      </div>
+      <div class="log-row">
+        <span class="log-status prep">● EN PREPARACIÓN</span>
+        <span class="log-text"><strong>VisionaryFilm</strong> — landing de portafolio audiovisual con integración de YouTube y panel de administración propio.</span>
+        <span class="log-date">brief en curso</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SOBRE MÍ -->
 <section class="section section-dark reveal" id="sobre">
   <div class="wrap">
     <div class="sobre-wrap">
       <div class="sobre-left">
-        <span class="mono mono-gold">// Quien está detrás</span>
         <h2 class="d2 sobre-title">Garett Barrantes</h2>
         <p class="sobre-sub">Desarrollador web y cloud desde Cartago, Costa Rica. Construyo sistemas que operan: no demos, no mockups. Cada proyecto en AWS, cada lead automatizado, cada deploy en producción.</p>
         <p class="sobre-sub">Empecé Apex para resolver un problema real: negocios locales que necesitan presencia digital seria sin depender de agencias lentas y caras. Hoy opero solo, con Claude AI como co-piloto y AWS como infraestructura.</p>
@@ -281,164 +517,10 @@
   </div>
 </section>
 
-<!-- SERVICIOS -->
-<section class="section section-light reveal" id="servicios">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="mono mono-gold">// Servicios</span>
-      <h2 class="d2">Sistemas en operación</h2>
-      <p>Desde una landing hasta una plataforma completa con IA. Todo deployado en AWS.</p>
-    </div>
-    <div class="srv-grid">
-      <div class="srv-card card">
-        <div class="srv-name">Landing Pages</div>
-        <p class="srv-desc">Mobile-first, SSL, AWS S3 + CloudFront. Formulario de leads con WhatsApp y Google Sheets. Entrega en 48–72h.</p>
-        <div class="srv-price">Desde $350 USD</div>
-        <div class="srv-tech"><span class="srv-t">S3</span><span class="srv-t">CloudFront</span><span class="srv-t">Apps Script</span><span class="srv-t">Sheets</span></div>
-      </div>
-      <div class="srv-card card">
-        <div class="srv-name">Sistemas Web</div>
-        <p class="srv-desc">Dashboard con autenticación, base de datos PostgreSQL y panel de administración. Tu negocio en la nube, escalable desde día 1.</p>
-        <div class="srv-price">Desde $2,000 USD</div>
-        <div class="srv-tech"><span class="srv-t">EC2</span><span class="srv-t">PostgreSQL</span><span class="srv-t">Auth</span><span class="srv-t">Stripe</span></div>
-      </div>
-      <div class="srv-card card">
-        <div class="srv-name">Automatizaciones + IA</div>
-        <p class="srv-desc">Flujos de automatización, WhatsApp Business y agentes con AWS Bedrock. Leads, seguimientos y operaciones en piloto automático.</p>
-        <div class="srv-price">Desde $900 USD</div>
-        <div class="srv-tech"><span class="srv-t">Apps Script</span><span class="srv-t">WhatsApp</span><span class="srv-t">Bedrock</span><span class="srv-t">Claude AI</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTAFOLIO -->
-<section class="section section-dark reveal" id="trabajo">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="mono mono-gold">// Portafolio</span>
-      <h2 class="d2">Proyectos reales</h2>
-      <p>Sistemas en producción, sin relleno: clientes reales, resultados medibles.</p>
-    </div>
-    <div class="pf-grid">
-      <article class="pf-card card">
-        <div class="pf-cover">
-          <img src="assets/img/pf-melasblock.webp" alt="Landing page de Melasblock — BB Cream SPF 50 de Skindoctors CR" class="pf-cover-img" loading="lazy" width="900" height="563">
-          <div class="pf-cover-badges"><span class="pf-cover-name">Melasblock</span><span class="pill pill-green">LIVE</span></div>
-        </div>
-        <div class="pf-body">
-          <span class="work-client mono">Skindoctors CR · 2026</span>
-          <div class="work-top"><div class="work-name">Landing de conversión</div></div>
-          <p class="work-desc">Landing en producción para BB Cream con SPF 50. Formulario conectado a n8n: cada lead llega a Google Sheets y notifica por Gmail en segundos.</p>
-          <div class="work-tags"><span class="work-tag">AWS S3</span><span class="work-tag">CloudFront</span><span class="work-tag">n8n</span><span class="work-tag">Google Sheets</span></div>
-        </div>
-      </article>
-      <article class="pf-card card">
-        <div class="pf-cover">
-          <img src="assets/img/pf-cbd-balance.webp" alt="Landing page de CBD Oil Balance — gel limpiador facial de Skindoctors CR" class="pf-cover-img" loading="lazy" width="900" height="563">
-          <div class="pf-cover-badges"><span class="pf-cover-name">CBD Balance</span><span class="pill pill-green">LIVE</span></div>
-        </div>
-        <div class="pf-body">
-          <span class="work-client mono">Skindoctors CR · 2026</span>
-          <div class="work-top"><div class="work-name">Landing de conversión</div></div>
-          <p class="work-desc">Segunda landing del sistema Skindoctors: gel limpiador facial CBD. Misma infraestructura AWS y sistema de leads, identidad visual propia.</p>
-          <div class="work-tags"><span class="work-tag">AWS S3</span><span class="work-tag">CloudFront</span><span class="work-tag">Apps Script</span></div>
-        </div>
-      </article>
-      <article class="pf-card card">
-        <div class="pf-cover">
-          <div class="pf-cover-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-2.5 2-4 4.2-4 6.8A4 4 0 0 0 12 14a4 4 0 0 0 4-4.2C16 7.2 14.5 5 12 3z" stroke="var(--gold2)" stroke-width="1.4"/><path d="M9 14v3a3 3 0 0 0 6 0v-3" stroke="var(--gold)" stroke-width="1.4"/></svg></div>
-          <div class="pf-cover-badges"><span class="pf-cover-name">EcoPollo</span><span class="pill pill-blue">EN DEV</span></div>
-        </div>
-        <div class="pf-body">
-          <span class="work-client mono">Tío Michael · 2026</span>
-          <div class="work-top"><div class="work-name">Cotizador de Pedidos</div></div>
-          <p class="work-desc">Landing con cotizador en tiempo real. Calcula precio por cantidad y corte, genera mensaje de WhatsApp con el pedido listo para confirmar.</p>
-          <div class="work-tags"><span class="work-tag">AWS S3</span><span class="work-tag">JavaScript</span><span class="work-tag">WhatsApp API</span></div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ESTADO DE PROYECTOS — transparencia real, sin reviews infladas -->
-<section class="section section-dark reveal" id="testimonios">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="mono mono-gold">// En el taller</span>
-      <h2 class="d2">Estado real de cada proyecto</h2>
-      <p>Sin estrellas infladas ni logos de stock: esto es lo que está en producción y lo que está en construcción, hoy.</p>
-    </div>
-    <div class="test-grid">
-      <div class="test-card card">
-        <div class="test-status mono"><span class="pill-green">● LIVE</span> · desde jun 2026</div>
-        <p class="test-quote">Dos landings de conversión en producción con sistema de leads automático: cada formulario llega a Google Sheets y notifica por Gmail, sin intervención manual.</p>
-        <div class="test-author">
-          <div class="test-avatar-placeholder">SD</div>
-          <div class="test-info"><span class="test-name">Skindoctors CR</span><span class="test-project">Melasblock + CBD Balance · skincare</span></div>
-        </div>
-      </div>
-      <div class="test-card card">
-        <div class="test-status mono"><span class="pill-blue">● EN DEV</span> · construcción activa</div>
-        <p class="test-quote">Cotizador de pedidos en tiempo real: calcula precio por cantidad y corte, y genera el mensaje de WhatsApp listo para confirmar. Meta: atención al cliente en la mitad del tiempo.</p>
-        <div class="test-author">
-          <div class="test-avatar-placeholder">EP</div>
-          <div class="test-info"><span class="test-name">EcoPollo Cartago</span><span class="test-project">Cotizador de Pedidos · alimentos</span></div>
-        </div>
-      </div>
-      <div class="test-card card">
-        <div class="test-status mono"><span class="pill-gray">● EN PREPARACIÓN</span> · brief en curso</div>
-        <p class="test-quote">Landing de portafolio audiovisual con integración de YouTube y panel de administración propio. Arranca al completar el material del cliente.</p>
-        <div class="test-author">
-          <div class="test-avatar-placeholder">VF</div>
-          <div class="test-info"><span class="test-name">VisionaryFilm</span><span class="test-project">Landing + Admin · producción audiovisual</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRECIOS -->
-<section class="section section-light reveal" id="precios">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="mono mono-gold">// Inversión</span>
-      <h2 class="d2">Precios</h2>
-      <p>Todos los precios en USD. Sin costos ocultos.</p>
-    </div>
-    <div class="pricing-list">
-      <div class="pr-card card">
-        <div class="pr-top">
-          <div><div class="mono pr-kicker">Starter</div><div class="pr-name">Setup Landing</div></div>
-          <div class="pr-price-wrap"><div class="pr-price"><sup>$</sup>350</div><div class="pr-freq">PAGO ÚNICO</div></div>
-        </div>
-        <ul class="pr-items"><li>Landing page mobile-first</li><li>AWS S3 + CloudFront + SSL</li><li>Formulario de leads activo</li><li>WhatsApp integrado</li><li>2 rondas de revisión</li><li>Entrega en 48–72h</li></ul>
-        <a href="https://wa.me/50663144171" class="btn btn-ghost btn-full" target="_blank" rel="noopener">Empezar →</a>
-      </div>
-      <div class="pr-card card feat">
-        <div class="pr-top">
-          <div><div class="mono mono-gold pr-kicker">Más popular</div><div class="pr-name">Plan Trimestral</div></div>
-          <div class="pr-price-wrap"><div class="pr-price"><sup>$</sup>900</div><div class="pr-freq">3 MESES</div></div>
-        </div>
-        <ul class="pr-items"><li>Setup inicial incluido</li><li>Landing adicional por $150 c/u</li><li>Cambios mensuales ilimitados</li><li>Backups + SSL renovado</li><li>Soporte prioritario</li><li>Reportes mensuales</li></ul>
-        <a href="https://wa.me/50663144171" class="btn btn-gold btn-full" target="_blank" rel="noopener">Empezar →</a>
-      </div>
-      <div class="pr-card card">
-        <div class="pr-top">
-          <div><div class="mono pr-kicker">Empresa</div><div class="pr-name">Sistema Completo</div></div>
-          <div class="pr-price-wrap"><div class="pr-price"><sup>$</sup>2k+</div><div class="pr-freq">SEGÚN PROYECTO</div></div>
-        </div>
-        <ul class="pr-items"><li>Sistema web con autenticación</li><li>Base de datos PostgreSQL</li><li>Admin panel personalizado</li><li>Automatizaciones con Apps Script + IA</li><li>Infraestructura EC2 escalable</li><li>3 meses de soporte</li></ul>
-        <a href="https://wa.me/50663144171" class="btn btn-ghost btn-full" target="_blank" rel="noopener">Cotizar →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section class="section section-dark reveal" id="faq">
   <div class="wrap">
-    <div class="sec-head"><span class="mono mono-gold">// FAQ</span><h2 class="d2">Preguntas frecuentes</h2></div>
+    <div class="sec-head"><h2 class="d2">Preguntas frecuentes</h2></div>
     <div class="faq" role="list">
       <div class="faq-item" role="listitem"><button class="faq-btn" aria-expanded="false"><span class="faq-q"><span class="faq-num">Q01</span> ¿Cuánto tarda una landing page?</span><span class="faq-ic" aria-hidden="true">+</span></button><div class="faq-body"><p>Entre 48 y 72 horas desde que confirmás el proyecto y nos pasás el contenido. Para proyectos más complejos, 5 a 7 días.</p></div></div>
       <div class="faq-item" role="listitem"><button class="faq-btn" aria-expanded="false"><span class="faq-q"><span class="faq-num">Q02</span> ¿Qué necesito tener listo para empezar?</span><span class="faq-ic" aria-hidden="true">+</span></button><div class="faq-body"><p>Una idea básica es suficiente. Si tenés logo, colores y texto, perfecto. Si no tenés nada, igual arrancamos y construimos el brief juntos por WhatsApp.</p></div></div>
@@ -453,7 +535,7 @@
 <!-- CONTACTO -->
 <section class="section section-dark reveal" id="contacto">
   <div class="wrap">
-    <div class="sec-head"><span class="mono mono-gold">// Contacto</span><h2 class="d2">Arrancemos</h2><p>Primera consulta gratis. Respuesta en menos de 24h.</p></div>
+    <div class="sec-head"><h2 class="d2">Arrancemos</h2><p>Primera consulta gratis. Respuesta en menos de 24h.</p></div>
     <div class="contact-grid">
       <div class="contact-left">
         <div class="cta-block">
@@ -481,7 +563,9 @@
               <option value="">Seleccioná un servicio</option>
               <option value="Landing Page">Landing Page — desde $350 USD</option>
               <option value="Plan Trimestral">Plan Trimestral — $900 USD</option>
-              <option value="Sistema Web">Sistema Web / Automatización + IA — desde $2,000 USD</option>
+              <option value="Sistema Web">Sistema Web / SaaS a Medida — desde $2,000 USD</option>
+              <option value="Automatizacion IA">Automatización + IA — desde $900 USD</option>
+              <option value="Proyecto Grande">Proyecto Grande / Infraestructura + IT — cotización</option>
               <option value="Consulta gratis">Solo quiero una consulta gratis</option>
             </select>
           </div>
@@ -500,20 +584,50 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <div class="footer-inner">
-      <div>
-        <div class="footer-brand">Apex<em>.</em>Cloudworks</div>
-        <div class="footer-copy">Desarrollado por Apex Cloud Work — Cartago, CR</div>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand-col">
+        <div class="footer-brand">Apex<em>.</em>Cloud Work</div>
+        <p class="footer-tagline">Sistemas web, SaaS a medida, IA y cloud — Cartago, Costa Rica.</p>
+        <div class="footer-contact">
+          <a href="mailto:apexcloudworkscompany@gmail.com">apexcloudworkscompany@gmail.com</a>
+          <a href="https://wa.me/50663144171" target="_blank" rel="noopener">+506 6314-4171</a>
+        </div>
       </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="#proceso">Proceso</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#trabajo">Portafolio</a>
-        <a href="#precios">Precios</a>
-        <a href="Legal/terminos.html">Términos</a>
-        <a href="Legal/politica-privacidad.html">Privacidad</a>
-        <a href="Legal/politica-cookies.html">Cookies</a>
-      </nav>
+      <div class="footer-col">
+        <span class="footer-col-title">Navegación</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#trabajo">Portafolio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#precios">Precios</a>
+        </nav>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Legal</span>
+        <nav class="footer-links" aria-label="Legal">
+          <a href="Legal/terminos.html">Términos</a>
+          <a href="Legal/politica-privacidad.html">Privacidad</a>
+          <a href="Legal/politica-cookies.html">Cookies</a>
+        </nav>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Conectá</span>
+        <div class="footer-social">
+          <a href="https://github.com/apexcloudworkscompany" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4L4 12L8 20M16 4L20 12L16 20M13 4L11 20"/></svg>
+          </a>
+          <a href="https://wa.me/50663144171" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4H20V16H9L4 20V4Z"/></svg>
+          </a>
+          <a href="mailto:apexcloudworkscompany@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5H21V19H3V5Z"/><path d="M3 5L12 13L21 5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Desarrollado por Apex Cloud Work — Cartago, CR</span>
+      <a href="portal/index.html">Portal cliente →</a>
     </div>
   </div>
 </footer>
@@ -614,6 +728,6 @@
   </div>
 
 <script src="assets/js/env.js"></script>
-<script src="assets/js/script.js?v=16"></script>
+<script src="assets/js/script.js?v=17"></script>
 </body>
 </html>

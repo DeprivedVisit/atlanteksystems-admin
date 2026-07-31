@@ -86,7 +86,7 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
 const navLinks = document.querySelectorAll('.nav-links a');
 const pageSecs = document.querySelectorAll('section[id]');
 const siteNav  = document.getElementById('site-nav');
-const heroEl   = document.querySelector('.hero-ide-full');
+const heroEl   = document.querySelector('.hero');
 window.addEventListener('scroll', () => {
   // El nav entra cuando el hero-simulador ya casi salió del viewport
   if (siteNav && heroEl) {
@@ -135,7 +135,7 @@ window.addEventListener('scroll', () => {
   // sin necesitar una lista de IDs a mano.
   const textNodes = Array.from(document.querySelectorAll(
     '.sec-head, p, li, h1, h2, h3, label, input, textarea, select, button, a, ' +
-    '.pr-card, .pf-card, .srv-card, .test-card, .sobre-card, .cf-field, .wa-portal-link'
+    '.pr-card, .pf-card, .ledger-row, .log-row, .sobre-card, .cf-field, .wa-portal-link'
   ));
   let suppressRAF = null;
   function checkOverlap() {

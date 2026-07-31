@@ -32,15 +32,50 @@ Voz directa y sin rodeos. No vende sueños — muestra resultados. Confianza que
 4. **Densidad de información justa**: Suficiente contenido para generar confianza, sin abrumar. El cliente potencial no es técnico — simplificar sin infantilizar.
 5. **USD siempre visible**: Los precios en USD son señal de mercado premium y seriedad. No esconderlos.
 
-## Identidad visual — "Apex Landing" (vigente desde 06 jul 2026)
+## Identidad visual — v4.0 (vigente desde 21 jul 2026)
 
-La página principal ES un simulador de IDE (Antigravity/VS Code) a pantalla completa — no una landing tradicional con hero de texto. El contenido real del negocio vive como archivos explorables dentro del simulador (Precios.md, Portafolio.md, Testimonios.md, FAQ.md, Sobre-mi.md), con una vista "Portada.md" que muestra un carrusel visual cinematográfico como primera impresión (no código crudo).
+Rediseño completo desde la v3 (simulador IDE como hero). Portada real (hero
+tipográfico limpio: kicker + titular + sub + CTA) con el simulador Antigravity
+retirado a una sección secundaria ("Así trabajamos por dentro") como prueba
+técnica, no como primer impacto. Orden de página: Hero → Portafolio (prueba
+antes que pitch) → Servicios (ledger técnico conectado, no cards) → Proceso →
+Explorá el sistema (simulador) → Precios → Estado real (log técnico) → Sobre
+mí → FAQ → Contacto.
 
-- **Un solo acento de marca**: dorado (`--gold` #C4956A y derivados `--gold2`/`--gold3`) en todo el sitio — landing, admin, portal, y el simulador. El simulador tenía antes su propia paleta separada (fondo con tinte morado, acento coral/durazno) — se unificó para que no haya costura visible al pasar del simulador a las secciones reales.
-- **Se descartó** la línea "propaganda soviética" (rojo oxblood, pergamino envejecido, cintas/sellos/engranajes) explorada brevemente el 05 jul 2026 — quedaba en tensión directa con el hero-simulador y generaba dos identidades visuales compitiendo en la misma página. Ningún token `--red`/`--parchment` debe reintroducirse.
-- **Fondo**: casi negro, frío (`--bg` #090B0E / `--surface` #101318) — dark-native, consistente con el stack técnico (AWS, terminal, cloud).
-- **Tipografía**: Anton (condensada, mayúsculas) para títulos display; Inter para texto de lectura; JetBrains Mono para labels/código/precios. Un solo peso por familia, sin bloat de fuentes.
-- **Kickers de sección**: píldora dorada sutil (`.sec-head .mono`) — no cinta/ribbon con muescas.
+- **Acento de marca: coral** (`--gold` #E8654A y derivados `--gold2`/`--gold3`)
+  — reemplaza al dorado como color principal en todo el sitio (landing, admin,
+  portal). El dorado original (#C4956A) NO desaparece: se conserva como
+  `--flagship`, rol secundario reservado solo para el tier "Proyecto Grande /
+  SaaS" (servicios y precios), señalizando el contrato grande sin competir con
+  el coral en todo lo demás.
+- **Full-palette de roles** (no restrained): coral = marca/CTA · `--flagship`
+  dorado = proyecto grande/premium · `--blue` = estado "en dev" · `--green` =
+  estado "live". Cada color tiene un trabajo específico, no decorativo.
+- **Fondo**: casi negro, frío (`--bg` #090B0E / `--surface` #101318) — dark-native.
+- **Hero con slot de media real**: `.hero-bg-media` + `<video>` listo para el
+  asset (video/imagen) que Garett genera aparte — con fallback en gradiente
+  CSS si el archivo no está. Ojo: los primeros intentos de asset generado
+  (schematic PNG, video "frosted sphere") salieron con alucinaciones de IA
+  (texto de leyenda inventado, dominio falso, UI fabricada) — verificar
+  siempre el frame/imagen antes de usarlo, no asumir que un asset generado
+  sirve tal cual.
+- **Tipografía**: Big Shoulders Display (condensada industrial, mayúsculas)
+  para títulos display — reemplaza Anton y el experimento editorial-Inter del
+  17 jul. Inter para texto de lectura y subtítulos (`.d3`). JetBrains Mono
+  para labels/código/precios.
+- **Iconos**: geométricos/angulares (líneas rectas, sin curvas) — chat,
+  monitor, cohete, hoja, candado del portal y GitHub/WhatsApp rediseñados sin
+  arcos ni círculos donde antes los había. Excepción: chrome decorativo no-icono
+  (dots de estado, avatares, botón flotante de WhatsApp) se queda circular —
+  es convención de UI, no parte del sistema de iconos.
+- **Kickers de sección**: eliminados de todas las secciones (`// Servicios`,
+  `// Portafolio`, etc.) — el propio PRODUCT.md ya los prohibía como AI-scaffold
+  y el código los tenía igual; queda solo título + párrafo por sección, sin
+  repetir el mismo patrón en cada una.
+- **Header**: barra de contacto (email + WhatsApp + GitHub) no-fija arriba del
+  nav, visible solo en el tope de página (≥700px).
+- **Footer**: 4 columnas — marca+contacto, navegación, legal, redes (GitHub/
+  WhatsApp/email) — reemplaza el footer de una sola fila.
 
 ## Accessibility & Inclusion
 
