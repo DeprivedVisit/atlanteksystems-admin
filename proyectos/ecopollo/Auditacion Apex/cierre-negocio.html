@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cierre EcoPollo · Apex Cloud Work · INTERNO</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#1b4332;--mid:#2d6a4f;--orange:#f4a261;--orange2:#e76f51;
+  --cream:#f8f5f0;--dark:#0d1f16;--muted:#4a6256;--border:rgba(200,221,208,.2);
+  --green:#52b788;--red:#d04040;--yellow:#d4a020;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Syne',system-ui,sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:#0a1a10;color:#b8d4c0;min-height:100vh}
+.header{background:linear-gradient(135deg,#0a1a10 0%,#0f2218 100%);border-bottom:1px solid var(--border);padding:2rem 3rem}
+.header-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.internal-badge{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--orange);padding:.2rem .7rem;border-radius:4px;margin-bottom:.4rem;display:inline-block}
+.doc-title{font-family:var(--serif);font-size:2rem;font-weight:700;color:#fff}
+.doc-title strong{color:var(--orange)}
+.header-right{text-align:right}
+.target-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.25rem}
+.target-val{font-family:var(--serif);font-size:1.5rem;color:var(--green);font-weight:700}
+.target-sub{font-size:.75rem;color:rgba(82,183,136,.6);margin-top:.1rem}
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem 4rem}
+.deal-box{background:linear-gradient(135deg,rgba(27,67,50,.25),rgba(200,221,208,.06));border:1px solid rgba(200,221,208,.18);border-radius:16px;padding:1.8rem 2rem;margin-bottom:2rem;display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.deal-amount{text-align:center}
+.deal-num{font-family:var(--serif);font-size:3.5rem;font-weight:700;color:#fff;line-height:1}
+.deal-label{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.deal-breakdown{flex:1;display:flex;flex-direction:column;gap:.5rem}
+.deal-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;border-radius:8px;background:rgba(255,255,255,.04)}
+.deal-row-label{font-size:.8rem;color:rgba(255,255,255,.65)}
+.deal-row-val{font-size:.8rem;font-weight:700;color:#b8d4c0}
+.deal-row.total{background:rgba(27,67,50,.3);border:1px solid rgba(82,183,136,.25)}
+.deal-row.total .deal-row-label{color:#fff;font-weight:700}
+.deal-row.total .deal-row-val{color:var(--green);font-size:.95rem}
+.deal-note{font-size:.72rem;color:var(--muted);line-height:1.55;flex-basis:100%;border-top:1px solid rgba(200,221,208,.08);padding-top:.8rem;margin-top:.2rem}
+.section{margin-bottom:2rem}
+.sec-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(200,221,208,.1)}
+.sec-icon{font-size:1rem;line-height:1}
+.sec-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid)}
+.checklist{display:flex;flex-direction:column;gap:.55rem}
+.check-item{display:flex;align-items:flex-start;gap:.85rem;background:rgba(255,255,255,.03);border:1px solid rgba(200,221,208,.1);border-radius:10px;padding:.8rem 1rem;cursor:pointer;transition:background .15s;user-select:none}
+.check-item:hover{background:rgba(255,255,255,.05)}
+.check-item.done{background:rgba(45,106,79,.07);border-color:rgba(82,183,136,.2)}
+.check-box{width:20px;height:20px;border-radius:5px;flex-shrink:0;border:2px solid rgba(200,221,208,.3);margin-top:.1rem;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:all .15s}
+.check-item.done .check-box{background:var(--green);border-color:var(--green);color:#fff}
+.check-item.done .check-box::after{content:'✓';font-weight:700}
+.check-content{flex:1}
+.check-title{font-size:.84rem;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:.15rem}
+.check-item.done .check-title{color:rgba(82,183,136,.9);text-decoration:line-through;text-decoration-color:rgba(82,183,136,.4)}
+.check-desc{font-size:.72rem;line-height:1.52;color:var(--muted)}
+.check-tag{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .55rem;border-radius:4px;flex-shrink:0;margin-top:.12rem}
+.tag-urgente{background:rgba(208,64,64,.15);color:var(--red);border:1px solid rgba(208,64,64,.25)}
+.tag-hoy{background:rgba(244,162,97,.12);color:var(--orange);border:1px solid rgba(244,162,97,.2)}
+.tag-semana{background:rgba(27,67,50,.2);color:#6fcf97;border:1px solid rgba(27,67,50,.35)}
+.tag-listo{background:rgba(82,183,136,.12);color:var(--green);border:1px solid rgba(82,183,136,.2)}
+.progress-wrap{margin-bottom:2rem}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.progress-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.progress-pct{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--green)}
+.progress-track{height:8px;background:rgba(255,255,255,.06);border-radius:50px;overflow:hidden}
+.progress-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--mid),var(--green));transition:width 1s ease}
+.pipeline{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.pipe-stage{flex:1;min-width:100px;padding:.8rem 1rem;border-radius:10px;text-align:center;border:1px solid rgba(200,221,208,.1);background:rgba(255,255,255,.03)}
+.pipe-stage.active{background:rgba(27,67,50,.2);border-color:rgba(27,67,50,.45)}
+.pipe-stage.done{background:rgba(82,183,136,.08);border-color:rgba(82,183,136,.2)}
+.pipe-dot{width:8px;height:8px;border-radius:50%;margin:0 auto .5rem;background:rgba(200,221,208,.2)}
+.pipe-stage.active .pipe-dot{background:var(--orange)}
+.pipe-stage.done .pipe-dot{background:var(--green)}
+.pipe-label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pipe-stage.active .pipe-label{color:var(--orange)}
+.pipe-stage.done .pipe-label{color:var(--green)}
+.data-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;margin-bottom:2rem}
+.data-card{background:rgba(255,255,255,.03);border:1px solid rgba(200,221,208,.1);border-radius:10px;padding:.85rem 1rem}
+.data-label{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.data-val{font-size:.85rem;font-weight:700;color:#b8d4c0}
+.data-sub{font-size:.68rem;color:var(--muted);margin-top:.1rem}
+.doc-footer{text-align:center;padding:1.5rem 0 0;font-size:.65rem;color:var(--muted);opacity:.45;border-top:1px solid rgba(200,221,208,.08);margin-top:2rem}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="internal-badge">⚠ USO INTERNO — APEX CLOUD WORK</div>
+      <div class="doc-title">Cierre <strong>EcoPollo</strong></div>
+    </div>
+    <div class="header-right">
+      <div class="target-label">Deal objetivo</div>
+      <div class="target-val">$350 USD</div>
+      <div class="target-sub">Setup inicial · Tío Michael</div>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+
+  <div class="deal-box">
+    <div class="deal-amount">
+      <div class="deal-num">$350</div>
+      <div class="deal-label">Setup inicial</div>
+    </div>
+    <div class="deal-breakdown">
+      <div class="deal-row">
+        <span class="deal-row-label">Setup inicial + Cotizador 5 pasos</span>
+        <span class="deal-row-val">$350 USD</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-row-label">Captura leads (Sheets + N8N + WA alerta)</span>
+        <span class="deal-row-val">incluida</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-row-label">Deploy AWS CloudFront + SSL</span>
+        <span class="deal-row-val">incluido</span>
+      </div>
+      <div class="deal-row total">
+        <span class="deal-row-label">Total</span>
+        <span class="deal-row-val">$350 USD</span>
+      </div>
+    </div>
+    <div class="deal-note">💡 Cliente es familiar (Tío Michael) — la conversación es directa y sin formalidades. Foco en mostrar el valor del cotizador vs tomar pedidos por WhatsApp manual. Upsell natural: plan trimestral $900 cuando vean el volumen de pedidos que genera.</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span class="progress-label">Progreso del proyecto</span>
+      <span class="progress-pct" id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-stage done"><div class="pipe-dot"></div><div class="pipe-label">Brief listo</div></div>
+    <div class="pipe-stage active"><div class="pipe-dot"></div><div class="pipe-label">Cotizador dev</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Demo / Rev.</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Deploy AWS</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Cobro $350</div></div>
+    <div class="pipe-stage"><div class="pipe-dot"></div><div class="pipe-label">Cerrado</div></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-header"><div class="sec-icon">📋</div><div class="sec-label">Checklist del proyecto</div></div>
+    <div class="checklist" id="checklist">
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Brief completo — PROMPT.md creado</div>
+          <div class="check-desc">Productos, precios, colores (#1b4332, #f4a261), fuentes (Syne + DM Sans), contacto definidos.</div>
+        </div>
+        <span class="check-tag tag-listo">Listo</span>
+      </div>
+
+      <div class="check-item done" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Auditacion Apex inicializada (5 archivos)</div>
+          <div class="check-desc">entrega-cliente.html, cierre-negocio.html, scorecard.html, audit-log.html, n8n-workflow-ecopollo.json creados.</div>
+        </div>
+        <span class="check-tag tag-listo">Listo</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Construir cotizador index.html — 5 pasos</div>
+          <div class="check-desc">Step 1: selección corte. Step 2: cantidad kg (slider). Step 3: tipo pedido (primera vez / recurrente). Step 4: datos contacto + zona. Step 5: resumen + total + WA button.</div>
+        </div>
+        <span class="check-tag tag-urgente">Pendiente</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Configurar N8N webhook ecopollo-leads</div>
+          <div class="check-desc">En apexcloudworkscompany.app.n8n.cloud — crear nodo Webhook POST con path ecopollo-leads. Conectar a Sheets y alerta WA.</div>
+        </div>
+        <span class="check-tag tag-hoy">Pendiente</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Crear Google Sheet para pedidos EcoPollo</div>
+          <div class="check-desc">Columnas: Fecha, Nombre, Teléfono, Producto, Cantidad (kg), Total ₡, Zona, Tipo pedido. Conectar Apps Script.</div>
+        </div>
+        <span class="check-tag tag-hoy">Pendiente</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Demo con Tío Michael — mostrar cotizador en teléfono</div>
+          <div class="check-desc">Mostrar el flujo completo: elegir pechuga, poner 5 kg, ver el total calculado (₡15,125), WA pre-armado con el pedido. Simple y concreto.</div>
+        </div>
+        <span class="check-tag tag-semana">Al terminar</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Deploy a AWS S3 + CloudFront</div>
+          <div class="check-desc">Crear bucket ecopollo-cr-landing en us-east-2. Configurar CloudFront distribution. Subir index.html. Actualizar URL en entrega-cliente.html.</div>
+        </div>
+        <span class="check-tag tag-semana">Tras aprobación</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <div class="check-title">Cobrar $350 USD (SINPE Móvil)</div>
+          <div class="check-desc">SINPE +506 6314-4171. Coordinar con Tío Michael el método más cómodo para él.</div>
+        </div>
+        <span class="check-tag tag-semana">Tras demo</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-header"><div class="sec-icon">⚙️</div><div class="sec-label">Datos técnicos</div></div>
+    <div class="data-grid">
+      <div class="data-card"><div class="data-label">Productos</div><div class="data-val">3 cortes</div><div class="data-sub">Entero · Pechuga · Muslo</div></div>
+      <div class="data-card"><div class="data-label">Precio más alto</div><div class="data-val">₡3,025/kg</div><div class="data-sub">Pechuga deshuesada</div></div>
+      <div class="data-card"><div class="data-label">Stack</div><div class="data-val">HTML/CSS/JS</div><div class="data-sub">Single file · Sin frameworks</div></div>
+      <div class="data-card"><div class="data-label">WA EcoPollo</div><div class="data-val">+506 8888-0000</div><div class="data-sub">Número final del cliente</div></div>
+      <div class="data-card"><div class="data-label">Paleta</div><div class="data-val">#1b4332 · #f4a261</div><div class="data-sub">Forest green + Orange warm</div></div>
+      <div class="data-card"><div class="data-label">N8N path</div><div class="data-val" style="font-family:var(--mono);font-size:.74rem">ecopollo-leads</div><div class="data-sub">Pendiente configurar</div></div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    Documento interno · Apex Cloud Work · Garett Barrantes · Junio 2026<br>
+    No compartir con el cliente
+  </div>
+
+</div>
+<script>
+function toggle(item) {
+  item.classList.toggle('done');
+  updateProgress();
+}
+function updateProgress() {
+  const items = document.querySelectorAll('.check-item');
+  const done = document.querySelectorAll('.check-item.done').length;
+  const pct = Math.round((done / items.length) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+updateProgress();
+</script>
+</body>
+</html>

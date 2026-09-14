@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Audit Log — Cotizador EcoPollo · Apex Cloud Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#1b4332;--mid:#2d6a4f;--orange:#f4a261;--orange2:#e76f51;
+  --cream:#f8f5f0;--dark:#0d1f16;--muted:#5a7264;--border:#c8ddd0;
+  --surface:#fff;--green:#2d6a4f;--yellow:#d4a020;--red:#d04040;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Syne',system-ui,sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--dark) 0%,var(--forest) 100%);padding:2.5rem 3rem 2rem;color:#fff}
+.header-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.brand-line{font-family:var(--serif);font-size:1rem;color:rgba(244,162,97,.7);margin-bottom:.25rem}
+.brand-line span{color:var(--orange);font-style:italic}
+.doc-title{font-family:var(--serif);font-size:1.9rem;font-weight:700}
+.doc-title strong{color:var(--orange)}
+.header-right{text-align:right;font-size:.68rem;opacity:.5;letter-spacing:.1em;text-transform:uppercase}
+.wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem}
+.stats-row{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.stat-box{flex:1;min-width:140px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;text-align:center}
+.stat-num{font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1}
+.stat-num.orange{color:var(--orange2)}.stat-num.forest{color:var(--forest)}
+.stat-num.green{color:var(--green)}.stat-num.yellow{color:var(--yellow)}
+.stat-lbl{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+.filters{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{padding:.35rem 1rem;border-radius:50px;font-family:var(--sans);font-size:.72rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+.filter-btn.active,.filter-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+.filter-btn.f-fix.active{background:var(--green);border-color:var(--green)}
+.filter-btn.f-new.active{background:var(--orange2);border-color:var(--orange2)}
+.filter-btn.f-brand.active{background:var(--forest);border-color:var(--forest)}
+.filter-btn.f-warn.active{background:var(--yellow);border-color:var(--yellow)}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:.4rem;top:.5rem;bottom:.5rem;width:2px;background:linear-gradient(180deg,var(--orange),var(--mid),transparent)}
+.session{margin-bottom:2.5rem}
+.session-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;margin-left:-2rem;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.session-dot{width:16px;height:16px;border-radius:50%;background:var(--forest);border:3px solid var(--cream);flex-shrink:0}
+.session-date{color:var(--forest)}
+.session-time{color:var(--muted);font-weight:400}
+.entry{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.85rem 1.1rem;margin-bottom:.6rem;display:flex;align-items:flex-start;gap:.9rem;position:relative}
+.entry:last-child{margin-bottom:0}
+.entry-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.35rem}
+.e-fix .entry-dot{background:var(--green)}
+.e-new .entry-dot{background:var(--orange2)}
+.e-brand .entry-dot{background:var(--forest)}
+.e-warn .entry-dot{background:var(--yellow)}
+.entry-body{flex:1}
+.entry-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.28rem;flex-wrap:wrap}
+.entry-tag{font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px}
+.tag-fix{background:rgba(45,106,79,.1);color:var(--green)}
+.tag-new{background:rgba(231,111,81,.1);color:var(--orange2)}
+.tag-brand{background:rgba(27,67,50,.1);color:var(--forest)}
+.tag-warn{background:rgba(212,160,32,.08);color:var(--yellow)}
+.entry-file{font-family:var(--mono);font-size:.64rem;color:var(--muted);background:rgba(0,0,0,.04);padding:.15rem .5rem;border-radius:4px}
+.entry-title{font-size:.84rem;font-weight:700;color:var(--dark);margin-bottom:.2rem}
+.entry-desc{font-size:.74rem;line-height:1.55;color:var(--muted)}
+.entry-diff{margin-top:.4rem;padding:.4rem .7rem;background:rgba(0,0,0,.03);border-radius:6px;font-family:var(--mono);font-size:.62rem;color:var(--muted);line-height:1.6}
+.diff-del{color:var(--red)}.diff-add{color:var(--green)}
+.footer-bar{text-align:center;padding:1.5rem 0 2rem;font-size:.7rem;color:var(--muted);opacity:.5}
+.footer-bar span{color:var(--forest);opacity:1}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-line">Eco<span>Pollo</span> · Cotizador 5 pasos</div>
+      <div class="doc-title">Audit <strong>Log</strong></div>
+    </div>
+    <div class="header-right">
+      Registro de cambios<br>
+      index.html · n8n-workflow · Auditacion Apex
+    </div>
+  </div>
+</div>
+<div class="wrap">
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num orange">0</div><div class="stat-lbl">Fixes</div></div>
+    <div class="stat-box"><div class="stat-num forest">5</div><div class="stat-lbl">Archivos creados</div></div>
+    <div class="stat-box"><div class="stat-num green">0</div><div class="stat-lbl">Features nuevos</div></div>
+    <div class="stat-box"><div class="stat-num yellow">6</div><div class="stat-lbl">Pendientes</div></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filtrar('todo')">Todos</button>
+    <button class="filter-btn f-fix" onclick="filtrar('e-fix')">✓ Fixes</button>
+    <button class="filter-btn f-new" onclick="filtrar('e-new')">+ Nuevos</button>
+    <button class="filter-btn f-brand" onclick="filtrar('e-brand')">◈ Proyecto</button>
+    <button class="filter-btn f-warn" onclick="filtrar('e-warn')">⚠ Pendientes</button>
+  </div>
+
+  <div class="timeline">
+
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot"></div>
+        <span class="session-date">09 junio 2026</span>
+        <span class="session-time">— Sesión 1 · Inicialización del proyecto</span>
+      </div>
+
+      <div class="entry e-brand">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-brand">Proyecto</span><span class="entry-file">PROMPT.md</span></div>
+          <div class="entry-title">Brief completo del proyecto creado</div>
+          <div class="entry-desc">Definición de cliente (Tío Michael), industria (distribución de pollo fresco), paleta (#1b4332 verde bosque + #f4a261 naranja cálido), fuentes Syne + DM Sans, 3 productos con precios por kg, contacto.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">Auditacion Apex/entrega-cliente.html</span></div>
+          <div class="entry-title">Documento de entrega para el cliente</div>
+          <div class="entry-desc">Documento HTML profesional con catálogo de 3 productos (Pollo entero ₡1,950/kg · Pechuga ₡3,025/kg · Muslo ₡1,475/kg), resumen de 6 entregables, proceso de cambios, planes de continuidad y garantía Apex. Estado: En desarrollo.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">Auditacion Apex/cierre-negocio.html</span></div>
+          <div class="entry-title">Dashboard interno de cierre — EcoPollo</div>
+          <div class="entry-desc">Dashboard oscuro con deal de $350 USD, pipeline de 6 etapas (Brief listo → Cerrado), checklist interactivo con 8 items, barra de progreso y datos técnicos del proyecto (paleta, N8N path, WA del cliente).</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">Auditacion Apex/scorecard.html</span></div>
+          <div class="entry-title">Scorecard de auditoría técnica — 18/100</div>
+          <div class="entry-desc">Score inicial: 18/100 (solo el brief está completo). 7 categorías auditadas: Brief (90), Cotizador (0), Mobile (0), Conversión (0), Captura pedidos (0), Deploy (0), SEO (0). Prioridades ordenadas del 1 al 6.</div>
+        </div>
+      </div>
+
+      <div class="entry e-new">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-new">Nuevo</span><span class="entry-file">Auditacion Apex/n8n-workflow-ecopollo.json</span></div>
+          <div class="entry-title">Workflow N8N para leads EcoPollo</div>
+          <div class="entry-desc">Webhook POST en path ecopollo-leads. Captura: nombre, teléfono, email, producto, cantidad(kg), zona, tipo pedido, fecha. Conecta a Google Sheets y Gmail/WA alerta al equipo. Listo para importar en apexcloudworkscompany.app.n8n.cloud.</div>
+          <div class="entry-diff">
+            <span class="diff-add">+ Webhook path: ecopollo-leads</span><br>
+            <span class="diff-add">+ Campo clave: producto (Pollo entero / Pechuga / Muslo)</span><br>
+            <span class="diff-add">+ Campo extra: cantidad_kg (no existe en otros workflows)</span><br>
+            <span class="diff-add">+ Email alerta → apexcloudworkscompany@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="session">
+      <div class="session-header">
+        <div class="session-dot" style="background:var(--yellow)"></div>
+        <span class="session-date" style="color:var(--yellow)">Pendiente</span>
+        <span class="session-time">— Próximas iteraciones</span>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">Construir cotizador 5 pasos completo</div>
+          <div class="entry-desc">Single-file HTML. Step 1: selección corte. Step 2: slider kg. Step 3: tipo pedido. Step 4: datos + zona. Step 5: resumen + WA. Cálculo automático ₡ × kg.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">n8n Cloud</span></div>
+          <div class="entry-title">Activar webhook ecopollo-leads en n8n Cloud</div>
+          <div class="entry-desc">Importar n8n-workflow-ecopollo.json. Copiar URL de producción del webhook. Pegar en index.html como N8N_WEBHOOK const. Re-deploy.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Alta</span><span class="entry-file">Google Sheets</span></div>
+          <div class="entry-title">Crear Sheets y configurar Apps Script para pedidos</div>
+          <div class="entry-desc">Sheet: Fecha / Nombre / Teléfono / Producto / Cantidad(kg) / Total₡ / Zona / Tipo pedido. Apps Script para captura no-cors desde index.html.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">AWS</span></div>
+          <div class="entry-title">Deploy AWS S3 + CloudFront</div>
+          <div class="entry-desc">Bucket ecopollo-cr-landing en us-east-2. CloudFront distribution. Actualizar entrega-cliente.html con URL real.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Media</span><span class="entry-file">index.html</span></div>
+          <div class="entry-title">SEO básico + Open Graph image</div>
+          <div class="entry-desc">Meta title "Cotizador EcoPollo". og:image 1200×630 en paleta verde. Schema LocalBusiness. Preview correcto al compartir por WhatsApp.</div>
+        </div>
+      </div>
+
+      <div class="entry e-warn">
+        <div class="entry-dot"></div>
+        <div class="entry-body">
+          <div class="entry-top"><span class="entry-tag tag-warn">Pendiente · Baja · Cliente</span><span class="entry-file">assets/</span></div>
+          <div class="entry-title">Logo / imagen hero de EcoPollo</div>
+          <div class="entry-desc">Solicitar foto del producto o crear logo SVG con pollo + paleta #1b4332/#f4a261. Usar como hero y og:image.</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bar">
+    Audit Log generado por <span>Apex Cloud Work</span> · Cartago, Costa Rica · 2026
+  </div>
+</div>
+<script>
+function filtrar(tipo) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.entry').forEach(e => {
+    if (tipo === 'todo') { e.style.display = ''; return; }
+    e.style.display = e.classList.contains(tipo) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

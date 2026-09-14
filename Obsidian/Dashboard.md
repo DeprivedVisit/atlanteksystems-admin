@@ -65,6 +65,14 @@
 
 ---
 
+## 📚 Formación / Certificaciones
+
+- [[INICIO|🎓 Certificaciones — Centro de comando]] · **185 pts · Nivel 8** · 26 certificaciones completadas
+- **Google/Coursera en proceso:** IT Support (4/6 cursos · 98%-38%), AI Essentials (1/5 · 74%), Cybersecurity (1%)
+- Dashboard vivo: https://d8e2ny8zuwtge.cloudfront.net/
+
+---
+
 ## 📅 Log
 
 - [[2026-07|Julio 2026]]

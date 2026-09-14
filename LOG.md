@@ -4,6 +4,23 @@
 
 ---
 
+## Semana 10 · 10 – 16 Agosto 2026
+
+### 2026-08-13 (jueves) — Sistema de memoria de sesión para opencode
+
+- ✅ **`F:\AGENTS.md`** creado — memoria permanente de opencode que carga sola en toda sesión bajo `F:\` (terminal o VS Code): identidad, stack, reglas no negociables, tabla de proyectos, protocolo de memoria.
+- ✅ **`Memoria/`** nuevo en la raíz del repo — memoria de sesión en vivo:
+  - `sesion-activa.md` (buffer que opencode mantiene al cerrar cada bloque)
+  - `sesiones/*.md` (logs de recuerdo formales) · `ULTIMA-SESION.md` · `index.md`
+  - `afk-watchdog.ps1` — detecta inactividad global (GetLastInputInfo); 15 min de AFK con trabajo reciente → corre `opencode run` para que la skill `apex-memoria` genere el log solo.
+- ✅ **Skill global `apex-memoria`** en `~/.config/opencode/skill/apex-memoria/` — convierte el buffer en log fechado, actualiza índice + última sesión, resetea el buffer.
+- ✅ **AGENTS.md global** en `~/.config/opencode/AGENTS.md` + `opencode.json` en el repo (registra `.claude/skills` para opencode).
+- ✅ **Watchdog auto-arranque**: lanzador oculto `ApexAFKWatchdog.vbs` en Startup de Windows (no requirió admin; la tarea programada pide elevación).
+- ⚠️ Pendiente de verificar: primera generación real de log (probar "escribí la memoria" en una sesión de opencode).
+- ℹ️ Contexto: sesión de trabajo previa (Antigravity/ecopollo con Next.js 16) — fuera de apex-cloudworks, sin commitear.
+
+---
+
 ## Semana 7 · 13 – 19 Julio 2026
 
 ### 2026-07-16 (jueves) — Unificación de nombre/URL/email en todo el repo

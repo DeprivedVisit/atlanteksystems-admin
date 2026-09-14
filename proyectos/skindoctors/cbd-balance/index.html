@@ -45,7 +45,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/css/style.css?v=3"/>
+<link rel="stylesheet" href="assets/css/style.css?v=7"/>
 </head>
 <body>
 
@@ -86,18 +86,38 @@
   <button onclick="abrirModal('menu-mobile')" class="btn btn-primary" style="margin-top:1rem;border:none;cursor:pointer">Comprar ahora →</button>
 </div>
 
-<!-- Hero — foto total de fondo, texto directo encima (mismo patrón que sección microbiota) -->
+<!-- Hero — variante B: video de fondo, producto a la izquierda, texto a la derecha -->
 <section class="hero">
-  <div class="hero-photo-bg" role="img" aria-label="Espuma Limpiadora Facial CBD Oil Balance en ambiente de spa"></div>
+  <div class="hero-video-bg" aria-hidden="true">
+    <video src="assets/img/portada-hero-nuevo.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-bg-v2.jpg"></video>
+  </div>
   <div class="hero-scrim" aria-hidden="true"></div>
-  <div class="hero-tag-index">Skindoctors · Producto N.º 02</div>
   <div class="container hero-inner">
+    <div class="hero-product">
+      <img src="Espuma-Facial-CBD.png" alt="Espuma Limpiadora Facial CBD Oil Balance — 240 ml" width="320" height="384" loading="eager" class="hero-product-img"/>
+      <span class="hero-product-badge">0% THC</span>
+    </div>
     <div class="hero-content">
-      <span class="hero-eyebrow">Gel Limpiador Facial · CBD Oil Balance</span>
+      <div class="hero-meta">
+        <span class="hero-eyebrow">Gel Limpiador Facial · CBD Oil Balance</span>
+        <span class="hero-tag-index">Producto N.º 02 · Skindoctors</span>
+      </div>
       <h1 class="hero-title">Tu piel lo<br>necesitaba.<br><em>Sana, no ataca.</em></h1>
       <p class="hero-desc">
         Restablece la microbiota, regula el sebo y limpia sin resecar. Con <strong>BioTolife y AC.Net</strong> — activos exclusivos, 0% THC.
       </p>
+      <div class="hero-specs">
+        <span class="spec-chip">240 ml</span>
+        <span class="spec-chip">Todo tipo de piel</span>
+        <span class="spec-chip">Sin resecar</span>
+      </div>
+      <div class="hero-price-pill">
+        <div class="price-pill-row">
+          <span class="price-label">Precio</span>
+          <span class="price-amount">₡24,580</span>
+        </div>
+        <span class="price-note">IVA incluido · Ahorrás +₡7,000 vs. rutina de 3 pasos</span>
+      </div>
       <div class="hero-actions">
         <button onclick="abrirModal('hero')" class="btn btn-wa" style="border:none;cursor:pointer">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -107,13 +127,7 @@
       </div>
       <div class="hero-trust">
         <span class="stars" aria-label="5 estrellas">★★★★★</span>
-        <span>Skindoctors CR · Plaza Cristal, Curridabat</span>
-      </div>
-
-      <div class="hero-price-badge">
-        <span class="price-label">Precio</span>
-        <span class="price-amount">₡24,580</span>
-        <span class="price-note">Ahorrás +₡7,000 vs. rutina de 3 pasos</span>
+        <span><strong>4.9</strong> · Skindoctors CR · Plaza Cristal, Curridabat</span>
       </div>
     </div>
   </div>
@@ -301,7 +315,7 @@
 <section class="product-cta">
   <div class="container">
     <div class="cta-img-wrap">
-      <video src="assets/img/portada-hero.mp4" controls muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover"></video>
+      <img src="assets/img/informativa-nueva.jpg" alt="Espuma Limpiadora Facial CBD Oil Balance de Skindoctors CR" loading="lazy" class="cta-img"/>
     </div>
     <div class="cta-info">
       <h2 class="cta-name">Espuma Limpiadora Facial<br><em>CBD Oil Balance · Skindoctors CR</em></h2>

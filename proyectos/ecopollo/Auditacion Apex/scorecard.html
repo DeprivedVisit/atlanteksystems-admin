@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Scorecard — Cotizador EcoPollo · Apex Cloud Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#1b4332;--mid:#2d6a4f;--orange:#f4a261;--orange2:#e76f51;
+  --cream:#f8f5f0;--dark:#0d1f16;--muted:#5a7264;--border:#c8ddd0;
+  --surface:#fff;--green:#2d6a4f;--yellow:#e8a050;--red:#d04040;
+  --serif:'Syne',system-ui,sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--dark) 0%,var(--forest) 100%);padding:2.5rem 3rem 2rem;color:#fff}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.brand-line{font-family:var(--serif);font-size:1.1rem;color:rgba(244,162,97,.7);margin-bottom:.3rem}
+.brand-line span{color:var(--orange);font-style:italic}
+.doc-title{font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1.1}
+.doc-title strong{color:var(--orange)}
+.header-meta{text-align:right}
+.last-update{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.version-badge{margin-top:.3rem;display:inline-block;background:rgba(244,162,97,.2);border:1px solid rgba(244,162,97,.35);color:var(--orange);font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.25rem .8rem;border-radius:50px}
+.wrap{max-width:1100px;margin:0 auto;padding:2.5rem 2rem}
+.total-card{background:#fff;border-radius:20px;border:1px solid var(--border);padding:2rem 2.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.total-score-wrap{display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.total-score{font-family:var(--serif);font-size:5rem;font-weight:700;line-height:1;color:var(--forest)}
+.total-score sup{font-size:2rem;font-weight:300;opacity:.5;vertical-align:top;margin-top:.8rem}
+.total-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.total-bar-wrap{flex:1;min-width:200px}
+.total-bar-track{height:12px;background:var(--border);border-radius:50px;overflow:hidden;margin-bottom:.5rem}
+.total-bar-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--orange),var(--orange2));transition:width 1s ease}
+.total-breakdown{display:flex;gap:.4rem;flex-wrap:wrap}
+.breakdown-pill{font-size:.65rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;border:1px solid}
+.bp-green{background:rgba(45,106,79,.1);border-color:rgba(45,106,79,.3);color:var(--green)}
+.bp-yellow{background:rgba(232,160,80,.1);border-color:rgba(232,160,80,.3);color:var(--yellow)}
+.bp-red{background:rgba(208,64,64,.1);border-color:rgba(208,64,64,.3);color:var(--red)}
+.total-verdict{flex:1;min-width:220px}
+.verdict-title{font-family:var(--serif);font-size:1.1rem;color:var(--dark);margin-bottom:.4rem}
+.verdict-text{font-size:.82rem;line-height:1.68;color:var(--muted)}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;margin-bottom:2rem}
+.cat-card{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden}
+.cat-header{padding:.9rem 1.3rem;display:flex;align-items:center;justify-content:space-between}
+.cat-icon-title{display:flex;align-items:center;gap:.7rem}
+.cat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cat-name{font-size:.82rem;font-weight:700;color:var(--dark)}
+.cat-sub{font-size:.64rem;color:var(--muted);margin-top:.05rem}
+.cat-score-badge{font-family:var(--serif);font-size:1.4rem;font-weight:700;min-width:44px;text-align:right}
+.score-green{color:var(--green)}.score-yellow{color:var(--yellow)}.score-red{color:var(--red)}
+.cat-bar{height:4px;background:var(--border)}
+.cat-bar-fill{height:100%;transition:width .8s ease}
+.fill-green{background:linear-gradient(90deg,#52b788,#2d6a4f)}
+.fill-yellow{background:linear-gradient(90deg,#ffb74d,#e8a050)}
+.fill-red{background:linear-gradient(90deg,#ef5350,#d04040)}
+.cat-items{padding:.6rem 1.3rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.check-row{display:flex;align-items:flex-start;gap:.55rem;font-size:.76rem;line-height:1.45;color:var(--muted)}
+.check-icon{flex-shrink:0;font-size:.7rem;margin-top:.15rem}
+.check-row.pass .check-icon::before{content:'✓';color:var(--green);font-weight:700}
+.check-row.warn .check-icon::before{content:'⚠';color:var(--yellow)}
+.check-row.fail .check-icon::before{content:'✗';color:var(--red)}
+.check-row.pass{color:var(--dark)}
+.priorities{background:#fff;border-radius:16px;border:1px solid var(--border);padding:1.5rem;margin-bottom:2rem}
+.section-title{font-family:var(--serif);font-size:1.1rem;color:var(--dark);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.priority-list{display:flex;flex-direction:column;gap:.7rem}
+.priority-row{display:flex;align-items:flex-start;gap:1rem;padding:.8rem 1rem;border-radius:10px;border:1px solid var(--border)}
+.priority-row.alta{border-left:3px solid var(--orange2)}
+.priority-row.media{border-left:3px solid var(--yellow)}
+.priority-row.baja{border-left:3px solid var(--green)}
+.p-tag{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;flex-shrink:0;margin-top:.1rem}
+.tag-alta{background:rgba(231,111,81,.12);color:var(--orange2)}
+.tag-media{background:rgba(232,160,80,.12);color:var(--yellow)}
+.tag-baja{background:rgba(45,106,79,.1);color:var(--green)}
+.p-content{flex:1}
+.p-title{font-size:.82rem;font-weight:700;color:var(--dark);margin-bottom:.15rem}
+.p-desc{font-size:.74rem;line-height:1.5;color:var(--muted)}
+.p-impact{font-size:.64rem;font-weight:700;color:var(--forest);margin-top:.2rem}
+.audit-footer{text-align:center;padding:1.5rem 0 2rem;font-size:.7rem;color:var(--muted);opacity:.55}
+.audit-footer span{color:var(--forest);opacity:1}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-line">Eco<span>Pollo</span> · Distribución de pollo fresco</div>
+      <div class="doc-title">Scorecard de <strong>Auditoría</strong></div>
+    </div>
+    <div class="header-meta">
+      <div class="last-update">Fecha de inicio</div>
+      <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:.2rem">09 junio 2026</div>
+      <div class="version-badge">v1.0 · En desarrollo</div>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+
+  <div class="total-card">
+    <div class="total-score-wrap">
+      <div class="total-score">18<sup>/100</sup></div>
+      <div class="total-label">Score actual</div>
+    </div>
+    <div class="total-bar-wrap">
+      <div class="total-bar-track">
+        <div class="total-bar-fill" style="width:18%"></div>
+      </div>
+      <div class="total-breakdown">
+        <span class="breakdown-pill bp-green">Brief ✓</span>
+        <span class="breakdown-pill bp-red">Cotizador ✗</span>
+        <span class="breakdown-pill bp-red">Mobile ✗</span>
+        <span class="breakdown-pill bp-red">Deploy ✗</span>
+        <span class="breakdown-pill bp-red">N8N ✗</span>
+        <span class="breakdown-pill bp-yellow">SEO planned</span>
+      </div>
+    </div>
+    <div class="total-verdict">
+      <div class="verdict-title">Proyecto inicializado — Cotizador en construcción</div>
+      <div class="verdict-text">Brief completo, paleta y tipografía definidas, productos y precios confirmados. Cotizador de 5 pasos pendiente de construir. Score subirá a 80+ al completar el HTML/JS + deploy en AWS.</div>
+    </div>
+  </div>
+
+  <div class="cats-grid">
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(200,221,208,.3)">📋</div>
+          <div><div class="cat-name">Brief del Proyecto</div><div class="cat-sub">Definición, paleta, productos</div></div>
+        </div>
+        <div class="cat-score-badge score-green">90</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-green" style="width:90%"></div></div>
+      <div class="cat-items">
+        <div class="check-row pass"><span class="check-icon"></span>PROMPT.md completo con todos los datos</div>
+        <div class="check-row pass"><span class="check-icon"></span>Paleta definida: #1b4332 · #f4a261 · #f8f5f0</div>
+        <div class="check-row pass"><span class="check-icon"></span>Fuentes definidas: Syne + DM Sans</div>
+        <div class="check-row pass"><span class="check-icon"></span>3 productos con precio por kg confirmados</div>
+        <div class="check-row pass"><span class="check-icon"></span>Contacto cliente: +506 8888-0000</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sin logo ni assets visuales de EcoPollo</div>
+        <div class="check-row warn"><span class="check-icon"></span>Sin imagen hero ni fotos de producto definidas</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(244,162,97,.15)">🧮</div>
+          <div><div class="cat-name">Cotizador 5 pasos</div><div class="cat-sub">Flujo, cálculo, UX</div></div>
+        </div>
+        <div class="cat-score-badge score-red">0</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:0%"></div></div>
+      <div class="cat-items">
+        <div class="check-row fail"><span class="check-icon"></span>Step 1: selección de corte — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Step 2: slider cantidad en kg — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Step 3: tipo de pedido — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Step 4: datos de contacto y zona — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Step 5: resumen + total ₡ + WA button — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Cálculo automático total (precio × kg) — pendiente</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(45,106,79,.1)">📱</div>
+          <div><div class="cat-name">Mobile-First</div><div class="cat-sub">Responsive, táctil, legibilidad</div></div>
+        </div>
+        <div class="cat-score-badge score-red">0</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:0%"></div></div>
+      <div class="cat-items">
+        <div class="check-row fail"><span class="check-icon"></span>Diseño mobile-first — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Botones touch-friendly (min 44px) — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Slider de kg funcional en móvil — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>WhatsApp flotante siempre visible — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Probado en iPhone/Android — pendiente</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(231,111,81,.12)">💬</div>
+          <div><div class="cat-name">Conversión + WhatsApp</div><div class="cat-sub">CTA, mensaje pre-armado, fricción</div></div>
+        </div>
+        <div class="cat-score-badge score-red">0</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:0%"></div></div>
+      <div class="cat-items">
+        <div class="check-row fail"><span class="check-icon"></span>WA pre-armado con producto, kg y total — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>CTA visible en cada paso — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Número de WA de EcoPollo configurado — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Resumen de pedido visible antes de enviar — pendiente</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(232,160,80,.12)">📊</div>
+          <div><div class="cat-name">Captura de Pedidos</div><div class="cat-sub">N8N, Sheets, alertas</div></div>
+        </div>
+        <div class="cat-score-badge score-red">0</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:0%"></div></div>
+      <div class="cat-items">
+        <div class="check-row fail"><span class="check-icon"></span>Google Sheet pedidos EcoPollo — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Apps Script para captura de leads — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>N8N webhook ecopollo-leads configurado — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Alerta WA en tiempo real al dueño — pendiente</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(27,67,50,.12)">☁</div>
+          <div><div class="cat-name">Deploy + Rendimiento</div><div class="cat-sub">AWS, SSL, velocidad</div></div>
+        </div>
+        <div class="cat-score-badge score-red">0</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:0%"></div></div>
+      <div class="cat-items">
+        <div class="check-row fail"><span class="check-icon"></span>Bucket S3 ecopollo-cr-landing — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>CloudFront distribution + SSL — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>URL de producción activa — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Carga en menos de 2 segundos — pendiente</div>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-icon-title">
+          <div class="cat-icon" style="background:rgba(27,67,50,.1)">🔍</div>
+          <div><div class="cat-name">SEO básico</div><div class="cat-sub">Meta tags, Open Graph, schema</div></div>
+        </div>
+        <div class="cat-score-badge score-red">0</div>
+      </div>
+      <div class="cat-bar"><div class="cat-bar-fill fill-red" style="width:0%"></div></div>
+      <div class="cat-items">
+        <div class="check-row fail"><span class="check-icon"></span>Meta title / description — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>og:image para preview WhatsApp — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Schema LocalBusiness JSON-LD — pendiente</div>
+        <div class="check-row fail"><span class="check-icon"></span>Canonical URL al dominio final — pendiente</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="priorities">
+    <div class="section-title">Orden de construcción</div>
+    <div class="priority-list">
+
+      <div class="priority-row alta">
+        <span class="p-tag tag-alta">1 · Ahora</span>
+        <div class="p-content">
+          <div class="p-title">Construir cotizador index.html — 5 pasos completos</div>
+          <div class="p-desc">Implementar el flujo completo en single-file HTML con CSS y JS inline. Cálculo automático ₡ × kg. Estilo verde/naranja con Syne + DM Sans. Mobile-first desde el inicio.</div>
+          <div class="p-impact">Impacto: Genera el 100% del valor del proyecto</div>
+        </div>
+      </div>
+
+      <div class="priority-row alta">
+        <span class="p-tag tag-alta">2 · Junto</span>
+        <div class="p-content">
+          <div class="p-title">WhatsApp pre-armado con resumen del pedido</div>
+          <div class="p-desc">En el Step 5, armar el mensaje WA con: producto elegido, cantidad kg, precio por kg, total ₡ calculado, nombre, teléfono y zona. Número: +506 8888-0000.</div>
+          <div class="p-impact">Impacto: Conversión directa — el cliente hace clic y el pedido ya está escrito</div>
+        </div>
+      </div>
+
+      <div class="priority-row alta">
+        <span class="p-tag tag-alta">3 · Al terminar HTML</span>
+        <div class="p-content">
+          <div class="p-title">Google Sheet + N8N webhook ecopollo-leads</div>
+          <div class="p-desc">Crear Sheets con columnas: Fecha, Nombre, Teléfono, Producto, Cantidad(kg), Total ₡, Zona. Conectar Apps Script y configurar nodo N8N en apexcloudworkscompany.app.n8n.cloud.</div>
+          <div class="p-impact">Impacto: Tío Michael recibe alerta WA de cada pedido — cero pedidos perdidos</div>
+        </div>
+      </div>
+
+      <div class="priority-row media">
+        <span class="p-tag tag-media">4 · Media</span>
+        <div class="p-content">
+          <div class="p-title">Deploy a AWS S3 + CloudFront</div>
+          <div class="p-desc">Crear bucket ecopollo-cr-landing en us-east-2. Configurar CloudFront con SSL. Subir index.html y assets. Actualizar entrega-cliente.html con la URL real.</div>
+          <div class="p-impact">Impacto: URL pública para demo y entrega al cliente</div>
+        </div>
+      </div>
+
+      <div class="priority-row media">
+        <span class="p-tag tag-media">5 · Media</span>
+        <div class="p-content">
+          <div class="p-title">SEO básico + Open Graph image</div>
+          <div class="p-desc">Meta title "Cotizador EcoPollo — Pollo fresco a domicilio". Crear og:image 1200×630 con paleta verde. Schema LocalBusiness con nombre, teléfono y zona de servicio.</div>
+          <div class="p-impact">Impacto: Preview correcto al compartir el link por WhatsApp o Instagram</div>
+        </div>
+      </div>
+
+      <div class="priority-row baja">
+        <span class="p-tag tag-baja">6 · Baja</span>
+        <div class="p-content">
+          <div class="p-title">Logo / imagen hero de EcoPollo</div>
+          <div class="p-desc">Solicitar al cliente foto del producto o crear logo simple en SVG con pollo y paleta verde-naranja. Usar como hero del cotizador.</div>
+          <div class="p-impact">Impacto: Identidad visual más fuerte · Más confianza del cliente final</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="audit-footer">
+    Generado por <span>Apex Cloud Work</span> · Cartago, Costa Rica · apexcloudworkscompany.com
+  </div>
+</div>
+<script>
+window.addEventListener('load', () => {
+  document.querySelectorAll('.cat-bar-fill, .total-bar-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    requestAnimationFrame(() => { setTimeout(() => { bar.style.width = w }, 100); });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,6 +1,16 @@
 # 🧠 CLAUDE.md — Garett Barrantes Benavides
-> Memoria permanente · Versión 13.6 · 31 Julio 2026
+> Memoria permanente · Versión 13.7 · 13 Agosto 2026
 > Leer completo antes de cualquier sesión.
+
+## 🔗 Entorno opencode + memoria de sesión (NUEVO 13 ago 2026)
+
+- **`F:\AGENTS.md`** carga sola en toda sesión de opencode bajo `F:\` (identidad + reglas + proyectos + protocolo de memoria).
+- **`F:\apex-cloudworks\Memoria\`** = memoria de sesión en vivo:
+  - `sesion-activa.md` — buffer que se mantiene al cerrar cada bloque de trabajo.
+  - `sesiones\YYYY-MM-DD_HHmm.md` — logs de recuerdo formales (skill `apex-memoria`).
+  - `ULTIMA-SESION.md` + `index.md` — puntero al último log + índice.
+  - `afk-watchdog.ps1` — corre al logon; 15 min de AFK con trabajo reciente → `opencode run` genera el log solo.
+- Regla: **al iniciar sesión leer `Memoria\ULTIMA-SESION.md` y `sesion-activa.md`**; al cerrar cada bloque, actualizar el buffer.
 
 ---
 
@@ -64,7 +74,7 @@
 | **Vicio** | Weed — apagar Y pensar diferente · Sunsets |
 | **Discord** | Círculo de años sin hablar — quiere reconectar |
 | **Madrugada** | Fuma · scrollea videos de programación en WhatsApp |
-| **WoW** | DH main — dejó con cambio de expansión |
+| **WoW** | DH main — activo en Midnight S2 (19 ago 2026): lvl 90, ilvl 245 |
 
 ---
 

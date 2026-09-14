@@ -3,13 +3,7 @@
 // ═══════════════════════════════════════════
 const WA_NUMBER = '50663144171'; // Cambiar al número de Skindoctors al firmar
 
-// N8N Webhook — TODO Garett: este Apps Script no vive en el repo (solo en el editor
-// de Google), así que hay que agregarle a mano la misma función notifyLead() con
-// MailApp.sendEmail() que ya se agregó al de CBD Balance (apps-script.gs). Una vez
-// confirmado con un lead real que el correo llega, borrar este bloque y su llamada.
-const N8N_WEBHOOK = 'https://apexcloudworkscompany.app.n8n.cloud/webhook/6dfdd8e0-8ce5-4159-a433-1849fc1fe06e';
-
-// Google Apps Script (respaldo — si N8N no está activo, sigue funcionando):
+// Google Apps Script → Google Sheets + Gmail (único canal de leads — N8N cancelado)
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyjKVJ0AFpV5L-zOsCFFbVD0GHbzT3DPxppuaSGyW58FhYsemXcL0x8JE3KSVftogcJdw/exec';
 // ═══════════════════════════════════════════
 
@@ -112,18 +106,7 @@ async function enviarLead(e){
     fecha:    new Date().toLocaleString('es-CR')
   };
 
-  // Enviar a N8N (tiene CORS habilitado — respuesta real)
-  if(N8N_WEBHOOK){
-    try{
-      fetch(N8N_WEBHOOK,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(datos)
-      });
-    }catch(_){}
-  }
-
-  // Enviar a Google Sheets como respaldo (no-cors, fire and forget)
+  // Enviar a Google Sheets vía Apps Script (no-cors, fire and forget)
   // Content-Type debe ser text/plain — application/json dispara preflight que no-cors bloquea
   if(SHEETS_URL){
     try{

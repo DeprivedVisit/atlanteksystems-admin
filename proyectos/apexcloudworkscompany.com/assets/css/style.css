@@ -2283,6 +2283,136 @@ section[id] { scroll-margin-top: 84px; }
 }
 
 /* ══════════════════════════════════════════════
+   MACBOOK FLOTANTE — sigue el scroll (assets/js/mac-float.js)
+   Oculto por defecto: solo aparece si JS activa html.mac-ready
+   (desktop ≥900px, sin prefers-reduced-motion). Sin JS o en mobile
+   no se renderiza — es decoración, nunca bloquea contenido.
+══════════════════════════════════════════════ */
+.mac-float {
+  position: fixed;
+  top: 50%; left: 50%;
+  z-index: var(--z-float); /* debajo del nav y del toast — decoración, no chrome */
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity .6s ease;
+  will-change: transform;
+}
+html.mac-ready .mac-float { opacity: 1; }
+
+.mac-lid-wrap { will-change: transform; }
+
+.mac-chassis {
+  width: clamp(200px, 19vw, 300px);
+  aspect-ratio: 8 / 5.4;
+  padding: 4% 4% 0;
+  background: linear-gradient(155deg, #CDD3D9, #9AA3AC 55%, #7B838C);
+  border-radius: 14px 14px 4px 4px;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,.25) inset;
+  transform: perspective(1400px) rotateX(8deg) rotateY(-10deg);
+  transition: opacity .6s ease, filter .6s ease, transform .9s cubic-bezier(.16,1,.3,1);
+}
+.mac-float.mac-bg .mac-chassis {
+  opacity: .28;
+  filter: blur(3px) saturate(.7);
+  transform: perspective(1400px) rotateX(8deg) rotateY(-10deg) scale(1.1);
+}
+
+.mac-notch {
+  width: 9%; aspect-ratio: 1; margin: 0 auto 2.4%;
+  border-radius: 50%; background: #1C1F24;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.06) inset;
+}
+
+.mac-screen {
+  height: 87%;
+  padding: 5% 6.5% 0;
+  background: var(--bg);
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 0 24px rgba(232,101,74,.1) inset;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.mac-screen-chrome { display: flex; gap: 5px; flex: 0 0 auto; margin-bottom: 9%; }
+.mac-dot { width: 7px; height: 7px; border-radius: 50%; opacity: .55; }
+.mac-dot--r { background: #F87171; }
+.mac-dot--y { background: #FBBF24; }
+.mac-dot--g { background: #4ADE80; }
+
+.mac-screen-content {
+  flex: 1; overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(9px, .78vw, 12px);
+  line-height: 1.6;
+  color: var(--text2);
+}
+.mac-screen-content .mac-line { white-space: nowrap; }
+.mac-screen-content .mac-line.mac-dim { color: var(--text3); }
+.mac-screen-content .ok  { color: var(--green); }
+.mac-screen-content .warn{ color: var(--yellow); }
+.mac-screen-content .mac-price { color: var(--gold2); font-size: 1.6em; font-weight: 700; }
+.mac-screen-content .mac-urlbar {
+  font-size: .85em; color: var(--text3); padding: 3px 8px; margin-bottom: 10%;
+  border: 1px solid var(--border); border-radius: 5px; width: fit-content;
+}
+.mac-screen-content .mac-thumb {
+  height: 30%; border-radius: 4px; margin-bottom: 6%;
+  background: linear-gradient(120deg, var(--gold-dim), var(--raised));
+}
+.mac-screen-content .mac-thumb--sm { height: 18%; opacity: .6; }
+.mac-screen-content .mac-pill {
+  display: inline-block; font-size: .8em; padding: 2px 8px; border-radius: 999px;
+  background: var(--gold-dim); color: var(--gold2);
+}
+.mac-screen-content .mac-steps { display: flex; gap: 4px; margin-bottom: 8%; }
+.mac-screen-content .mac-steps span {
+  width: 14px; height: 3px; border-radius: 2px; background: var(--border);
+}
+.mac-screen-content .mac-steps span.on { background: var(--gold); }
+.mac-screen-content .mac-ghost { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+.mac-screen-content .mac-ghost-logo { font-size: 1.4em; letter-spacing: .08em; color: var(--gold2); font-weight: 700; }
+.mac-screen-content .mac-ghost-sub { font-size: .85em; color: var(--text3); margin-top: 4px; }
+
+.mac-base {
+  width: 116%; margin-left: -8%; height: 5%;
+  background: linear-gradient(180deg, #8A929B, #5B6169);
+  border-radius: 0 0 8px 8px;
+  position: relative;
+}
+.mac-base::before {
+  content: ''; position: absolute; top: 0; left: 50%; translate: -50% 0;
+  width: 16%; height: 60%; background: #3D4147; border-radius: 0 0 3px 3px;
+}
+
+@media (max-width: 899px) {
+  .mac-float { display: none; } /* efecto lateral apagado en mobile — ver mac-float.js */
+}
+
+/* ══════════════════════════════════════════════
+   MACBOOK SCROLL SEQUENCE — fotoreal, 33 frames
+   assets/js/mac-scroll-sequence.js dibuja frame por frame según
+   progreso de scroll. Oculto por defecto: solo aparece si el JS
+   confirma que frame-001.png cargó — sin frames generados, esto
+   nunca se ve (el mac-float.js de arriba sigue siendo el fallback).
+══════════════════════════════════════════════ */
+#laptop-canvas {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--z-float);
+  pointer-events: none;
+  opacity: 0;
+  width: min(360px, 30vw);
+  aspect-ratio: 3 / 4;
+  transition: opacity .5s ease;
+}
+#laptop-canvas.mac-seq-ready { opacity: 1; }
+
+@media (max-width: 899px) {
+  #laptop-canvas { display: none; } /* misma regla que el mac-float: sin lateral en mobile */
+}
+
+/* ══════════════════════════════════════════════
    HERO TYPEWRITER — em tag transition
 ══════════════════════════════════════════════ */
 .hero-h1 em {

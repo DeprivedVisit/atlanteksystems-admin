@@ -1,0 +1,185 @@
+{
+  "name": "EcoPollo — Leads Cotizador",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ecopollo-leads",
+        "responseMode": "lastNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "b2c3d4e5-0001-0001-0001-000000000001",
+      "name": "Webhook — EcoPollo",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "ecopollo-leads"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "nombre",
+              "value": "={{ $json.body?.nombre ?? $json.nombre ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f2",
+              "name": "telefono",
+              "value": "={{ $json.body?.telefono ?? $json.telefono ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f3",
+              "name": "email",
+              "value": "={{ $json.body?.email ?? $json.email ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f4",
+              "name": "producto",
+              "value": "={{ $json.body?.producto ?? $json.producto ?? 'No especificado' }}",
+              "type": "string"
+            },
+            {
+              "id": "f5",
+              "name": "cantidad_kg",
+              "value": "={{ $json.body?.cantidad_kg ?? $json.cantidad_kg ?? '0' }}",
+              "type": "string"
+            },
+            {
+              "id": "f6",
+              "name": "total_colones",
+              "value": "={{ $json.body?.total_colones ?? $json.total_colones ?? '0' }}",
+              "type": "string"
+            },
+            {
+              "id": "f7",
+              "name": "zona",
+              "value": "={{ $json.body?.zona ?? $json.zona ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f8",
+              "name": "tipo_pedido",
+              "value": "={{ $json.body?.tipo_pedido ?? $json.tipo_pedido ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f9",
+              "name": "fecha",
+              "value": "={{ $json.body?.fecha ?? $json.fecha ?? $now.toLocaleString('es-CR') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2c3d4e5-0002-0002-0002-000000000002",
+      "name": "Formatear Datos",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "TU_GOOGLE_SHEET_ID_AQUI"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Pedidos"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Fecha": "={{ $json.fecha }}",
+            "Nombre": "={{ $json.nombre }}",
+            "Teléfono": "={{ $json.telefono }}",
+            "Email": "={{ $json.email }}",
+            "Producto": "={{ $json.producto }}",
+            "Cantidad (kg)": "={{ $json.cantidad_kg }}",
+            "Total ₡": "={{ $json.total_colones }}",
+            "Zona": "={{ $json.zona }}",
+            "Tipo pedido": "={{ $json.tipo_pedido }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "b2c3d4e5-0003-0003-0003-000000000003",
+      "name": "Google Sheets — Pedidos",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "apexcloudworkscompany@gmail.com",
+        "subject": "=🐔 Nuevo pedido EcoPollo — {{ $json.nombre }}",
+        "emailType": "html",
+        "message": "=<div style=\"font-family:'DM Sans',system-ui,sans-serif;max-width:520px;margin:0 auto;color:#0d1f16;background:#f8f5f0;padding:32px;border-radius:12px\">\n  <div style=\"text-align:center;margin-bottom:24px\">\n    <div style=\"font-size:32px\">🐔</div>\n    <h1 style=\"font-size:20px;font-weight:700;color:#1b4332;margin:8px 0 4px\">Nuevo Pedido · EcoPollo</h1>\n    <p style=\"font-size:13px;color:#5a7264;margin:0\">{{ $json.fecha }}</p>\n  </div>\n  <table style=\"width:100%;border-collapse:collapse\">\n    <tr><td style=\"padding:8px 12px;background:#fff;border-radius:8px 8px 0 0;font-size:13px;color:#5a7264;font-weight:700;letter-spacing:.08em\">NOMBRE</td><td style=\"padding:8px 12px;background:#fff;font-size:15px;font-weight:700\">{{ $json.nombre }}</td></tr>\n    <tr><td style=\"padding:8px 12px;background:#f0f5f2;font-size:13px;color:#5a7264;font-weight:700\">TELÉFONO</td><td style=\"padding:8px 12px;background:#f0f5f2;font-size:15px\"><a href=\"https://wa.me/506{{ $json.telefono }}\" style=\"color:#25D366;font-weight:700\">{{ $json.telefono }}</a></td></tr>\n    <tr><td style=\"padding:8px 12px;background:#fff;font-size:13px;color:#5a7264;font-weight:700\">PRODUCTO</td><td style=\"padding:8px 12px;background:#fff;font-size:15px;font-weight:700;color:#1b4332\">{{ $json.producto }}</td></tr>\n    <tr><td style=\"padding:8px 12px;background:#f0f5f2;font-size:13px;color:#5a7264;font-weight:700\">CANTIDAD</td><td style=\"padding:8px 12px;background:#f0f5f2;font-size:15px;font-weight:700\">{{ $json.cantidad_kg }} kg</td></tr>\n    <tr><td style=\"padding:8px 12px;background:#fff;font-size:13px;color:#5a7264;font-weight:700\">TOTAL</td><td style=\"padding:8px 12px;background:#fff;font-size:17px;font-weight:700;color:#e76f51\">₡ {{ $json.total_colones }}</td></tr>\n    <tr><td style=\"padding:8px 12px;background:#f0f5f2;font-size:13px;color:#5a7264;font-weight:700\">ZONA</td><td style=\"padding:8px 12px;background:#f0f5f2;font-size:15px\">{{ $json.zona }}</td></tr>\n    <tr><td style=\"padding:8px 12px;background:#fff;border-radius:0 0 8px 8px;font-size:13px;color:#5a7264;font-weight:700\">TIPO</td><td style=\"padding:8px 12px;background:#fff;border-radius:0 0 8px 8px;font-size:15px\">{{ $json.tipo_pedido }}</td></tr>\n  </table>\n  <div style=\"margin-top:20px;text-align:center\">\n    <a href=\"https://wa.me/506{{ $json.telefono }}?text=Hola%20{{ $json.nombre }}%2C%20recibimos%20tu%20pedido%20de%20{{ $json.cantidad_kg }}%20kg%20de%20{{ $json.producto }}%20de%20EcoPollo%20%F0%9F%90%94\" style=\"display:inline-block;background:#25D366;color:#fff;padding:12px 28px;border-radius:50px;font-weight:700;font-size:14px;text-decoration:none\">💬 Confirmar pedido por WhatsApp</a>\n  </div>\n  <p style=\"font-size:11px;color:#8aab96;text-align:center;margin-top:20px\">Apex Cloud Work · Sistema de pedidos automático</p>\n</div>",
+        "options": {}
+      },
+      "id": "b2c3d4e5-0004-0004-0004-000000000004",
+      "name": "Gmail — Alerta Pedido",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"ok\": true }",
+        "options": {}
+      },
+      "id": "b2c3d4e5-0005-0005-0005-000000000005",
+      "name": "Respuesta OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook — EcoPollo": {
+      "main": [
+        [{ "node": "Formatear Datos", "type": "main", "index": 0 }]
+      ]
+    },
+    "Formatear Datos": {
+      "main": [
+        [
+          { "node": "Google Sheets — Pedidos", "type": "main", "index": 0 },
+          { "node": "Gmail — Alerta Pedido", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Google Sheets — Pedidos": {
+      "main": [
+        [{ "node": "Respuesta OK", "type": "main", "index": 0 }]
+      ]
+    },
+    "Gmail — Alerta Pedido": {
+      "main": [
+        [{ "node": "Respuesta OK", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateId": "ecopollo-leads-v1"
+  },
+  "pinData": {}
+}

@@ -6,10 +6,23 @@
 ## Capas de memoria (de más permanente a más volátil)
 
 ```
+F:\AGENTS.md               ← NUEVO (13 ago 2026). Memoria de opencode: identidad
+                             + reglas + proyecto. Se carga sola en TODA sesión
+                             de opencode bajo F:\ (terminal o VS Code), porque
+                             opencode sube desde el cwd. Puntero a todo lo demás.
+
 CLAUDE.md (raíz)          ← memoria permanente del sistema. Se lee ANTES de
                              cualquier sesión. Identidad, motor, reglas, stack,
                              tabla de proyectos, roadmap MRR, rutina v7.0.
                              Cambia poco — cada cambio bump de versión.
+
+Memoria/ (raíz, NUEVO)    ← memoria de SESIÓN de opencode: sesion-activa.md
+                             (buffer vivo, lo mantiene opencode al cerrar cada
+                             bloque), sesiones/*.md (logs de recuerdo formales,
+                             generados por la skill apex-memoria o el watchdog
+                             AFK), ULTIMA-SESION.md (puntero al último log) e
+                             index.md (índice cronológico). afk-watchdog.ps1
+                             corre al logon (15 min de AFK → opencode run).
 
 memory/ (fuera del repo,   ← auto-memoria de Claude Code entre sesiones.
 en ~/.claude/projects/...)   Un archivo .md por hecho/feedback/proyecto,

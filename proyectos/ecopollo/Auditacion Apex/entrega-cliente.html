@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Entrega · Cotizador EcoPollo · Apex Cloud Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#1b4332;--mid:#2d6a4f;--sage:#40916c;
+  --orange:#f4a261;--orange2:#e76f51;
+  --cream:#f8f5f0;--dark:#0d1f16;--muted:#5a7264;--border:#c8ddd0;
+  --surface:#fff;--green:#2d6a4f;
+  --serif:'Syne',system-ui,sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--dark);min-height:100vh}
+@media print{body{background:#fff}.no-print{display:none!important}}
+.hero-header{background:linear-gradient(135deg,#0a1f12 0%,#1b4332 60%,#2d6a4f 100%);padding:3.5rem 3rem 3rem;color:#fff;position:relative;overflow:hidden}
+.hero-header::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(244,162,97,.08) 0%,transparent 70%)}
+.hero-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(244,162,97,.35),transparent)}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.apex-brand{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.6rem}
+.doc-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);opacity:.85;margin-bottom:.4rem}
+.doc-title{font-family:var(--serif);font-size:2.4rem;font-weight:800;line-height:1.05;max-width:520px}
+.doc-title strong{color:var(--orange)}
+.doc-subtitle{margin-top:.75rem;font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6;max-width:480px}
+.hero-meta{text-align:right;min-width:180px}
+.meta-date{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.35rem}
+.meta-val{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:.15rem}
+.meta-badge{display:inline-block;margin-top:.5rem;background:rgba(244,162,97,.2);border:1px solid rgba(244,162,97,.45);color:var(--orange);font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.3rem .85rem;border-radius:50px}
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 2rem 3rem}
+.sec-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
+.sec-title{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--dark);margin-bottom:1.2rem}
+.url-cards{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.5rem}
+.url-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem}
+.url-icon{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.url-icon.dev{background:rgba(244,162,97,.12)}.url-icon.live{background:rgba(45,106,79,.1)}
+.url-info{flex:1}
+.url-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.url-link{font-size:.9rem;font-weight:700;color:var(--forest);word-break:break-all}
+.url-desc{font-size:.74rem;color:var(--muted);margin-top:.12rem}
+.url-status{font-size:.65rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;flex-shrink:0}
+.status-dev{background:rgba(244,162,97,.15);color:var(--orange2);border:1px solid rgba(244,162,97,.3)}
+.status-live{background:rgba(45,106,79,.12);color:var(--green);border:1px solid rgba(45,106,79,.25)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;text-align:center}
+.product-icon{font-size:1.8rem;margin-bottom:.5rem}
+.product-name{font-family:var(--serif);font-size:.9rem;font-weight:700;color:var(--dark);margin-bottom:.35rem}
+.product-price{font-size:1.1rem;font-weight:700;color:var(--forest)}
+.product-unit{font-size:.68rem;color:var(--muted);margin-top:.15rem}
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem}
+.deliverable-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.d-icon{font-size:1.4rem;line-height:1}.d-title{font-size:.88rem;font-weight:700;color:var(--dark)}
+.d-desc{font-size:.74rem;line-height:1.58;color:var(--muted)}
+.d-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.d-chip{font-size:.6rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;background:rgba(27,67,50,.07);color:var(--forest);border:1px solid rgba(27,67,50,.15)}
+.steps{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.5rem}
+.step{display:flex;align-items:flex-start;gap:1rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--forest);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+.step-body{flex:1}.step-title{font-size:.84rem;font-weight:700;color:var(--dark);margin-bottom:.18rem}
+.step-desc{font-size:.76rem;line-height:1.55;color:var(--muted)}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2.5rem}
+.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.plan-card.featured{border-color:var(--mid);box-shadow:0 4px 24px rgba(27,67,50,.12)}
+.plan-header{padding:1.2rem 1.4rem;border-bottom:1px solid var(--border)}
+.plan-header.featured-bg{background:linear-gradient(135deg,rgba(27,67,50,.07),rgba(200,221,208,.15))}
+.plan-badge{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .6rem;border-radius:4px;background:var(--orange);color:#fff;display:inline-block;margin-bottom:.5rem}
+.plan-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--dark)}
+.plan-price{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:var(--forest);line-height:1;margin:.4rem 0 .15rem}
+.plan-price span{font-size:.8rem;font-weight:400;color:var(--muted)}
+.plan-items{padding:1.1rem 1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.plan-item{font-size:.76rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start}
+.plan-item::before{content:'✓';color:var(--green);font-weight:700;font-size:.7rem;margin-top:.05rem;flex-shrink:0}
+.plan-item.missing::before{content:'✗';color:rgba(0,0,0,.2)}.plan-item.missing{color:rgba(0,0,0,.3)}
+.garantia{background:linear-gradient(135deg,rgba(27,67,50,.05),rgba(200,221,208,.12));border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.8rem;margin-bottom:2.5rem}
+.garantia-title{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.7rem}
+.garantia-items{display:flex;flex-direction:column;gap:.45rem}
+.g-item{font-size:.8rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start}
+.g-item::before{content:'•';color:var(--forest);font-weight:700;flex-shrink:0}
+.contact-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.contact-card{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.contact-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.contact-val{font-size:.86rem;font-weight:700;color:var(--dark)}.contact-sub{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.firma{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.firma-apex{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--forest)}
+.firma-apex small{display:block;font-family:var(--sans);font-size:.62rem;color:var(--muted);font-style:normal;margin-top:.15rem;letter-spacing:.08em;text-transform:uppercase}
+.firma-disclaimer{font-size:.64rem;color:var(--muted);opacity:.5;text-align:right;max-width:260px;line-height:1.5}
+.print-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--forest);color:#fff;border:none;padding:.7rem 1.4rem;border-radius:50px;font-family:var(--sans);font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(27,67,50,.35);transition:transform .2s,box-shadow .2s;z-index:99}
+.print-btn:hover{transform:translateY(-2px)}
+@media(max-width:640px){.deliverables,.plans,.products-grid{grid-template-columns:1fr}.hero-header{padding:2.5rem 1.5rem 2rem}.doc-title{font-size:1.8rem}}
+</style>
+</head>
+<body>
+<div class="hero-header">
+  <div class="hero-inner">
+    <div>
+      <div class="apex-brand">Apex Cloud Work · Cartago, Costa Rica</div>
+      <div class="doc-eyebrow">Documento de entrega</div>
+      <div class="doc-title">Cotizador Online<br><strong>EcoPollo</strong></div>
+      <div class="doc-subtitle">Cotizador digital de 5 pasos para distribución de pollo fresco. Precios actualizados, pedido directo por WhatsApp.</div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-date">Fecha</div><div class="meta-val">Junio 2026</div>
+      <div class="meta-date" style="margin-top:.5rem">Cliente</div>
+      <div class="meta-val">EcoPollo · Tío Michael</div>
+      <div class="meta-badge">⚙ En desarrollo</div>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <div class="sec-eyebrow">Entregables</div>
+  <div class="sec-title">Lo que se está construyendo</div>
+  <div class="url-cards">
+    <div class="url-card">
+      <div class="url-icon dev">⚙</div>
+      <div class="url-info">
+        <div class="url-label">Cotizador online — EcoPollo</div>
+        <div class="url-link">URL producción — pendiente deploy en AWS CloudFront</div>
+        <div class="url-desc">Cotizador interactivo de 5 pasos: selección de producto, cantidad en kg, tipo de pedido, datos de contacto y resumen con envío por WhatsApp.</div>
+      </div>
+      <span class="url-status status-dev">En desarrollo</span>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-eyebrow">Catálogo</div>
+  <div class="sec-title">Productos en el cotizador</div>
+  <div class="products-grid">
+    <div class="product-card"><div class="product-icon">🐔</div><div class="product-name">Pollo entero</div><div class="product-price">₡ 1,950</div><div class="product-unit">por kilogramo</div></div>
+    <div class="product-card"><div class="product-icon">🍗</div><div class="product-name">Pechuga deshuesada</div><div class="product-price">₡ 3,025</div><div class="product-unit">por kilogramo</div></div>
+    <div class="product-card"><div class="product-icon">🦵</div><div class="product-name">Muslo entero</div><div class="product-price">₡ 1,475</div><div class="product-unit">por kilogramo</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-eyebrow">Qué se construye</div>
+  <div class="sec-title">Resumen de entregables</div>
+  <div class="deliverables">
+    <div class="deliverable-card"><div class="d-icon">🧮</div><div class="d-title">Cotizador 5 pasos</div><div class="d-desc">Flujo guiado: (1) Selección de corte, (2) Cantidad en kg con deslizador, (3) Tipo de pedido, (4) Datos de contacto y zona, (5) Resumen + envío por WhatsApp con precio calculado.</div><div class="d-chips"><span class="d-chip">Multi-paso</span><span class="d-chip">Cálculo automático</span><span class="d-chip">WhatsApp integrado</span></div></div>
+    <div class="deliverable-card"><div class="d-icon">📱</div><div class="d-title">Diseño Mobile-first</div><div class="d-desc">Optimizado para teléfono. Botones grandes, pasos claros. Paleta verde bosque #1b4332 con acento naranja #f4a261. Fuentes Syne + DM Sans.</div><div class="d-chips"><span class="d-chip">Responsive</span><span class="d-chip">Touch-friendly</span><span class="d-chip">iOS / Android</span></div></div>
+    <div class="deliverable-card"><div class="d-icon">☁</div><div class="d-title">Deploy en AWS CloudFront</div><div class="d-desc">Hosting en Amazon Web Services: S3 + CloudFront CDN global con SSL. Carga rápida, disponible 24/7.</div><div class="d-chips"><span class="d-chip">HTTPS / SSL</span><span class="d-chip">CDN global</span><span class="d-chip">99.9% uptime</span></div></div>
+    <div class="deliverable-card"><div class="d-icon">📋</div><div class="d-title">Captura automática de pedidos</div><div class="d-desc">Cada cotización queda registrada en Google Sheets. Alerta por WhatsApp en tiempo real con el detalle completo del pedido.</div><div class="d-chips"><span class="d-chip">Google Sheets</span><span class="d-chip">Alerta WA inmediata</span><span class="d-chip">Histórico de pedidos</span></div></div>
+    <div class="deliverable-card"><div class="d-icon">💬</div><div class="d-title">WhatsApp pre-armado</div><div class="d-desc">Al finalizar el cotizador, WhatsApp se abre con el pedido escrito: producto, cantidad en kg, precio total calculado y datos del cliente.</div><div class="d-chips"><span class="d-chip">Mensaje pre-llenado</span><span class="d-chip">Precio calculado</span><span class="d-chip">Directo a usted</span></div></div>
+    <div class="deliverable-card"><div class="d-icon">🔍</div><div class="d-title">SEO básico + Open Graph</div><div class="d-desc">Meta tags, descripción del negocio y vista previa. Cuando el link se comparte por WhatsApp se muestra la tarjeta de EcoPollo con imagen y descripción.</div><div class="d-chips"><span class="d-chip">Meta descripción</span><span class="d-chip">Preview WhatsApp</span><span class="d-chip">Schema básico</span></div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-eyebrow">Proceso de trabajo</div>
+  <div class="sec-title">Cómo solicitar cambios</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Me escribís por WhatsApp</div><div class="step-desc">Describís el cambio: nuevo precio, cambio de producto, actualización de número. Cambios menores o mayores, cualquier duda.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Confirmación y tiempo de entrega</div><div class="step-desc">Confirmo el cambio y doy tiempo estimado. Cambios menores: mismo día. Cambios mayores: 1–3 días hábiles.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Aplico el cambio y actualizo</div><div class="step-desc">Modifico el cotizador y hago deploy a CloudFront. El cambio queda visible en minutos. Les comparto el link para revisión.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Aprobación final</div><div class="step-desc">Me confirman que el cambio está correcto. Si necesitan ajuste adicional, lo aplicamos (hasta 2 revisiones sin costo extra).</div></div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-eyebrow">Continuidad</div>
+  <div class="sec-title">Opciones después de la entrega</div>
+  <div class="plans">
+    <div class="plan-card">
+      <div class="plan-header"><div class="plan-name">Solo mantenimiento</div><div class="plan-price">$50–100<span> / mes</span></div></div>
+      <div class="plan-items">
+        <div class="plan-item">Actualización de precios por kg</div>
+        <div class="plan-item">Cambios de número WhatsApp</div>
+        <div class="plan-item">Ajustes de texto y productos</div>
+        <div class="plan-item">Hosting AWS incluido</div>
+        <div class="plan-item missing">Páginas adicionales</div>
+        <div class="plan-item missing">Nuevas funciones al cotizador</div>
+        <div class="plan-item missing">Campañas estacionales</div>
+      </div>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-header featured-bg">
+        <div class="plan-badge">Recomendado</div>
+        <div class="plan-name">Plan trimestral</div>
+        <div class="plan-price">$900<span> / 3 meses</span></div>
+      </div>
+      <div class="plan-items">
+        <div class="plan-item">Todo lo del mantenimiento</div>
+        <div class="plan-item">Actualización automática de precios</div>
+        <div class="plan-item">Nuevos cortes o productos</div>
+        <div class="plan-item">Página de inicio o catálogo adicional</div>
+        <div class="plan-item">Integración Google Analytics</div>
+        <div class="plan-item">Histórico de pedidos en Sheets</div>
+        <div class="plan-item">Reportes mensuales de cotizaciones</div>
+        <div class="plan-item">Prioridad de atención garantizada</div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="garantia">
+    <div class="garantia-title">✶ Garantía Apex Cloud Work</div>
+    <div class="garantia-items">
+      <div class="g-item">Si el cotizador tiene error técnico o no carga, lo resolvemos en menos de 24 horas sin costo.</div>
+      <div class="g-item">Los cambios dentro del alcance acordado no tienen costo adicional durante el período vigente.</div>
+      <div class="g-item">El código fuente es de EcoPollo. Lo reciben completo si deciden cambiar de proveedor.</div>
+      <div class="g-item">Respuesta a mensajes de WhatsApp en menos de 2 horas. Atención disponible 24/7.</div>
+    </div>
+  </div>
+  <div class="sec-eyebrow">Contacto directo</div>
+  <div class="sec-title">Para cambios o consultas</div>
+  <div class="contact-row">
+    <div class="contact-card"><div class="contact-label">WhatsApp</div><div class="contact-val">+506 6314-4171</div><div class="contact-sub">Garett — Apex Cloud Work</div></div>
+    <div class="contact-card"><div class="contact-label">Correo</div><div class="contact-val">apexcloudworkscompany@gmail.com</div><div class="contact-sub">Respuesta en menos de 4 horas</div></div>
+    <div class="contact-card"><div class="contact-label">Horario</div><div class="contact-val">24 / 7</div><div class="contact-sub">Cartago, Costa Rica</div></div>
+  </div>
+  <div class="firma">
+    <div class="firma-apex">Apex Cloud Work<small>Cartago, Costa Rica · 2026</small></div>
+    <div class="firma-disclaimer">Documento preparado para EcoPollo · Tío Michael. Precios y condiciones válidos por 30 días.</div>
+  </div>
+</div>
+<button class="print-btn no-print" onclick="window.print()">Imprimir / Guardar PDF</button>
+</body>
+</html>

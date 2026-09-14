@@ -1,0 +1,263 @@
+{
+  "name": "Trading Bot - Plan de Estudios",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"]
+      },
+      "id": "trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [0, 0],
+      "credentials": {
+        "telegramApi": {
+          "id": "REEMPLAZAR",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": { "type": "string", "operation": "startsWith" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputLabel": "/start"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/next",
+                    "operator": { "type": "string", "operation": "startsWith" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputLabel": "/next"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/progress",
+                    "operator": { "type": "string", "operation": "startsWith" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputLabel": "/progress"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/modules",
+                    "operator": { "type": "string", "operation": "startsWith" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputLabel": "/modules"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/help",
+                    "operator": { "type": "string", "operation": "startsWith" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputLabel": "/help"
+            }
+          ]
+        },
+        "fallbackOutput": { "type": "extra", "renameOutput": true, "outputLabel": "AI Tutor" }
+      },
+      "id": "switch-cmds",
+      "name": "Switch Commands",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "🎓 *¡Bienvenido al Plan de Estudios de Trading!*\n\nSoy tu asistente de aprendizaje. Te guiaré paso a paso desde los fundamentos hasta estrategias avanzadas.\n\n📋 *Comandos disponibles:*\n/next — Siguiente lección\n/progress — Ver tu progreso\n/modules — Ver todos los módulos\n/help — Ayuda\n\n💬 También podés escribirme cualquier pregunta sobre trading y te respondo con AI.\n\n¡Empecemos! Escribí /next para recibir tu primera lección.",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "cmd-start",
+      "name": "Send /start",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [440, -200],
+      "credentials": {
+        "telegramApi": { "id": "REEMPLAZAR", "name": "Telegram Bot" }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "📚 *Módulos del Plan de Estudios:*\n\n1️⃣ Fundamentos y Mentalidad del Trader\n2️⃣ Herramientas Técnicas y Configuración\n3️⃣ Análisis Técnico y Acción del Precio\n4️⃣ Gestión de Riesgo Profesional\n5️⃣ Psicología del Trading\n6️⃣ Estrategias y Backtesting\n7️⃣ Cuenta Demo y Plan Oficial\n8️⃣ Checklist y Auditoría\n\nEscribí /next para la siguiente lección pendiente.",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "cmd-modules",
+      "name": "Send /modules",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [440, 0],
+      "credentials": {
+        "telegramApi": { "id": "REEMPLAZAR", "name": "Telegram Bot" }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "🤖 *Comandos del Bot:*\n\n/start — Iniciar y ver bienvenida\n/next — Recibir siguiente lección\n/progress — Ver tu progreso actual\n/modules — Ver lista de módulos\n/help — Esta ayuda\n\n💬 Escribí cualquier pregunta sobre trading y te respondo con AI.\n\n📌 Ejemplos:\n• \"¿Qué es un pip?\"\n• \"¿Cómo calculo el tamaño de posición?\"\n• \"Explicame los HH y HL\"",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "cmd-help",
+      "name": "Send /help",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [440, 200],
+      "credentials": {
+        "telegramApi": { "id": "REEMPLAZAR", "name": "Telegram Bot" }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "📊 Tu progreso:\nPróximamente se conectará Google Sheets para tracking real.\nPor ahora, escribí /next para recibir la siguiente lección.",
+        "additionalFields": {}
+      },
+      "id": "cmd-progress",
+      "name": "Send /progress",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [440, -100],
+      "credentials": {
+        "telegramApi": { "id": "REEMPLAZAR", "name": "Telegram Bot" }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Sos un tutor experto de trading llamado Apex Trading Coach. Tu objetivo es enseñar trading de forma clara, directa y práctica.\n\nREGLAS:\n1. Siempre respondés en español\n2. Usás un tono directo y profesional, como un mentor\n3. Si el usuario pregunta algo que cubre un módulo del plan, respondés con la información relevante\n4. Si el usuario pide una lección, envias el contenido del módulo correspondiente\n5. Recordás que la gestión de riesgo es lo más importante\n6. Nunca das consejos de inversión específicos (comprar/vender activo X)\n7. Enfatizás la importancia del backtesting y la práctica en Demo\n\nCONOCIMIENTO DEL PLAN:\n- Módulo 1: Fundamentos (mercados, órdenes, spread, liquidez)\n- Módulo 2: TradingView, brokers, gráficos\n- Módulo 3: Estructura de mercado, soporte/resistencia, velas\n- Módulo 4: Gestión de riesgo (regla 1%, R2R, drawdown)\n- Módulo 5: Psicología (FOMO, sesgos, rutina)\n- Módulo 6: Estrategias y backtesting\n- Módulo 7: Cuenta demo y plan de trading\n- Módulo 8: Checklist y auditoría"
+        },
+        "promptType": "define",
+        "text": "={{ $json.message.text }}"
+      },
+      "id": "ai-agent",
+      "name": "AI Trading Tutor",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [880, 400]
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:3b",
+        "options": { "temperature": 0.7 }
+      },
+      "id": "ollama-model",
+      "name": "Ollama Local",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [800, 560],
+      "credentials": {
+        "ollamaApi": { "id": "REEMPLAZAR", "name": "Ollama Local" }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 20
+      },
+      "id": "memory",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [960, 560]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": { "parse_mode": "None" }
+      },
+      "id": "send-reply",
+      "name": "Send Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1100, 400],
+      "credentials": {
+        "telegramApi": { "id": "REEMPLAZAR", "name": "Telegram Bot" }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "⚠️ Disculpá, hubo un error al procesar tu mensaje. Intentá de nuevo.",
+        "additionalFields": {}
+      },
+      "id": "send-error",
+      "name": "Send Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1100, 600],
+      "credentials": {
+        "telegramApi": { "id": "REEMPLAZAR", "name": "Telegram Bot" }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{ "node": "Switch Commands", "type": "main", "index": 0 }]]
+    },
+    "Switch Commands": {
+      "main": [
+        [{ "node": "Send /start", "type": "main", "index": 0 }],
+        [{ "node": "Send /next", "type": "main", "index": 0 }],
+        [{ "node": "Send /progress", "type": "main", "index": 0 }],
+        [{ "node": "Send /modules", "type": "main", "index": 0 }],
+        [{ "node": "Send /help", "type": "main", "index": 0 }],
+        [{ "node": "AI Trading Tutor", "type": "main", "index": 0 }]
+      ]
+    },
+    "AI Trading Tutor": {
+      "main": [
+        [{ "node": "Send Reply", "type": "main", "index": 0 }],
+        [{ "node": "Send Error", "type": "main", "index": 0 }]
+      ],
+      "ai_languageModel": [[{ "node": "Ollama Local", "type": "ai_languageModel", "index": 0 }]],
+      "ai_memory": [[{ "node": "Window Buffer Memory", "type": "ai_memory", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}

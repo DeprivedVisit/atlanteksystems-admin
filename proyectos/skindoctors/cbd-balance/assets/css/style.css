@@ -71,46 +71,75 @@ a{text-decoration:none;color:inherit}
 .mobile-menu a{font-family:var(--serif);font-size:1.4rem;color:rgba(255,255,255,.92)}
 .mobile-close{position:absolute;top:1.5rem;right:1.5rem;font-size:1.6rem;cursor:pointer;color:var(--mint);background:none;border:none;line-height:1}
 
-/* ── Hero — foto total de fondo, texto directo encima (patrón sección microbiota) ── */
-.hero{position:relative;overflow:hidden;background:var(--dark)}
-.hero-photo-bg{
-  position:absolute;inset:0;z-index:0;
-  background:url("../img/background-principal.jpg") center 35%/cover no-repeat;
-}
+/* ── Hero — variante B: video de fondo, producto a la izquierda, texto a la derecha ── */
+.hero{position:relative;overflow:hidden;background:var(--dark);min-height:92vh;display:flex;align-items:center}
+.hero-video-bg{position:absolute;inset:0;z-index:0}
+.hero-video-bg video{width:100%;height:100%;object-fit:cover}
 .hero-scrim{
   position:absolute;inset:0;z-index:1;
-  background:linear-gradient(100deg,rgba(10,26,17,.82) 0%,rgba(10,26,17,.55) 42%,rgba(10,26,17,.28) 68%,rgba(10,26,17,.12) 100%);
+  background:
+    linear-gradient(100deg,rgba(8,22,14,.9) 0%,rgba(8,22,14,.62) 40%,rgba(8,22,14,.22) 72%,rgba(8,22,14,.06) 100%),
+    radial-gradient(ellipse at 22% 80%,rgba(37,163,90,.18),transparent 55%);
 }
-.hero-tag-index{
-  position:absolute;top:1.6rem;left:1.6rem;z-index:2;
-  background:rgba(250,253,250,.92);border:1px solid var(--border);border-radius:2px;
-  padding:.4rem .85rem;font-family:var(--serif);font-size:.7rem;letter-spacing:.12em;color:var(--teal);
-}
-.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:3rem;padding-block:5rem}
-.hero-content{display:flex;flex-direction:column}
+.hero-inner{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:2.5rem;padding-block:4.5rem}
+.hero-content{display:flex;flex-direction:column;align-items:flex-start}
+.hero-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--teal-pale)}
 .hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--mint)}
-.hero-title{font-family:var(--serif);font-size:clamp(2.6rem,4.8vw,4.4rem);font-weight:600;line-height:1.04;color:#fff;letter-spacing:-.02em;margin-top:1rem}
+.hero-tag-index{
+  display:inline-block;background:rgba(250,253,250,.92);border:1px solid var(--border);border-radius:2px;
+  padding:.3rem .7rem;font-family:var(--serif);font-size:.66rem;letter-spacing:.1em;color:var(--teal);
+}
+.hero-title{font-family:var(--serif);font-size:clamp(2.6rem,4.8vw,4.4rem);font-weight:600;line-height:1.04;color:#fff;letter-spacing:-.02em;margin-top:1.1rem}
 .hero-title em{font-style:italic;color:var(--mint)}
 
 .hero-desc{font-size:1rem;line-height:1.68;color:rgba(255,255,255,.82);max-width:46ch;margin-top:1.2rem}
 .hero-desc strong{color:var(--mint)}
 
-.hero-actions{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;margin-top:1.6rem}
+/* Chips de specs */
+.hero-specs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.15rem}
+.spec-chip{
+  font-size:.68rem;font-weight:700;letter-spacing:.05em;color:rgba(255,255,255,.85);
+  border:1px solid rgba(255,255,255,.3);border-radius:50px;padding:.35rem .85rem;
+  background:rgba(8,20,13,.4);backdrop-filter:blur(4px);
+}
+
+/* Píldora de precio — precio y ahorro juntos, antes de los CTAs */
+.hero-price-pill{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;
+  margin-top:1.3rem;padding:.8rem 1.4rem;border-radius:18px;
+  background:rgba(8,20,13,.62);border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(10px);box-shadow:0 12px 30px -8px rgba(0,0,0,.45);
+}
+.price-pill-row{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.price-label{font-size:.64rem;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.14em}
+.price-amount{font-family:var(--serif);font-size:2.3rem;font-weight:600;color:#fff;line-height:1.1}
+.price-note{font-size:.73rem;color:rgba(255,255,255,.75);max-width:30ch;line-height:1.4}
+
+.hero-actions{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;margin-top:1.4rem}
 .hero-actions .btn-outline{background:rgba(10,26,17,.55);color:#fff;border-color:rgba(255,255,255,.6);backdrop-filter:blur(4px)}
 .hero-actions .btn-outline:hover{background:rgba(10,26,17,.75);border-color:#fff}
-.hero-trust{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.72);margin-top:1.3rem}
+.hero-trust{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.72);margin-top:1.25rem}
+.hero-trust strong{color:#fff}
 .stars{color:#F4C542}
 
-/* Badge de precio — glass card, mismo tratamiento que micro-card */
-.hero-price-badge{
-  align-self:center;display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;
-  background:rgba(8,20,13,.62);border:1px solid rgba(255,255,255,.22);border-radius:18px;
-  padding:1.3rem 1.5rem;backdrop-filter:blur(8px);box-shadow:0 12px 30px -8px rgba(0,0,0,.4);
+/* Producto — flotando con glow, sin card */
+.hero-product{position:relative;display:flex;justify-content:center;align-items:center}
+.hero-product::before{
+  content:'';position:absolute;inset:-12%;z-index:-1;
+  background:radial-gradient(circle at 50% 50%,rgba(37,163,90,.42),transparent 68%);
+  filter:blur(6px);
 }
-.price-label{font-size:.66rem;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.14em}
-.price-amount{font-family:var(--serif);font-size:2.3rem;font-weight:600;color:#fff;line-height:1.1}
-.price-note{font-size:.74rem;color:rgba(255,255,255,.75);max-width:22ch;line-height:1.4;margin-top:.1rem}
+.hero-product-img{
+  width:min(300px,78%);height:auto;
+  filter:drop-shadow(0 34px 54px rgba(0,0,0,.55));
+}
+.hero-product-badge{
+  position:absolute;top:6%;right:12%;
+  background:var(--teal-lt);color:#fff;
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;padding:.45rem 1rem;border-radius:50px;
+  box-shadow:0 6px 20px rgba(0,0,0,.4);
+}
 
 /* ── Reels — carrusel vertical, uno a la vez ── */
 .reels-section{background:var(--dark)}
@@ -342,9 +371,18 @@ section{padding:5.5rem 0}
 }
 
 /* ── Responsive ── */
+@media(max-width:1024px){
+  .hero{min-height:auto}
+  .hero-inner{gap:2rem;padding-block:3.5rem}
+}
 @media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;gap:1.5rem;padding-block:3.5rem}
-  .hero-price-badge{align-self:flex-start}
+  .hero-inner{grid-template-columns:1fr;gap:2rem;padding-block:3rem}
+  .hero-product{order:-1}
+  .hero-product-img{width:min(230px,60%)}
+  .hero-content{align-items:center;text-align:center}
+  .hero-meta,.hero-actions,.hero-trust{justify-content:center}
+  .hero-desc{margin-inline:auto}
+  .hero-price-pill{align-items:center}
   .science .container,.product-cta .container,.micro .container,.howto-grid{grid-template-columns:1fr;gap:2.5rem}
   .steps{grid-template-columns:1fr 1fr;gap:1.2rem}
   .reviews{grid-template-columns:1fr}
@@ -360,16 +398,30 @@ section{padding:5.5rem 0}
   .step:not(:last-child)::after{display:none}
   .proof-stats{gap:1.5rem}
   .stats-bar .container{gap:1rem}
-  /* Hero mobile — foto de fondo full-bleed, texto y badge apilados */
-  .hero-tag-index{top:1rem;left:1rem}
+  /* Hero mobile — video oculto (solo poster/foto), producto arriba, contenido apilado */
+  .hero-video-bg video{display:none}
+  .hero{min-height:auto}
+  .hero-meta{gap:.6rem}
   .hero-inner{padding-block:2.2rem;gap:1.6rem}
   .hero-title{font-size:2.5rem}
   .hero-desc{font-size:.92rem;line-height:1.6}
   .hero-trust{display:none}
-  .hero-price-badge{width:100%}
+  .hero-product-img{width:min(200px,58%)}
+  .hero-product-badge{top:4%;right:14%;font-size:.64rem;padding:.35rem .8rem}
+  .hero-price-pill{align-self:stretch;align-items:center;text-align:center}
   .price-amount{font-size:1.9rem}
   .price-note{max-width:none}
   .reel-track{width:100%;max-width:340px}
   .reel-track-single{max-width:380px;height:min(64vh,560px)}
   .micro .container{padding-block:3rem}
+}
+@media(max-width:480px){
+  .hero-title{font-size:2.1rem}
+  .hero-meta{flex-direction:column;align-items:flex-start;gap:.5rem}
+  .hero-specs{justify-content:center}
+  .hero-actions{flex-direction:column;width:100%}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .hero-product-badge{right:8%}
+  .hero-price-pill{width:100%}
+  .price-pill-row{justify-content:center}
 }

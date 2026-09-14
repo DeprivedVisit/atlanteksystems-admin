@@ -123,6 +123,27 @@
 <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
+<!-- MACBOOK FLOTANTE — acompaña el scroll, alterna lado por sección (ver assets/js/mac-float.js) -->
+<div class="mac-float" id="mac-float" aria-hidden="true">
+  <div class="mac-lid-wrap" id="mac-lid-wrap">
+    <div class="mac-chassis">
+      <div class="mac-notch"></div>
+      <div class="mac-screen">
+        <div class="mac-screen-chrome">
+          <span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span>
+        </div>
+        <div class="mac-screen-content" id="mac-screen-content"></div>
+      </div>
+    </div>
+    <div class="mac-base"></div>
+  </div>
+</div>
+
+<!-- MACBOOK SCROLL SEQUENCE — fotoreal, 33 frames (assets/img/laptop-sequence/).
+     Dormido hasta que frame-001.png exista: si falla, no hace nada y el
+     MacBook CSS de arriba sigue siendo lo que se ve. Ver assets/js/mac-scroll-sequence.js -->
+<canvas id="laptop-canvas" aria-hidden="true"></canvas>
+
 <!-- Skip to content — accesibilidad teclado -->
 <a href="#main-content" class="skip-link">Ir al contenido principal</a>
 
@@ -727,6 +748,11 @@
     </svg>
   </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/js/gsap-animations.js"></script>
+<script src="assets/js/mac-float.js"></script>
+<script src="assets/js/mac-scroll-sequence.js"></script>
 <script src="assets/js/env.js"></script>
 <script src="assets/js/script.js?v=17"></script>
 </body>

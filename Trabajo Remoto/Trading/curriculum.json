@@ -1,0 +1,289 @@
+{
+  "modules": [
+    {
+      "id": 1,
+      "title": "Fundamentos y Mentalidad del Trader",
+      "emoji": "📦",
+      "objective": "Entender qué es el trading, qué mercados existen y cuál es el rol de un trader retail.",
+      "lessons": [
+        {
+          "id": "1.1",
+          "title": "Introducción al Mercado Financiero",
+          "topics": [
+            "¿Qué es el trading y en qué se diferencia de la inversión a largo plazo?",
+            "Tipos de mercados: Forex, Criptomonedas, Acciones, Índices, Futuros.",
+            "Participantes del mercado: Market Makers, Instituciones, Retail Traders."
+          ],
+          "summary": "El trading es la compra y venta de instrumentos financieros en plazos cortos. A diferencia de la inversión a largo plazo (comprar y mantener), el trader busca profit de los movimientos de precio. Los principales mercados son Forex (divisas), Cripto, Acciones, Índices y Futuros. El mercado lo mueven Market Makers (crean liquidez), Instituciones (bancos, fondos) y Retail Traders (vos y yo).",
+          "key_takeaway": "El trader retail opera contra instituciones con más capital y mejor información. Tu ventaja es la velocidad y la flexibilidad — no podés mover el mercado, pero podés reaccionar más rápido."
+        },
+        {
+          "id": "1.2",
+          "title": "Anatomía de un Activo Financiero",
+          "topics": [
+            "¿Qué es el Bid, el Ask y el Spread?",
+            "Conceptos clave: Liquidez, Volatilidad, Capitalización de Mercado.",
+            "Pips, Ticks, Satoshis: Cómo medimos los movimientos de precio según el mercado."
+          ],
+          "summary": "El Bid es el precio al que puedes vender, el Ask es el precio al que puedes comprar. La diferencia es el Spread — el costo de cada operación. Liquidez = qué tan fácil es entrar/salir sin mover el precio. Volatilidad = cuánto se mueve el precio. En Forex medimos en Pips, en Cripto en Satoshis o puntos.",
+          "key_takeaway": "El Spread es tu primer enemigo. Operar en activos con alto spread (baja liquidez) te cuesta dinero antes de que el precio se mueva a tu favor."
+        },
+        {
+          "id": "1.3",
+          "title": "Tipos de Órdenes de Mercado",
+          "topics": [
+            "Órdenes de ejecución inmediata (Market Order).",
+            "Órdenes pendientes (Limit, Stop Orders, OCO).",
+            "La importancia del Stop Loss (SL) y Take Profit (TP)."
+          ],
+          "summary": "Market Order = comprás/vendés al precio actual. Limit Order = comprás/vendés solo si el precio llega a tu nivel. Stop Order = se activa cuando el precio cruza un nivel. OCO = una cancela la otra. El Stop Loss protege tu cuenta de pérdidas无限as, el Take Profit asegura ganancias automáticamente.",
+          "key_takeaway": "Nunca operes sin Stop Loss. El SL no es opcional — es la única diferencia entre un trader y un apostador."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Herramientas Técnicas y Configuración",
+      "emoji": "📦",
+      "objective": "Configurar el entorno de trabajo profesional y dominar la herramienta principal de análisis.",
+      "lessons": [
+        {
+          "id": "2.1",
+          "title": "Dominando TradingView",
+          "topics": [
+            "Configuración visual limpia para evitar fatiga mental.",
+            "Herramientas esenciales: Líneas de tendencia, Fibonacci, Medidor de Posición.",
+            "Creación de Watchlists efectivas y alertas de precio."
+          ],
+          "summary": "TradingView es tu estación de trabajo. Configura un layout limpio: pocas herramientas visuales, colores que no cansen. Dominá las líneas de tendencia (para ver dirección), Fibonacci (para zonas de retroceso) y el medidor de posiciones (para calcular riesgo/beneficio antes de entrar).",
+          "key_takeaway": "Menos es más en TradingView. Un gráfico saturado de indicadores genera parálisis. Limítate a lo esencial: estructura de precio + zonas clave + 1-2 indicadores máximo."
+        },
+        {
+          "id": "2.2",
+          "title": "Brokers y Exchanges",
+          "topics": [
+            "¿Qué es un broker y qué es un exchange de criptomonedas?",
+            "Cómo evaluar comisiones (Fees de Maker/Taker, Funding Rates, Swaps).",
+            "Seguridad de fondos: Autenticación en dos pasos (2FA), billeteras calientes/frías."
+          ],
+          "summary": "Un broker te da acceso a mercados tradicionales (Forex, Acciones). Un exchange es para criptomonedas. Las comisiones importan: Maker (crea liquidez) paga menos que Taker (toma liquidez). Funding Rates son pagos entre traders de futuros. Nunca dejes fondos en exchange sin 2FA activo.",
+          "key_takeaway": "Las comisiones comen tus ganancias. Un trader que paga 0.1% por trade y opera 10 veces al día paga 1% de su cuenta en comisiones sola."
+        },
+        {
+          "id": "2.3",
+          "title": "Tipos de Gráficos",
+          "topics": [
+            "Gráficos de Líneas vs. Velas Japonesas.",
+            "Conceptos de temporalidad (Multi-timeframe analysis): Desde diario (D1) hasta minutos (M15/M5)."
+          ],
+          "summary": "Las velas japonesas muestran más información que una línea: apertura, cierre, máximo, mínimo. Cada vela representa un período de tiempo. Multi-timeframe analysis = mirar el gráfico diario para la tendencia general, y gráficos menores (H4, H1, M15) para encontrar entradas precisas.",
+          "key_takeaway": "Operá siempre con la tendencia del timeframe mayor. Si el D1 es alcista, solo busqués compras en H1/M15. Ir contra la tendencia mayor es como nadar contra la corriente."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Análisis Técnico y Acción del Precio",
+      "emoji": "📦",
+      "objective": "Aprender a leer e interpretar la huella que deja el precio sin depender de indicadores milagrosos.",
+      "lessons": [
+        {
+          "id": "3.1",
+          "title": "Estructura de Mercado (Fundamento de Tendencias)",
+          "topics": [
+            "Estructura Alcista: Altos más altos (HH) y Bajos más altos (HL).",
+            "Estructura Bajista: Bajos más bajos (LL) y Altos más bajos (LH).",
+            "Rangos / Consolidaciones: Cuándo mantenerse al margen.",
+            "Rupturas de estructura (BOS / CHoCH)."
+          ],
+          "summary": "El mercado tiene 3 estados: Alcista (HH + HL), Bajista (LL + LH) o Rango (lateral). El BOS (Break of Structure) confirma la continuación de la tendencia. El CHoCH (Change of Character) señala un posible cambio de dirección. Identificar la estructura ANTES de buscar entradas es lo que separa a un trader profesional de un gambling retail.",
+          "key_takeaway": "No operes en rangos si no sabés identificarlos. El 70% de las pérdidas de traders principiantes ocurren cuando intentan operar en mercados laterales como si fueran tendenciales."
+        },
+        {
+          "id": "3.2",
+          "title": "Soportes, Resistencias y Zonas de Oferta/Demanda",
+          "topics": [
+            "Cómo trazar zonas institucionales de alta probabilidad en vez de líneas delgadas.",
+            "Concepto de Polaridad (un soporte roto se convierte en resistencia)."
+          ],
+          "summary": "Los soportes y resistencias no son líneas exactas — son ZONAS donde hay órdenes institucionales acumuladas. Dibuja rectángulos, no líneas. La Polaridad es clave: cuando un soporte se rompe, se convierte en resistencia (y viceversa). Las zonas de Oferta/Demanda son donde el precio se movió agresivamente, indicando acumulación institucional.",
+          "key_takeaway": "Las zonas de alta probabilidad son donde el precio reaccionó fuertemente Y coincide con estructura de mercado mayor. Confluencia = más probabilidades."
+        },
+        {
+          "id": "3.3",
+          "title": "Velas Japonesas y Patrones Clave",
+          "topics": [
+            "Anatomía de una vela: Apertura, Cierre, Máximo, Mínimo y Mecha.",
+            "Patrones de reversión: Martillo, Estrella de la mañana, Envolventes.",
+            "Patrones de continuación y trampas de mercado (Fakeouts)."
+          ],
+          "summary": "Una vela con mecha larga abajo y cuerpo pequeño (Martillo) indica rechazo de precios bajos. Un Engulfing alcista (vela verde engulle la anterior roja) muestra momentum fuerte. Los Fakeouts son trampas: el precio rompe un nivel y vuelve rápidamente — atrapando a los que entraron por el breakout.",
+          "key_takeaway": "Los patrones de vela SOLOS no son suficientes. Siempre confirmalos con contexto: ¿Están en una zona de soporte/resistencia? ¿Siguen la estructura de mercado?"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Gestión de Riesgo Profesional",
+      "emoji": "📦",
+      "objective": "Aprender a proteger el capital de forma matemática. La gestión de riesgo es la única diferencia entre un trader rentable y un apostador.",
+      "lessons": [
+        {
+          "id": "4.1",
+          "title": "La Regla del 1% y Tamaño de Posición",
+          "topics": [
+            "Por qué nunca debes arriesgar más del 1% al 2% de tu cuenta por trade.",
+            "Fórmula matemática para calcular el tamaño de posición según la distancia del Stop Loss."
+          ],
+          "summary": "Si tenés $1,000 y arriesgás 1%, tu pérdida máxima por trade es $10. Para calcular el tamaño de posición: Riesgo ($) / Distancia al SL = Tamaño. Si arriesgás $10 y el SL está a 50 pips, tu tamaño es 0.2 lotes. Esto garantiza que una racha de 10 pérdidas seguidas solo te cueste 10% de tu cuenta — recuperable.",
+          "key_takeaway": "El tamaño de posición NO se elige al azar. Se calcula matemáticamente basándote en tu Stop Loss y tu riesgo máximo por trade."
+        },
+        {
+          "id": "4.2",
+          "title": "Relación Riesgo/Beneficio (R2R)",
+          "topics": [
+            "El poder de una gestión R2R 1:3 o superior.",
+            "Por qué puedes tener un Win Rate del 40% y seguir siendo altamente rentable."
+          ],
+          "summary": "R2R 1:3 significa que por cada $1 que arriesgás, buscás ganar $3. Con un win rate de solo 40% (6 de cada 10 trades pierden), seguís siendo rentable porque las ganancias son 3x las pérdidas. Ejemplo: 10 trades, 4 ganás $300, 6 perdés $60 = +$120 neto. La clave no es acertar más, sino que las ganancias compensen las pérdidas.",
+          "key_takeaway": "El Win Rate no importa tanto como el R2R. Un trader con 30% WR y R2R 1:5 gana más que uno con 70% WR y R2R 1:1."
+        },
+        {
+          "id": "4.3",
+          "title": "Drawdown y Gestión de la Cuenta",
+          "topics": [
+            "¿Qué es el Drawdown y cómo recuperarse de una racha perdedora?",
+            "La trampa de la Martingala y por qué destruye cuentas."
+          ],
+          "summary": "Drawdown = cuánto has perdido desde tu máximo histórico. Si tu cuenta subió a $1,200 y bajó a $900, tu drawdown es 25%. Recuperar un 25% requiere un 33% de ganancia sobre el balance actual. La Martingala (duplicar la apuesta después de perder) funciona en teoría pero destruye cuentas en la práctica — una racha de 7-8 pérdidas seguidas es común.",
+          "key_takeaway": "Si tu drawdown supera el 20%, operá en demo hasta recuperar la confianza. No es debilidad — es inteligencia de gestión."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Psicología del Trading (Psicotrading)",
+      "emoji": "📦",
+      "objective": "Dominar las emociones que surgen al operar con dinero real.",
+      "lessons": [
+        {
+          "id": "5.1",
+          "title": "Los Enemigos del Trader (Miedo y Codicia)",
+          "topics": [
+            "FOMO: Cómo evitar entrar tarde por desesperación.",
+            "Trading de Venganza: Por qué operar inmediatamente después de una pérdida suele causar desastres."
+          ],
+          "summary": "FOMO es ver el precio subir y entrar tarde por miedo a perder la oportunidad. Resultado: comprás en el máximo y el precio corrige. Trading de Venganza es perder un trade y entrar inmediatamente en otro para 'recuperar'. Resultado: doble pérdida. Ambos emociones destruyen cuentas más rápido que cualquier falta de técnica.",
+          "key_takeaway": "Si perdiste un trade, cerrá la laptop por 30 min. No hay ningún trade que no puedas perder. El mercado siempre va a estar ahí mañana."
+        },
+        {
+          "id": "5.2",
+          "title": "Sesgos Cognitivos en el Trading",
+          "topics": [
+            "Sesgo de confirmación: Buscar solo información que apoye tu trade.",
+            "Aversión a la pérdida: Dejar correr pérdidas esperando que el precio 'se recupere'."
+          ],
+          "summary": "El sesgo de confirmación hace que busques solo noticias o análisis que apoyen tu posición, ignorando señales contrarias. La aversión a la pérdida hace que no puedas cerrar un trade perdedor — esperás que 'se recupere' mientras la pérdida crece. Ambos sesgos son naturales pero devastadores en trading.",
+          "key_takeaway": "Tu plan de trading escrito es la cura contra los sesgos. Si el plan dice 'cerrar en SL', cerrás en SL. Sin excepciones."
+        },
+        {
+          "id": "5.3",
+          "title": "El Estado de Flujo y Rutina del Trader",
+          "topics": [
+            "Cómo preparar el día de trading (meditación, revisión de noticias, checklist).",
+            "Cuándo 'cerrar la laptop' para proteger tu capital emocional."
+          ],
+          "summary": "La rutina del trader es tan importante como su estrategia. Antes de operar: revisá el calendario económico, identificá niveles clave, definí tu riesgo del día. Meditá 5 min para calmarte. Durante el día: operá solo en horarios de alta liquidez (Londres/NY). Después: si tuviste un día malo, cerrá. Mañana es otro día.",
+          "key_takeaway": "La consistencia viene de la rutina, no de las ganancias. Un trader con rutina y plan pierde menos que uno sin plan que tiene un mes ganador."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Estrategias de Trading y Backtesting",
+      "emoji": "📦",
+      "objective": "Desarrollar una ventaja estadística reproducible en el mercado.",
+      "lessons": [
+        {
+          "id": "6.1",
+          "title": "Tu Primera Estrategia Mecánica",
+          "topics": [
+            "Estrategia basada en Retrocesos en Tendencia + Confluencia de Fibonacci en zonas OTE.",
+            "Reglas rígidas de Entrada, Stop Loss, y toma de ganancias parciales."
+          ],
+          "summary": "La estrategia OTE (Optimal Trade Entry) usa retrocesos de Fibonacci (61.8% - 78.6%) en tendencia confirmada. Reglas: 1) Identificar tendencia en D1, 2) Esperar retroceso a zona OTE, 3) Buscar confirmación de vela en H1/H4, 4) Entrar con SL bajo el retroceso, 5) TP1 en 1:2, TP2 en 1:3. Todo mecánico — sin interpretación emocional.",
+          "key_takeaway": "Una estrategia mecánica no garantiza ganancias — garantiza CONSISTENCIA. Si seguis las reglas al pie de la letra, los resultados estadísticos salen a la luz con suficientes trades."
+        },
+        {
+          "id": "6.2",
+          "title": "El Arte del Backtesting",
+          "topics": [
+            "Cómo simular datos históricos en TradingView de forma manual.",
+            "Recopilación de una muestra estadística mínima de 100 trades de prueba.",
+            "Métricas críticas: Win Rate, Profit Factor, Racha de pérdidas máxima."
+          ],
+          "summary": "Backtesting = probar tu estrategia en datos históricos. Abrí TradingView, rebobiná el gráfico y operá cada setup como si fuera en tiempo real. Anotá cada trade: entrada, SL, TP, resultado. Necesitás mínimo 100 trades para tener datos estadísticos confiables. Métricas clave: Win Rate (¿cuántos ganás?), Profit Factor (ganancia total / pérdida total), Max Drawdown (peor racha).",
+          "key_takeaway": "Sin backtesting, estás operando con fe. Con backtesting, sabés exactamente qué esperar de tu estrategia. 100 trades de prueba = 1 mes de investigación que te ahorra meses de pérdidas."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Cuenta Demo y el Plan de Trading Oficial",
+      "emoji": "📦",
+      "objective": "Dar el salto al mercado real de forma controlada y sin riesgos innecesarios.",
+      "lessons": [
+        {
+          "id": "7.1",
+          "title": "El Periodo Demo Obligatorio",
+          "topics": [
+            "Cómo operar en una cuenta Demo como si fuera dinero real.",
+            "La regla de los 3 meses consistentes en Demo antes de fondear una cuenta real."
+          ],
+          "summary": "La cuenta Demo es tu campo de pruebas. Operala CON SERIEDAD — no hagas trades descabellados porque 'no es plata real'. La regla: 3 meses consecutivos de resultados positivos en Demo antes de pasar a real. Si no podés ser rentable con dinero ficticio, menos con dinero real.",
+          "key_takeaway": "La Demo no es para practicar órdenes — es para probar tu PLAN DE TRADING completo. Si tu plan no funciona en Demo, no funciona en real."
+        },
+        {
+          "id": "7.2",
+          "title": "Redacción del Plan de Trading",
+          "topics": [
+            "Documento de Plan de Trading: Activos a operar, horarios de sesión, límite de pérdida diario.",
+            "Tu sistema de reglas de entrada y salida inviolables."
+          ],
+          "summary": "Tu Plan de Trading es tu constitución. Definí: Qué activos operás (máx 3-4), en qué horarios (Londres/NY), cuánto arriesgás por día (máx 2%), tus reglas de entrada exactas, tus reglas de salida (SL/TP fijos), y tus reglas de conducta (no operar después de X pérdidas, no operar bajo emociones).",
+          "key_takeaway": "El plan se escribe ANTES de operar con dinero real, no después. Un trader sin plan es como un barco sin brújula — puede llegar a algún lado, pero no al que quiere."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Checklist de Entrada y Auditoría de Bitácora",
+      "emoji": "📦",
+      "objective": "Mantener la consistencia a largo plazo mediante la optimización de tus propios datos.",
+      "lessons": [
+        {
+          "id": "8.1",
+          "title": "El Checklist Antes de dar Clic",
+          "topics": [
+            "¿El trade va a favor de la estructura mayor?",
+            "¿Tengo confluencia de soporte/resistencia?",
+            "¿El tamaño de la posición está calculado correctamente?",
+            "¿Mi estado emocional es óptimo?"
+          ],
+          "summary": "Antes de cada trade, respondé 4 preguntas: 1) ¿Va con la tendencia del timeframe mayor? 2) ¿Está en zona de confluencia (soporte/resistencia + estructura)? 3) ¿Calculé el tamaño de posición según el 1%? 4) ¿Estoy calmado y sin emociones? Si alguna respuesta es NO, NO entrás. Sin excepciones.",
+          "key_takeaway": "El checklist es tu última línea de defensa contra ti mismo. Imprimilo, pegalo al lado de tu monitor, y revisalo ANTES de cada clic."
+        },
+        {
+          "id": "8.2",
+          "title": "Auditoría Semanal de la Bitácora",
+          "topics": [
+            "Uso de las estadísticas recolectadas por el Bot en Google Sheets.",
+            "Identificación de errores comunes."
+          ],
+          "summary": "Cada semana, revisá tus estadísticas: ¿Cuántos trades tomaste? ¿Cuál fue tu R2R promedio? ¿Operaste fuera de tu horario? ¿Qué activos te dieron mejor resultado? El Bot de Telegram va a registrar cada trade automáticamente en Google Sheets para que puedas hacer esta auditoría sin esfuerzo manual.",
+          "key_takeaway": "Los datos no mienten. Si perdés dinero operando crypto los viernes, tus datos lo van a mostrar. La auditoría convierte errores repetitivos en lecciones de negocio."
+        }
+      ]
+    }
+  ]
+}

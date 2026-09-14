@@ -110,13 +110,13 @@ table{border-radius:12px;overflow:hidden}
   </div>
   <div class="doc-meta">
     <div class="doc-num">APX-2026-SKD-001</div>
-    <div class="doc-date">Junio 2026</div>
+    <div class="doc-date">Agosto 2026</div>
     <div class="doc-date" style="margin-top:.15rem;font-size:.72rem">Apex Cloud Work — Garett Barrantes</div>
   </div>
 </div>
 
 <h1 class="doc-title">Acta de Entrega de Servicios Digitales</h1>
-<p class="doc-subtitle">Proyecto: 3 Landings HTML + Integraciones · Skindoctors CR · $450 USD</p>
+<p class="doc-subtitle">Proyecto: 2 Landings HTML + Sistema de Leads · Skindoctors CR · $450 USD</p>
 
 <!-- Tabla de entregables -->
 <h2><span class="step-n ok">✓</span>Entregables</h2>
@@ -146,14 +146,14 @@ table{border-radius:12px;overflow:hidden}
         <td><span class="badge badge-soon">En curso</span></td>
       </tr>
       <tr>
-        <td>N8N — Melasblock Leads</td>
-        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">apexcloudworkscompany.app.n8n.cloud</td>
+        <td><strong>Apps Script — Melasblock Leads</strong></td>
+        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">Google Apps Script + Sheets + Gmail</td>
         <td><span class="badge badge-ok">✓ Activo</span></td>
       </tr>
       <tr>
-        <td>N8N — CBD Balance Leads</td>
-        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">Pendiente activar post-firma</td>
-        <td><span class="badge badge-pend">Pendiente</span></td>
+        <td><strong>Apps Script — CBD Balance Leads</strong></td>
+        <td style="font-family:var(--mono);font-size:.7rem;color:var(--muted)">Google Apps Script + Sheets + Gmail</td>
+        <td><span class="badge badge-ok">✓ Activo</span></td>
       </tr>
       <tr>
         <td>Google Sheets — Melasblock</td>
@@ -162,8 +162,8 @@ table{border-radius:12px;overflow:hidden}
       </tr>
       <tr>
         <td>Google Sheets — CBD Balance</td>
-        <td style="color:var(--muted);font-size:.76rem">Configurar post-firma</td>
-        <td><span class="badge badge-pend">Pendiente</span></td>
+        <td style="color:var(--muted);font-size:.76rem">Hoja activa — contactar Apex para acceso</td>
+        <td><span class="badge badge-ok">✓ Activo</span></td>
       </tr>
       <tr>
         <td>Documentos legales (Política + Términos)</td>
@@ -174,25 +174,24 @@ table{border-radius:12px;overflow:hidden}
   </table>
 </div>
 
-<!-- Instrucciones N8N CBD -->
-<h2><span class="step-n">1</span>Activar N8N para CBD Oil Balance</h2>
-<p>El workflow de N8N para CBD está listo para importar. Seguir estos pasos en <strong>apexcloudworkscompany.app.n8n.cloud</strong>:</p>
+<!-- Verificación Apps Script -->
+<h2><span class="step-n">1</span>Verificar captura de leads (Apps Script — ya activo)</h2>
+<p>El sistema de leads de CBD Oil Balance corre 100% en Google Workspace: formulario → Apps Script → Google Sheets + notificación por Gmail. No requiere N8N ni costos adicionales. Verificación rápida:</p>
 
 <div class="tip">
-  <strong>Tiempo estimado:</strong> 15 minutos · Requiere acceso a la cuenta N8N de Apex Cloud Work.
+  <strong>Tiempo estimado:</strong> 5 minutos · Sin configurar nada — solo verificar.
 </div>
 
 <div class="code-block">
   <button class="copy-btn" onclick="copiar(this)">Copiar</button>
-<pre><span class="cmt">Paso 1: ir a apexcloudworkscompany.app.n8n.cloud</span>
-<span class="cmt">Paso 2: Workflows → Import from File → seleccionar n8n-workflow-melasblock.json</span>
-<span class="cmt">Paso 3: Renombrar workflow a "CBD Oil Balance — Leads"</span>
-<span class="cmt">Paso 4: En nodo "Formatear Datos":</span>
-         <span class="kw">$json.body.tono</span>  →  <span class="val">$json.body.piel</span>
-         label <span class="str">"Tono"</span>         →  <span class="val">"Tipo de Piel"</span>
-<span class="cmt">Paso 5: En nodos de Sheets: reemplazar Sheet ID de Melasblock por ID del Sheet CBD</span>
-<span class="cmt">Paso 6: Activar workflow con el toggle → copiar URL del webhook generada</span>
-<span class="cmt">Paso 7: Pegar URL en cbd-balance/index.html → const N8N_WEBHOOK = 'URL'</span></pre>
+<pre><span class="cmt">Paso 1: abrir la landing de CBD Oil Balance y enviar un lead de prueba</span>
+<span class="cmt">Paso 2: confirmar la notificación por Gmail en la bandeja de Apex</span>
+<span class="cmt">Paso 3: revisar la hoja "Leads" del Sheet de CBD (encabezados verdes)</span>
+<span class="cmt">Paso 4: el cliente recibe correo de confirmación automático</span>
+<span class="cmt">Archivo del backend:</span>
+<span class="kw">cbd-balance/apps-script.gs</span>  →  <span class="val">addLead() + notifyLead()</span>
+<span class="cmt">URL del webhook en:</span>
+<span class="kw">cbd-balance/assets/js/script.js</span>  →  <span class="val">SHEETS_URL (línea 7)</span></pre>
 </div>
 
 <!-- Instrucciones cambiar WhatsApp -->
@@ -201,15 +200,12 @@ table{border-radius:12px;overflow:hidden}
 
 <div class="code-block">
   <button class="copy-btn" onclick="copiar(this)">Copiar</button>
-<pre><span class="cmt">── melasblock/Mellas/index.html ── buscar línea ~1106:</span>
+<pre><span class="cmt">── cbd-balance/assets/js/script.js ── buscar línea ~4:</span>
 <span class="kw">const</span> WA_NUMBER = <span class="str">'506XXXXXXXXX'</span>; <span class="cmt">← reemplazar con número Skindoctors (sin +)</span>
 
-<span class="cmt">── cbd-balance/index.html ── buscar línea ~829:</span>
-<span class="kw">const</span> WA_NUMBER = <span class="str">'506XXXXXXXXX'</span>; <span class="cmt">← mismo número</span>
-
 <span class="cmt">Después del cambio, subir al S3 con AWS CLI:</span>
-aws s3 cp melasblock/Mellas/index.html s3://skindoctors-cr-landings/melasblock/index.html
 aws s3 cp cbd-balance/index.html s3://skindoctors-cr-landings/cbd-balance/index.html
+aws s3 cp cbd-balance/assets/js/script.js s3://skindoctors-cr-landings/cbd-balance/assets/js/script.js
 aws cloudfront create-invalidation --distribution-id E31U5V9IA0JXSZ --paths "/*"</pre>
 </div>
 
@@ -232,9 +228,9 @@ aws cloudfront create-invalidation --distribution-id E31U5V9IA0JXSZ --paths "/*"
     <p style="color:var(--muted);font-size:.7rem">Distribution ID: E31U5V9IA0JXSZ</p>
   </div>
   <div class="acceso-card">
-    <h4>N8N Cloud</h4>
-    <a href="https://apexcloudworkscompany.app.n8n.cloud" target="_blank">apexcloudworkscompany.app.n8n.cloud</a>
-    <p style="color:var(--muted);font-size:.7rem">Workflow activo: Melasblock — Leads</p>
+    <h4>Google Apps Script</h4>
+    <p>Backend de leads — Sheets + Gmail</p>
+    <p style="color:var(--muted);font-size:.7rem">Sin costo mensual · 100% Google Workspace</p>
   </div>
   <div class="acceso-card">
     <h4>Repositorio</h4>
@@ -249,7 +245,7 @@ aws cloudfront create-invalidation --distribution-id E31U5V9IA0JXSZ --paths "/*"
   <li>Hasta <strong>2 rondas de revisión</strong> por landing están incluidas en el precio pactado.</li>
   <li>Cambios adicionales fuera del scope original se cotizan aparte antes de ejecutarlos.</li>
   <li>Soporte técnico incluido por <strong>30 días</strong> desde la fecha de entrega final.</li>
-  <li>El cliente es responsable de activar N8N para CBD y proveer el número de WhatsApp oficial.</li>
+  <li>El cliente es responsable de proveer el número de WhatsApp oficial (el sistema de leads ya está activo).</li>
   <li>El deploy y mantenimiento de AWS corre por cuenta de Apex Cloud Work durante el período de soporte.</li>
   <li>El código fuente es entregado al cliente al completar el pago total del proyecto.</li>
 </ul>
@@ -264,7 +260,7 @@ aws cloudfront create-invalidation --distribution-id E31U5V9IA0JXSZ --paths "/*"
     apexcloudworkscompany.com
   </p>
   <div class="firma-line">
-    APX-2026-SKD-001 · Proyecto Skindoctors CR · Apex Cloud Work · Junio 2026 · Documento confidencial
+    APX-2026-SKD-001 · Proyecto Skindoctors CR · Apex Cloud Work · Agosto 2026 · Documento confidencial
   </div>
 </div>
 

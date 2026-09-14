@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resumen de sesión — Skindoctors CBD Balance · 17 ago 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,600;1,400;1,600&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body>
+
+<main class="deck" id="deck">
+
+  <!-- 1 · Portada -->
+  <section class="slide slide-hero">
+    <div class="slide-inner">
+      <span class="kicker">Resumen de sesión · Apex Cloud Work</span>
+      <h1>Skindoctors <em>CBD Oil Balance</em></h1>
+      <p class="lead">Portada rediseñada + paquete de entrega actualizado<br>17 de agosto de 2026</p>
+      <div class="chips">
+        <span class="chip">Portada variante B</span>
+        <span class="chip">4 assets nuevos</span>
+        <span class="chip">Bug PNG resuelto</span>
+        <span class="chip">Entrega 100% actualizada</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Portada -->
+  <section class="slide">
+    <div class="slide-inner">
+      <span class="kicker">1 · Lo que cambió en la portada</span>
+      <h2>Hero con video, producto protagonista</h2>
+      <ul class="tick-list">
+        <li><strong>Fondo:</strong> video nuevo del cliente + foto como respaldo</li>
+        <li><strong>Producto a la izquierda:</strong> flotando con glow y badge 0% THC</li>
+        <li><strong>Texto a la derecha:</strong> eyebrow, título, descripción, trust 4.9★</li>
+        <li><strong>Chips de specs:</strong> 240 ml · Todo tipo de piel · Sin resecar</li>
+        <li><strong>Precio en píldora:</strong> ₡24,580 + ahorro +₡7,000</li>
+        <li><strong>Responsive completo:</strong> 1024 · 900 · 640 · 480 px (iPhone SE)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · Assets -->
+  <section class="slide">
+    <div class="slide-inner">
+      <span class="kicker">2 · Assets nuevos del cliente</span>
+      <h2>4 archivos integrados</h2>
+      <div class="asset-grid">
+        <div class="asset-card"><span class="asset-type">img</span><h3>background-principal-nuevo.jpg</h3><p>Fondo del hero · 2752×1536</p></div>
+        <div class="asset-card"><span class="asset-type">img</span><h3>informativa-nueva.jpg</h3><p>Sección CTA final (reemplaza video)</p></div>
+        <div class="asset-card"><span class="asset-type">mp4</span><h3>portada-hero-nuevo.mp4</h3><p>Video de fondo del hero</p></div>
+        <div class="asset-card"><span class="asset-type">img</span><h3>hero-bg-v2.jpg</h3><p>Fondo optimizado 1920px · 229 KB (el original pesaba 2.4 MB)</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Bug -->
+  <section class="slide">
+    <div class="slide-inner">
+      <span class="kicker">3 · Bug resuelto</span>
+      <h2>El producto no cargaba: no existía el archivo</h2>
+      <p class="lead">El HTML referenciaba <code>Espuma-Facial-CBD.png</code> pero el archivo <strong>nunca estuvo en la carpeta local</strong> — estaba en <code>_interno/assets-sueltos/</code>.</p>
+      <div class="bug-flow">
+        <div class="bug-step"><span>Antes</span><p>PNG referenciado → 404 → portada sin producto</p></div>
+        <div class="bug-arrow">→</div>
+        <div class="bug-step ok"><span>Ahora</span><p>PNG copiado a la raíz · 600×600 · transparencia real ✓</p></div>
+      </div>
+      <p class="note">También se quitó la animación de flotar del producto (se veía inestable) y se compactó la píldora de precio.</p>
+    </div>
+  </section>
+
+  <!-- 5 · CTA -->
+  <section class="slide">
+    <div class="slide-inner">
+      <span class="kicker">4 · Cambio pedido</span>
+      <h2>Video final → fotografía</h2>
+      <p class="lead">El video de la sección CTA inferior (<code>portada-hero.mp4</code>) era el mismo que el de la portada.</p>
+      <ul class="tick-list">
+        <li>Reemplazado por <strong>informativa-nueva.jpg</strong> (foto nueva del cliente)</li>
+        <li>Menos peso, carga más rápida, sin duplicar contenido visual</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · Entrega -->
+  <section class="slide">
+    <div class="slide-inner">
+      <span class="kicker">5 · Paquete de entrega actualizado</span>
+      <h2>Listo para presentar al cliente</h2>
+      <ul class="tick-list">
+        <li><strong>entrega-cbd-balance.html</strong> — "Aceite de Cáñamo" corregido → Espuma Limpiadora Facial</li>
+        <li><strong>presentacion/index.html</strong> — pricing: 2 landings $150 + sistema $150 = <strong>$450</strong></li>
+        <li><strong>entrega-final.html</strong> — acta con Apps Script activo + guía de verificación</li>
+        <li><strong>Políticas</strong> — fecha ago 2026 (Ley 8968, Sheets + Gmail)</li>
+        <li>N8N eliminado de todo el paquete → <strong>Apps Script + Sheets + Gmail (activo)</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 · Pendientes -->
+  <section class="slide slide-final">
+    <div class="slide-inner">
+      <span class="kicker">6 · Siguiente paso</span>
+      <h2>Para cerrar</h2>
+      <ol class="num-list">
+        <li>Revisar la portada en el navegador (Ctrl+Shift+R)</li>
+        <li>Deploy a producción: S3 + invalidación CloudFront</li>
+        <li>Definir número oficial de WhatsApp de Skindoctors (hoy usa el de Apex)</li>
+        <li>Firma + cobro $450 USD · decidir fecha de contrato/proforma</li>
+      </ol>
+      <p class="closing">Desarrollado por <strong>Apex Cloud Work</strong> — Cartago, CR</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Progreso + navegación -->
+<div class="deck-ui">
+  <span class="deck-counter" id="counter">1 / 7</span>
+  <div class="deck-dots" id="dots"></div>
+  <button class="deck-nav" id="prevBtn" aria-label="Anterior">←</button>
+  <button class="deck-nav" id="nextBtn" aria-label="Siguiente">→</button>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

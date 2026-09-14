@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlantek Systems — Brand Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=3">
+  <style>
+    :root {
+      --navy: #00273d;
+      --navy-light: #1a4a6b;
+      --navy-dark: #001a2a;
+      --bg: #f5f7f9;
+      --card: #ffffff;
+      --ink: #0f1923;
+      --muted: #5a6a78;
+      --line: #e2e8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .cover {
+      text-align: center;
+      padding: 80px 0 60px;
+      border-bottom: 2px solid var(--navy);
+      margin-bottom: 60px;
+    }
+
+    .cover__logo {
+      height: 80px;
+      margin-bottom: 24px;
+    }
+
+    .cover h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .cover p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      letter-spacing: -0.01em;
+    }
+
+    h2 span {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--navy-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .section { margin-bottom: 56px; }
+
+    /* ── Logos ── */
+
+    .logos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .logo-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-card img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-card--dark {
+      background: #0f1923;
+      border-color: #1d2d3d;
+    }
+
+    .logo-card--navy {
+      background: var(--navy);
+      border-color: var(--navy-light);
+    }
+
+    .logo-card span {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .logo-card--dark span,
+    .logo-card--navy span {
+      color: rgba(255,255,255,.5);
+    }
+
+    /* ── Colores ── */
+
+    .colors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .color-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .color-card__swatch {
+      height: 80px;
+    }
+
+    .color-card__info {
+      padding: 14px 16px;
+      background: var(--card);
+    }
+
+    .color-card__name {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .color-card__hex {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── Tipografía ── */
+
+    .type-sample {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+    }
+
+    .type-sample__label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy-light);
+      margin-bottom: 12px;
+    }
+
+    .type-sample--h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+    .type-sample--h2 { font-size: 32px; font-weight: 750; letter-spacing: -0.02em; line-height: 1.15; }
+    .type-sample--h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+    .type-sample--body { font-size: 15px; color: var(--muted); }
+    .type-sample--mono { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* ── Botones ── */
+
+    .buttons-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 13px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .18s;
+    }
+
+    .btn-demo--navy {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .btn-demo--ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .btn-demo--ghost:hover { border-color: var(--ink); }
+
+    /* ── Cobertura ── */
+
+    .coverage-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 32px;
+      border-top: 1px solid var(--line);
+    }
+
+    .coverage-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .coverage-list b { font-weight: 600; }
+
+    .tag-demo {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 4px 9px;
+      border-radius: 4px;
+    }
+
+    /* ── Checklist ── */
+
+    .checklist {
+      list-style: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .checklist li {
+      padding: 12px 20px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checklist li:last-child { border-bottom: 0; }
+
+    .checklist::before {
+      content: none;
+    }
+
+    .check {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--navy);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .footer-book {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 32px 20px; }
+      .logos-grid { grid-template-columns: 1fr; }
+      .colors-grid { grid-template-columns: repeat(2, 1fr); }
+      .coverage-list { grid-template-columns: 1fr; }
+      .type-sample--h1 { font-size: 32px; }
+      .type-sample--h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- PORTADA -->
+    <header class="cover">
+      <img src="../assets/img/logo-atlantek-dark.svg" alt="ATLANTEK Systems" class="cover__logo">
+      <h1>Brand Book</h1>
+      <p>Identidad visual · Paleta de colores · Tipografía · Uso de logo</p>
+    </header>
+
+    <!-- LOGOS -->
+    <section class="section">
+      <h2><span>01</span>Logo — Versiones</h2>
+      <div class="logos-grid">
+        <div class="logo-card logo-card--dark">
+          <img src="../assets/img/logo-atlantek-white.svg" alt="Logo blanco">
+          <span>White — fondos oscuros</span>
+        </div>
+        <div class="logo-card">
+          <img src="../assets/img/logo-atlantek-dark.svg" alt="Logo navy">
+          <span>Dark — fondos claros</span>
+        </div>
+        <div class="logo-card logo-card--navy">
+          <img src="../assets/img/logo-atlantek-white.svg" alt="Logo sobre navy">
+          <span>White on Navy — fondos brand</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLORES -->
+    <section class="section">
+      <h2><span>02</span>Paleta de colores</h2>
+      <div class="colors-grid">
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#00273d"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">ATLANTEK Navy</div>
+            <div class="color-card__hex">#00273d</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#1a4a6b"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Navy Light</div>
+            <div class="color-card__hex">#1a4a6b</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#001a2a"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Navy Dark</div>
+            <div class="color-card__hex">#001a2a</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#0f1923"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Background</div>
+            <div class="color-card__hex">#0f1923</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#131f2b"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Background 2</div>
+            <div class="color-card__hex">#131f2b</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#182635"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Card</div>
+            <div class="color-card__hex">#182635</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#E9EDF0"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Ink (texto)</div>
+            <div class="color-card__hex">#E9EDF0</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#8E9AA4"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Muted</div>
+            <div class="color-card__hex">#8E9AA4</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#33D17A"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Green (éxito)</div>
+            <div class="color-card__hex">#33D17A</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#FF4B4B"></div>
+          <div class="color-card__info">
+            <div class="color-card__name">Rec Red (solo REC)</div>
+            <div class="color-card__hex">#FF4B4B</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOGRAFÍA -->
+    <section class="section">
+      <h2><span>03</span>Tipografía</h2>
+      <div class="type-sample">
+        <div class="type-sample__label">Plus Jakarta Sans · 800</div>
+        <div class="type-sample--h1">Su propiedad, vigilada las 24 horas.</div>
+      </div>
+      <div class="type-sample">
+        <div class="type-sample__label">Plus Jakarta Sans · 750</div>
+        <div class="type-sample--h2">Tecnología y seguridad para su casa o negocio</div>
+      </div>
+      <div class="type-sample">
+        <div class="type-sample__label">Plus Jakarta Sans · 700</div>
+        <div class="type-sample--h3">Cámaras de seguridad</div>
+      </div>
+      <div class="type-sample">
+        <div class="type-sample__label">Plus Jakarta Sans · 400 · Body</div>
+        <div class="type-sample--body">Sistemas completos: cámaras domo y bullet, DVR/NVR, disco duro y acceso desde el celular. Diseñados a la medida de su propiedad.</div>
+      </div>
+      <div class="type-sample">
+        <div class="type-sample__label">JetBrains Mono · 500 · Labels</div>
+        <div class="type-sample--mono">Sistemas de vigilancia profesional</div>
+      </div>
+    </section>
+
+    <!-- BOTONES -->
+    <section class="section">
+      <h2><span>04</span>Botones</h2>
+      <div class="buttons-row">
+        <button class="btn-demo btn-demo--navy">Cotizar gratis</button>
+        <button class="btn-demo btn-demo--ghost">Ver trabajos →</button>
+      </div>
+    </section>
+
+    <!-- COBERTURA -->
+    <section class="section">
+      <h2><span>05</span>Cobertura</h2>
+      <ul class="coverage-list">
+        <li><b>Guápiles</b><span class="tag-demo">Mismo día</span></li>
+        <li><b>Jiménez</b><span class="tag-demo">Mismo día</span></li>
+        <li><b>La Rita</b><span class="tag-demo">Mismo día</span></li>
+        <li><b>Roxana</b><span class="tag-demo">24–48 h</span></li>
+        <li><b>Cariari</b><span class="tag-demo">24–48 h</span></li>
+        <li><b>La Colonia</b><span class="tag-demo">24–48 h</span></li>
+        <li><b>Colorado</b><span class="tag-demo">Programada</span></li>
+        <li><b>Guácimo</b><span class="tag-demo">Consultar</span></li>
+      </ul>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="section">
+      <h2><span>06</span>Checklist de deploy</h2>
+      <ul class="checklist">
+        <li><span class="check">✓</span> Logo correcto en nav (blanco)</li>
+        <li><span class="check">✓</span> Logo correcto en footer (blanco)</li>
+        <li><span class="check">✓</span> Logo correcto en gate (blanco)</li>
+        <li><span class="check">✓</span> Botones usan .btn--navy</li>
+        <li><span class="check">✓</span> Dots usan .dot--navy</li>
+        <li><span class="check">✓</span> Color --navy: #00273d en CSS</li>
+        <li><span class="check">✓</span> Solo --rec: #FF4B4B para REC</li>
+        <li><span class="check">✓</span> WhatsApp links usan "ATLANTEK"</li>
+        <li><span class="check">✓</span> Título incluye "ATLANTEK Systems"</li>
+        <li><span class="check">✓</span> Footer: "Desarrollado por Apex Cloud Work"</li>
+      </ul>
+    </section>
+
+    <footer class="footer-book">
+      ATLANTEK Systems · Brand Book v1.0 · Septiembre 2026
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -6,30 +6,30 @@ img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 .container{width:min(1120px,92%);margin-inline:auto}
 
-/* ── Paleta — inspirada en template Weblium "Glamour Hub" ── */
+/* ── Paleta Skindoctors — Brand Book 2025 (Skincare) ── */
 :root{
-  --cream:    #FBF8F2;     /* fondo página, blanco cálido */
+  --cream:    #FBF5EF;     /* fondo página — derivado de P4675C */
   --surface:  #FFFFFF;     /* tarjetas blancas */
-  --beige:    #F6EDD9;     /* tint dorado claro — fondos sutiles */
-  --peach:    #FBE4C8;     /* tint naranja claro — chips */
-  --coral:    #EDC047;     /* gold — acento primario, CTAs, foil */
-  --earth:    #3F2B57;     /* deep purple — títulos, texto principal */
-  --earth-lt: #6B5480;     /* purple claro — texto secundario énfasis */
-  --dark:     #2E2A2D;     /* charcoal — secciones oscuras */
-  --text:     #2E2A2D;
-  --muted:    #7A7080;     /* texto secundario, tono lila-gris */
-  --muted2:   #4A3B5C;     /* texto énfasis secundario, morado suave */
-  --border:   #ECE2D0;     /* bordes sutiles dorados */
-  --silver:   #C9B9DB;     /* lila claro — usado en vez de plateado */
+  --beige:    #E0C3AE;     /* P4675C — primario de marca */
+  --peach:    #FFAF83;     /* P7410C — acento cálido */
+  --coral:    #FF7671;     /* P805C — badges · CTAs · highlight */
+  --earth:    #8F6149;     /* P7525C — acento tierra */
+  --earth-lt: #B07D62;     /* P7525C claro */
+  --dark:     #231F20;     /* Neutral Black C — texto principal */
+  --text:     #231F20;
+  --muted:    #7A6558;     /* texto secundario */
+  --muted2:   #5C4A3E;     /* texto énfasis secundario */
+  --border:   #EDD9C8;     /* bordes — derivado de beige */
+  --silver:   #C4C4C4;     /* plateado metálico — tapa del frasco */
   --orange:   #E18340;     /* acento secundario naranja */
   /* aliases de compatibilidad con la estructura original */
-  --mauve:    #3F2B57;
-  --mauve-lt: #6B5480;
-  --sand:     #EDC047;
-  --sand-lt:  #F6EDD9;
-  --gold:     #EDC047;
-  --serif:    'Playfair Display',Georgia,serif;   /* headings — glamour editorial */
-  --sans:     'Jost',Arial,sans-serif;              /* body / UI */
+  --mauve:    #8F6149;
+  --mauve-lt: #B07D62;
+  --sand:     #E0C3AE;
+  --sand-lt:  #F0DDD0;
+  --gold:     #E8A050;
+  --serif:    'Playfair Display',Georgia,serif;
+  --sans:     'Jost',Arial,sans-serif;
 }
 
 /* ── Scroll animation ── */
@@ -38,7 +38,7 @@ a{text-decoration:none;color:inherit}
 
 /* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2.1rem;border-radius:50px;font-family:var(--sans);font-weight:600;font-size:.95rem;letter-spacing:.01em;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(63,43,87,.18)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(143,97,73,.18)}
 .btn:active{transform:translateY(0)}
 .btn-primary{background:var(--coral);color:var(--dark)}
 .btn-primary:hover{background:#e0af2e}
@@ -88,7 +88,7 @@ a{text-decoration:none;color:inherit}
 .hero-visual::before{
   content:'';position:absolute;width:360px;height:360px;max-width:82%;aspect-ratio:1;
   border-radius:50%;background:radial-gradient(circle,var(--surface) 0%,var(--peach) 78%,var(--coral) 100%);
-  z-index:0;box-shadow:0 30px 70px rgba(63,43,87,.14);
+  z-index:0;box-shadow:0 30px 70px rgba(143,97,73,.14);
 }
 .hero-visual::after{
   content:'';position:absolute;width:300px;height:300px;max-width:68%;aspect-ratio:1;
@@ -97,7 +97,7 @@ a{text-decoration:none;color:inherit}
 }
 .hero-photo{
   width:100%;max-width:270px;height:auto;position:relative;z-index:1;
-  filter:drop-shadow(0 30px 40px rgba(63,43,87,.22));
+  filter:drop-shadow(0 30px 40px rgba(143,97,73,.22));
 }
 
 /* Hero content */
@@ -247,7 +247,7 @@ section{padding:7rem 0}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:1rem}
 .step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9rem;padding:2rem 1rem;position:relative}
 .step:not(:last-child)::after{content:'→';position:absolute;right:-.75rem;top:2.2rem;font-size:1.3rem;color:var(--coral)}
-.step-num{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--earth),var(--earth-lt));color:#fff;font-family:var(--serif);font-size:1.5rem;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(63,43,87,.25)}
+.step-num{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--earth),var(--earth-lt));color:#fff;font-family:var(--serif);font-size:1.5rem;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(143,97,73,.25)}
 .step h3{font-family:var(--serif);font-size:.9rem;font-weight:600;color:var(--earth)}
 .step p{font-size:.8rem;line-height:1.6;color:var(--muted)}
 .howto-tip{margin-top:2rem;padding:1rem 1.4rem;background:var(--peach);border:1px solid rgba(225,131,64,.3);border-radius:12px;text-align:center;font-size:.84rem;color:var(--muted2);max-width:600px;margin-inline:auto}
@@ -289,7 +289,7 @@ section{padding:7rem 0}
 .cta-img-wrap{aspect-ratio:1;background:radial-gradient(circle,var(--cream) 0%,var(--peach) 100%);border-radius:30px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);overflow:hidden}
 .cta-img-wrap img{transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
 .cta-img-wrap:hover img{transform:scale(1.05)}
-.cta-placeholder{display:flex;flex-direction:column;align-items:center;gap:.6rem;color:var(--earth);opacity:.4;font-size:.76rem;text-align:center;border:2px dashed rgba(63,43,87,.2);border-radius:16px;padding:2rem;width:75%}
+.cta-placeholder{display:flex;flex-direction:column;align-items:center;gap:.6rem;color:var(--earth);opacity:.4;font-size:.76rem;text-align:center;border:2px dashed rgba(143,97,73,.2);border-radius:16px;padding:2rem;width:75%}
 .cta-placeholder svg{width:44px;height:44px}
 .cta-info{display:flex;flex-direction:column;gap:1.2rem}
 .cta-name{font-family:var(--serif);font-size:1.75rem;font-weight:600;color:var(--earth);line-height:1.18}
@@ -338,7 +338,7 @@ section{padding:7rem 0}
 .lead-overlay.open{opacity:1;pointer-events:all}
 .lead-card{
   background:#fff;border-radius:24px;width:100%;max-width:480px;
-  overflow:hidden;box-shadow:0 32px 80px rgba(63,43,87,.28);
+  overflow:hidden;box-shadow:0 32px 80px rgba(143,97,73,.28);
   transform:translateY(20px);transition:transform .3s;
 }
 .lead-overlay.open .lead-card{transform:translateY(0)}
@@ -403,21 +403,21 @@ section{padding:7rem 0}
 
 /* ── Hovers globales ── */
 .benefit-card{transition:transform .25s,box-shadow .25s,border-color .25s}
-.benefit-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(63,43,87,.1);border-color:var(--coral)}
+.benefit-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(143,97,73,.1);border-color:var(--coral)}
 .prot-card{transition:transform .2s,box-shadow .2s}
 .prot-card:hover{transform:translateX(4px)}
 .ing-card{transition:transform .2s,box-shadow .2s,border-left-color .2s;border-left:3px solid transparent}
-.ing-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(63,43,87,.08);border-left-color:var(--coral)}
+.ing-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(143,97,73,.08);border-left-color:var(--coral)}
 .stat-item{transition:transform .2s}
 .stat-item:hover{transform:scale(1.06)}
 .step{transition:transform .25s}
 .step:hover{transform:translateY(-4px)}
-.step:hover .step-num{box-shadow:0 10px 26px rgba(63,43,87,.35)}
+.step:hover .step-num{box-shadow:0 10px 26px rgba(143,97,73,.35)}
 .step-num{transition:box-shadow .25s}
 .review-card{transition:transform .25s,box-shadow .25s,border-color .25s}
-.review-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(63,43,87,.1);border-color:var(--coral)}
+.review-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(143,97,73,.1);border-color:var(--coral)}
 .faq-item{transition:box-shadow .2s}
-.faq-item:hover{box-shadow:0 4px 16px rgba(63,43,87,.08)}
+.faq-item:hover{box-shadow:0 4px 16px rgba(143,97,73,.08)}
 .faq-btn{transition:color .2s}
 .faq-btn:hover{color:var(--orange)}
 .tono-card{transition:background .2s,padding-left .15s}
