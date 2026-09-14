@@ -1526,3 +1526,15 @@ body.gate-open { overflow: hidden; }
   .nav__inner { height: 88px; }
   .logo--footer .logo__img { height: 60px; }
 }
+
+/* ── Tel links ── */
+.cta__data a[href^="tel:"],
+.footer a[href^="tel:"] {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cta__data a[href^="tel:"]:hover,
+.footer a[href^="tel:"]:hover {
+  opacity: .8;
+}
