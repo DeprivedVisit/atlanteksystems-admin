@@ -64,8 +64,8 @@ a { color: inherit; }
   transition: background .18s, color .18s, border-color .18s;
 }
 
-.btn--red { background: #4A90D9; color: #fff; }
-.btn--red:hover { background: #3a7bc8; }
+.btn--navy { background: #4A90D9; color: #fff; }
+.btn--navy:hover { background: #3a7bc8; }
 
 .btn--ghost {
   background: transparent;

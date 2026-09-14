@@ -213,8 +213,8 @@ body {
 }
 .btn:active { transform: translateY(1px); }
 
-.btn--red { background: #4A90D9; color: #fff; }
-.btn--red:hover {
+.btn--navy { background: var(--navy); color: #fff; }
+.btn--navy:hover {
   background: #3a7bc8;
   box-shadow: 0 6px 28px -6px rgba(74, 144, 217, .55);
 }
