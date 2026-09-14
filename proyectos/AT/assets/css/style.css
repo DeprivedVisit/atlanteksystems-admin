@@ -528,8 +528,10 @@ h1 em { font-style: normal; color: var(--navy-light); }
 .brands__banner img:hover { opacity: 1; filter: grayscale(0); }
 
 @media (max-width: 680px) {
-  .brands { padding: 28px 0; }
-  .brands__banner img { height: 60px; opacity: .85; }
+  .brands { padding: 20px 0; }
+  .brands__inner { gap: 20px; }
+  .brands__item img { height: 36px; }
+  .brands__banner img { height: 48px; opacity: .85; }
 }
 
 .service__img {
@@ -986,8 +988,8 @@ h1 em { font-style: normal; color: var(--navy-light); }
 }
 
 @media (max-width: 680px) {
-  .nav__inner { height: 88px; }
-  .logo__img { height: 72px; width: auto; padding: 0; }
+  .nav__inner { height: 80px; }
+  .logo__img { height: 56px; width: auto; padding: 0; }
   .logo__word { font-size: 22px; }
   .logo__sub { font-size: 10px; letter-spacing: 2.8px; }
 

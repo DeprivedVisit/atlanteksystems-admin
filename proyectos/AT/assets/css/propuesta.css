@@ -100,8 +100,8 @@ h1 em { font-style: normal; color: var(--navy-light); }
   transition: background .18s, color .18s, border-color .18s, box-shadow .18s;
 }
 
-.btn--red { background: var(--navy); color: #fff; }
-.btn--red:hover {
+.btn--navy { background: var(--navy); color: #fff; }
+.btn--navy:hover {
   background: var(--navy-dark);
   box-shadow: 0 6px 28px -6px rgba(206, 18, 18, .55);
 }
