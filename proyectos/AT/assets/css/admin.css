@@ -9,7 +9,7 @@
   --navy:       #00273d;
   --navy-light: #1a4a6b;
   --navy-dark:  #001a2a;
-  --rec:        #1a4a6b;
+  --navy:        #1a4a6b;
 
   --bg:     #0f1923;
   --bg2:    #131f2b;
@@ -245,7 +245,7 @@ body {
   font-weight: 600;
   letter-spacing: 0;
 }
-.btn--icon:hover { color: #4A90D9; border-color: var(--line-2); }
+.btn--icon:hover { color: var(--navy-light); border-color: var(--line-2); }
 
 .input {
   font-family: var(--font);
@@ -259,7 +259,7 @@ body {
   transition: border-color .15s;
 }
 .input::placeholder { color: var(--faint); }
-.input:focus { outline: none; border-color: #4A90D9; }
+.input:focus { outline: none; border-color: var(--navy-light); }
 .input--sm { padding: 7px 10px; font-size: 13px; width: auto; }
 .input--select { appearance: auto; }
 textarea.input { resize: vertical; min-height: 72px; line-height: 1.5; }
