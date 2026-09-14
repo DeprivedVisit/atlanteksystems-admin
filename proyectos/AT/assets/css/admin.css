@@ -73,7 +73,7 @@ body {
 }
 
 .sidebar__brand {
-  padding: 26px 22px 22px;
+  padding: 32px 24px 28px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -86,7 +86,7 @@ body {
 }
 
 .logo__img {
-  height: 48px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   border-radius: 0;
@@ -839,3 +839,65 @@ textarea.input { resize: vertical; min-height: 72px; line-height: 1.5; }
 }
 
 @page { size: letter; margin: 0; }
+
+/* ── Auth box ── */
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 40px;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  max-width: 400px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.auth-box .logo__img {
+  height: 80px;
+  margin-bottom: 8px;
+}
+
+.auth-box h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.auth-box p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.auth-box button:hover {
+  background: var(--navy-light);
+}
+
+.auth-err {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  min-height: 20px;
+}
