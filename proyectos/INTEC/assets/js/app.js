@@ -82,6 +82,7 @@
     $$('.nav-item').forEach(a => a.classList.toggle('is-active', a.dataset.nav === view));
 
     if (view === 'clientes')        renderClientes();
+    else if (view === 'catalogo')   renderCatalogo();
     else if (view === 'documentos') renderDocumentos();
     else if (view === 'leads')      renderLeads();
     else if (view === 'editor')     renderEditor(param || null);
@@ -161,11 +162,19 @@
     const rows = clients.map(c => {
       const cDocs = docs.filter(d => d.clientId === c.id);
       const total = cDocs.reduce((s, d) => s + Store.docTotal(d), 0);
+      const productos = (c.productos || []).slice(0, 2).join(', ');
+      const moreCount = (c.productos || []).length > 2 ? ` +${c.productos.length - 2}` : '';
+      const estado = c.estado || 'activo';
+      const estadoChip = estado === 'activo'
+        ? '<span class="chip chip--pagada">activo</span>'
+        : '<span class="chip chip--borrador">inactivo</span>';
       return `
         <tr>
           <td><b>${esc(c.nombre)}</b></td>
           <td>${esc(c.contacto) || '<span style="color:var(--muted)">—</span>'}</td>
           <td>${esc(c.telefono) || '<span style="color:var(--muted)">—</span>'}</td>
+          <td>${estadoChip}</td>
+          <td><span style="font-size:12.5px">${esc(productos) || '<span style="color:var(--muted)">—</span>'}${moreCount ? '<span style="color:var(--faint)">'+esc(moreCount)+'</span>' : ''}</span></td>
           <td>${cDocs.length}</td>
           <td class="num money">${fmt(total)}</td>
           <td class="num">
@@ -189,6 +198,7 @@
           <thead>
             <tr>
               <th>Cliente</th><th>Contacto</th><th>Teléfono</th>
+              <th>Estado</th><th>Productos / Servicios</th>
               <th>Docs</th><th class="num">Total histórico</th><th class="num"></th>
             </tr>
           </thead>
@@ -219,7 +229,9 @@
   function openClientModal(id, prefill = null, onSaved = null) {
     const c = id
       ? Store.getClient(id)
-      : Object.assign({ nombre: '', contacto: '', telefono: '', email: '', direccion: '', pais: 'Costa Rica' }, prefill || {});
+      : Object.assign({ nombre: '', contacto: '', telefono: '', email: '', direccion: '', pais: 'Costa Rica', notas: '', productos: [], estado: 'activo' }, prefill || {});
+
+    const productosText = (c.productos || []).join('\n');
 
     modalPanel.innerHTML = `
       <div class="modal__title">${id ? 'Editar cliente' : 'Nuevo cliente'}</div>
@@ -248,6 +260,21 @@
           <label class="field__label">País</label>
           <input class="input" name="pais" value="${esc(c.pais)}">
         </div>
+        <div class="field">
+          <label class="field__label">Estado</label>
+          <select class="input input--select" name="estado">
+            <option value="activo" ${c.estado === 'activo' ? 'selected' : ''}>Activo</option>
+            <option value="inactivo" ${c.estado === 'inactivo' ? 'selected' : ''}>Inactivo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label">Productos / Servicios <i>(uno por línea)</i></label>
+          <textarea class="input" name="productos" placeholder="Ej: CCTV 4 cámaras Dahua&#10;Grabador DVR">${esc(productosText)}</textarea>
+        </div>
+        <div class="field">
+          <label class="field__label">Notas internas</label>
+          <textarea class="input" name="notas" placeholder="Info relevante sobre el cliente…">${esc(c.notas)}</textarea>
+        </div>
         <div class="modal__actions">
           <button type="button" class="btn btn--ghost" data-close>Cancelar</button>
           <button type="submit" class="btn btn--red">Guardar</button>
@@ -259,6 +286,8 @@
     $('#client-form').addEventListener('submit', (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
+      const productosRaw = fd.get('productos').trim();
+      const productos = productosRaw ? productosRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
       const saved = Store.saveClient({
         id: id || null,
         nombre: fd.get('nombre').trim(),
@@ -266,7 +295,10 @@
         telefono: fd.get('telefono').trim(),
         email: fd.get('email').trim(),
         direccion: fd.get('direccion').trim(),
-        pais: fd.get('pais').trim()
+        pais: fd.get('pais').trim(),
+        estado: fd.get('estado'),
+        productos,
+        notas: fd.get('notas').trim()
       });
       closeModal();
       if (onSaved) onSaved(saved); else renderClientes();
@@ -453,6 +485,200 @@
       }));
   }
 
+  /* ═══════════ CATÁLOGO ═══════════ */
+
+  function renderCatalogo() {
+    const items = Store.getCatalogo();
+    const cats = [...new Set(items.map(p => p.categoria))].sort();
+
+    const rows = items.map(p => {
+      const estado = p.estado || 'disponible';
+      const chip = estado === 'disponible'
+        ? '<span class="chip chip--pagada">disponible</span>'
+        : '<span class="chip chip--borrador">agotado</span>';
+      return `
+        <tr>
+          <td><b>${esc(p.nombre)}</b></td>
+          <td><span class="chip chip--proforma">${esc(p.categoria)}</span></td>
+          <td class="num money">${fmt(p.precio)}</td>
+          <td>${chip}</td>
+          <td style="max-width:280px;font-size:12.5px;color:var(--muted)">${esc(p.descripcion) || '—'}</td>
+          <td class="num">
+            <button class="btn--icon btn" data-edit-item="${p.id}">Editar</button>
+            <button class="btn--icon btn" data-del-item="${p.id}">Eliminar</button>
+          </td>
+        </tr>`;
+    }).join('');
+
+    main.innerHTML = `
+      <div class="view-head">
+        <div>
+          <span class="view-head__kicker">INTEC · Gestión</span>
+          <h1>Catálogo de Productos</h1>
+        </div>
+        <button class="btn btn--red" id="btn-new-item">+ Nuevo producto</button>
+      </div>
+
+      <div class="filters">
+        <input class="input" id="f-cat-q" type="search" placeholder="Buscar por nombre o categoría…">
+        <select class="input input--select" id="f-cat-categoria">
+          <option value="">Categoría: todas</option>
+          ${cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}
+        </select>
+      </div>
+
+      <div class="panel" id="catalogo-panel">
+        ${items.length ? `
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Producto</th><th>Categoría</th><th class="num">Precio (₡)</th>
+              <th>Estado</th><th>Descripción</th><th class="num"></th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>` : '<div class="empty">Sin productos en el catálogo. Agregá el primero.</div>'}
+      </div>
+    `;
+
+    $('#btn-new-item').addEventListener('click', () => openCatalogoModal(null));
+    $$('[data-edit-item]').forEach(b =>
+      b.addEventListener('click', () => openCatalogoModal(b.dataset.editItem)));
+    $$('[data-del-item]').forEach(b =>
+      b.addEventListener('click', () => {
+        const p = Store.getCatalogoItem(b.dataset.delItem);
+        if (!p) return;
+        if (!confirm(`¿Eliminar "${p.nombre}" del catálogo?`)) return;
+        Store.deleteCatalogoItem(p.id);
+        renderCatalogo();
+      }));
+
+    const applyFilters = () => {
+      const q = $('#f-cat-q').value.trim().toLowerCase();
+      const cat = $('#f-cat-categoria').value;
+      const filtered = items.filter(p => {
+        if (cat && p.categoria !== cat) return false;
+        if (q) {
+          const hay = `${p.nombre} ${p.categoria} ${p.descripcion}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+      $('#catalogo-panel').innerHTML = (q || cat) && !filtered.length
+        ? '<div class="empty">Sin resultados con esos filtros.</div>'
+        : `<table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th><th>Categoría</th><th class="num">Precio (₡)</th>
+                <th>Estado</th><th>Descripción</th><th class="num"></th>
+              </tr>
+            </thead>
+            <tbody>${filtered.map(p => {
+              const estado = p.estado || 'disponible';
+              const chip = estado === 'disponible'
+                ? '<span class="chip chip--pagada">disponible</span>'
+                : '<span class="chip chip--borrador">agotado</span>';
+              return `
+                <tr>
+                  <td><b>${esc(p.nombre)}</b></td>
+                  <td><span class="chip chip--proforma">${esc(p.categoria)}</span></td>
+                  <td class="num money">${fmt(p.precio)}</td>
+                  <td>${chip}</td>
+                  <td style="max-width:280px;font-size:12.5px;color:var(--muted)">${esc(p.descripcion) || '—'}</td>
+                  <td class="num">
+                    <button class="btn--icon btn" data-edit-item="${p.id}">Editar</button>
+                    <button class="btn--icon btn" data-del-item="${p.id}">Eliminar</button>
+                  </td>
+                </tr>`;
+            }).join('')}</tbody>
+          </table>`;
+      $$('[data-edit-item]').forEach(b =>
+        b.addEventListener('click', () => openCatalogoModal(b.dataset.editItem)));
+      $$('[data-del-item]').forEach(b =>
+        b.addEventListener('click', () => {
+          const p = Store.getCatalogoItem(b.dataset.delItem);
+          if (!p) return;
+          if (!confirm(`¿Eliminar "${p.nombre}" del catálogo?`)) return;
+          Store.deleteCatalogoItem(p.id);
+          renderCatalogo();
+        }));
+    };
+    ['f-cat-q', 'f-cat-categoria'].forEach(id =>
+      $('#' + id).addEventListener('input', applyFilters));
+  }
+
+  function openCatalogoModal(id) {
+    const p = id
+      ? Store.getCatalogoItem(id)
+      : { nombre: '', categoria: '', precio: 0, descripcion: '', unidad: 'pieza', estado: 'disponible' };
+
+    const categorias = ['Cámaras', 'Grabadores', 'Almacenamiento', 'Accesorios', 'Cableado', 'Redes', 'Acceso', 'Servicios', 'Otros'];
+
+    modalPanel.innerHTML = `
+      <div class="modal__title">${id ? 'Editar producto' : 'Nuevo producto'}</div>
+      <form class="modal__form" id="item-form">
+        <div class="field">
+          <label class="field__label">Nombre *</label>
+          <input class="input" name="nombre" required value="${esc(p.nombre)}" placeholder="Ej: Cámara Domo Dahua 2MP">
+        </div>
+        <div class="field">
+          <label class="field__label">Categoría</label>
+          <input class="input" name="categoria" value="${esc(p.categoria)}" list="cat-list" placeholder="Seleccionar o escribir">
+          <datalist id="cat-list">
+            ${categorias.map(c => `<option value="${esc(c)}">`).join('')}
+          </datalist>
+        </div>
+        <div class="field">
+          <label class="field__label">Precio unitario (₡)</label>
+          <input class="input" type="number" name="precio" min="0" step="100" value="${esc(p.precio)}">
+        </div>
+        <div class="field">
+          <label class="field__label">Unidad</label>
+          <select class="input input--select" name="unidad">
+            <option value="pieza" ${p.unidad === 'pieza' ? 'selected' : ''}>Pieza</option>
+            <option value="metro" ${p.unidad === 'metro' ? 'selected' : ''}>Metro</option>
+            <option value="servicio" ${p.unidad === 'servicio' ? 'selected' : ''}>Servicio</option>
+            <option value="kit" ${p.unidad === 'kit' ? 'selected' : ''}>Kit</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label">Estado</label>
+          <select class="input input--select" name="estado">
+            <option value="disponible" ${p.estado === 'disponible' ? 'selected' : ''}>Disponible</option>
+            <option value="agotado" ${p.estado === 'agotado' ? 'selected' : ''}>Agotado</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label">Descripción</label>
+          <textarea class="input" name="descripcion" placeholder="Especificaciones, notas…">${esc(p.descripcion)}</textarea>
+        </div>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close>Cancelar</button>
+          <button type="submit" class="btn btn--red">Guardar</button>
+        </div>
+      </form>
+    `;
+    modal.hidden = false;
+
+    $('#item-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      Store.saveCatalogoItem({
+        id: id || null,
+        nombre: fd.get('nombre').trim(),
+        categoria: fd.get('categoria').trim(),
+        precio: Number(fd.get('precio')) || 0,
+        unidad: fd.get('unidad'),
+        estado: fd.get('estado'),
+        descripcion: fd.get('descripcion').trim()
+      });
+      closeModal();
+      renderCatalogo();
+    });
+
+    $$('[data-close]', modalPanel).forEach(b => b.addEventListener('click', closeModal));
+  }
+
   /* ═══════════ EDITOR ═══════════ */
 
   function renderEditor(docId) {
@@ -636,12 +862,8 @@
     sheet.innerHTML = `
       <div class="sheet__band">
         <div class="sheet__logo">
-          <svg class="logo__signal" viewBox="0 0 24 18" aria-hidden="true">
-            <path d="M4 16 a8 8 0 0 1 13 -6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" style="color:var(--red)"/>
-            <path d="M8 17 a4.5 4.5 0 0 1 7.5 -3.4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" style="color:var(--red)"/>
-            <circle cx="12" cy="17" r="1.8" fill="var(--red)"/>
-          </svg>
-          <span class="logo__word">iNTEC</span>
+          <img src="assets/img/logo-atlantek-dark.png" alt="ATLANTEK Systems" class="sheet__logo-img">
+          <span class="logo__word">ATLANTEK</span>
         </div>
         <div class="sheet__doctitle">
           <h2>${titulo}</h2>

@@ -17,7 +17,7 @@ const Store = (() => {
     linea2: 'N/A',
     direccion: '70201 Guápiles',
     pais: 'Costa Rica',
-    email: 'soporteintec.cr@gmail.com'
+    email: 'soporte@atlanteksystems.com'
   };
 
   /* ── Datos semilla: cliente y proforma 027 reales ── */
@@ -25,6 +25,20 @@ const Store = (() => {
     return {
       nextNumber: 28,
       leads: [],
+      catalogo: [
+        { id: 'p1', nombre: 'Grabador DVR Dahua DH-XVR1B04-IT', categoria: 'Grabadores', precio: 25000, descripcion: 'DVR 4 canales 1080/2MP, H.265+, detección de movimiento', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p2', nombre: 'Cámara Domo Dahua 2MP', categoria: 'Cámaras', precio: 12500, descripcion: 'Domo interior, IR 20m, IP67, PoE', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p3', nombre: 'Cámara Bullet Dahua 2MP', categoria: 'Cámaras', precio: 12500, descripcion: 'Bullet exterior, IR 30m, IP67, PoE', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p4', nombre: 'Disco Duro Toshiba 1TB', categoria: 'Almacenamiento', precio: 22000, descripcion: 'Disco surveillance 3.5", 64MB cache, 7200RPM', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p5', nombre: 'Fuente de Poder 12V 5A', categoria: 'Accesorios', precio: 1750, descripcion: 'Fuente conmutada para cámaras CCTV', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p6', nombre: 'Balun Transceptor 2MP', categoria: 'Accesorios', precio: 750, descripcion: 'Balun pasivo analógico video HD', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p7', nombre: 'Cable UTP Cat5e', categoria: 'Cableado', precio: 800, descripcion: 'Metro de cable UTP Cat5e exterior', unidad: 'metro', estado: 'disponible' },
+        { id: 'p8', nombre: 'Canaleleta 200x10x5', categoria: 'Cableado', precio: 5500, descripcion: 'Canaleleta ventilada Teklink 2.5m', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p9', nombre: 'Instalación y Configuración', categoria: 'Servicios', precio: 75000, descripcion: 'Instalación, cableado y configuración de sistema completo', unidad: 'servicio', estado: 'disponible' },
+        { id: 'p10', nombre: 'Intercom Dahua VTO', categoria: 'Acceso', precio: 85000, descripcion: 'Portalero IP con tarjeta RFID y app móvil', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p11', nombre: 'Switch Ruijie 8 puertos PoE', categoria: 'Redes', precio: 35000, descripcion: 'Switch administrable 8x PoE+ 65W, Gigabit', unidad: 'pieza', estado: 'disponible' },
+        { id: 'p12', nombre: 'Access Point Ruijie', categoria: 'Redes', precio: 28000, descripcion: 'AP WiFi 6 dual band, ceiling mount, PoE', unidad: 'pieza', estado: 'disponible' }
+      ],
       clients: [
         {
           id: 'c1',
@@ -33,7 +47,10 @@ const Store = (() => {
           telefono: '',
           email: '',
           direccion: '70201 Guápiles',
-          pais: 'Costa Rica'
+          pais: 'Costa Rica',
+          notas: '',
+          productos: ['CCTV 4 cámaras Dahua', 'Grabador DVR'],
+          estado: 'activo'
         }
       ],
       docs: [
@@ -234,6 +251,29 @@ const Store = (() => {
   const getLead  = (id) => (data.leads || []).find(l => l.id === id) || null;
   const leadsNuevos = () => (data.leads || []).filter(l => l.estado === 'nuevo').length;
 
+  /* ═══════════ CATÁLOGO ═══════════ */
+
+  const getCatalogo = () => data.catalogo || [];
+  const getCatalogoItem = (id) => (data.catalogo || []).find(p => p.id === id) || null;
+
+  function saveCatalogoItem(p) {
+    if (!data.catalogo) data.catalogo = [];
+    if (p.id) {
+      const i = data.catalogo.findIndex(x => x.id === p.id);
+      if (i >= 0) data.catalogo[i] = p;
+    } else {
+      p.id = uid();
+      data.catalogo.push(p);
+    }
+    save();
+    return p;
+  }
+
+  function deleteCatalogoItem(id) {
+    data.catalogo = (data.catalogo || []).filter(p => p.id !== id);
+    save();
+  }
+
   async function setLeadStatus(id, estado) {
     const l = getLead(id);
     if (!l || !LEAD_ESTADOS.includes(estado)) return false;
@@ -269,6 +309,7 @@ const Store = (() => {
     getClients, getClient, saveClient, deleteClient,
     getDocs, getDoc, saveDoc, deleteDoc, setDocStatus,
     getLeads, getLead, leadsNuevos, setLeadStatus,
+    getCatalogo, getCatalogoItem, saveCatalogoItem, deleteCatalogoItem,
     docTotal,
     nextNumber: () => data.nextNumber,
     sync: { pull: syncPull, enabled: hasSheets }
