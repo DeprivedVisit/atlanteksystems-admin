@@ -1527,6 +1527,36 @@ body.gate-open { overflow: hidden; }
   .logo--footer .logo__img { height: 60px; }
 }
 
+/* ── Hero trust ── */
+.hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hero__trust-item .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+}
+
+@media (max-width: 1000px) {
+  .hero__trust { gap: 14px; }
+  .hero__trust-item { font-size: .78rem; }
+}
+
 /* ── Tel links ── */
 .cta__data a[href^="tel:"],
 .footer a[href^="tel:"] {
