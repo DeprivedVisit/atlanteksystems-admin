@@ -508,7 +508,7 @@ h1 em { font-style: normal; color: var(--navy-light); }
   height: 28px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  
 }
 .brands__banner {
   width: 100%;
