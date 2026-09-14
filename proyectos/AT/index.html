@@ -13,7 +13,226 @@
 <body>
 
   <!-- ══════════ TOPBAR ══════════ -->
+  </div>
+
+  <!-- ══════════ NAV ══════════ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#inicio" class="logo">
+        <img src="assets/img/logo-atlantek-white.png" alt="Atlantek" class="logo__img"></a>
+
+      <nav class="nav__links" id="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#cobertura">Cobertura</a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://wa.me/50672312225?text=Hola%20Atlantek%2C%20quiero%20una%20valoraci%C3%B3n%20gratis"
+           class="btn btn--red" target="_blank" rel="noopener">Cotizar gratis</a>
+      </nav>
+
+      <button class="nav__burger" id="nav-burger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="inicio">
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="container hero__inner">
+      <div class="hero__copy reveal">
+        <span class="kicker"><span class="dot dot--red"></span>Sistemas de vigilancia profesional</span>
+        <h1>Su propiedad,<br>vigilada <em>las 24 horas.</em></h1>
+        <p>
+          Cámaras de seguridad, redes y soporte técnico para hogares, comercios
+          y empresas. Vea sus cámaras desde el celular, donde sea que esté —
+          <b>con disponibilidad inmediata en la zona de Guápiles</b>.
+        </p>
+        <div class="hero__ctas">
+          <a href="#contacto" class="btn btn--red btn--lg">Cotizar ahora</a>
+        </div>
+
+        <dl class="hero__stats">
+          <div><dt>12 meses</dt><dd>Garantía en equipos</dd></div>
+          <div><dt>90 días</dt><dd>Garantía de instalación</dd></div>
+          <div><dt>2–8 MP</dt><dd>Resolución según necesidad</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero__visual reveal" aria-hidden="true">
+        <div class="cam-card">
+          <span class="cam-card__corner cam-card__corner--tl"></span>
+          <span class="cam-card__corner cam-card__corner--tr"></span>
+          <span class="cam-card__corner cam-card__corner--bl"></span>
+          <span class="cam-card__corner cam-card__corner--br"></span>
+          <div class="cam-card__top">
+            <span class="cam-card__rec"><span class="rec-dot"></span>REC</span>
+            <span class="cam-card__cam">CAM 01 · ENTRADA</span>
+            <span class="cam-card__time" id="cam-time">00:00:00</span>
+          </div>
+          <div class="cam-card__screen">
+            <img src="assets/img/hero-cam.jpg" alt="" loading="eager">
+            <div class="cam-card__scan"></div>
+          </div>
+          <div class="cam-card__bottom">
+            <span>H.265 · 4MP · IR 30m</span>
+            <span class="cam-card__live"><span class="dot dot--green"></span>EN VIVO</span>
+          </div>
+        </div>
+        <ul class="cam-specs">
+          <li><b>Acceso remoto</b><span>App móvil iOS / Android</span></li>
+          <li><b>Grabación</b><span>DVR / NVR · hasta 30 días</span></li>
+          <li><b>Visión nocturna</b><span>Infrarrojo + ColorVu</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ MARCAS ══════════ -->
+  <div class="brands">
+    <div class="container brands__inner">
+      <span class="brands__label">Equipos certificados</span>
+      <span class="brands__item"><img src="assets/img/brand-hikvision.svg" alt="Hikvision"></span>
+      <span class="brands__item"><img src="assets/img/brand-dahua.svg" alt="Dahua"></span>
+      <span class="brands__item"><img src="assets/img/brand-tplink.svg" alt="TP-Link"></span>
+      <span class="brands__item"><img src="assets/img/brand-ezviz.svg" alt="EZVIZ"></span>
+      <span class="brands__item"><img src="assets/img/brand-ruijie.svg" alt="Ruijie"></span>
+      <span class="brands__item"><img src="assets/img/brand-imou.svg" alt="IMOU"></span>
+    </div>
+  </div>
+
+  <!-- ══════════ SERVICIOS ══════════ -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="kicker"><span class="kicker__num">01</span>Servicios</span>
+        <h2>Tecnología y seguridad<br>para su casa o negocio</h2>
+      </div>
+
+      <div class="services">
+        <article class="service reveal">
+          <span class="service__num">01</span>
+          <img class="service__icon" src="assets/img/service-camaras.svg" alt="">
+          <h3>Cámaras de seguridad</h3>
+          <p>Sistemas completos: cámaras domo y bullet, DVR/NVR, disco duro y acceso desde el celular. Diseñados a la medida de su propiedad.</p>
+        </article>
+
+        <article class="service reveal">
+          <span class="service__num">02</span>
+          <img class="service__icon" src="assets/img/service-cableado.svg" alt="">
+          <h3>Cableado estructurado</h3>
+          <p>Cableado limpio y ordenado, racks, bandejas y canaletas. La base de una red y un sistema de cámaras que no fallan.</p>
+        </article>
+
+        <article class="service reveal">
+          <span class="service__num">03</span>
+          <img class="service__icon" src="assets/img/service-redes.svg" alt="">
+          <h3>Redes y conectividad Wi-Fi</h3>
+          <p>Diseño e instalación de redes cableadas y Wi-Fi con cobertura real en toda la propiedad, para casas, oficinas y locales.</p>
+        </article>
+
+        <article class="service reveal">
+          <span class="service__num">04</span>
+          <img class="service__icon" src="assets/img/service-equipos.svg" alt="">
+          <h3>Instalación de equipos</h3>
+          <p>Montaje y puesta a punto de equipos tecnológicos: routers, access points, impresoras, pantallas y más.</p>
+        </article>
+
+        <article class="service reveal">
+          <span class="service__num">05</span>
+          <img class="service__icon" src="assets/img/service-asesoria.svg" alt="">
+          <h3>Asesoría para empresas</h3>
+          <p>Le ayudamos a decidir qué tecnología necesita su negocio — sin comprar de más ni quedarse corto.</p>
+        </article>
+
+        <article class="service reveal">
+          <span class="service__num">06</span>
+          <img class="service__icon" src="assets/img/service-soporte.svg" alt="">
+          <h3>Soporte técnico informático</h3>
+          <p>Diagnóstico y solución de problemas de equipos, redes y sistemas, con disponibilidad inmediata en la zona de Guápiles.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   
+
+  <!-- ══════════ PROCESO ══════════ -->
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="kicker"><span class="kicker__num">03</span>Cómo trabajamos</span>
+        <h2>De la visita a la cámara<br>en vivo, en 4 pasos</h2>
+      </div>
+
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step__num">01</span>
+          <h3>Visita y valoración gratis</h3>
+          <p>Visitamos su propiedad, identificamos los puntos ciegos y le recomendamos el sistema correcto.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">02</span>
+          <h3>Proforma clara</h3>
+          <p>Recibe una proforma detallada línea por línea: equipos, materiales e instalación. Sin sorpresas.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">03</span>
+          <h3>Instalación profesional</h3>
+          <p>Cableado limpio con canaletas, configuración del DVR y de la app en sus dispositivos.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">04</span>
+          <h3>Garantía y soporte</h3>
+          <p>12 meses de garantía en equipos y 90 días en mano de obra. Soporte directo por WhatsApp.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════ COBERTURA ══════════ -->
+  <section class="section section--panel" id="cobertura">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="kicker"><span class="kicker__num">04</span>Zona de cobertura</span>
+        <h2>Todo el cantón de Pococí<br>y alrededores</h2>
+      </div>
+
+      <div class="coverage">
+        <div class="coverage__radar reveal" aria-hidden="true">
+          <div class="radar">
+            <div class="radar__rings"></div>
+            <div class="radar__cross"></div>
+            <div class="radar__sweep"></div>
+            <span class="radar__blip radar__blip--base" style="--x:50%; --y:52%"><i></i>Guápiles</span>
+            <span class="radar__blip" style="--x:68%; --y:24%"><i></i>Cariari</span>
+            <span class="radar__blip" style="--x:28%; --y:36%"><i></i>Jiménez</span>
+            <span class="radar__blip" style="--x:74%; --y:58%"><i></i>La Rita</span>
+            <span class="radar__blip" style="--x:60%; --y:78%"><i></i>Roxana</span>
+            <span class="radar__blip" style="--x:30%; --y:70%"><i></i>La Colonia</span>
+          </div>
+          <div class="radar__base">BASE · GUÁPILES CENTRO — 70201 POCOCÍ</div>
+        </div>
+
+        <div class="coverage__info reveal">
+          <p class="coverage__lead">
+            Atendemos <b>los 7 distritos de Pococí</b> desde nuestra base en
+            Guápiles centro. Para zonas vecinas coordinamos la visita según agenda.
+          </p>
+          <ul class="coverage__list">
+            <li><b>Guápiles</b><span class="tag tag--fast">Mismo día</span></li>
+            <li><b>Jiménez</b><span class="tag tag--fast">Mismo día</span></li>
+            <li><b>La Rita</b><span class="tag tag--fast">Mismo día</span></li>
+            <li><b>Roxana</b><span class="tag">24–48 h</span></li>
+            <li><b>Cariari</b><span class="tag">24–48 h</span></li>
+            <li><b>La Colonia</b><span class="tag">24–48 h</span></li>
+            <li><b>Colorado</b><span class="tag">Programada</span></li>
+            <li><b>Guácimo y otras zonas</b><span class="tag tag--ask">Consultar</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════ TESTIMONIOS ══════════ -->
