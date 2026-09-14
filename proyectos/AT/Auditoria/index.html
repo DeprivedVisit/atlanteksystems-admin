@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoría — Atlantek Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#1a4a6b;--navy-light:#2a6a9b;--navy-dark:#0d2a3f;
+      --ink:#0b1014;--muted:#6b7785;--line:#dfe3e8;
+      --bg:#f4f6f8;--card:#fff;
+      --green:#22c55e;--yellow:#eab308;--red:#ef4444;--orange:#f97316;
+    }
+    body{font-family:'Archivo',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+    .container{max-width:960px;margin:0 auto;padding:24px 20px 60px}
+
+    /* Header */
+    .header{background:linear-gradient(135deg,var(--navy-dark),var(--navy));color:#fff;border-radius:16px;padding:48px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+    .header::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%}
+    .header__tag{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+    .header h1{font-size:2rem;font-weight:800;line-height:1.2;margin-bottom:8px}
+    .header p{font-size:.95rem;color:rgba(255,255,255,.7);max-width:560px}
+    .header__date{margin-top:16px;font-size:.8rem;color:rgba(255,255,255,.45)}
+
+    /* Score */
+    .score-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px;display:flex;gap:40px;align-items:center;margin-bottom:32px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+    .score-ring{position:relative;width:140px;height:140px;flex-shrink:0}
+    .score-ring svg{transform:rotate(-90deg)}
+    .score-ring circle{fill:none;stroke-width:10}
+    .score-ring .bg{stroke:var(--line)}
+    .score-ring .fg{stroke:var(--orange);stroke-linecap:round;transition:stroke-dashoffset .6s}
+    .score-ring .label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .score-ring .num{font-size:2.4rem;font-weight:800;color:var(--ink);line-height:1}
+    .score-ring .of{font-size:.8rem;color:var(--muted)}
+    .score-info h2{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+    .score-info p{color:var(--muted);font-size:.9rem}
+
+    /* Grid cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;text-align:center}
+    .stat__icon{font-size:1.8rem;margin-bottom:8px}
+    .stat__num{font-size:2rem;font-weight:800;line-height:1}
+    .stat__label{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+    /* Sections */
+    .section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;margin-bottom:24px}
+    .section h2{font-size:1.15rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .section h2 .icon{font-size:1.2rem}
+
+    /* Badges */
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:50px;font-size:.72rem;font-weight:700}
+    .badge--ok{background:#dcfce7;color:#166534}
+    .badge--warn{background:#fef9c3;color:#854d0e}
+    .badge--bad{background:#fee2e2;color:#991b1b}
+    .badge--info{background:#e0f2fe;color:#075985}
+
+    /* Issue list */
+    .issue{border-bottom:1px solid var(--line);padding:16px 0;display:flex;gap:14px;align-items:flex-start}
+    .issue:last-child{border-bottom:none}
+    .issue__num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;color:#fff}
+    .issue__num--bad{background:var(--red)}
+    .issue__num--warn{background:var(--yellow);color:#713f12}
+    .issue__num--ok{background:var(--green)}
+    .issue__num--info{background:var(--navy)}
+    .issue__body{flex:1}
+    .issue__title{font-weight:700;font-size:.92rem;margin-bottom:2px}
+    .issue__desc{font-size:.84rem;color:var(--muted)}
+    .issue__tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+    .tag{font-size:.68rem;padding:2px 8px;border-radius:4px;font-weight:600}
+    .tag--seo{background:#ede9fe;color:#5b21b6}
+    .tag--perf{background:#dbeafe;color:#1e40af}
+    .tag--conv{background:#fce7f3;color:#9d174d}
+    .tag--a11y{background:#d1fae5;color:#065f46}
+    .tag--css{background:#fef3c7;color:#92400e}
+    .tag--ux{background:#f3e8ff;color:#6b21a8}
+
+    /* Table */
+    .audit-table{width:100%;border-collapse:collapse;font-size:.85rem}
+    .audit-table th{text-align:left;padding:10px 12px;background:var(--bg);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line)}
+    .audit-table td{padding:10px 12px;border-bottom:1px solid var(--line)}
+    .audit-table tr:last-child td{border-bottom:none}
+
+    /* Footer */
+    .footer{text-align:center;padding:24px;color:var(--muted);font-size:.78rem}
+
+    @media(max-width:600px){
+      .container{padding:16px 14px 40px}
+      .header{padding:32px 24px}
+      .header h1{font-size:1.5rem}
+      .score-card{flex-direction:column;text-align:center;padding:32px 24px}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header__tag">Apex Cloud Work · Auditoría Técnica</div>
+    <h1>Auditoría Landing Page<br>Atlantek Systems</h1>
+    <p>Análisis completo de SEO, rendimiento, accesibilidad, conversión y código de la página principal.</p>
+    <div class="header__date">14 septiembre 2026 · atlanteksystems.com</div>
+  </div>
+
+  <!-- SCORE -->
+  <div class="score-card">
+    <div class="score-ring">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle class="bg" cx="70" cy="70" r="60"/>
+        <circle class="fg" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="132"/>
+      </svg>
+      <div class="label">
+        <div class="num">6.5</div>
+        <div class="of">/ 10</div>
+      </div>
+    </div>
+    <div class="score-info">
+      <h2>Bueno, con margen de mejora</h2>
+      <p>La página funciona bien visualmente y tiene buena base de conversión (WhatsApp). Pero pierde puntos en SEO técnico, rendimiento y accesibilidad. Los 6 problemas críticos se resuelven en ~40 minutos.</p>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="grid">
+    <div class="stat">
+      <div class="stat__icon">🔍</div>
+      <div class="stat__num" style="color:var(--yellow)">5.5</div>
+      <div class="stat__label">SEO</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">⚡</div>
+      <div class="stat__num" style="color:var(--yellow)">6.0</div>
+      <div class="stat__label">Rendimiento</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">♿</div>
+      <div class="stat__num" style="color:var(--yellow)">6.0</div>
+      <div class="stat__label">Accesibilidad</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">🎯</div>
+      <div class="stat__num" style="color:var(--green)">7.5</div>
+      <div class="stat__label">Conversión</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">🧩</div>
+      <div class="stat__num" style="color:var(--red)">5.0</div>
+      <div class="stat__label">Código</div>
+    </div>
+  </div>
+
+  <!-- LO BUENO -->
+  <div class="section">
+    <h2><span class="icon">✅</span> Lo que está bien</h2>
+    <div class="issue">
+      <div class="issue__num issue__num--ok">✓</div>
+      <div class="issue__body">
+        <div class="issue__title">Título optimizado para local</div>
+        <div class="issue__desc">"Atlantek – Cámaras de Seguridad y CCTV en Guápiles, Costa Rica" — keyword + ubicación + servicio.</div>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="issue__num issue__num--ok">✓</div>
+      <div class="issue__body">
+        <div class="issue__title">H1 único y correcto</div>
+        <div class="issue__desc">Un solo H1 por página, bien jerarquizado con H2s y H3s.</div>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="issue__num issue__num--ok">✓</div>
+      <div class="issue__body">
+        <div class="issue__title">Responsive design</div>
+        <div class="issue__desc">Viewport meta tag ✓, CSS mobile-first, se adapta a 375px (iPhone SE).</div>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="issue__num issue__num--ok">✓</div>
+      <div class="issue__body">
+        <div class="issue__title">Imágenes con alt text</div>
+        <div class="issue__desc">Todas las 16 imágenes tienen atributo alt definido.</div>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="issue__num issue__num--ok">✓</div>
+      <div class="issue__body">
+        <div class="issue__title">3 botones WhatsApp con mensaje predefinido</div>
+        <div class="issue__desc">HCAs claros que facilitan el contacto directo.</div>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="issue__num issue__num--ok">✓</div>
+      <div class="issue__body">
+        <div class="issue__title">Código limpio</div>
+        <div class="issue__desc">0 console.log, 0 TODO/FIXME, 0 Variables sin usar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRITICOS -->
+  <div class="section" style="border-left:4px solid var(--red)">
+    <h2><span class="icon">🔴</span> Problemas Críticos <span class="badge badge--bad">6 items</span></h2>
+
+    <div class="issue">
+      <div class="issue__num issue__num--bad">1</div>
+      <div class="issue__body">
+        <div class="issue__title">Sin wrapper &lt;main&gt;</div>
+        <div class="issue__desc">Todo el contenido va directo en &lt;body&gt;. Los lectores de pantalla y Google buscan &lt;main&gt; para identificar el contenido principal.</div>
+        <div class="issue__tags"><span class="tag tag--seo">SEO</span><span class="tag tag--a11y">Accesibilidad</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--bad">2</div>
+      <div class="issue__body">
+        <div class="issue__title">Sin canonical URL</div>
+        <div class="issue__desc">Google no sabe cuál es la URL oficial. Si alguien accede con www. o sin trailing slash, puede contar como contenido duplicado.</div>
+        <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--bad">3</div>
+      <div class="issue__body">
+        <div class="issue__title">Sin Open Graph ni Twitter Cards</div>
+        <div class="issue__desc">Al compartir en WhatsApp, Facebook o Twitter no se muestra imagen, título ni descripción. Pierde CTR en redes.</div>
+        <div class="issue__tags"><span class="tag tag--seo">SEO</span><span class="tag tag--conv">Conversión</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--bad">4</div>
+      <div class="issue__body">
+        <div class="issue__title">Sin preload del hero image</div>
+        <div class="issue__desc">La imagen principal (hero-cam.jpg) no tiene &lt;link rel="preload"&gt;. El navegador la descubre tarde, retrasando el primer paint significativo.</div>
+        <div class="issue__tags"><span class="tag tag--perf">Performance</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--bad">5</div>
+      <div class="issue__body">
+        <div class="issue__title">0 imágenes con loading="lazy"</div>
+        <div class="issue__desc">Las 16 imágenes cargan todas de golpe. Solo la hero necesita carga eager; las demás deben ser lazy para mejorar LCP y FCP.</div>
+        <div class="issue__tags"><span class="tag tag--perf">Performance</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--bad">6</div>
+      <div class="issue__body">
+        <div class="issue__title">Sin click-to-call (tel:)</div>
+        <div class="issue__desc">En mobile, los números de teléfono no son tocables para llamar directamente. 0 enlaces tel: detectados.</div>
+        <div class="issue__tags"><span class="tag tag--conv">Conversión</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEJORABLES -->
+  <div class="section" style="border-left:4px solid var(--yellow)">
+    <h2><span class="icon">🟡</span> Mejorables <span class="badge badge--warn">6 items</span></h2>
+
+    <div class="issue">
+      <div class="issue__num issue__num--warn">7</div>
+      <div class="issue__body">
+        <div class="issue__title">171 reglas CSS duplicadas</div>
+        <div class="issue__desc">.logo__img aparece 5 veces, .btn 3 veces, .nav__inner 3 veces. Causa especificidad impredecible y CSS inflado.</div>
+        <div class="issue__tags"><span class="tag tag--css">CSS</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--warn">8</div>
+      <div class="issue__body">
+        <div class="issue__title">7 usos de !important</div>
+        <div class="issue__desc">Señal de "specificity war". Se pueden resolver reorganizando el orden de las reglas.</div>
+        <div class="issue__tags"><span class="tag tag--css">CSS</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--warn">9</div>
+      <div class="issue__body">
+        <div class="issue__title">Sin structured data (JSON-LD)</div>
+        <div class="issue__desc">Google no puede mostrar rich snippets con horarios, dirección, teléfono y reseñas en los resultados de búsqueda.</div>
+        <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--warn">10</div>
+      <div class="issue__body">
+        <div class="issue__title">--muted en 26 lugares — riesgo de contraste</div>
+        <div class="issue__desc">El color #6b7785 sobre fondo claro puede no pasar WCAG AA (ratio 4.5:1). Verificar con herramienta de contraste.</div>
+        <div class="issue__tags"><span class="tag tag--a11y">Accesibilidad</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--warn">11</div>
+      <div class="issue__body">
+        <div class="issue__title">CSS sin minificar — 30KB</div>
+        <div class="issue__desc">171 bloques indentados. Un minificado reduce ~30-40% el tamaño y mejora tiempo de parseo.</div>
+        <div class="issue__tags"><span class="tag tag--perf">Performance</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--warn">12</div>
+      <div class="issue__body">
+        <div class="issue__title">&lt;footer&gt; duplicado ×4</div>
+        <div class="issue__desc">El gate y el sitio comparten HTML. Hay 4 tags &lt;footer&gt; en el mismo archivo, causando confusión semántica.</div>
+        <div class="issue__tags"><span class="tag tag--ux">UX</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENORES -->
+  <div class="section" style="border-left:4px solid var(--navy)">
+    <h2><span class="icon">🔵</span> Menores <span class="badge badge--info">4 items</span></h2>
+
+    <div class="issue">
+      <div class="issue__num issue__num--info">13</div>
+      <div class="issue__body">
+        <div class="issue__title">8 inline styles</div>
+        <div class="issue__desc">Se pueden mover a clases CSS para mejor mantenimiento.</div>
+        <div class="issue__tags"><span class="tag tag--css">CSS</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--info">14</div>
+      <div class="issue__body">
+        <div class="issue__title">H2 "Bienvenido" en gate</div>
+        <div class="issue__desc">No aporta al SEO ni a la experiencia. Podría ser más descriptivo o eliminarse.</div>
+        <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--info">15</div>
+      <div class="issue__body">
+        <div class="issue__title">Preconnect a Google Fonts</div>
+        <div class="issue__desc">Ya existe preconnect, pero no preload del CSS de fuentes. Opcional pero mejora primer paint.</div>
+        <div class="issue__tags"><span class="tag tag--perf">Performance</span></div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="issue__num issue__num--info">16</div>
+      <div class="issue__body">
+        <div class="issue__title">Meta description = 146 chars</div>
+        <div class="issue__desc">Google recorta a ~155. Estás en el límite. Ideal: 120-130 caracteres.</div>
+        <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAN DE ACCION -->
+  <div class="section">
+    <h2><span class="icon">📋</span> Plan de Acción</h2>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Paso</th>
+          <th>Mejora</th>
+          <th>Impacto</th>
+          <th>Esfuerzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>Agregar &lt;main&gt; wrapper</td>
+          <td><span class="badge badge--bad">Crítico</span></td>
+          <td>5 min</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>Canonical + og:image + twitter:card</td>
+          <td><span class="badge badge--bad">Crítico</span></td>
+          <td>10 min</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td>loading="lazy" en imágenes below-the-fold</td>
+          <td><span class="badge badge--bad">Crítico</span></td>
+          <td>5 min</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td>&lt;link rel="preload" as="image" href="hero-cam.jpg"&gt;</td>
+          <td><span class="badge badge--bad">Crítico</span></td>
+          <td>2 min</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td>Agregar tel: en números de teléfono</td>
+          <td><span class="badge badge--bad">Crítico</span></td>
+          <td>5 min</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td>JSON-LD LocalBusiness schema</td>
+          <td><span class="badge badge--warn">Alto</span></td>
+          <td>15 min</td>
+        </tr>
+        <tr>
+          <td><strong>7</strong></td>
+          <td>Limpiar CSS duplicados</td>
+          <td><span class="badge badge--warn">Medio</span></td>
+          <td>20 min</td>
+        </tr>
+        <tr>
+          <td><strong>8</strong></td>
+          <td>Quitar !important</td>
+          <td><span class="badge badge--info">Bajo</span></td>
+          <td>10 min</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Auditoría generada por <strong>Apex Cloud Work</strong> · Cartago, Costa Rica<br>
+    atlanteksystems.com · 14 septiembre 2026
+  </div>
+
+</div>
+
+</body>
+</html>
