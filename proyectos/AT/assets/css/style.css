@@ -1317,7 +1317,7 @@ body.gate-open { overflow: hidden; }
   margin-bottom: 22px;
 }
 .gate__brand-img {
-  height: 60px;
+  height: 120px;
   width: auto;
   object-fit: contain;
   border-radius: 0;
