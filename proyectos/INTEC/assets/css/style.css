@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════════════════
    INTEC · Landing pública — style.css · v4 "Control Room"
    Mismo sistema visual que dashboard.css (negro/rojo) · Fraunces + Courier Prime · Mobile-first
    ═══════════════════════════════════════════════════════════════ */
@@ -487,6 +487,29 @@ h1 em { font-style: normal; color: var(--navy-light); }
   color: var(--faint);
 }
 
+.brands__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.brands__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .55;
+  transition: opacity .3s;
+}
+
+.brands__item:hover { opacity: 1; }
+
+.brands__item img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
 .brands__banner {
   width: 100%;
   overflow: hidden;
@@ -865,6 +888,21 @@ h1 em { font-style: normal; color: var(--navy-light); }
   letter-spacing: .4px;
   color: var(--faint) !important;
 }
+.footer__legal {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .5px;
+  color: var(--faint);
+}
+
+.footer__legal a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer__legal a:hover { color: var(--ink); }
 .footer__credit a {
   color: var(--muted);
   text-decoration: none;
