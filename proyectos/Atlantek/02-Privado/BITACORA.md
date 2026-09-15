@@ -481,3 +481,64 @@ Siguiente paso: ...
 
 **Estado:** ✅ iconografía y radar publicados; verificados en producción con URL cache-busted `?v=61b819b` (HTTP 200, radar nuevo visible, saludo sin emoji).
 **Siguiente paso:** QA visual desktop/mobile del radar y continuar con retiro de documentos legales internos públicos.
+
+---
+
+### 2026-09-15 22:30 — 🔐 Panel Admin privado deployado a Cloudflare Pages
+
+**Contexto:** repo público `atlanteksystems` saneado (sin admin/dashboard). Repo privado `atlanteksystems-admin` creado con panel completo. DNS del dominio principal en cuenta de Daniel (Cloudflare).
+
+**Qué se hizo:**
+- [x] Repo `apexcloudworkscompany/atlanteksystems-admin` (privado) verificado: `admin.html`, `dashboard.html`, `assets/` completo, `config.js` con `TOKEN_ADMIN` correcto (`atlantek-adm-vemsw0y4ugh5r691`)
+- [x] Cloudflare Pages project `atlantek-admin` creado (account `187e470c5f26d96248f1fc7fb3cdc4fe`)
+- [x] Deploy inicial: `https://eaba5c43.atlantek-admin.pages.dev` → alias de producción `https://atlantek-admin.pages.dev`
+- [x] Verificación: `admin.html` y `dashboard.html` cargan (308 redirect a trailing slash, esperado en Pages)
+
+**Pendiente para dominio oficial `admin.atlanteksystems.com`:**
+- [ ] DNS: agregar CNAME `admin` → `atlantek-admin.pages.dev` (proxy OFF/gris) en Cloudflare de Daniel (zona `atlanteksystems.com`, account `5dbefbe5b2f7216c3a2622d1857e5159`)
+- [ ] Cloudflare Pages → Custom domain: `admin.atlanteksystems.com` → Enforce HTTPS
+- [ ] Cloudflare Access (Zero Trust): política de acceso (email/PIN) para proteger el panel
+
+**Bloqueante crítico previo:** redeploy del Apps Script con `Code.gs` nuevo (tokens separados) — sin esto, el panel no carga datos (backend sigue con token viejo `Atlantek-2026`).
+
+**Archivos tocados:**
+- `02-Privado/panel-admin/` (deploy completo)
+- Repo `atlanteksystems-admin` (source)
+
+**Estado:** ✅ panel LIVE en `https://atlantek-admin.pages.dev` · ⏳ dominio oficial pendiente DNS (cuenta Daniel) · 🔴 redeploy Apps Script pendiente
+**Siguiente paso:** coordinar con Daniel CNAME `admin` en Cloudflare + redeploy Apps Script → probar panel end-to-end.
+
+---
+
+### 2026-09-15 19:xx — 🚀 Deploy producción: admin + dashboard público + spacing tokens + limpieza FAQ
+
+**Qué se hizo:**
+- [x] **Monorepo Apex** commiteado y pusheado: `2a71b4f` "feat(at): admin + dashboard acceso público con gate, footer links, email unificado, spacing tokens, cleanup FAQ section" (25 archivos)
+- [x] **Repo Pages `apexcloudworkscompany/atlanteksystems`** force-pusheado (`02f3643`) con versión completa:
+  - `admin.html` + `dashboard.html` en raíz con gate de contraseña (`atlantek2026` → hash btoa)
+  - Assets: `admin.css`, `dashboard.css`, `app.js`, `store.js`, `dashboard.js`, `config.js`, logos, favicon
+  - `index.html`: footer con enlaces "Gestión" / "Dashboard" (clase `.footer__admin` discreta, mono 10px)
+  - `style.css`: tokens de spacing (`--space-section: 130px`, `--space-head: 80px`, `--space-card: 32px`, `--container: 1200px`, `--radius: 12px`)
+  - Email unificado: `soporte@atlanteksystems.com` en JSON-LD y sección contacto (antes `soporteintec.cr@gmail.com`)
+  - Limpieza: eliminada sección FAQ duplicada (el chat bot ya cubre preguntas frecuentes)
+  - Legal pages preservadas en `/Legal/`
+
+**Archivos tocados (monorepo):**
+- `proyectos/Atlantek/01-Cliente/web/index.html` (footer, email)
+- `proyectos/Atlantek/01-Cliente/web/admin.html` (nuevo)
+- `proyectos/Atlantek/01-Cliente/web/dashboard.html` (nuevo)
+- `proyectos/Atlantek/01-Cliente/web/assets/css/style.css` (tokens, footer__admin)
+- `proyectos/Atlantek/01-Cliente/web/assets/css/` (admin.css, dashboard.css copiados)
+- `proyectos/Atlantek/01-Cliente/web/assets/js/` (config.js, store.js, app.js, dashboard.js copiados)
+- `proyectos/Atlantek/01-Cliente/web/assets/img/` (logos, favicon copiados)
+- `proyectos/Atlantek/02-Privado/BITACORA.md` (esta entrada)
+
+**Verificación en vivo (post-deploy):**
+- [ ] `https://atlanteksystems.com/` → 200, hero, servicios, cobertura, formulario, chat bot
+- [ ] `https://atlanteksystems.com/admin.html` → gate de contraseña → panel gestión
+- [ ] `https://atlanteksystems.com/dashboard.html` → gate de contraseña → dashboard negocio
+- [ ] Footer enlaces "Gestión" / "Dashboard" visibles y funcionales
+- [ ] Spacing aumentado (más aire, presencia profesional)
+
+**Estado:** ✅ desplegado en GitHub Pages (monorepo + Pages repo sincronizados)
+**Siguiente paso:** verificación manual en producción (desktop + mobile 375px) · redeploy Apps Script con tokens nuevos · coordinar GBP/Search Console con Daniel
