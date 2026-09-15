@@ -7,19 +7,21 @@
 
 - **Fecha:** 2026-09-15
 
-## Bloque: Seguridad Atlantek — fuga de datos admin cerrada
+## Bloque: Atlantek — dominio oficial + mobile fix + chat FAQ
 
-**Proyecto:** Atlantek Systems (CCTV Guápiles)
+**Proyecto:** Atlantek Systems (CCTV Guápiles) — `atlanteksystems.com`
 
-- 🔴 **Vulnerabilidad cerrada:** token backend (`intec-2026`) estaba en repo público de Pages (servido en vivo) → cualquiera leía clientes/proformas/leads y podía borrar todo (`action=save`)
-- [x] **Tokens divididos** en `Code.gs`: `TOKEN_PUBLICO` (solo lead/user) · `TOKEN_ADMIN` (load/save/lead-status)
-- [x] `apps-script/` y panel admin (`admin.html`, `dashboard.html`, store/app/dashboard.js, css) → **movidos a `02-Privado/`** (fuera del repo público)
-- [x] `config.js` público solo con token público nuevo (`atlantek-pub-cs0v95l7ae`)
-- [x] Repo Pages commit `8c3060b` (rebase sobre `e874d5d` de otro agente) · verificado: admin/apps-script/store → 404 · config.php sin tokens viejos
-- 🟠 **CRÍTICO PENDIENTE (manual):** **redeploy del Code.gs nuevo en Google Apps Script** — hasta entonces el backend sigue aceptando `intec-2026` y el form no guarda leads
-- **Regla respetada:** no se borró nada sin consentimiento; el caso `CEO/PLAN-SEO-LOCAL.md` quedó intacto (creado por otro agente)
+### Completado hoy
+- [x] 🔴 **Vulnerabilidad cerrada** (temprano): token backend en repo público → dividido pub/adm; admin/apps-script movidos a `02-Privado/`
+- [x] **Dominio oficial LIVE:** `https://atlanteksystems.com/` → 200, www redirect, https_enforced, cert provisionado
+- [x] **Mobile 375px (Playwright):** `.wa-float` oculto ≤680px (redundante con cta-bar), footer padding 118px
+- [x] **💬 Chat FAQ** — botón flotante → panel 6 preguntas + respuesta automática + CTA WhatsApp. Desktop + mobile probado. Pages `e17e7b3`
+- [x] Repos Pages al día · bitácora al día
 
-**Tokens nuevos:** pub=`atlantek-pub-cs0v95l7ae` · adm=`atlantek-adm-vemsw0y4ugh5r691`
-**Ruta backend:** `02-Privado/apps-script/Code.gs` · **panel:** `02-Privado/panel-admin/`
-
-**Siguiente paso:** redeploy Apps Script en Google · commit monorepo local · plan SEO cliente-side · mobile 375px.
+### Pendiente
+- 🔴 **CRÍTICO (manual):** Redeploy `02-Privado/apps-script/Code.gs` en Google Apps Script (token viejo `intec-2026` sigue activo en backend)
+- **Search Console:** propiedad `https://atlanteksystems.com/` (Garett crea URL-prefix → trae meta tag → lo agrego → verifico)
+- **GBP (Daniel):** crear/reclamar, fotos, 7 distritos, web → atlantek, reseñas (PLAN-SEO-LOCAL.md Bloque 3)
+- Commit monorepo (chat + bitácora + buffer) pendiente
+- Probar chat a mano en iPhone real
+- WhatsApp a Daniel con plan completo

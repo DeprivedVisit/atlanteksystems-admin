@@ -343,3 +343,18 @@ Siguiente paso: ...
 
 **Estado:** ✅ mobile validado en producción · repos sincronizados
 **Siguiente paso:** Search Console propiedad `https://atlanteksystems.com/` (con Daniel) · GBP del cliente (Bloque 1) · coordinar con Daniel el plan completo.
+
+---
+
+### 2026-09-15 17:2x — 💬 Chat de preguntas frecuentes (respuestas automáticas)
+
+**Qué se hizo:**
+- Nuevo widget de chat en la página (desktop + mobile): botón flotante azul "burbuja" → abre panel con saludo + 6 chips de preguntas (mismo contenido que el FAQ real del sitio: precios $350-$600, garantía 12 meses/90 días, app móvil, cobertura Pococí, 1 día de instalación, sin contrato)
+- Respuesta automática con animación "escribiendo…" · chips respondidos se marcan (tachados, deshabilitados) · botón "Hablar con un asesor por WhatsApp" al pie
+- Arquitectura separada Apex: markup en `index.html` · estilos `.chat-*` en `style.css` (paleta de la página, glassmorphism del sistema) · lógica FAQ en `script.js`
+- Bug encontrado y corregido en QA: `hidden` attribute no ganaba sobre `display:flex` (panel se veía siempre) + el listener global de "click fuera" cerraba el chat al re-renderizar el SVG del FAB → solución con clase `.is-open` (display:none por defecto) + guard `e.target.isConnected`
+- Deploy: repo Pages `e17e7b3` (3 commits de esta feature) · mono-repo pendiente de commit
+- QA Playwright producción 1280px + 375px: panel abre ✅ · 6 chips ✅ · respuesta con $ ✅ · chip marcado ✅ · sin solape con el CTA móvil (gap 22px FAB / 83px panel) ✅
+
+**Estado:** ✅ chat LIVE en atlanteksystems.com
+**Siguiente paso:** probarlo a mano en el celu (iPhone SE) como usuario · monorepo commit · avisar a Daniel del chat.
