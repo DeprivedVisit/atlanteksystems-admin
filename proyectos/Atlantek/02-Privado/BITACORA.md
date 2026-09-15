@@ -542,3 +542,23 @@ Siguiente paso: ...
 
 **Estado:** ✅ desplegado en GitHub Pages (monorepo + Pages repo sincronizados)
 **Siguiente paso:** verificación manual en producción (desktop + mobile 375px) · redeploy Apps Script con tokens nuevos · coordinar GBP/Search Console con Daniel
+
+---
+
+### 2026-09-15 19:30 — 🔧 Fix crítico: CNAME faltante → dominio caído 404
+
+**Síntoma:** `https://atlanteksystems.com/` devolvía **404 Not Found** aunque DNS resolvía a IPs de GitHub Pages.
+
+**Causa raíz:** el repo `apexcloudworkscompany/atlanteksystems` no tenía archivo `CNAME` en la raíz → GitHub Pages no activaba el custom domain aunque el DNS estuviera correcto.
+
+**Qué se hizo:**
+- [x] Creado `CNAME` con contenido `atlanteksystems.com` en `01-Cliente/web/`
+- [x] Commit + push a repo Pages (`e944973`) y monorepo (`81c63ce`)
+- [x] Esperado ~30s rebuild de GitHub Pages
+- [x] Verificado: **200 OK** en `/`, `/admin.html`, `/dashboard.html`
+
+**Archivos tocados:**
+- `proyectos/Atlantek/01-Cliente/web/CNAME` (nuevo)
+
+**Estado:** ✅ dominio oficial FUNCIONANDO · HTTPS · admin/dashboard accesibles
+**Siguiente paso:** verificación mobile 375px · redeploy Apps Script · GBP/Search Console con Daniel
