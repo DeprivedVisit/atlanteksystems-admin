@@ -8,15 +8,24 @@
  *   - Config      (nextNumber)
  *
  * API:
- *   GET  ?action=load&token=XXX          → estado completo (JSON)
- *   POST body JSON {token, action:'save', data:{clients,docs,nextNumber}}
+ *   GET  ?action=load&token=TOKEN_ADMIN        → estado completo (JSON)
+ *   POST body JSON {token, action:'save', data} → solo TOKEN_ADMIN
+ *   POST body JSON {token, action:'lead', lead} → solo TOKEN_PUBLICO
+ *
+ * SEGURIDAD (2026-09-15):
+ *   - TOKEN_PUBLICO: solo permite escribir leads y usuarios desde el sitio público.
+ *   - TOKEN_ADMIN:   permite load / save / lead-status (datos de clientes y facturación).
+ *   - Ningún token vive en el repositorio público / sitio publico — el Code.gs
+ *     se deploya solo desde Google (copiar a 02-Privado/apps-script/ si se re-deploya).
  *
  * Deploy: Implementar → Nueva implementación → App web
  *   Ejecutar como: yo · Acceso: cualquier persona
- *   Pegar la URL /exec en assets/js/config.js
+ *   Pegar la URL /exec en assets/js/config.js (site público, token público)
+ *   y en 02-Privado/panel-admin/assets/js/config.js (panel admin, token admin).
  */
 
-var TOKEN = 'intec-2026'; // ⚠️ cambiar y mantener igual al de config.js
+var TOKEN_PUBLICO = 'atlantek-pub-cs0v95l7ae'; // solo acción 'lead' y 'user'
+var TOKEN_ADMIN   = 'atlantek-adm-vemsw0y4ugh5r691'; // load / save / lead-status
 
 /* ══════════ NOTIFICACIONES AL CEO ══════════
    Daniel Pérez Jiménez — dueño de la web.
@@ -106,7 +115,7 @@ function sheet_(name, headers) {
 
 function doGet(e) {
   var p = (e && e.parameter) || {};
-  if (p.token !== TOKEN) return json_({ ok: false, error: 'token inválido' });
+  if (p.token !== TOKEN_ADMIN) return json_({ ok: false, error: 'token inválido' });
   if (p.action !== 'load') return json_({ ok: false, error: 'acción desconocida' });
 
   var shC = sheet_(SHEET_CLIENTES, HEAD_CLIENTES);
@@ -169,7 +178,7 @@ function doPost(e) {
   try { body = JSON.parse(e.postData.contents); }
   catch (err) { return json_({ ok: false, error: 'JSON inválido' }); }
 
-  if (body.token !== TOKEN) return json_({ ok: false, error: 'token inválido' });
+  if (body.token !== TOKEN_PUBLICO) return json_({ ok: false, error: 'token inválido' });
 
   /* Lead del formulario público del sitio → append a hoja Leads */
   if (body.action === 'lead' && body.lead) {
@@ -246,6 +255,8 @@ function doPost(e) {
   }
 
   if (body.action !== 'save' || !body.data) return json_({ ok: false, error: 'acción desconocida' });
+
+  if (body.token !== TOKEN_ADMIN) return json_({ ok: false, error: 'token inválido' });
 
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);

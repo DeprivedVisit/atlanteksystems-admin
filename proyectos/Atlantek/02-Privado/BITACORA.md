@@ -302,3 +302,19 @@ Siguiente paso: ...
 
 **Estado:** ✅ dominio oficial en línea · monorepo sincronizado con remote (sin ahead) · 0 pendientes de git en AT
 **Siguiente paso:** ⏳ reconfirmar en ~30-60 min que `http://atlanteksystems.com` redirija a https (provisión de cert) · Search Console propiedad de dominio nuevo + GBP web → atlanteksystems.com · validar mobile 375px · sesión SEO: enviar mensaje Daniel con guión GBP/reseñas.
+
+---
+
+### 2026-09-15 17:0x — ✅ HTTPS redirect confirmado + test mobile 375px (Playwright)
+
+**Qué se hizo:**
+- [x] **http→https redirect CONFIRMADO:** `http://atlanteksystems.com/` → 200 sirviendo desde `https://atlanteksystems.com/` (cert ya provisionado por GitHub)
+- [x] **Test mobile 375px (iPhone SE)** con Playwright en producción:
+  - [x] Sticky CTA bar visible ✅
+  - [x] Redundancia detectada: `.wa-float` (WhatsApp flotante) se solapaba 18px sobre el `cta-bar` (wa bottom 728 vs cta top 710) — y ya existía botón WhatsApp dentro del cta-bar (`.cta-bar__btn`)
+  - [x] Fix `style.css` ≤680px: `.wa-float { display: none }` (redundante en mobile) + `.footer { padding-bottom: calc(118px + ...) }` (subido de 84px porque la barra mide ~102px reales)
+  - [x] Re-test: WA box None ✅ · cta-bar 375px ✅ · sección `#guapiles` grid 1-col (stacked) ✅
+- [x] Repo Pages: commit `e874d5d` (pulled de origin + push) · Monorepo: `a8d171e` pusheado a origin
+
+**Estado:** ✅ mobile validado en producción · repos sincronizados
+**Siguiente paso:** Search Console propiedad `https://atlanteksystems.com/` (con Daniel) · GBP del cliente (Bloque 1) · coordinar con Daniel el plan completo.
