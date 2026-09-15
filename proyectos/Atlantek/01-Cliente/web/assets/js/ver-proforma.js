@@ -1,4 +1,4 @@
-﻿/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    Atlantek · ver-proforma.js — vista pública de un documento
    Uso: ver-proforma.html?n=27  (por número)  |  ?id=d27  (por id)
    Renderiza la misma hoja del admin (assets/css/admin.css) sin
@@ -45,7 +45,7 @@
         <h2 style="font-size:22px;margin-bottom:10px">Documento no encontrado</h2>
         <p style="font-size:13px">Verifique el enlace o escríbanos por WhatsApp y se lo reenviamos.</p>
         <a href="${waHref('Hola Atlantek, no encuentro el documento que me enviaron.')}"
-           style="display:inline-block;margin-top:18px;background:#CE1212;color:#fff;padding:12px 22px;text-decoration:none;font-size:13px">Contactar por WhatsApp</a>
+           style="display:inline-block;margin-top:18px;background:#1a6aff;color:#fff;padding:12px 22px;text-decoration:none;font-size:13px;border-radius:6px;font-weight:600">Contactar por WhatsApp</a>
       </div>`;
     return;
   }

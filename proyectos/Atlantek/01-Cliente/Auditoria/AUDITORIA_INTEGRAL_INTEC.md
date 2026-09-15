@@ -134,7 +134,9 @@ Para que INTEC no sea "otro instalador más", estas 4 funciones convertirán la 
 - [x] Eliminar scanline global que degradaba el logo y textos.
 - [x] Sustituir todas las fotos dummy por fotografía 4K de CCTV e instalaciones.
 - [x] Centrar y alinear el isotipo con la línea base de INTEC.
-- [ ] Ocultar los enlaces de Dashboard y Admin del footer en index.html.
+- [x] Ocultar los enlaces de Dashboard y Admin del footer en index.html.
+- [x] Corregir error de sintaxis HTML (div huérfano tras <main>).
+- [x] Eliminar apertura automática forzada del Gate de entrada para evitar rebote.
 - [ ] Probar el flujo completo en pantalla móvil iPhone/Android.
 
 ### Prioridad P1 — Cierre de Venta ( Setup + /mes)
@@ -144,7 +146,7 @@ Para que INTEC no sea "otro instalador más", estas 4 funciones convertirán la 
 
 ### Prioridad P2 — Despliegue en AWS Producción
 - [ ] Migrar el Google Sheet a la cuenta oficial de INTEC (soporteintec.cr@gmail.com).
-- [ ] Proteger dmin.html y dashboard.html con contraseña de sesión.
+- [x] Proteger admin.html y dashboard.html con contraseña de sesión (auth-gate).
 - [ ] Desplegar en S3 + CloudFront con certificado SSL de Amazon (ACM) y Route 53.
 - [ ] Configurar Google Business Profile en Guápiles para dominar las búsquedas orgánicas.
 

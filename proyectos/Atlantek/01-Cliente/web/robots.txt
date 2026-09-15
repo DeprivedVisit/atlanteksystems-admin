@@ -1,0 +1,12 @@
+# Atlantek Systems · robots.txt
+# Dominio live temporal: https://apexcloudworkscompany.github.io/atlanteksystems/
+# Cuando se active atlanteksystems.com, actualizar la URL del Sitemap.
+
+User-agent: *
+Allow: /
+
+# Páginas privadas de gestión: no indexar
+Disallow: /admin.html
+Disallow: /dashboard.html
+
+Sitemap: https://apexcloudworkscompany.github.io/atlanteksystems/sitemap.xml

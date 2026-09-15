@@ -1,4 +1,4 @@
-﻿/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    Atlantek · app.js — vistas, router y eventos
    ═══════════════════════════════════════════════════════════════ */
 
@@ -111,7 +111,7 @@
           <span class="view-head__kicker">Atlantek · Gestión</span>
           <h1>Dashboard</h1>
         </div>
-        <a href="#/editor" class="btn btn--red">+ Nueva proforma</a>
+        <a href="#/editor" class="btn btn--navy">+ Nueva proforma</a>
       </div>
 
       <div class="stats">
@@ -765,7 +765,7 @@
 
         <div class="editor__actions">
           <a href="#/documentos" class="btn btn--ghost">Cancelar</a>
-          <button class="btn btn--red" id="ed-save">Guardar ${existing ? 'cambios' : 'documento'}</button>
+          <button class="btn btn--navy" id="ed-save">Guardar ${existing ? 'cambios' : 'documento'}</button>
         </div>
       </div>
     `;

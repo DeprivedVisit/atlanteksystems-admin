@@ -1,4 +1,4 @@
-﻿/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    Atlantek · Landing pública — script.js
    ═══════════════════════════════════════════════════════════════ */
 
@@ -23,6 +23,11 @@
     });
   }
 
+  /* ── Nav con profundidad al hacer scroll ── */
+  const onScroll = () => nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
   /* ── Reveal on scroll ── */
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
@@ -33,7 +38,40 @@
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  /* Reveal escalonado: retardo creciente por posición entre hermanos */
+  document.querySelectorAll('.reveal').forEach((el) => {
+    const siblings = Array.prototype.filter.call(el.parentElement.children, (c) => c.classList.contains('reveal'));
+    const idx = siblings.indexOf(el);
+    if (idx > 0) el.style.transitionDelay = `${Math.min(idx * 0.09, 0.6)}s`;
+    io.observe(el);
+  });
+
+  /* ── Stats del hero: contador animado ── */
+  const countStat = (el) => {
+    const target = parseFloat(el.dataset.count);
+    if (Number.isNaN(target)) { el.textContent = el.dataset.count; return; }
+    const dur = 900;
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const ioStats = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        en.target.querySelectorAll('[data-count]').forEach(countStat);
+        ioStats.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  const statsEl = document.querySelector('.hero__stats');
+  if (statsEl) ioStats.observe(statsEl);
 
   /* ── Reloj de la cámara del hero ── */
   const camTime = document.getElementById('cam-time');
@@ -47,103 +85,40 @@
     setInterval(tick, 1000);
   }
 
-  /* ── Gate de entrada: crear usuario o entrar sin usuario ──
-     Con usuario (localStorage) la cotización rápida queda habilitada
-     y prellenada; sin usuario, el formulario se bloquea. */
+  /* ── Usuario opcional (pre-llenado) ──
+     El formulario de cotización está SIEMPRE habilitado. Si existe un
+     usuario guardado, se pre-llenan nombre y teléfono. Sin registro requerido. */
   const USER_KEY = 'atlantek-user';
-
-  const gate = document.getElementById('gate');
-  const gateForm = document.getElementById('gate-form');
-  const gateGuest = document.getElementById('gate-guest');
-  const gateError = document.getElementById('gate-error');
   const leadFormEl = document.getElementById('lead-form');
-  const leadLock = document.getElementById('lead-lock');
   const leadUser = document.getElementById('lead-user');
-  const leadUnlock = document.getElementById('lead-unlock');
 
   const getUser = () => {
     try { return JSON.parse(localStorage.getItem(USER_KEY)); }
     catch (e) { return null; }
   };
 
-  const openGate = () => { gate.hidden = false; document.body.classList.add('gate-open'); };
-  const closeGate = () => { gate.hidden = true; document.body.classList.remove('gate-open'); };
-
   function applyAccess() {
     if (!leadFormEl) return;
     const user = getUser();
-    const campos = leadFormEl.querySelectorAll('input, select, textarea, button[type="submit"]');
-
-    if (user) {
-      leadFormEl.classList.remove('is-locked');
-      leadLock.hidden = true;
-      campos.forEach((el) => { el.disabled = false; });
-      if (!leadFormEl.nombre.value) leadFormEl.nombre.value = user.nombre || '';
-      if (!leadFormEl.telefono.value) leadFormEl.telefono.value = user.telefono || '';
+    if (!user) {
+      if (leadUser) leadUser.hidden = true;
+      return;
+    }
+    if (!leadFormEl.nombre.value) leadFormEl.nombre.value = user.nombre || '';
+    if (!leadFormEl.telefono.value) leadFormEl.telefono.value = user.telefono || '';
+    if (leadUser) {
       leadUser.hidden = false;
       leadUser.innerHTML =
-        `● Usuario: ${user.nombre.split(' ')[0]} <a href="#" id="lead-logout">Cerrar sesión</a>`;
+        `● Usuario: ${user.nombre.split(' ')[0]} <a href="#" id="lead-logout">Olvidar</a>`;
       document.getElementById('lead-logout').addEventListener('click', (e) => {
         e.preventDefault();
         localStorage.removeItem(USER_KEY);
-        applyAccess();
-        openGate();
+        leadUser.hidden = true;
       });
-    } else {
-      leadFormEl.classList.add('is-locked');
-      leadLock.hidden = false;
-      leadUser.hidden = true;
-      campos.forEach((el) => { el.disabled = true; });
     }
   }
 
-  if (gate && leadFormEl) {
-    /* Al entrar: si no hay usuario, el gate se muestra siempre.
-       ?nogate=1 es solo para previsualizar diseño sin cerrar el modal
-       a cada rato — no cambia el comportamiento real para clientes. */
-    const skipGate = new URLSearchParams(location.search).has('nogate');
-    if (!getUser() && !skipGate) openGate();
-    applyAccess();
-
-    gateGuest.addEventListener('click', () => {
-      closeGate();
-      applyAccess();
-    });
-
-    leadUnlock.addEventListener('click', openGate);
-
-    gateForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const f = new FormData(gateForm);
-      const user = {
-        nombre: String(f.get('nombre') || '').trim(),
-        telefono: String(f.get('telefono') || '').trim(),
-        email: String(f.get('email') || '').trim(),
-        creado: new Date().toISOString()
-      };
-
-      if (!user.nombre || !user.telefono) {
-        gateError.textContent = 'Complete su nombre y teléfono.';
-        gateError.classList.add('is-on');
-        return;
-      }
-      gateError.classList.remove('is-on');
-
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-
-      /* Registro en Sheets (hoja Usuarios) — no bloquea la entrada si falla */
-      if (typeof CONFIG !== 'undefined' && CONFIG.SHEETS_URL) {
-        fetch(CONFIG.SHEETS_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ token: CONFIG.TOKEN, action: 'user', user })
-        }).catch(() => {});
-      }
-
-      closeGate();
-      applyAccess();
-    });
-  }
+  applyAccess();
 
   /* ── Formulario de cliente nuevo ──
      Envía el lead al Apps Script (hoja "Leads"). Si falla la conexión,
