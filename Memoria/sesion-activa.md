@@ -7,21 +7,20 @@
 
 - **Fecha:** 2026-09-15
 
-## Bloque: DNS + dominio + commits · Atlantek
+## Bloque: Orden de carpetas + SEO AT/Atlantek (continuación)
 
-**Proyecto:** Atlantek Systems (CCTV Guápiles/Pococí)
+**Proyecto:** Atlantek Systems (ex INTEC) — Cliente CCTV Guápiles/Pococí
 
-- [x] **DNS `atlanteksystems.com` LIVE:** apex A → IPs GitHub Pages (185.199.108-111.153) · www CNAME → `apexcloudworkscompany.github.io` ✓
-- [x] Repo Pages: archivo `CNAME` (`ba21666`) → custom domain + TLS activado por GitHub
-- [x] **Flip a dominio oficial** (`4d97ff7`): canonical/og/twitter/JSON-LD + sitemap.xml + robots.txt → `https://atlanteksystems.com/`
-- [x] Verificado live: `https://atlanteksystems.com/` 200 + canonical oficial · sitemap 200 · robots 200 · **www 200**
-- [x] **Commits:** monorepo `F:\apex-cloudworks` `16a0fac` (renames AT→Atlantek + memoria SEO) · repo Pages `ba21666` (CNAME) + `4d97ff7` (flip dominio)
-- [x] Estructura: `proyectos/Atlantek/01-Cliente/web` (sitio) + `02-Privado` (docs) — ver BITACORA
-- ⚠️ Nota colisión: `proyectos/Atlantek/CEO/PLAN-SEO-LOCAL.md` creado por OTRO agente en paralelo (CEO ya no estaba vacía cuando se movió) → NO se borró, quedó intacto
-- ⚠️ Regla aceptada de Garett: **nunca borrar carpetas/archivos sin consentimiento**
+- [x] **Repos al día (commit `667b7cf`, push OK a origin):** monorepo `F:\apex-cloudworks` sincronizado con remote, 0 ahead.
+- [x] **🌐 DOMINIO OFICIAL LIVE:** `atlanteksystems.com` resuelve (GitHub Pages IPs) · `www` → CNAME apex · `https://atlanteksystems.com` → 200 · `www` redirect a apex · robots/sitemap 200 apuntando al dominio
+- [x] **Canonical/og/JSON-LD flipeado en producción** (repo Pages `4d97ff7` + `ba21666` CNAME file) — hecho por agente paralelo, verificado por mí y commiteado al monorepo
+- [x] **`https_enforced: true` activado** vía `PUT /pages` (estaba en false) — html_url ahora https
+- [x] `ACTIVAR-DOMINIO-OFICIAL.md` checklist → hecho · `CEO/PLAN-SEO-LOCAL.md` Bloque 6 → hecho/faltantes marcados · BITACORA.md entrada 16:4x
+- [x] Plan SEO + `CEO/PLAN-SEO-LOCAL.md` (creado antes) sigue siendo el documento de trabajo con Daniel
 
 **Pendiente:**
-- repo Pages Settings → verificar Custom domain `atlanteksystems.com` + Enforce HTTPS (github.io aún 200 sin redirect; canonical ya salva SEO)
-- Plan SEO cliente-side (doc para Daniel): Google Business Profile · Search Console · reviews · citas locales (pococicta.com) · fotos instalaciones
-- Mobile 375px visual
-- Skindoctors: cobro $450 vencido (sigue heredado)
+- ⏳ Reconfirmar ~30-60 min: `http://atlanteksystems.com` → redirect a https (cert en provisión)
+- **Search Console:** agregar propiedad `https://atlanteksystems.com/` + reenviar sitemap (puente con Daniel)
+- **GBP (Daniel):** crear/reclamar perfil, fotos, areaServed 7 distritos, web → atlanteksystems.com · reseñas (guión ready en el plan)
+- Validar mobile 375px (iPhone SE) — grid seo-local + sticky CTA
+- Wranger/token Cloudflare sigue solo lectura — si hace falta editar DNS en el futuro, pedir edit:zone o MCP

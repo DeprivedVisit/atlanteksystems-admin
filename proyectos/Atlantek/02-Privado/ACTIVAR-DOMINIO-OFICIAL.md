@@ -81,7 +81,14 @@ La propagación DNS puede tardar hasta ~24 h (normalmente 10-30 min).
 
 ## Hecho ✅
 
-- [ ] PASO 1 completado por Daniel
-- [ ] PASO 2 completado en Settings del repo
-- [ ] PASO 3 verificado
-- [ ] `https://atlanteksystems.com` y `www` cargando
+> Actualizado 2026-09-15 — el dominio quedó **LIVE** (lo activó un agente / Daniel vía Cloudflare DNS).
+
+- [x] PASO 1 completado (CNAME `@` + `www` → `apexcloudworkscompany.github.io`, proxy OFF)
+- [x] CNAME file en repo Pages (commit `ba21666` "add CNAME for atlanteksystems.com")
+- [x] PASO 2 completado — custom domain `atlanteksystems.com` en Settings → Pages
+- [x] Canonical/og/robots/sitemap flipeados a dominio oficial (repo Pages `4d97ff7`, monorepo `667b7cf`)
+- [x] PASO 3 verificado: `https://atlanteksystems.com/` → **200** · `https://www.atlanteksystems.com/` → redirect al apex ✅ · `robots.txt` + `sitemap.xml` → 200 ✅
+- [x] `https_enforced: true` activado vía API (PUT pages) — html_url ahora https
+- ⏳ **Verificar en ~30-60 min:** que `http://atlanteksystems.com` redirija a HTTPS (GitHub provisionando cert del custom domain)
+
+**Nota:** `https://apexcloudworkscompany.github.io/atlanteksystems/` (github.io) sigue sirviendo como respaldo — no es canónico pero no estorba.

@@ -285,3 +285,20 @@ Siguiente paso: ...
 
 **Estado:** ✅ documento listo para reunión con Daniel
 **Siguiente paso:** coordinar con Daniel (GBP + reseñas) / flipear dominio cuando active CNAME / validar mobile 375px / commit monorepo (82 cambios stageados).
+
+---
+
+### 2026-09-15 16:4x — 🔗 DOMINIO OFICIAL LIVE + repo monorepo al día + HTTPS enforcement
+
+**Contexto:** el dominio se activó (CNAME `@`/`www` en Cloudflare + CNAME file + custom domain en Pages). Este bloque lo verifica y cierra.
+
+**Qué se hizo (verificación + cierre):**
+- [x] DNS verificado: `atlanteksystems.com` → A/AAAA `185.199.*` (GitHub Pages) · `www` → CNAME → `apexcloudworkscompany.github.io`
+- [x] `https://atlanteksystems.com/` → **200** · `https://www.atlanteksystems.com/` → redirect al apex · robots.txt + sitemap.xml → **200**, apuntando al dominio oficial
+- [x] Canonical/og:url/og:image/twitter:image sirviendo `atlanteksystems.com` en producción (repo Pages `4d97ff7`)
+- [x] `https_enforced: true` activado vía `PUT /pages` (estaba `false`) — html_url del repo ahora https
+- [x] Monorepo `F:\apex-cloudworks` commiteado y **pusheado**: `667b7cf` "chore(at): flip canonical/og/robots/sitemap a atlanteksystems.com (dominio live) + buffer sesion" (acf4cc3..667b7cf, 5 archivos)
+- [x] `ACTIVAR-DOMINIO-OFICIAL.md` → checklist actualizado a hecho
+
+**Estado:** ✅ dominio oficial en línea · monorepo sincronizado con remote (sin ahead) · 0 pendientes de git en AT
+**Siguiente paso:** ⏳ reconfirmar en ~30-60 min que `http://atlanteksystems.com` redirija a https (provisión de cert) · Search Console propiedad de dominio nuevo + GBP web → atlanteksystems.com · validar mobile 375px · sesión SEO: enviar mensaje Daniel con guión GBP/reseñas.

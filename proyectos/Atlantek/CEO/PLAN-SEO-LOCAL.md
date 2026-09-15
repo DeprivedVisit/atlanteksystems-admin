@@ -27,7 +27,7 @@ El on-page (lo que ya hicimos: JSON-LD, sección Guápiles, sitemap, robots) **n
 
 ## ✅ Hecho (on-page, nuestra parte)
 
-- Canonical temporal → live (github.io) · flip pendiente al dominio oficial
+- Canonical → **dominio oficial `atlanteksystems.com`** (live 15 sept 2026) · github.io como respaldo
 - Meta description con keywords geo
 - JSON-LD `@graph`: LocalBusiness (7 distritos + Guácimo, horario, offerCatalog) + WebSite + FAQPage (6 preguntas)
 - Sección de contenido `#guapiles` ("Instalación de cámaras de seguridad en Guápiles y todo Pococí")
@@ -103,16 +103,20 @@ El on-page (lo que ya hicimos: JSON-LD, sección Guápiles, sitemap, robots) **n
 
 ---
 
-## 🌐 Bloque 6 — Flip al dominio oficial (cuando Daniel active el CNAME)
+## 🌐 Bloque 6 — Flip al dominio oficial ✅ (hoy quedó LIVE)
 
-Checklist post-flip (1 bloque, nosotros):
-- [ ] `index.html`: canonical/og:url/og:image/twitter:image → `https://atlanteksystems.com/`
-- [ ] JSON-LD: URL de negocio → dominio oficial
-- [ ] GitHub **Settings → Pages → Custom domain** `atlanteksystems.com` + **Enforce HTTPS**
-- [ ] Debounce robots/sitemap ya apuntan al dominio
-- [ ] Buscar `assests/css/style.css` ← referencias relativas ya OK (sin cambios si son relativas)
-- [ ] Actualizar GBP: web → `atlanteksystems.com` + agregar propiedad de dominio en Search Console
-- [ ] Solicitar indexado del dominio nuevo; 301 implícito por core de Pages (github.io sigue sirviendo)
+> **Estado 15 sept 2026: hecho en el código + DNS + HTTPS en provisión.** Falta solo la parte Google (Search Console + GBP).
+
+- [x] `index.html`: canonical/og:url/og:image/twitter:image → `https://atlanteksystems.com/` (repo Pages `4d97ff7` + monorepo `667b7cf`)
+- [x] JSON-LD: URL de negocio → dominio oficial
+- [x] CNAME `@` y `www` en Cloudflare (proxy OFF) + CNAME file en repo Pages (`ba21666`)
+- [x] GitHub **Settings → Pages → Custom domain** `atlanteksystems.com` → `https_enforced: true` vía API
+- [x] robots.txt + sitemap.xml apuntando al dominio oficial (200 ✅)
+- [x] `https://atlanteksystems.com` → 200 · `https://www.atlanteksystems.com` → redirect al apex ✅
+- [x] GitHub.io sigue funcionando de respaldo (no canónico)
+- ⏳ Reconfirmar que `http://atlanteksystems.com` redirija a HTTPS (provisión del cert, ~30-60 min)
+- [ ] **Search Console:** agregar propiedad `https://atlanteksystems.com/` (dominio/URL prefix) + verificar + reenviar sitemap
+- [ ] **GBP:** actualizar web → `atlanteksystems.com` cuando termine p.1 del Bloque 1
 
 ---
 

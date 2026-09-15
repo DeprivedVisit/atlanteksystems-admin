@@ -1078,7 +1078,8 @@ h1 em { font-style: normal; color: var(--navy-light); }
 
 @media (max-width: 680px) {
   .cta-bar { display: grid; }
-  .wa-float { bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .wa-float { display: none; }
+  .footer { padding-bottom: calc(118px + env(safe-area-inset-bottom)); }
 }
 
 /* ═══════════ REVEAL ═══════════ */
@@ -1192,7 +1193,7 @@ h1 em { font-style: normal; color: var(--navy-light); }
 
   .footer__inner { text-align: center; align-items: center; }
   .footer__inner .logo { justify-content: center; }
-  .footer { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .footer { padding-bottom: calc(118px + env(safe-area-inset-bottom)); }
 }
 
 /* ═══════════ COBERTURA (radar) ═══════════ */
