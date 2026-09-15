@@ -14,14 +14,16 @@
 ### Completado hoy
 - [x] 🔴 **Vulnerabilidad cerrada** (temprano): token backend en repo público → dividido pub/adm; admin/apps-script movidos a `02-Privado/`
 - [x] **Dominio oficial LIVE:** `https://atlanteksystems.com/` → 200, www redirect, https_enforced, cert provisionado
-- [x] **Mobile 375px (Playwright):** `.wa-float` oculto ≤680px (redundante con cta-bar), footer padding 118px
-- [x] **💬 Chat FAQ** — botón flotante → panel 6 preguntas + respuesta automática + CTA WhatsApp. Desktop + mobile probado. Pages `e17e7b3`
-- [x] Repos Pages al día · bitácora al día
+- [x] **Mobile 375px:** `.wa-float` oculto ≤680px original, luego rediseño → **FABs**
+- [x] **💬 Chat FAQ** — botón flotante → panel 6 preguntas + respuesta automática + CTA WhatsApp
+- [x] **🟦 FABs compactos 48px:** WhatsApp + Formulario flotantes (sticky CTA eliminado) · chat reduce a 48px · scroll del panel verificado en desktop+mobile
+- [x] **Fondo back 2.0** en toda la página (94KB optimizado, overlay navy, cards translúcidas) — screenshots `bg-*.png` para revisión visual
+- [x] Repos Pages (`104c672`) y monorepo (`56fc24b`) al día · bitácora al día
 
 ### Pendiente
 - 🔴 **CRÍTICO (manual):** Redeploy `02-Privado/apps-script/Code.gs` en Google Apps Script (token viejo `intec-2026` sigue activo en backend)
 - **Search Console:** propiedad `https://atlanteksystems.com/` (Garett crea URL-prefix → trae meta tag → lo agrego → verifico)
 - **GBP (Daniel):** crear/reclamar, fotos, 7 distritos, web → atlantek, reseñas (PLAN-SEO-LOCAL.md Bloque 3)
-- Commit monorepo (chat + bitácora + buffer) pendiente
+- **Revisión visual humana:** `Temp\opencode\bg-*.png` (fondo) + `fab-*.png` (FABs+chat) — el modelo no ve imágenes
 - Probar chat a mano en iPhone real
 - WhatsApp a Daniel con plan completo

@@ -356,5 +356,19 @@ Siguiente paso: ...
 - Deploy: repo Pages `e17e7b3` (3 commits de esta feature) · mono-repo pendiente de commit
 - QA Playwright producción 1280px + 375px: panel abre ✅ · 6 chips ✅ · respuesta con $ ✅ · chip marcado ✅ · sin solape con el CTA móvil (gap 22px FAB / 83px panel) ✅
 
-**Estado:** ✅ chat LIVE en atlanteksystems.com
-**Siguiente paso:** probarlo a mano en el celu (iPhone SE) como usuario · monorepo commit · avisar a Daniel del chat.
+**Estado:** ✅ chat LIVE en atlanteksystems.com + FABs compactos
+**Siguiente paso:** probarlo a mano en el celu (iPhone SE) como usuario · avisar a Daniel del chat.
+
+---
+
+### 2026-09-15 17:4x — 🟦 FABs flotantes compactos (reemplazan sticky CTA) + scroll chat verificado
+
+**Qué se hizo:**
+- Eliminada la `cta-bar` sticky móvil (barra completa inferior) → reemplazada por **botones flotantes circulares de 48px** al estilo del chat: `.wa-float` (WhatsApp, verde) + `.fab-form` (Formulario, navy) apilados con el chat (Arriba→Abajo: chat 134px · form 78px · WA 22px desktop; mobile 126/70/14 + safe-area)
+- Chat compactado a 48px (era 56) y panel reposicionado para abrir sobre el FAB superior sin taparlo: desktop bottom 190px · mobile 182px
+- Padding `118px` del footer (residuo de la cta-bar) eliminado — vuelve a 44px base
+- ✅ Playwright producción (1280px + 375px): 3 FABs apilados **sin solaparse** · panel dentro de viewport · **body del chat scrollea** (scrollHeight > clientHeight, scrollTop alcanza el final) tras responder las 6 preguntas
+- Repo Pages `104c672` · monorepo `56fc24b`
+
+**Estado:** ✅ FABs compactos + chat scrolleable LIVE
+**Siguiente paso:** revisar screenshots `fab-desktop-chat.png` / `fab-mobile-chat.png` en `Temp\opencode` · probar en el celu · avisar a Daniel.
