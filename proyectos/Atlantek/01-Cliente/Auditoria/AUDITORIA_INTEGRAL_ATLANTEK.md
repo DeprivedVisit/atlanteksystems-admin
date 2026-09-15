@@ -1,6 +1,6 @@
-# 🛡️ AUDITORÍA INTEGRAL & PLAN DE INNOVACIÓN — PROYECTO INTEC
+# 🛡️ AUDITORÍA INTEGRAL & PLAN DE INNOVACIÓN — PROYECTO Atlantek
 > **Apex Cloud Work** · Cartago, Costa Rica  
-> **Cliente:** INTEC (Seguridad Electrónica, CCTV y Redes — Guápiles, Pococí)  
+> **Cliente:** Atlantek (Seguridad Electrónica, CCTV y Redes — Guápiles, Pococí)  
 > **Fecha:** Septiembre 2026  
 > **Objetivo:** Auditar la arquitectura completa, blindar la seguridad, maximizar la conversión comercial para el cierre ( setup + /mes) y presentar ideas innovadoras de alto impacto.
 
@@ -8,13 +8,13 @@
 
 ## 1. 📌 RESUMEN EJECUTIVO
 
-INTEC cuenta con una base sólida construida por Apex Cloud Work: concepto temático de **Control Room**, un panel de administración funcional, un dashboard con KPIs y proformas reales (Eco Clinic #027), y un radar de cobertura en los 7 distritos de Pococí.
+Atlantek cuenta con una base sólida construida por Apex Cloud Work: concepto temático de **Control Room**, un panel de administración funcional, un dashboard con KPIs y proformas reales (Eco Clinic #027), y un radar de cobertura en los 7 distritos de Pococí.
 
 Sin embargo, existían cuellos de botella que frenaban la conversión y exponían riesgos de seguridad antes de pasar a producción:
 1. **Fricción extrema de entrada:** Un modal forzado (*Gate de entrada*) que obligaba al visitante a registrarse o presionar "entrar como invitado" antes de ver la página.
 2. **Placeholders y filtros degradantes:** Uso de fotos dummy (*picsum.photos*) y un overlay global de líneas de escaneo (*body::after*) que ensuciaba la nitidez en pantallas modernas.
 3. **Brechas de seguridad en el panel:** Enlaces directos a dmin.html y dashboard.html en el footer público, con token visible en JavaScript y sin pantalla de login con contraseña.
-4. **Oportunidad de diferenciación:** El mercado de Guápiles está lleno de técnicos informales que cotizan por mensaje sin estructura; INTEC puede posicionarse como la **empresa líder indiscutible en seguridad tecnológica corporativa y residencial de la zona atlántica**.
+4. **Oportunidad de diferenciación:** El mercado de Guápiles está lleno de técnicos informales que cotizan por mensaje sin estructura; Atlantek puede posicionarse como la **empresa líder indiscutible en seguridad tecnológica corporativa y residencial de la zona atlántica**.
 
 ---
 
@@ -22,7 +22,7 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
 
 ### 2.1. El Header y el Logo (✅ Resuelto en sesión actual)
 - **Antes:** Ícono pixelado, tipografía Arial Black desproporcionada y rayas generadas por el scanline global.
-- **Estado Actual:** Isotipo de ondas wifi a la izquierda con escala prominente, tipografía INTEC alineada exactamente a la línea base inferior, enlace clicable con scroll suave directo al inicio (0,0).
+- **Estado Actual:** Isotipo de ondas wifi a la izquierda con escala prominente, tipografía Atlantek alineada exactamente a la línea base inferior, enlace clicable con scroll suave directo al inicio (0,0).
 
 ### 2.2. Tipografía y Jerarquía Visual (✅ Actualizado)
 - **Diagnóstico:** Se utilizaba *Fraunces* (serif clásica/editorial) y *Courier Prime* (máquina de escribir). En un rubro de cámaras 4K, ColorVu e inteligencia artificial, generaba una disonancia de marca.
@@ -66,7 +66,7 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
 1. **Enlaces Públicos a Administración en el Footer:**
    - En index.html (línea 454) el footer contiene:  
      ... · <a href="dashboard.html">Dashboard</a> · <a href="admin.html">Admin</a>
-   - **Riesgo:** Cualquier visitante, competidor o cliente curioso hace clic y entra directamente a ver los datos de facturación, clientes y proformas de INTEC.
+   - **Riesgo:** Cualquier visitante, competidor o cliente curioso hace clic y entra directamente a ver los datos de facturación, clientes y proformas de Atlantek.
    - **Solución:** Eliminar de inmediato estos links del footer público. El acceso a dmin.html y dashboard.html debe ser privado mediante URL directa guardada por el dueño.
 
 2. **Falta de Puerta de Acceso con Contraseña (Gate de Autenticación):**
@@ -78,7 +78,7 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
      `javascript
      const CONFIG = {
        SHEETS_URL: 'https://script.google.com/macros/s/.../exec',
-       TOKEN: 'intec-2026'
+       TOKEN: 'Atlantek-2026'
      };
      `
    - **Solución:** Para la fase de producción, migrar las peticiones a un endpoint proxy seguro o cambiar el token a uno aleatorio de 32 caracteres con rate limiting.
@@ -91,9 +91,9 @@ El 80% de las contrataciones de CCTV en Guápiles ocurren por dos vías: **búsq
 
 ### Mejoras SEO a implementar:
 1. **Schema.org LocalBusiness (JSON-LD):**
-   Agregar datos estructurados en <head> para que Google muestre a INTEC en el mapa de Guápiles con teléfono, zona de servicio y horarios.
+   Agregar datos estructurados en <head> para que Google muestre a Atlantek en el mapa de Guápiles con teléfono, zona de servicio y horarios.
 2. **Meta Tags OpenGraph (OG):**
-   Actualmente faltan og:image, og:title y og:description. Al compartir el enlace de INTEC por WhatsApp, debe aparecer una miniatura profesional con el logo y la cámara 4K, no un enlace de texto plano.
+   Actualmente faltan og:image, og:title y og:description. Al compartir el enlace de Atlantek por WhatsApp, debe aparecer una miniatura profesional con el logo y la cámara 4K, no un enlace de texto plano.
 3. **Página de Google Business Profile:**
    Vincular la landing con una ficha de Google Maps verificada en Guápiles Centro (70201).
 
@@ -101,12 +101,12 @@ El 80% de las contrataciones de CCTV en Guápiles ocurren por dos vías: **búsq
 
 ## 6. 💡 IDEAS INNOVADORAS DE ALTO IMPACTO (DIFERENCIACIÓN TOTAL)
 
-Para que INTEC no sea "otro instalador más", estas 4 funciones convertirán la web en una máquina de ventas:
+Para que Atlantek no sea "otro instalador más", estas 4 funciones convertirán la web en una máquina de ventas:
 
 ### 💡 Idea 1: Simulador Interactivo "Día vs. Noche / Cámara Barata vs. ColorVu 4K"
 - **Concepto:** Un slider interactivo antes/después en el Hero o en Servicios.
-- **Cómo funciona:** El usuario arrastra una barra divisoria: a la izquierda ve la imagen de una cámara barata tradicional (borrosa, en blanco y negro con infrarrojo que encandila la cara); a la derecha ve la cámara **INTEC ColorVu 4K** (a todo color en plena oscuridad, con reconocimiento nítido de rostros y placas).
-- **Impacto psicológico:** Destruye la objeción del precio. El cliente entiende de inmediato por qué pagar por INTEC en lugar de comprar un kit genérico de supermercado.
+- **Cómo funciona:** El usuario arrastra una barra divisoria: a la izquierda ve la imagen de una cámara barata tradicional (borrosa, en blanco y negro con infrarrojo que encandila la cara); a la derecha ve la cámara **Atlantek ColorVu 4K** (a todo color en plena oscuridad, con reconocimiento nítido de rostros y placas).
+- **Impacto psicológico:** Destruye la objeción del precio. El cliente entiende de inmediato por qué pagar por Atlantek en lugar de comprar un kit genérico de supermercado.
 
 ### 💡 Idea 2: Cotizador Inteligente "Arme su Paquete" en 3 Clics
 - **Concepto:** Reemplazar el formulario tradicional por un configurador interactivo paso a paso:
@@ -117,13 +117,13 @@ Para que INTEC no sea "otro instalador más", estas 4 funciones convertirán la 
 
 ### 💡 Idea 3: Bot de WhatsApp n8n con Generación de Proforma Automática
 - **Concepto:** Conectar el formulario web con un flujo de **n8n**.
-- **Cómo funciona:** Cuando el lead llena su solicitud, en menos de 60 segundos recibe un WhatsApp automático de INTEC:  
+- **Cómo funciona:** Cuando el lead llena su solicitud, en menos de 60 segundos recibe un WhatsApp automático de Atlantek:  
   *"Hola [Nombre], recibimos su solicitud para [4 cámaras en Guápiles]. Ya un asesor técnico está coordinando su visita. Le adjuntamos una guía rápida de preparación de puntos eléctricos."*
 - **Impacto:** Velocidad de respuesta de élite que deja a la competencia local obsoleta.
 
 ### 💡 Idea 4: Calculadora de Almacenamiento y Cobertura de Disco Duro
 - **Concepto:** Un widget interactivo donde el cliente selecciona: número de cámaras (ej. 4) y resolución (ej. 4MP). La calculadora le indica: *"Requiere 1TB para 15 días de grabación continua o 2TB para 30 días con compresión inteligente H.265+"*.
-- **Impacto:** Posiciona a INTEC como expertos consultores técnicos, no simples vendedores de cajas.
+- **Impacto:** Posiciona a Atlantek como expertos consultores técnicos, no simples vendedores de cajas.
 
 ---
 
@@ -133,7 +133,7 @@ Para que INTEC no sea "otro instalador más", estas 4 funciones convertirán la 
 - [x] Unificar tipografía corporativa (Plus Jakarta Sans + JetBrains Mono).
 - [x] Eliminar scanline global que degradaba el logo y textos.
 - [x] Sustituir todas las fotos dummy por fotografía 4K de CCTV e instalaciones.
-- [x] Centrar y alinear el isotipo con la línea base de INTEC.
+- [x] Centrar y alinear el isotipo con la línea base de Atlantek.
 - [x] Ocultar los enlaces de Dashboard y Admin del footer en index.html.
 - [x] Corregir error de sintaxis HTML (div huérfano tras <main>).
 - [x] Eliminar apertura automática forzada del Gate de entrada para evitar rebote.
@@ -141,11 +141,11 @@ Para que INTEC no sea "otro instalador más", estas 4 funciones convertirán la 
 
 ### Prioridad P1 — Cierre de Venta ( Setup + /mes)
 - [ ] Mostrar en la demo la proforma #027 real ya cargada en el dashboard.
-- [ ] Proponer la compra del dominio local (inteccr.com o intecseguridad.com).
+- [ ] Proponer la compra del dominio local (Atlantekcr.com o Atlantekseguridad.com).
 - [ ] Firmar contrato con marco legal Apex (50% adelanto obligatorio).
 
 ### Prioridad P2 — Despliegue en AWS Producción
-- [ ] Migrar el Google Sheet a la cuenta oficial de INTEC (soporteintec.cr@gmail.com).
+- [ ] Migrar el Google Sheet a la cuenta oficial de Atlantek (soporteintec.cr@gmail.com).
 - [x] Proteger admin.html y dashboard.html con contraseña de sesión (auth-gate).
 - [ ] Desplegar en S3 + CloudFront con certificado SSL de Amazon (ACM) y Route 53.
 - [ ] Configurar Google Business Profile en Guápiles para dominar las búsquedas orgánicas.

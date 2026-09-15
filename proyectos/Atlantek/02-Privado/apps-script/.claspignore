@@ -1,5 +1,6 @@
-# Solo se suben archivos .gs y .html del backend.
+# Solo se suben archivos .gs del backend (el proyecto remoto nombra su archivo Código.js).
 # Nunca subir configs con tokens, logs ni docs.
 **
 !.clasp.json
-!Code.gs
+!Código.js
+!appsscript.json

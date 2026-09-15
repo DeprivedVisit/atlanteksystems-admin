@@ -1,4 +1,4 @@
-# 🎯 INTEC — Plan de Migración: del Simulador al Cliente Cerrado
+# 🎯 Atlantek — Plan de Migración: del Simulador al Cliente Cerrado
 > Apex Cloud Work · 12 julio 2026
 > Estado: **SIMULADOR ACTIVO** en `d20az2y50g157c.cloudfront.net` — nada de esto es producción todavía.
 
@@ -9,14 +9,14 @@
 | Pieza | Estado demo | Qué falta para producción |
 |-------|------------|---------------------------|
 | Landing dark "Control Room" | ✅ Live en CloudFront preview | Fotos reales, testimonios reales, dominio propio |
-| Zona de cobertura (radar Pococí) | ✅ 7 distritos + tiempos | Validar tiempos de respuesta con INTEC |
+| Zona de cobertura (radar Pococí) | ✅ 7 distritos + tiempos | Validar tiempos de respuesta con Atlantek |
 | Gate usuario / invitado | ✅ Funcional (localStorage) | Decidir si se mantiene o pasa a modo suave |
 | Cotización rápida → hoja Leads | ⚠️ Fallback WhatsApp | Redeploy Apps Script "Cualquier persona" |
 | Dashboard (KPIs, leads, facturación) | ✅ Con proforma 027 real | Gate de contraseña antes de entregar |
-| Admin (clientes + proformas/facturas) | ✅ Funcional | Token nuevo, Sheet en cuenta de INTEC |
+| Admin (clientes + proformas/facturas) | ✅ Funcional | Token nuevo, Sheet en cuenta de Atlantek |
 | Fotos | ❌ picsum placeholders | Fotos de instalaciones reales |
 | Testimonios | ❌ De referencia | Reales con permiso del cliente |
-| Token/seguridad | ❌ `intec-2026` visible en JS | Token nuevo + gate en admin/dashboard |
+| Token/seguridad | ❌ `Atlantek-2026` visible en JS | Token nuevo + gate en admin/dashboard |
 
 **El argumento de venta es exactamente este:** *"Ya está construido y funcionando con su proforma real adentro. Al firmar, se activa — no se empieza de cero."*
 
@@ -24,7 +24,7 @@
 
 ## FASE 0 — Demo (esta semana)
 
-**Objetivo:** que el dueño de INTEC vea SU negocio funcionando, no un mockup.
+**Objetivo:** que el dueño de Atlantek vea SU negocio funcionando, no un mockup.
 
 Guión de la reunión (15 min, por WhatsApp o presencial):
 1. Abrir la landing en **su celular** — mobile primero, es como la verán sus clientes.
@@ -42,7 +42,7 @@ Preparación previa:
 
 ## FASE 1 — Cierre comercial
 
-Modelo Apex aplicado a INTEC:
+Modelo Apex aplicado a Atlantek:
 
 | Concepto | Precio | Nota |
 |----------|--------|------|
@@ -63,35 +63,35 @@ Reglas de cierre (no negociables):
 ### Día 1 — Contenido real
 - [ ] Fotos reales de instalaciones (mínimo 6 para Trabajos + 1 hero) — pedirlas EN la firma
 - [ ] Testimonios reales (2-3, con permiso) o quitar la sección
-- [ ] Validar tiempos de cobertura por distrito con INTEC
+- [ ] Validar tiempos de cobertura por distrito con Atlantek
 - [ ] Confirmar correo y datos de contacto finales
 
 ### Día 2 — Backend en cuenta del cliente
-- [ ] Crear Google Sheet **en la cuenta de INTEC** (soporteintec.cr@gmail.com) y compartir con Apex
+- [ ] Crear Google Sheet **en la cuenta de Atlantek** (soporteintec.cr@gmail.com) y compartir con Apex
 - [ ] Pegar `Code.gs` actualizado (Clientes/Documentos/Leads/Usuarios) → deploy "Cualquier persona"
-- [ ] **Token nuevo** (no `intec-2026`) en `Code.gs` + `config.js`
+- [ ] **Token nuevo** (no `Atlantek-2026`) en `Code.gs` + `config.js`
 - [ ] Migrar datos demo: cliente Eco Clinic + proforma 027
 
 ### Día 3 — Infraestructura de producción
-- [ ] Dominio: proponer `inteccr.com` o `intecguapiles.com` (verificar disponibilidad) — Route 53
+- [ ] Dominio: proponer `Atlantekcr.com` o `Atlantekguapiles.com` (verificar disponibilidad) — Route 53
 - [ ] Certificado ACM en us-east-1 (dominio + www)
-- [ ] Bucket S3 de producción (ej. `inteccr-com`) — **subir solo archivos específicos, NUNCA sync de carpeta cruda** (regla post-fuga 07 jul)
+- [ ] Bucket S3 de producción (ej. `Atlantekcr-com`) — **subir solo archivos específicos, NUNCA sync de carpeta cruda** (regla post-fuga 07 jul)
 - [ ] CloudFront producción con OAC + alias + redirect www→raíz
 - [ ] Route 53: A/AAAA alias a CloudFront
 
 ### Día 4 — Seguridad y SEO
 - [ ] Gate de contraseña en `admin.html` y `dashboard.html` (mismo patrón del admin de Apex)
 - [ ] `noindex` ya está en dashboard — verificar admin
-- [ ] Quitar links Admin/Dashboard del footer público (pasar links directos a INTEC)
+- [ ] Quitar links Admin/Dashboard del footer público (pasar links directos a Atlantek)
 - [ ] `sitemap.xml` + `robots.txt` + meta OG con foto real
-- [ ] Google Business Profile de INTEC (Guápiles) + Search Console — SEO local es el canal #1 para CCTV
+- [ ] Google Business Profile de Atlantek (Guápiles) + Search Console — SEO local es el canal #1 para CCTV
 
 ### Día 5 — QA y switch
 - [ ] Formulario end-to-end: lead del sitio → hoja Leads → visible en dashboard
 - [ ] Gate usuario: crear/salir/invitado bloqueado
 - [ ] Mobile completo (iPhone + Android)
 - [ ] Lighthouse rápido (performance + accesibilidad)
-- [ ] Invalidación final + apagar/reciclar `intec-preview` (o dejarlo como staging)
+- [ ] Invalidación final + apagar/reciclar `Atlantek-preview` (o dejarlo como staging)
 
 ---
 
@@ -121,5 +121,5 @@ Reglas de cierre (no negociables):
 
 1. **Gate de entrada obligatorio** — captura contactos pero agrega fricción. Propuesta: en producción arrancar con la variante suave (gate solo al usar la cotización) y medir. Decidirlo con datos, no con opinión.
 2. **Apps Script sin redeploy** = formulario en fallback WhatsApp. Es EL bloqueante de la demo — resolver antes de la reunión.
-3. **Sheet en cuenta de quién:** si queda en cuenta Apex, INTEC depende de Apex (retención pero riesgo de conflicto). Recomendado: cuenta del cliente, compartido con Apex — más profesional y es argumento de venta ("los datos son suyos").
-4. **Fotos:** si INTEC no tiene fotos de trabajos, ofrecer visita para tomarlas (medio día, incluida en setup) — sin fotos reales el sitio pierde credibilidad.
+3. **Sheet en cuenta de quién:** si queda en cuenta Apex, Atlantek depende de Apex (retención pero riesgo de conflicto). Recomendado: cuenta del cliente, compartido con Apex — más profesional y es argumento de venta ("los datos son suyos").
+4. **Fotos:** si Atlantek no tiene fotos de trabajos, ofrecer visita para tomarlas (medio día, incluida en setup) — sin fotos reales el sitio pierde credibilidad.

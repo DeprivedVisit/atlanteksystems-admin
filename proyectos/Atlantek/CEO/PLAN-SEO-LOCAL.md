@@ -41,7 +41,7 @@ El on-page (lo que ya hicimos: JSON-LD, sección Guápiles, sitemap, robots) **n
 
 > Responsable: **Daniel/Atlantek** ejecuta · **Garett/Apex** apoya con fotos y texto. ~45 min.
 
-- [ ] Crear/Reclamar perfil en **business.google.com** (correo de Atlantek: `soporteatlantek.cr@gmail.com`)
+- [ ] Crear/Reclamar perfil en **business.google.com** (correo de Atlantek: `soporteintec.cr@gmail.com`)
 - [ ] Verificar el negocio (postal / video / llamada según método disponible)
 - [ ] **Nombre:** exacto y consistente → `Atlantek Systems` (idéntico en todos lados, NAP)
 - [ ] **Categoría principal:** `Empresa de sistemas de seguridad` · secundarias: `Instalación de sistemas electrónicos de seguridad`, `Instalador de cámaras`
@@ -52,7 +52,7 @@ El on-page (lo que ya hicimos: JSON-LD, sección Guápiles, sitemap, robots) **n
 - [ ] **Productos/Servicios:** 4-6 entradas (Instalación de cámaras, CCTV comercial, Cableado estructurado, Redes, Soporte en sitio)
 - [ ] **Preguntas** del perfil contestadas (horarios, cobertura, garantías)
 
-> 💡 Si ya existe un perfil de "INTEC" o similar: reclamarlo, no crear duplicado. Duplicados = penalización.
+> 💡 Si ya existe un perfil de "Atlantek" o similar: reclamarlo, no crear duplicado. Duplicados = penalización.
 
 ---
 
