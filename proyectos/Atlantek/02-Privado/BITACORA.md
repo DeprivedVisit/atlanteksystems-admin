@@ -231,6 +231,24 @@ Siguiente paso: ...
 
 ---
 
+### 2026-09-15 16:xx — 🌐 Dominio oficial `atlanteksystems.com` LIVE
+
+**Contexto:** arrancada con dominio caído (apex sin registro · www 530 Cloudflare→origin muerto). Vía GitHub Pages, sin AWS.
+
+**Qué se hizo:**
+- [x] **DNS (Cloudflare):** apex `atlanteksystems.com` → A `185.199.108-111.153` (IPs GitHub Pages) · `www` → CNAME `apexcloudworkscompany.github.io` — verificado con `Resolve-DnsName`
+- [x] **Repo Pages:** archivo `CNAME` con `atlanteksystems.com` (commit `ba21666`) → GitHub configuró custom domain + certificado TLS (~1 min)
+- [x] **Flip a dominio oficial:** `index.html` canonical + og:url + og:image + twitter:image + JSON-LD `@id/url/image` → `https://atlanteksystems.com/` · `sitemap.xml` URLs → dominio oficial · `robots.txt` Sitemap + comentario → dominio oficial (commit `4d97ff7`)
+- [x] Verificado en vivo: `https://atlanteksystems.com/` 200 con canonical oficial · sitemap 200 · robots 200 · css 200 · **`www` 200**
+- [x] Monorepo Apex commiteado (`16a0fac` — renames AT→Atlantek + memoria)
+
+**⚠️ Nota:** la URL `github.io/atlanteksystems/` sigue respondiendo 200 (sin redirect automático hasta activar Custom domain + Enforce HTTPS en Settings→Pages; el canonical ya apunta al dominio oficial, así que SEO no se divide). Verificar/activar en Settings cuando se pueda.
+
+**Estado:** ✅ dominio oficial LIVE · SEO on-page sobre dominio final
+**Siguiente paso:** plan SEO cliente-side (doc para Daniel) · Google Business Profile + Search Console como canal #1 · mobile 375px visual · verificar GitHub repo Pages Settings (custom domain + HTTPS enforce).
+
+---
+
 ### 2026-09-15 15:3x — 🎨 CSS `.seo-local*` + deploy SEO a Pages (commit `01909a5`)
 
 **Contexto:** la sección `#guapiles` (bloque SEO 11:10) quedó insertada sin estilos. Este bloque cierra el pendiente.
