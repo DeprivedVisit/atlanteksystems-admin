@@ -131,6 +131,8 @@
     const show = (html, tipo) => {
       status.innerHTML = html;
       status.className = 'lead-form__status ' + (tipo === 'ok' ? 'is-ok' : 'is-error');
+      status.setAttribute('role', tipo === 'ok' ? 'status' : 'alert');
+      status.focus({ preventScroll: true });
     };
 
     const waLink = (lead) => {

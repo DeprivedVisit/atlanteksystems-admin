@@ -8,6 +8,6 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const CONFIG = {
-  SHEETS_URL: 'https://script.google.com/macros/s/AKfycbzi7pA9lse-inBVtNP4Rtz_Z-GjUzzxhyjaWAkULxt0zZJo2N0cztbQSHwj_2FNfc4-0g/exec',
+  SHEETS_URL: 'https://script.google.com/macros/s/AKfycbwpyWVSTKv9RN4OpfA0x0DpGmFMiqguhh27FWwCEtVd8wPJWZOJ5mVEYU5DQbp1RpI8cA/exec',
   TOKEN: 'atlantek-adm-vemsw0y4ugh5r691'
 };

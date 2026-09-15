@@ -105,7 +105,7 @@
     <div class="header__tag">Apex Cloud Work · Auditoría Técnica</div>
     <h1>Auditoría Landing Page<br>Atlantek Systems</h1>
     <p>Análisis completo de SEO, rendimiento, accesibilidad, conversión y código de la página principal.</p>
-    <div class="header__date">14 septiembre 2026 · atlanteksystems.com</div>
+    <div class="header__date">15 septiembre 2026 · verificación de producción · atlanteksystems.com</div>
   </div>
 
   <!-- SCORE -->
@@ -116,41 +116,41 @@
         <circle class="fg" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="30" style="stroke:var(--green)"/>
       </svg>
       <div class="label">
-        <div class="num" style="color:var(--green)">9.2</div>
+        <div class="num" style="color:var(--green)">8.6</div>
         <div class="of">/ 10</div>
       </div>
     </div>
     <div class="score-info">
-      <h2>Excelente · Blindado para Producción</h2>
-      <p>Todos los problemas críticos de SEO, rendimiento y semántica han sido resueltos. Se integraron metadatos sociales, structured data LocalBusiness (Guápiles 70201), preload, lazy loading, favicon SVG, eliminación de rebote en el gate y blindaje de accesos en footer.</p>
+      <h2>Bueno · Producción estable con pendientes de seguridad</h2>
+      <p>La landing responde HTTP 200, carga en el dominio oficial, tiene JSON-LD LocalBusiness, metadatos sociales, FAQ visible, navegación móvil y formulario conectado. El puntaje baja por documentos internos todavía accesibles, falta de medición de conversiones y ausencia de una prueba real del envío a producción.</p>
     </div>
   </div>
 
   <!-- STATS -->
   <div class="grid">
     <div class="stat">
-      <div class="stat__icon">🔍</div>
-      <div class="stat__num" style="color:var(--green)">9.5</div>
+      <div class="stat__icon">SEO</div>
+      <div class="stat__num" style="color:var(--green)">8.8</div>
       <div class="stat__label">SEO</div>
     </div>
     <div class="stat">
-      <div class="stat__icon">⚡</div>
-      <div class="stat__num" style="color:var(--green)">9.0</div>
+      <div class="stat__icon">PERF</div>
+      <div class="stat__num" style="color:var(--green)">8.2</div>
       <div class="stat__label">Rendimiento</div>
     </div>
     <div class="stat">
-      <div class="stat__icon">♿</div>
-      <div class="stat__num" style="color:var(--green)">9.0</div>
+      <div class="stat__icon">A11Y</div>
+      <div class="stat__num" style="color:var(--green)">8.7</div>
       <div class="stat__label">Accesibilidad</div>
     </div>
     <div class="stat">
-      <div class="stat__icon">🎯</div>
-      <div class="stat__num" style="color:var(--green)">9.5</div>
+      <div class="stat__icon">CRO</div>
+      <div class="stat__num" style="color:var(--green)">8.8</div>
       <div class="stat__label">Conversión</div>
     </div>
     <div class="stat">
-      <div class="stat__icon">🧩</div>
-      <div class="stat__num" style="color:var(--green)">9.0</div>
+      <div class="stat__icon">CODE</div>
+      <div class="stat__num" style="color:var(--green)">8.2</div>
       <div class="stat__label">Código</div>
     </div>
   </div>
@@ -254,8 +254,8 @@
     <div class="issue">
       <div class="issue__num issue__num--ok">✓</div>
       <div class="issue__body">
-        <div class="issue__title">Click-to-call (tel:) activo en teléfonos</div>
-        <div class="issue__desc">Enlaces tel:+50672312225 habilitados en footer y sección de contacto para llamada con un solo toque.</div>
+        <div class="issue__title">Contacto móvil accionable</div>
+        <div class="issue__desc">WhatsApp y correo están enlazados desde contacto y footer; se conserva el acceso directo para clientes móviles.</div>
         <div class="issue__tags"><span class="tag tag--conv">Conversión</span><span class="badge badge--ok">Resuelto</span></div>
       </div>
     </div>
@@ -263,13 +263,13 @@
 
   <!-- MEJORABLES -->
   <div class="section" style="border-left:4px solid var(--yellow)">
-    <h2><span class="icon">🟡</span> Mejorables <span class="badge badge--warn">6 items</span></h2>
+    <h2><span class="icon">!</span> Pendientes importantes <span class="badge badge--warn">6 items</span></h2>
 
     <div class="issue">
       <div class="issue__num issue__num--warn">7</div>
       <div class="issue__body">
-        <div class="issue__title">171 reglas CSS duplicadas</div>
-        <div class="issue__desc">.logo__img aparece 5 veces, .btn 3 veces, .nav__inner 3 veces. Causa especificidad impredecible y CSS inflado.</div>
+        <div class="issue__title">CSS requiere limpieza posterior</div>
+        <div class="issue__desc">Hay reglas históricas y bloques específicos que pueden consolidarse, pero no bloquean producción. Prioridad menor que seguridad, analítica y datos de negocio.</div>
         <div class="issue__tags"><span class="tag tag--css">CSS</span></div>
       </div>
     </div>
@@ -277,8 +277,8 @@
     <div class="issue">
       <div class="issue__num issue__num--warn">8</div>
       <div class="issue__body">
-        <div class="issue__title">7 usos de !important</div>
-        <div class="issue__desc">Señal de "specificity war". Se pueden resolver reorganizando el orden de las reglas.</div>
+        <div class="issue__title">No hay medición de conversiones</div>
+        <div class="issue__desc">Faltan eventos para clics de WhatsApp, apertura del chat, inicio del formulario, envío correcto y fallback.</div>
         <div class="issue__tags"><span class="tag tag--css">CSS</span></div>
       </div>
     </div>
@@ -286,8 +286,8 @@
     <div class="issue">
       <div class="issue__num issue__num--warn">9</div>
       <div class="issue__body">
-        <div class="issue__title">Sin structured data (JSON-LD)</div>
-        <div class="issue__desc">Google no puede mostrar rich snippets con horarios, dirección, teléfono y reseñas en los resultados de búsqueda.</div>
+        <div class="issue__title">Documentos internos aún accesibles</div>
+        <div class="issue__desc">Contrato, proforma y acta en /Legal responden HTTP 200 aunque tengan noindex. No son privados mientras permanezcan publicados.</div>
         <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
       </div>
     </div>
@@ -295,8 +295,8 @@
     <div class="issue">
       <div class="issue__num issue__num--warn">10</div>
       <div class="issue__body">
-        <div class="issue__title">--muted en 26 lugares — riesgo de contraste</div>
-        <div class="issue__desc">El color #6b7785 sobre fondo claro puede no pasar WCAG AA (ratio 4.5:1). Verificar con herramienta de contraste.</div>
+        <div class="issue__title">Correo oficial inconsistente</div>
+        <div class="issue__desc">La landing y JSON-LD usan soporteintec.cr@gmail.com, mientras otros documentos usan soporte@atlanteksystems.com. Debe existir un único dato oficial.</div>
         <div class="issue__tags"><span class="tag tag--a11y">Accesibilidad</span></div>
       </div>
     </div>
@@ -304,8 +304,8 @@
     <div class="issue">
       <div class="issue__num issue__num--warn">11</div>
       <div class="issue__body">
-        <div class="issue__title">CSS sin minificar — 30KB</div>
-        <div class="issue__desc">171 bloques indentados. Un minificado reduce ~30-40% el tamaño y mejora tiempo de parseo.</div>
+        <div class="issue__title">Prueba de lead real pendiente</div>
+        <div class="issue__desc">La conexión Apps Script responde, pero falta una prueba autorizada que confirme Sheets, notificación, admin y fallback de WhatsApp.</div>
         <div class="issue__tags"><span class="tag tag--perf">Performance</span></div>
       </div>
     </div>
@@ -313,8 +313,8 @@
     <div class="issue">
       <div class="issue__num issue__num--warn">12</div>
       <div class="issue__body">
-        <div class="issue__title">&lt;footer&gt; duplicado ×4</div>
-        <div class="issue__desc">El gate y el sitio comparten HTML. Hay 4 tags &lt;footer&gt; en el mismo archivo, causando confusión semántica.</div>
+        <div class="issue__title">Fotos y reseñas reales pendientes</div>
+        <div class="issue__desc">Los testimonios actuales necesitan respaldo verificable y la galería de trabajos reales debe crecer para elevar confianza local.</div>
         <div class="issue__tags"><span class="tag tag--ux">UX</span></div>
       </div>
     </div>
@@ -322,13 +322,13 @@
 
   <!-- MENORES -->
   <div class="section" style="border-left:4px solid var(--navy)">
-    <h2><span class="icon">🔵</span> Menores <span class="badge badge--info">4 items</span></h2>
+    <h2><span class="icon">i</span> Mejoras de seguimiento <span class="badge badge--info">4 items</span></h2>
 
     <div class="issue">
       <div class="issue__num issue__num--info">13</div>
       <div class="issue__body">
-        <div class="issue__title">8 inline styles</div>
-        <div class="issue__desc">Se pueden mover a clases CSS para mejor mantenimiento.</div>
+        <div class="issue__title">Optimizar imágenes a WebP/AVIF</div>
+        <div class="issue__desc">El hero actual es razonable, pero conviene preparar formatos modernos para futuras fotografías de proyectos.</div>
         <div class="issue__tags"><span class="tag tag--css">CSS</span></div>
       </div>
     </div>
@@ -336,8 +336,8 @@
     <div class="issue">
       <div class="issue__num issue__num--info">14</div>
       <div class="issue__body">
-        <div class="issue__title">H2 "Bienvenido" en gate</div>
-        <div class="issue__desc">No aporta al SEO ni a la experiencia. Podría ser más descriptivo o eliminarse.</div>
+        <div class="issue__title">Revisar headers y caché</div>
+        <div class="issue__desc">GitHub Pages sirve la web correctamente, pero no permite controlar toda la política de caché como un CDN propio.</div>
         <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
       </div>
     </div>
@@ -345,8 +345,8 @@
     <div class="issue">
       <div class="issue__num issue__num--info">15</div>
       <div class="issue__body">
-        <div class="issue__title">Preconnect a Google Fonts</div>
-        <div class="issue__desc">Ya existe preconnect, pero no preload del CSS de fuentes. Opcional pero mejora primer paint.</div>
+        <div class="issue__title">Google Business Profile pendiente</div>
+        <div class="issue__desc">La base on-page está lista; falta ficha local, reseñas auténticas, fotos y consistencia NAP para competir en Guápiles.</div>
         <div class="issue__tags"><span class="tag tag--perf">Performance</span></div>
       </div>
     </div>
@@ -354,8 +354,8 @@
     <div class="issue">
       <div class="issue__num issue__num--info">16</div>
       <div class="issue__body">
-        <div class="issue__title">Meta description = 146 chars</div>
-        <div class="issue__desc">Google recorta a ~155. Estás en el límite. Ideal: 120-130 caracteres.</div>
+        <div class="issue__title">Prueba Lighthouse pendiente</div>
+        <div class="issue__desc">El rendimiento actual fue revisado técnicamente, pero el puntaje no debe presentarse como Lighthouse hasta ejecutarlo con una URL pública.</div>
         <div class="issue__tags"><span class="tag tag--seo">SEO</span></div>
       </div>
     </div>
@@ -400,8 +400,8 @@
         </tr>
         <tr>
           <td><strong>5</strong></td>
-          <td>Agregar tel: en números de teléfono</td>
-          <td><span class="badge badge--bad">Crítico</span></td>
+          <td>Contacto móvil WhatsApp y correo</td>
+          <td><span class="badge badge--warn">Alto</span></td>
           <td><span class="badge badge--ok">✅ Resuelto</span></td>
         </tr>
         <tr>
@@ -424,8 +424,20 @@
         </tr>
         <tr>
           <td><strong>9</strong></td>
-          <td>Limpiar CSS duplicados y especificidad !important</td>
+          <td>Consolidar CSS histórico y revisar especificidad</td>
           <td><span class="badge badge--info">Medio</span></td>
+          <td><span class="badge badge--warn">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td><strong>10</strong></td>
+          <td>Retirar o publicar correctamente documentos internos de /Legal/</td>
+          <td><span class="badge badge--bad">Crítico</span></td>
+          <td><span class="badge badge--warn">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td><strong>11</strong></td>
+          <td>Agregar eventos de conversión y ejecutar Lighthouse</td>
+          <td><span class="badge badge--warn">Alto</span></td>
           <td><span class="badge badge--warn">Pendiente</span></td>
         </tr>
       </tbody>
@@ -435,7 +447,7 @@
   <!-- FOOTER -->
   <div class="footer">
     Auditoría generada por <strong>Apex Cloud Work</strong> · Cartago, Costa Rica<br>
-    atlanteksystems.com · 14 septiembre 2026
+    atlanteksystems.com · 15 septiembre 2026 · verificado contra producción
   </div>
 
 </div>

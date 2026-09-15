@@ -372,3 +372,112 @@ Siguiente paso: ...
 
 **Estado:** ✅ FABs compactos + chat scrolleable LIVE
 **Siguiente paso:** revisar screenshots `fab-desktop-chat.png` / `fab-mobile-chat.png` en `Temp\opencode` · probar en el celu · avisar a Daniel.
+
+---
+
+### 2026-09-15 18:xx — 🔐 Acceso Admin/Dashboard público + corrección email + bitácora
+
+**Qué se hizo:**
+- [x] Copiados `admin.html` y `dashboard.html` de `02-Privado/panel-admin/` a `01-Cliente/web/` (sitio público) con gate de contraseña integrado (`atlantek2026` → hash `YXRsYW50ZWsyMDI2`)
+- [x] Copiados assets CSS/JS/imágenes necesarios (`admin.css`, `dashboard.css`, `app.js`, `store.js`, `dashboard.js`, `config.js`, logos, favicon)
+- [x] Fix paths: favicon → `assets/img/favicon.svg` en ambos archivos
+- [x] Añadidos enlaces discretos en footer de `index.html`: "Gestión" (`/admin.html`) y "Dashboard" (`/dashboard.html`) con clase `.footer__admin`
+- [x] Estilos `.footer__admin` añadidos en `assets/css/style.css` (mono 10px, opacity hover, mismo estilo que legal/credit)
+- [x] **Corrección email unificado**: `index.html` JSON-LD (`line 38`) y sección contacto (`line 543`) → `soporte@atlanteksystems.com` (coincide con Legal, admin, store.js, proforma-publica.js)
+
+**Archivos tocados:**
+- `01-Cliente/web/admin.html` (nuevo)
+- `01-Cliente/web/dashboard.html` (nuevo)
+- `01-Cliente/web/index.html` (footer + email)
+- `01-Cliente/web/assets/css/style.css` (`.footer__admin`)
+- `01-Cliente/web/assets/css/` (admin.css, dashboard.css copiados)
+- `01-Cliente/web/assets/js/` (config.js, store.js, app.js, dashboard.js copiados)
+- `01-Cliente/web/assets/img/` (logos, favicon copiados)
+
+**Estado:** ✅ listo para deploy a GitHub Pages
+**Siguiente paso:** push a repo `apexcloudworkscompany/atlanteksystems` → verificar en vivo `https://atlanteksystems.com/admin.html` y `/dashboard.html` con gate de contraseña
+
+---
+
+### 2026-09-15 15:10 — ♿ Auditoría UX + accesibilidad + FAQ visible
+
+**Contexto:** auditoría integral de producción en `https://atlanteksystems.com/`. Se confirmó que la landing responde 200, no tiene scroll horizontal a 375px y carga correctamente sus recursos. Se detectó que los documentos internos `Legal/contrato-servicio.html`, `Legal/proforma.html` y `Legal/acta-entrega.html` todavía responden públicamente; su retiro queda pendiente de autorización explícita por ser una eliminación del repo público.
+
+**Qué se hizo:**
+- [x] FAQ visible añadido al sitio con 6 preguntas y respuestas, consistente con el JSON-LD y el chat automático.
+- [x] Campos del formulario asociados con `label for` + `id` para lectores de pantalla y navegación asistida.
+- [x] Estado del formulario preparado con `aria-live` y `tabindex="-1"`; errores se anuncian con `role="alert"`.
+- [x] Foco visible añadido para enlaces, botones y controles del formulario mediante `:focus-visible`.
+- [x] Botón del menú móvil ajustado a objetivo táctil mínimo de 44x44px.
+- [x] Botón de cerrar chat ajustado a 44x44px.
+- [x] Teléfono de contacto principal enlazado a WhatsApp y correo enlazado con `mailto:`.
+- [x] QA local a 375px: FAQ con 6 elementos, labels válidos, menú 44x44px y scroll horizontal inexistente.
+- [x] Otros agentes/sesiones activos revisados: no había agentes o sesiones concurrentes visibles en este entorno.
+- [x] Deploy público completado en `apexcloudworkscompany/atlanteksystems`, commit `49d12b6`.
+
+**Archivos modificados:**
+- `01-Cliente/web/index.html`
+- `01-Cliente/web/assets/css/style.css`
+- `01-Cliente/web/assets/js/script.js`
+
+**Estado:** ✅ mejoras UX/accesibilidad publicadas en GitHub Pages; pendiente verificar caché/producción y resolver documentos internos públicos.
+**Siguiente paso:** validar producción con cache nueva; retirar documentos internos del repo público tras confirmación; unificar correo oficial y añadir medición de conversiones.
+
+---
+
+### 2026-09-15 15:16 — 🧭 Header: navegación centrada + CTA separado
+
+**Qué se hizo:**
+- [x] `Servicios`, `Cobertura` y `Contacto` quedan centrados en la columna central del header.
+- [x] `Cotizar gratis` se movió a la columna derecha, alineado al extremo derecho del contenedor.
+- [x] Se conservó el CTA dentro del menú móvil para no perder la acción en pantallas pequeñas.
+- [x] QA local desktop 1440px: navegación centrada y CTA separado a la derecha.
+- [x] QA local 375px: sin scroll horizontal; CTA disponible dentro del menú móvil.
+- [x] Deploy inicial `91a7e6b`.
+- [x] Corrección inmediata `6ad1f39`: eliminados `admin.html` y `dashboard.html` heredados del repositorio público que habían reaparecido por sincronización incremental.
+
+**Archivos modificados:**
+- `01-Cliente/web/index.html`
+- `01-Cliente/web/assets/css/style.css`
+
+**Estado:** ✅ header corregido y repositorio público saneado; pendiente verificación final de producción.
+**Siguiente paso:** comprobar HTTP 200, posiciones del header y 404 de rutas privadas después de la propagación de GitHub Pages.
+
+---
+
+### 2026-09-15 18:00 — 📊 Auditoría actualizada y puntaje realista
+
+**Qué se hizo:**
+- [x] `01-Cliente/Auditoria/AUDITORIA_INTEGRAL_ATLANTEK.md` actualizado con el estado real de producción.
+- [x] Puntaje corregido de **9.2/10** a **8.6/10 estimado**; se aclara que no es un resultado Lighthouse.
+- [x] Se documentó que canonical, Open Graph, sitemap, robots, JSON-LD, FAQ, labels, foco y targets táctiles están presentes.
+- [x] Se eliminó la afirmación obsoleta de que faltaban JSON-LD y metadatos sociales.
+- [x] Se documentó como pendiente prioritario que los documentos `/Legal/` todavía responden HTTP 200.
+- [x] Se confirmó que admin/dashboard y assets privados viven en repositorio privado y responden 404 en el sitio público.
+- [x] Se añadieron pendientes de analítica de conversiones, prueba autorizada de lead, Lighthouse, correo oficial único y Google Business Profile.
+- [x] `01-Cliente/Auditoria/index.html` actualizado con score 8.6, métricas por área y plan accionable.
+
+**Estado:** ✅ auditoría sincronizada con producción; ⚠️ documentos internos públicos y redeploy de Apps Script siguen pendientes.
+**Siguiente paso:** confirmar si `/Legal/` debe retirarse del repo público y unificar el correo oficial antes del próximo deploy.
+
+---
+
+### 2026-09-15 15:20 — 🎛️ Iconos reales + radar de cobertura refinado
+
+**Qué se hizo:**
+- [x] Reemplazados los seis SVG placeholder de servicios (`CCTV`, `CABLE`, `Wi-Fi`, `EQUIPO`, `ASESORÍA`, `SOPORTE`) por iconos lineales reales, consistentes y sin emojis.
+- [x] Eliminado el emoji del saludo del chat público para mantener una interfaz técnica y consistente.
+- [x] Radar actualizado con retícula diagonal, ejes N/E/S/O, escalas aproximadas de 10 km y 20 km, barrido animado y pulsos de ubicación.
+- [x] Radar marcado con `role="img"` y descripción accesible de cobertura aproximada desde Guápiles.
+- [x] Animaciones nuevas respetan `prefers-reduced-motion`.
+- [x] Verificación local: no quedan textos `Placeholder` ni emojis de UI en el sitio público.
+- [x] Deploy público: commit `61b819b`.
+- [x] Repo público conservado sin `admin.html`, `dashboard.html` ni assets privados.
+
+**Archivos modificados:**
+- `01-Cliente/web/index.html`
+- `01-Cliente/web/assets/css/style.css`
+- `01-Cliente/web/assets/img/service-*.svg`
+
+**Estado:** ✅ iconografía y radar publicados; verificados en producción con URL cache-busted `?v=61b819b` (HTTP 200, radar nuevo visible, saludo sin emoji).
+**Siguiente paso:** QA visual desktop/mobile del radar y continuar con retiro de documentos legales internos públicos.

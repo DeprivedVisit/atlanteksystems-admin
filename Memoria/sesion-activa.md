@@ -12,6 +12,15 @@
 **Proyecto:** Atlantek Systems (CCTV Guápiles) — `atlanteksystems.com`
 
 ### Completado hoy
+- [x] **Auditoría UX/accessibilidad de producción:** detectados documentos internos públicos, inconsistencias de correo, FAQ no visible y mejoras de foco/targets.
+- [x] **Primera fase UX publicada:** FAQ visible, labels accesibles, focus-visible, targets táctiles 44px, WhatsApp/email enlazados; Pages commit `49d12b6`.
+- [x] **Bitácora actualizada:** `02-Privado/BITACORA.md` con hallazgos, archivos y siguiente paso.
+- [x] **Header ajustado:** navegación centrada y CTA `Cotizar gratis` separado a la derecha; CTA móvil preservado.
+- [x] **Repo público saneado:** eliminados `admin.html` y `dashboard.html` heredados que reaparecieron en un deploy incremental; commit final `6ad1f39`.
+- [x] **Iconos y radar refinados:** 6 SVG placeholder reemplazados por iconos lineales; radar con retícula, ejes, escalas y pulsos; commit `61b819b`.
+- [x] **Auditoría actualizada:** score realista 8.6/10, estado de producción, hallazgos resueltos y pendientes documentados en `01-Cliente/Auditoria/`.
+- [x] **Admin + dashboard publicados en repo privado:** `apexcloudworkscompany/atlanteksystems-admin`, commit `a44da2d`, con estructura completa `assets/css`, `assets/js` y `assets/img`
+- [x] **Sitio público desplegado:** `apexcloudworkscompany/atlanteksystems`, commit `7a8e398`; `https://atlanteksystems.com/` y GitHub Pages responden `200`
 - [x] 🔴 **Vulnerabilidad cerrada** (temprano): token backend en repo público → dividido pub/adm; admin/apps-script movidos a `02-Privado/`
 - [x] **Dominio oficial LIVE:** `https://atlanteksystems.com/` → 200, www redirect, https_enforced, cert provisionado
 - [x] **Mobile 375px:** `.wa-float` oculto ≤680px original, luego rediseño → **FABs**
@@ -27,3 +36,5 @@
 - **Revisión visual humana:** `Temp\opencode\bg-*.png` (fondo) + `fab-*.png` (FABs+chat) — el modelo no ve imágenes
 - Probar chat a mano en iPhone real
 - WhatsApp a Daniel con plan completo
+- Confirmar retiro o publicación explícita de `/Legal/contrato-servicio.html`, `/Legal/proforma.html` y `/Legal/acta-entrega.html`
+- Unificar correo oficial y agregar analítica de conversiones

@@ -1,20 +1,24 @@
 # 🛡️ AUDITORÍA INTEGRAL & PLAN DE INNOVACIÓN — PROYECTO Atlantek
 > **Apex Cloud Work** · Cartago, Costa Rica  
 > **Cliente:** Atlantek (Seguridad Electrónica, CCTV y Redes — Guápiles, Pococí)  
-> **Fecha:** Septiembre 2026  
-> **Objetivo:** Auditar la arquitectura completa, blindar la seguridad, maximizar la conversión comercial para el cierre ( setup + /mes) y presentar ideas innovadoras de alto impacto.
+> **Fecha:** 15 septiembre 2026
+> **Objetivo:** Auditar el estado real de producción, documentar mejoras verificadas, priorizar riesgos restantes y mantener un puntaje reproducible.
 
 ---
 
 ## 1. 📌 RESUMEN EJECUTIVO
 
-Atlantek cuenta con una base sólida construida por Apex Cloud Work: concepto temático de **Control Room**, un panel de administración funcional, un dashboard con KPIs y proformas reales (Eco Clinic #027), y un radar de cobertura en los 7 distritos de Pococí.
+Atlantek cuenta con una landing pública estable construida por Apex Cloud Work: concepto temático de **Control Room**, formulario de cotización, FAQ visible, navegación responsive, iconos SVG propios y radar conceptual de cobertura en los 7 distritos de Pococí.
 
-Sin embargo, existían cuellos de botella que frenaban la conversión y exponían riesgos de seguridad antes de pasar a producción:
-1. **Fricción extrema de entrada:** Un modal forzado (*Gate de entrada*) que obligaba al visitante a registrarse o presionar "entrar como invitado" antes de ver la página.
-2. **Placeholders y filtros degradantes:** Uso de fotos dummy (*picsum.photos*) y un overlay global de líneas de escaneo (*body::after*) que ensuciaba la nitidez en pantallas modernas.
-3. **Brechas de seguridad en el panel:** Enlaces directos a dmin.html y dashboard.html en el footer público, con token visible en JavaScript y sin pantalla de login con contraseña.
-4. **Oportunidad de diferenciación:** El mercado de Guápiles está lleno de técnicos informales que cotizan por mensaje sin estructura; Atlantek puede posicionarse como la **empresa líder indiscutible en seguridad tecnológica corporativa y residencial de la zona atlántica**.
+La verificación actual produce un **puntaje global de 8.6/10 (estimación técnica, no Lighthouse)**:
+- Producción/operación: **9.0/10** — dominio HTTPS y HTTP 200 verificados.
+- UX/conversión: **8.8/10** — CTA, formulario, WhatsApp, FAQ y chat disponibles; falta analítica.
+- Accesibilidad: **8.7/10** — labels, foco visible, targets táctiles y reduced motion.
+- SEO técnico: **8.8/10** — canonical, OG, sitemap, robots y JSON-LD presentes.
+- Seguridad pública: **7.5/10** — admin/dashboard y assets privados están en 404, pero documentos de `/Legal/` siguen publicados.
+- Rendimiento/código: **8.2/10** — estructura separada y payload razonable; falta Lighthouse y optimización de formatos.
+
+El principal riesgo pendiente no es el panel privado: son los documentos internos que todavía responden desde el dominio público. `noindex` no equivale a privacidad.
 
 ---
 
@@ -29,8 +33,8 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
 - **Mejora:** Implementación de **Plus Jakarta Sans** (grotesque moderna de alta gama) + **JetBrains Mono** para datos técnicos, códigos de cámaras y badges.
 
 ### 2.3. Fotografía y Casos de Estudio (✅ Actualizado)
-- **Diagnóstico:** El Hero y los 6 casos de *Trabajos Anteriores* usaban URLs de picsum.photos (paisajes aleatorios sin relación con seguridad).
-- **Mejora:** Generación e integración de fotografía hiperrealista en alta resolución:
+- **Estado actual:** Ya no se usan URLs de `picsum.photos` ni placeholders visuales en la landing pública.
+- **Mejora aplicada:** Integración de fotografía temática y recursos SVG propios:
   - **Hero:** Vista de cámara de seguridad 4K ColorVu con HUD de monitoreo en acceso comercial al atardecer.
   - **Caso 01 (Clínica):** Cámara domo en cielo raso de clínica dental moderna con cableado 100% oculto.
   - **Caso 02 (Residencial):** Cámara bullet en fachada/cochera con tubería conduit galvanizada limpia.
@@ -40,7 +44,7 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
   - **Caso 06 (Restaurante):** Monitoreo de salón y áreas comerciales.
 
 ### 2.4. El Problema del "Gate de Entrada" (Modal Bloqueante)
-- **Diagnóstico:** openGate() se dispara automáticamente al cargar la página si no hay usuario en localStorage.
+- **Estado actual:** La apertura automática fue eliminada del landing público.
 - **Impacto:** En Costa Rica, el tráfico local proviene de anuncios en Facebook/Instagram o búsquedas en Google. Un usuario que entra y ve una pantalla bloqueada con un formulario antes de ver qué ofrece la empresa tiene una **tasa de rebote estimada del 70-80%**.
 - **Recomendación:** Desactivar la apertura automática del modal en el landing principal. El modal o formulario debe presentarse como un **"Cotizador Rápido en Línea"** o integrarse de forma natural en la sección de contacto.
 
@@ -53,35 +57,22 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
 | **Scanline global (ody::after)** | Corregido | Alta | Eliminado del body; restringido solo a .cam-card__screen. |
 | **Separación de archivos** | Excelente | Info | Cumple regla de Apex: index.html, style.css, script.js separados. |
 | **Mobile First (iPhone SE 375px)** | Bueno | Media | Validar anchos del radar SVG en pantallas menores a 360px. |
-| **Velocidad de Carga (Lighthouse)** | Bueno | Media | Convertir las imágenes .jpg a .webp para rebajar el payload total a < 1.2 MB. |
-| **Caché y CDN** | Pendiente | Alta | Configurar cabeceras de caché (Cache-Control: max-age=31536000) en CloudFront. |
+| **Velocidad de Carga (Lighthouse)** | No medido | Media | Ejecutar Lighthouse/PageSpeed con URL pública antes de presentar un score de rendimiento. |
+| **Imágenes modernas** | Pendiente | Media | Preparar WebP/AVIF cuando se incorporen nuevas fotos reales de proyectos. |
+| **Hosting y caché** | Funcional | Media | GitHub Pages responde correctamente; migrar a CDN propio solo si el tráfico lo justifica. |
 
 ---
 
 ## 4. 🔒 AUDITORÍA DE SEGURIDAD Y PRIVACIDAD
 
 > [!CAUTION]
-> **HALLAZGOS DE SEGURIDAD CRÍTICOS ANTES DE PRODUCCIÓN**
+> **ESTADO DE SEGURIDAD VERIFICADO EL 15/09/2026**
 
-1. **Enlaces Públicos a Administración en el Footer:**
-   - En index.html (línea 454) el footer contiene:  
-     ... · <a href="dashboard.html">Dashboard</a> · <a href="admin.html">Admin</a>
-   - **Riesgo:** Cualquier visitante, competidor o cliente curioso hace clic y entra directamente a ver los datos de facturación, clientes y proformas de Atlantek.
-   - **Solución:** Eliminar de inmediato estos links del footer público. El acceso a dmin.html y dashboard.html debe ser privado mediante URL directa guardada por el dueño.
+1. **Admin/dashboard públicos:** Resuelto en el repo público. `admin.html`, `dashboard.html`, sus CSS/JS y assets heredados responden 404. El panel vive en el repositorio privado `apexcloudworkscompany/atlanteksystems-admin`.
 
-2. **Falta de Puerta de Acceso con Contraseña (Gate de Autenticación):**
-   - Actualmente dmin.html y dashboard.html cargan y muestran los datos del cliente sin pedir clave de acceso.
-   - **Solución:** Implementar una pantalla de login sencilla con contraseña en sesión (usando sessionStorage o hash) antes de renderizar la tabla de clientes y documentos.
+2. **Documentos internos publicados:** Pendiente. `/Legal/contrato-servicio.html`, `/Legal/proforma.html` y `/Legal/acta-entrega.html` respondieron HTTP 200 en la verificación. Deben retirarse del repo público o reemplazarse por versiones expresamente públicas.
 
-3. **Exposición de Token y Google Apps Script en Frontend:**
-   - ssets/js/config.js expone públicamente:
-     `javascript
-     const CONFIG = {
-       SHEETS_URL: 'https://script.google.com/macros/s/.../exec',
-       TOKEN: 'Atlantek-2026'
-     };
-     `
-   - **Solución:** Para la fase de producción, migrar las peticiones a un endpoint proxy seguro o cambiar el token a uno aleatorio de 32 caracteres con rate limiting.
+3. **Endpoint público de formulario:** El navegador necesita conocer el endpoint para enviar leads. El token público no debe confundirse con credenciales administrativas; se recomienda rate limiting, validación en Apps Script y rotación si se filtra.
 
 ---
 
@@ -89,13 +80,11 @@ Sin embargo, existían cuellos de botella que frenaban la conversión y exponía
 
 El 80% de las contrataciones de CCTV en Guápiles ocurren por dos vías: **búsqueda en Google** (*"cámaras de seguridad Guápiles"*, *"técnico de redes Pococí"*) y **recomendación directa / WhatsApp**.
 
-### Mejoras SEO a implementar:
-1. **Schema.org LocalBusiness (JSON-LD):**
-   Agregar datos estructurados en <head> para que Google muestre a Atlantek en el mapa de Guápiles con teléfono, zona de servicio y horarios.
-2. **Meta Tags OpenGraph (OG):**
-   Actualmente faltan og:image, og:title y og:description. Al compartir el enlace de Atlantek por WhatsApp, debe aparecer una miniatura profesional con el logo y la cámara 4K, no un enlace de texto plano.
-3. **Página de Google Business Profile:**
-   Vincular la landing con una ficha de Google Maps verificada en Guápiles Centro (70201).
+### Estado SEO verificado:
+1. **Schema.org LocalBusiness (JSON-LD):** Presente en `<head>` con ubicación, teléfono, horarios, cobertura y servicios.
+2. **Meta Tags OpenGraph (OG):** `og:title`, `og:description`, `og:image`, canonical y Twitter Card presentes.
+3. **Sitemap y robots:** Publicados para el dominio oficial.
+4. **Google Business Profile:** Pendiente de crear/verificar y alinear NAP con el correo y teléfono oficiales.
 
 ---
 
@@ -129,7 +118,7 @@ Para que Atlantek no sea "otro instalador más", estas 4 funciones convertirán 
 
 ## 7. 🗓️ PLAN DE ACCIÓN INMEDIATO (CHECKLIST PARA GARETT)
 
-### Prioridad P0 — Antes de la Demo con el Cliente (HOY)
+### Prioridad P0 — Seguridad y medición
 - [x] Unificar tipografía corporativa (Plus Jakarta Sans + JetBrains Mono).
 - [x] Eliminar scanline global que degradaba el logo y textos.
 - [x] Sustituir todas las fotos dummy por fotografía 4K de CCTV e instalaciones.
@@ -137,18 +126,21 @@ Para que Atlantek no sea "otro instalador más", estas 4 funciones convertirán 
 - [x] Ocultar los enlaces de Dashboard y Admin del footer en index.html.
 - [x] Corregir error de sintaxis HTML (div huérfano tras <main>).
 - [x] Eliminar apertura automática forzada del Gate de entrada para evitar rebote.
-- [ ] Probar el flujo completo en pantalla móvil iPhone/Android.
+- [x] Verificar producción en desktop y móvil a 375 px.
+- [x] Confirmar que admin/dashboard y assets privados responden 404.
+- [ ] Retirar o hacer públicos de forma explícita los documentos internos de `/Legal/`.
+- [ ] Añadir eventos de conversión para WhatsApp, chat y formulario.
+- [ ] Ejecutar Lighthouse/PageSpeed con URL pública y guardar resultados fechados.
 
-### Prioridad P1 — Cierre de Venta ( Setup + /mes)
-- [ ] Mostrar en la demo la proforma #027 real ya cargada en el dashboard.
-- [ ] Proponer la compra del dominio local (Atlantekcr.com o Atlantekseguridad.com).
-- [ ] Firmar contrato con marco legal Apex (50% adelanto obligatorio).
+### Prioridad P1 — Cierre de Venta
+- [ ] Confirmar un único correo oficial y actualizar landing, JSON-LD, documentos y ficha local.
+- [ ] Conseguir fotos reales de instalaciones y testimonios verificables.
+- [ ] Crear/verificar Google Business Profile en Guápiles.
 
-### Prioridad P2 — Despliegue en AWS Producción
-- [ ] Migrar el Google Sheet a la cuenta oficial de Atlantek (soporteintec.cr@gmail.com).
-- [x] Proteger admin.html y dashboard.html con contraseña de sesión (auth-gate).
-- [ ] Desplegar en S3 + CloudFront con certificado SSL de Amazon (ACM) y Route 53.
-- [ ] Configurar Google Business Profile en Guápiles para dominar las búsquedas orgánicas.
+### Prioridad P2 — Escalamiento
+- [ ] Migrar a S3 + CloudFront solo cuando se requieran headers, caché y control de despliegue propios.
+- [ ] Convertir fotografías nuevas a WebP/AVIF.
+- [ ] Implementar automatización de respuesta y seguimiento de leads con consentimiento.
 
 ---
 *Documento preparado por Apex Cloud Work · División de Arquitectura & Sistemas Web*
