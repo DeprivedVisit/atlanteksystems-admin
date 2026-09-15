@@ -7,18 +7,19 @@
 
 - **Fecha:** 2026-09-15
 
-## Bloque: ORDEN CARPETAS + SEO AT/Atlantek (continuación)
+## Bloque: Seguridad Atlantek — fuga de datos admin cerrada
 
-**Proyecto:** Atlantek Systems (ex INTEC) — Cliente CCTV Guápiles/Pococí
+**Proyecto:** Atlantek Systems (CCTV Guápiles)
 
-- [x] **🌐 Dominio oficial LIVE** — `atlanteksystems.com` → 200 · www redirects a apex · canonical/og/sitemap en dominio · complementado con `https_enforced: true`
-- [x] **http→https redirect CONFIRMADO** (cert provisionado) ✅
-- [x] **Mobile 375px validado** (Playwright en producción): sticky CTA ✅ · `#guapiles` 1-col ✅ · fix de solape WA/barra CTA (`.wa-float` oculto ≤680px + footer padding 118px)
-- [x] **Repos al día:** monorepo `a8d171e` + Pages `e874d5d` pusheados · 0 pendientes
-- [x] `ACTIVAR-DOMINIO-OFICIAL.md` con checklist hecho · `BITACORA.md` cerrado con todo el día (SEO→CSS→plan→dominio→mobile)
+- 🔴 **Vulnerabilidad cerrada:** token backend (`intec-2026`) estaba en repo público de Pages (servido en vivo) → cualquiera leía clientes/proformas/leads y podía borrar todo (`action=save`)
+- [x] **Tokens divididos** en `Code.gs`: `TOKEN_PUBLICO` (solo lead/user) · `TOKEN_ADMIN` (load/save/lead-status)
+- [x] `apps-script/` y panel admin (`admin.html`, `dashboard.html`, store/app/dashboard.js, css) → **movidos a `02-Privado/`** (fuera del repo público)
+- [x] `config.js` público solo con token público nuevo (`atlantek-pub-cs0v95l7ae`)
+- [x] Repo Pages commit `8c3060b` (rebase sobre `e874d5d` de otro agente) · verificado: admin/apps-script/store → 404 · config.php sin tokens viejos
+- 🟠 **CRÍTICO PENDIENTE (manual):** **redeploy del Code.gs nuevo en Google Apps Script** — hasta entonces el backend sigue aceptando `intec-2026` y el form no guarda leads
+- **Regla respetada:** no se borró nada sin consentimiento; el caso `CEO/PLAN-SEO-LOCAL.md` quedó intacto (creado por otro agente)
 
-**Pendiente:**
-- **Search Console:** propiedad `https://atlanteksystems.com/` + reenviar sitemap (necesita Daniel para verificación si es tipo dominio; URL-prefix con verificación meta puede ser con el repo)
-- **GBP (Daniel):** crear/reclamar perfil + fotos + areaServed 7 distritos + web → atlanteksystems.com + reseñas (guión en PLAN-SEO-LOCAL.md Bloque 3)
-- Coordinar con Daniel el plan completo (`CEO/PLAN-SEO-LOCAL.md`) — enviar WhatsApp
-- Validación visual humana: screenshots guardados en `Temp\opencode\at-*.png` (revisar con ojos, no con modelo)
+**Tokens nuevos:** pub=`atlantek-pub-cs0v95l7ae` · adm=`atlantek-adm-vemsw0y4ugh5r691`
+**Ruta backend:** `02-Privado/apps-script/Code.gs` · **panel:** `02-Privado/panel-admin/`
+
+**Siguiente paso:** redeploy Apps Script en Google · commit monorepo local · plan SEO cliente-side · mobile 375px.

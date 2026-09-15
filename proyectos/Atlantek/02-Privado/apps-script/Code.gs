@@ -178,10 +178,11 @@ function doPost(e) {
   try { body = JSON.parse(e.postData.contents); }
   catch (err) { return json_({ ok: false, error: 'JSON inválido' }); }
 
-  if (body.token !== TOKEN_PUBLICO) return json_({ ok: false, error: 'token inválido' });
+  /* ──── ACCIONES PÚBLICAS (TOKEN_PUBLICO) ──── */
 
   /* Lead del formulario público del sitio → append a hoja Leads */
   if (body.action === 'lead' && body.lead) {
+    if (body.token !== TOKEN_PUBLICO) return json_({ ok: false, error: 'token inválido' });
     var l = body.lead;
     if (!String(l.nombre || '').trim() || !String(l.telefono || '').trim()) {
       return json_({ ok: false, error: 'nombre y teléfono requeridos' });
@@ -213,6 +214,7 @@ function doPost(e) {
 
   /* Usuario creado desde el gate de entrada → append a hoja Usuarios */
   if (body.action === 'user' && body.user) {
+    if (body.token !== TOKEN_PUBLICO) return json_({ ok: false, error: 'token inválido' });
     var u = body.user;
     if (!String(u.nombre || '').trim() || !String(u.telefono || '').trim()) {
       return json_({ ok: false, error: 'nombre y teléfono requeridos' });
@@ -235,6 +237,9 @@ function doPost(e) {
     return json_({ ok: true });
   }
 
+  /* ──── ACCIONES ADMIN (TOKEN_ADMIN) ──── */
+  if (body.token !== TOKEN_ADMIN) return json_({ ok: false, error: 'token inválido' });
+
   /* Cambio de estado de un lead desde el panel admin.
      Solo toca la columna estado de la fila del lead — nunca borra ni
      sobreescribe la hoja Leads (los leads no viajan en action:'save'). */
@@ -255,8 +260,6 @@ function doPost(e) {
   }
 
   if (body.action !== 'save' || !body.data) return json_({ ok: false, error: 'acción desconocida' });
-
-  if (body.token !== TOKEN_ADMIN) return json_({ ok: false, error: 'token inválido' });
 
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);

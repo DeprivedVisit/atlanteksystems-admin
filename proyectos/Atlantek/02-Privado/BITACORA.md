@@ -249,6 +249,31 @@ Siguiente paso: ...
 
 ---
 
+### 2026-09-15 17:xx — 🔐 SEGURIDAD: fuga de datos admin cerrada (tokens divididos)
+
+**Vulnerabilidad detectada (verificada en vivo):** el token del backend Apps Script (`intec-2026`) vivía en `apps-script/Code.gs` commiteado en el repo PÚBLICO de Pages (servido en vivo como `/apps-script/Code.gs`). Con él cualquiera podía:
+- `GET ?action=load&token=intec-2026` → **leer clientes, proformas y leads** (comprobado: 3 clientes / 2 docs / 3 leads)
+- `POST action=save` → **borrar/sobrescribir toda** la facturación y clientes
+- Además: gate admin/dashboard era cosmético (btoa===HASH público) y **el front enviaba `atlantek-2026` que el backend rechazaba → formulario de leads roto en producción**.
+
+**Qué se cambió:**
+- [x] `Code.gs` → **tokens separados**: `TOKEN_PUBLICO` (solo `lead`/`user`) y `TOKEN_ADMIN` (`load`/`save`/`lead-status`) — checks por acción, no global
+- [x] `apps-script/Code.gs` movido a `02-Privado/apps-script/` (NO se sirve en el sitio; redeploy manual por Google)
+- [x] Panel admin movido a `02-Privado/panel-admin/` (admin/dashboard + app/dashboard/store.js + admin/dashboard.css + config con TOKEN_ADMIN) — copia privada a entregar a Daniel
+- [x] `01-Cliente/web/assets/js/config.js` → solo `TOKEN_PUBLICO` (`atlantek-pub-cs0v95l7ae`)
+- [x] Repo Pages: eliminados `apps-script/`, `admin.html`, `dashboard.html`, `store.js`, `app.js`, `dashboard.js`, `admin.css`, `dashboard.css` (commit `8c3060b`, rebaseado sobre fix de UI `e874d5d` de otro agente)
+- [x] Verificado en vivo: `/admin.html` 404 · `/apps-script/Code.gs` 404 · `/store.js` 404 · config.js con token público nuevo · 0 ocurrencias de tokens viejos en el repo
+
+**⚠️ PASO CRÍTICO PENDIENTE (manual, Garett):** **redeploy del Code.gs nuevo en Google Apps Script** (`02-Privado/apps-script/Code.gs`) — hasta hacerlo, el backend sigue aceptando `intec-2026` y el formulario público NO guarda leads (token nuevo aún no registrado).
+
+**Nuevos tokens (rotar de nuevo si se filtra):**
+- Público: `atlantek-pub-cs0v95l7ae`
+- Admin: `atlantek-adm-vemsw0y4ugh5r691`
+
+**Estado:** 🟠 backend pendiente redeploy · front seguro
+
+---
+
 ### 2026-09-15 15:3x — 🎨 CSS `.seo-local*` + deploy SEO a Pages (commit `01909a5`)
 
 **Contexto:** la sección `#guapiles` (bloque SEO 11:10) quedó insertada sin estilos. Este bloque cierra el pendiente.
