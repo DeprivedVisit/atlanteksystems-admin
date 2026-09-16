@@ -49,6 +49,24 @@
 
   /* ── Render ── */
 
+  function getLocalV2() {
+    try {
+      const raw = localStorage.getItem('atlantek-gestion-v2');
+      return raw ? JSON.parse(raw) : { services: [], tickets: [] };
+    } catch (e) {
+      return { services: [], tickets: [] };
+    }
+  }
+
+  function computeServiceStatus(s) {
+    if (s.estado === 'inactivo') return 'inactivo';
+    const hoy = new Date(); hoy.setHours(0,0,0,0);
+    const venc = new Date(s.fechaVencimiento);
+    if (isNaN(venc)) return s.estado || 'activo';
+    if (venc < hoy) return 'vencido';
+    return 'activo';
+  }
+
   function renderKpis(data) {
     const docs = data.docs || [];
     const leads = data.leads || [];
@@ -57,12 +75,25 @@
     const porCobrar = docs.filter(d => d.estado === 'enviada').reduce((s, d) => s + docTotal(d), 0);
     const nuevos    = leads.filter(l => (l.estado || 'nuevo') === 'nuevo').length;
 
+    // Servicios activos, MRR y tickets abiertos (desde localStorage v2)
+    const v2 = getLocalV2();
+    const services = v2.services || [];
+    const hoy = new Date(); hoy.setHours(0,0,0,0);
+    const serviciosActivos = services.filter(s => computeServiceStatus(s) === 'activo').length;
+    const mrr = services
+      .filter(s => s.estado === 'activo' && Number(s.valorMensual || 0) > 0 && new Date(s.fechaVencimiento) >= hoy)
+      .reduce((sum, s) => sum + Number(s.valorMensual || 0), 0);
+    const ticketsAbiertos = (v2.tickets || []).filter(t => t.estado === 'abierto' || t.estado === 'en_proceso').length;
+
     const kpis = [
       { label: 'Clientes',    value: (data.clients || []).length,  hint: 'registrados' },
       { label: 'Documentos',  value: docs.length,                  hint: 'proformas + facturas' },
       { label: 'Cobrado',     value: money(pagado),                hint: 'documentos pagados', cls: 'is-green' },
       { label: 'Por cobrar',  value: money(porCobrar),             hint: 'enviados sin pagar', cls: 'is-amber' },
-      { label: 'Leads',       value: nuevos,                       hint: 'nuevos del sitio web', cls: nuevos ? 'is-red' : '' }
+      { label: 'Leads',       value: nuevos,                       hint: 'nuevos del sitio web', cls: nuevos ? 'is-red' : '' },
+      { label: 'Servicios',   value: serviciosActivos,             hint: 'activos', cls: serviciosActivos ? '' : '' },
+      { label: 'MRR',         value: money(mrr),                   hint: 'mensual activo', cls: mrr ? 'is-green' : '' },
+      { label: 'Tickets',     value: ticketsAbiertos,              hint: 'abiertos', cls: ticketsAbiertos ? 'is-red' : '' }
     ];
 
     $('kpis').innerHTML = kpis.map(k => `
@@ -71,6 +102,53 @@
         <div class="kpi__value ${k.cls || ''}">${k.value}</div>
         <div class="kpi__hint">${k.hint}</div>
       </div>`).join('');
+  }
+
+  function renderServicesItems() {
+    const v2 = getLocalV2();
+    const services = (v2.services || [])
+      .filter(s => computeServiceStatus(s) === 'activo')
+      .slice(0, 6);
+    const list = $('services-list');
+    if (!list) return;
+
+    if (!services.length) {
+      list.innerHTML = '<li><div class="empty">Sin servicios activos</div></li>';
+      return;
+    }
+
+    list.innerHTML = services.map(s => `
+      <li>
+        <div class="lead__top">
+          <b>${esc(s.nombre)}</b>
+          <span class="lead__meta">Activo</span>
+        </div>
+        <span class="lead__meta">${esc(s.tipo || '')} · vence ${esc(String(s.fechaVencimiento || '').slice(0,10))} · ${money(s.valorMensual || 0)}/mes</span>
+      </li>`).join('');
+  }
+
+  function renderTicketsItems() {
+    const v2 = getLocalV2();
+    const tickets = (v2.tickets || [])
+      .filter(t => t.estado === 'abierto' || t.estado === 'en_proceso')
+      .sort((a, b) => new Date(b.fechaActualizacion || b.fechaCreacion) - new Date(a.fechaActualizacion || a.fechaCreacion))
+      .slice(0, 6);
+    const list = $('tickets-list');
+    if (!list) return;
+
+    if (!tickets.length) {
+      list.innerHTML = '<li><div class="empty">Sin tickets abiertos</div></li>';
+      return;
+    }
+
+    list.innerHTML = tickets.map(t => `
+      <li>
+        <div class="lead__top">
+          <b>${esc(t.titulo)}</b>
+          <span class="lead__meta">${esc(t.prioridad || '')}</span>
+        </div>
+        <span class="lead__meta">${esc(t.estado === 'en_proceso' ? 'En proceso' : 'Abierto')} · creado ${esc(String(t.fechaCreacion || '').slice(0,10))}</span>
+      </li>`).join('');
   }
 
   function renderBars(data) {
@@ -164,6 +242,8 @@
     renderBars(data);
     renderDocs(data);
     renderLeads(data);
+    renderServicesItems();
+    renderTicketsItems();
     $('dash-updated').textContent =
       'Actualizado ' + new Date().toLocaleString('es-CR', { dateStyle: 'medium', timeStyle: 'short' });
   }
