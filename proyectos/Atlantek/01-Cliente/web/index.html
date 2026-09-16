@@ -324,15 +324,25 @@
             <span class="radar__axis radar__axis--w">O</span>
             <span class="radar__range radar__range--near">10 km</span>
             <span class="radar__range radar__range--far">20 km</span>
-            <div class="radar__sweep"></div>
-            <span class="radar__blip radar__blip--base" style="--x:50%; --y:52%"><i></i>Guápiles</span>
-            <span class="radar__blip" style="--x:68%; --y:24%"><i></i>Cariari</span>
-            <span class="radar__blip" style="--x:28%; --y:36%"><i></i>Jiménez</span>
-            <span class="radar__blip" style="--x:74%; --y:58%"><i></i>La Rita</span>
-            <span class="radar__blip" style="--x:60%; --y:78%"><i></i>Roxana</span>
-            <span class="radar__blip" style="--x:30%; --y:70%"><i></i>La Colonia</span>
+            <span class="radar__corner radar__corner--tl"></span>
+            <span class="radar__corner radar__corner--tr"></span>
+            <span class="radar__corner radar__corner--bl"></span>
+            <span class="radar__corner radar__corner--br"></span>
+            <div class="radar__read radar__read--rng"><span class="radar__read-label">RNG</span><span id="radar-rng">0°</span></div>
+            <div class="radar__read radar__read--tgt"><span class="radar__read-label">LOCK</span><span id="radar-lock">0/7</span></div>
+            <div class="radar__sweep" id="radar-sweep"></div>
+            <span class="radar__blip radar__blip--base" style="--x:50%; --y:50%" data-ang="0" data-km="0" data-time="3"><i></i><b>Guápiles</b><em>BASE</em></span>
+            <span class="radar__blip" style="--x:66%; --y:21%" data-ang="22" data-km="9" data-time="2" data-t="· 24–48 h"><i></i><b>Cariari</b><em data-t="· 24–48 h"></em></span>
+            <span class="radar__blip" style="--x:44%; --y:40%" data-ang="160" data-km="4" data-time="1" data-t="· Mismo día"><i></i><b>Jiménez</b><em data-t="· Mismo día"></em></span>
+            <span class="radar__blip" style="--x:74%; --y:46%" data-ang="80" data-km="9" data-time="1" data-t="· Mismo día"><i></i><b>La Rita</b><em data-t="· Mismo día"></em></span>
+            <span class="radar__blip" style="--x:60%; --y:66%" data-ang="140" data-km="12" data-time="2" data-t="· 24–48 h"><i></i><b>Roxana</b><em data-t="· 24–48 h"></em></span>
+            <span class="radar__blip" style="--x:24%; --y:44%" data-ang="245" data-km="6" data-time="2" data-t="· 24–48 h"><i></i><b>La Colonia</b><em data-t="· 24–48 h"></em></span>
+            <span class="radar__blip" style="--x:46%; --y:12%" data-ang="0" data-km="20" data-time="3" data-t="· Programada"><i></i><b>Colorado</b><em data-t="· Programada"></em></span>
           </div>
-          <div class="radar__base">BASE · GUÁPILES CENTRO — 70201 POCOCÍ</div>
+          <div class="radar__meta">
+            <span class="radar__base">BASE · GUÁPILES CENTRO — 70201 POCOCÍ</span>
+            <span class="radar__hint">LOS PUNTOS SE ILUMINAN CON EL BARRI­DO · TIEMPO DE RESPUESTA SEGÚN DISTRITO</span>
+          </div>
         </div>
 
         <div class="coverage__info reveal">
