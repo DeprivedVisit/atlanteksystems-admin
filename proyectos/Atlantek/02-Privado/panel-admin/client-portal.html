@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Atlantek Systems · Portal del Cliente</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg?v=4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <style>
+    .auth-gate{position:fixed;inset:0;z-index:999;background:#061828;display:flex;align-items:center;justify-content:center}
+    .auth-gate.hidden{display:none}
+    .auth-box{background:#122338;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:44px 36px;width:min(400px,92vw);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+    .auth-box img{height:75px;max-width:220px;width:auto;object-fit:contain;margin-bottom:24px}
+    .auth-box h2{font-size:20px;font-weight:700;margin-bottom:6px;color:#E9EDF0}
+    .auth-box p{font-size:13px;color:#8E9AA4;margin-bottom:24px}
+    .auth-box input{width:100%;padding:12px 14px;font-size:14px;font-family:var(--font);background:#0a1628;border:1px solid rgba(255,255,255,.15);color:#E9EDF0;border-radius:8px;margin-bottom:14px;outline:none}
+    .auth-box input:focus{border-color:#1a6aff}
+    .auth-box button{width:100%;padding:13px;font-size:14px;font-weight:700;font-family:var(--font);background:#1a6aff;color:#fff;border:none;border-radius:8px;cursor:pointer;transition:background .18s,box-shadow .18s}
+    .auth-box button:hover{background:#0d52cc;box-shadow:0 6px 24px rgba(26,106,255,.4)}
+    .auth-err{color:#ff6b6b;font-size:12px;margin-top:10px;min-height:18px}
+
+    .client-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 8px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .client-nav a {
+      flex: 1;
+      text-align: center;
+      padding: 10px 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 6px;
+      transition: all .15s;
+    }
+    .client-nav a:hover { background: var(--card); color: var(--ink); }
+    .client-nav a.active { background: var(--navy-light); color: #fff; }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .service-card:hover { border-color: var(--line-2); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .service-card.inactivo { opacity: .6; border-color: var(--faint); }
+
+    .service-card__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .service-card__title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .service-card__type {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--navy-light);
+      background: rgba(26, 106, 255, .1);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .service-card__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .service-card__status.activo { color: var(--green); background: rgba(51, 209, 122, .1); border: 1px solid rgba(51, 209, 122, .3); }
+    .service-card__status.vencido { color: var(--navy-light); background: rgba(26, 106, 255, .1); border: 1px solid rgba(26, 106, 255, .3); }
+    .service-card__status.inactivo { color: var(--faint); background: rgba(92, 104, 112, .1); border: 1px solid rgba(92, 104, 112, .3); }
+
+    .service-card__desc { color: var(--muted); font-size: 13.5px; margin-bottom: 16px; line-height: 1.6; }
+
+    .service-card__meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+    .service-card__meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .service-card__meta-label { font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); }
+    .service-card__meta-value { font-size: 13px; font-weight: 600; color: var(--ink); }
+
+    .service-card__items {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+    .service-card__items-title { font-family: var(--mono); font-size: 9.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+    .service-card__items-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; }
+    .service-card__items-list li { font-size: 12.5px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .service-card__items-list li::before { content: '✓'; color: var(--green); font-weight: 600; font-size: 11px; }
+
+    .service-card__footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .service-card__monthly { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .service-card__monthly b { color: var(--navy-light); font-size: 14px; font-weight: 700; }
+    .service-card__notes { font-size: 11.5px; font-style: italic; color: var(--faint); max-width: 400px; }
+
+    .tickets-section { margin-top: 32px; }
+    .tickets-section__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tickets-section__title { font-size: 18px; font-weight: 700; }
+    .tickets-section__actions { display: flex; gap: 10px; }
+
+    .ticket-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 12px;
+      transition: border-color .2s;
+    }
+    .ticket-card:hover { border-color: var(--line-2); }
+    .ticket-card.prioridad-critica { border-left: 3px solid #ef4444; }
+    .ticket-card.prioridad-alta { border-left: 3px solid var(--navy-light); }
+    .ticket-card.prioridad-media { border-left: 3px solid var(--amber); }
+    .ticket-card.prioridad-baja { border-left: 3px solid var(--green); }
+
+    .ticket-card__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .ticket-card__title { font-size: 14.5px; font-weight: 600; color: var(--ink); flex: 1; min-width: 200px; }
+    .ticket-card__meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .ticket-card__status {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    .ticket-card__status.abierto { color: var(--navy-light); background: rgba(26, 106, 255, .1); border: 1px solid rgba(26, 106, 255, .3); }
+    .ticket-card__status.en_proceso { color: var(--amber); background: rgba(229, 181, 74, .1); border: 1px solid rgba(229, 181, 74, .3); }
+    .ticket-card__status.resuelto { color: var(--green); background: rgba(51, 209, 122, .1); border: 1px solid rgba(51, 209, 122, .3); }
+    .ticket-card__status.cerrado { color: var(--faint); background: rgba(92, 104, 112, .1); border: 1px solid rgba(92, 104, 112, .3); }
+    .ticket-card__priority {
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .ticket-card__priority.critica { color: #fff; background: #ef4444; }
+    .ticket-card__priority.alta { color: #fff; background: var(--navy-light); }
+    .ticket-card__priority.media { color: #000; background: var(--amber); }
+    .ticket-card__priority.baja { color: #fff; background: var(--green); }
+
+    .ticket-card__desc { color: var(--muted); font-size: 13px; margin-bottom: 12px; line-height: 1.6; }
+
+    .ticket-card__info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--faint);
+      margin-bottom: 12px;
+      padding: 10px;
+      background: var(--bg);
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    .ticket-card__info-item { display: flex; align-items: center; gap: 6px; }
+    .ticket-card__info-label { font-weight: 600; }
+    .ticket-card__info-value { color: var(--muted); }
+
+    .ticket-card__historial { border-top: 1px solid var(--line); padding-top: 12px; }
+    .ticket-card__historial-title { font-family: var(--mono); font-size: 9.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+    .ticket-card__historial-list { display: flex; flex-direction: column; gap: 8px; }
+    .ticket-card__historial-item { font-size: 12.5px; color: var(--muted); padding: 10px; background: var(--bg); border-radius: 6px; border: 1px solid var(--line); }
+    .ticket-card__historial-item strong { color: var(--ink); }
+    .ticket-card__historial-item .msg-time { font-family: var(--mono); font-size: 9px; color: var(--faint); margin-left: 8px; }
+    .ticket-card__historial-item .msg-author { color: var(--navy-light); font-weight: 600; }
+
+    .new-ticket-form {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .new-ticket-form h3 { margin-bottom: 20px; font-size: 16px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-family: var(--mono); font-size: 9.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); }
+    .form-group input, .form-group select, .form-group textarea { font-family: var(--font); font-size: 13.5px; color: var(--ink); background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 10px 12px; outline: none; transition: border-color .15s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--navy-light); }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    .empty-state { text-align: center; padding: 48px 24px; color: var(--faint); }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: .5; }
+    .empty-state h3 { font-size: 16px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+    .empty-state p { font-size: 13.5px; }
+
+    @media (max-width: 680px) {
+      .service-card__meta { grid-template-columns: 1fr; }
+      .service-card__items-list { grid-template-columns: 1fr; }
+      .service-card__footer { flex-direction: column; align-items: flex-start; }
+      .ticket-card__head { flex-direction: column; align-items: flex-start; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-gate" id="auth-gate">
+    <div class="auth-box">
+      <img src="assets/img/logo-atlantek-white.svg" alt="ATLANTEK">
+      <h2>Portal del Cliente</h2>
+      <p>Ingresá tu clave de acceso</p>
+      <input type="password" id="auth-pass" placeholder="Clave" autofocus>
+      <button id="auth-btn">Entrar</button>
+      <p class="auth-err" id="auth-err"></p>
+    </div>
+  </div>
+
+  <div id="client-content" style="display:none">
+    <!-- ══════════ NAV ══════════ -->
+    <header class="dnav">
+      <div class="container dnav__inner">
+        <a href="index.html" class="logo">
+          <img src="assets/img/logo-atlantek-white.svg" alt="ATLANTEK Systems" class="logo__img">
+        </a>
+        <div class="dnav__right">
+          <span class="sync-badge" id="sync-badge">● Cargando…</span>
+          <a href="https://wa.me/50672312225?text=Hola%20Atlantek%2C%20tengo%20una%20consulta" class="btn btn--ghost btn--sm" target="_blank" rel="noopener">WhatsApp Soporte</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" id="client-main">
+      <!-- Cliente info header -->
+      <div class="client-header" id="client-header" style="margin-bottom: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <h1 id="client-name" style="font-size: clamp(22px, 3vw, 28px); font-weight: 700;">Cargando…</h1>
+            <p class="dash__sub" id="client-meta" style="margin-top: 6px;">—</p>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <span class="kpi" style="background: var(--bg2); padding: 12px 20px; border: 1px solid var(--line); border-radius: var(--radius);">
+              <span class="kpi__label">Servicios activos</span>
+              <span class="kpi__value is-green" id="kpi-services">0</span>
+            </span>
+            <span class="kpi" style="background: var(--bg2); padding: 12px 20px; border: 1px solid var(--line); border-radius: var(--radius);">
+              <span class="kpi__label">Tickets abiertos</span>
+              <span class="kpi__value is-amber" id="kpi-tickets-open">0</span>
+            </span>
+            <span class="kpi" style="background: var(--bg2); padding: 12px 20px; border: 1px solid var(--line); border-radius: var(--radius);">
+              <span class="kpi__label">Mensual (₡)</span>
+              <span class="kpi__value" id="kpi-monthly">₡0</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs nav -->
+      <nav class="client-nav" id="client-nav">
+        <a href="#servicios" class="active" data-tab="servicios">Mis Servicios</a>
+        <a href="#tickets" data-tab="tickets">Tickets / Soporte</a>
+      </nav>
+
+      <!-- Servicios tab -->
+      <section id="tab-servicios">
+        <div id="services-list"></div>
+      </section>
+
+      <!-- Tickets tab -->
+      <section id="tab-tickets" hidden>
+        <div class="tickets-section">
+          <div class="tickets-section__head">
+            <h2 class="tickets-section__title">Historial de Soporte</h2>
+            <div class="tickets-section__actions">
+              <button class="btn btn--navy" id="btn-new-ticket">+ Nuevo ticket</button>
+            </div>
+          </div>
+          <div id="tickets-list"></div>
+
+          <!-- Formulario nuevo ticket (se muestra al clickear + Nuevo ticket) -->
+          <form class="new-ticket-form" id="new-ticket-form" hidden>
+            <h3>Crear ticket de soporte</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ticket-titulo">Título *</label>
+                <input type="text" id="ticket-titulo" required placeholder="Descripción breve del problema o solicitud">
+              </div>
+              <div class="form-group">
+                <label for="ticket-prioridad">Prioridad</label>
+                <select id="ticket-prioridad">
+                  <option value="baja">Baja</option>
+                  <option value="media" selected>Media</option>
+                  <option value="alta">Alta</option>
+                  <option value="critica">Crítica</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ticket-servicio">Servicio relacionado</label>
+                <select id="ticket-servicio">
+                  <option value="">— Ninguno (general) —</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label for="ticket-descripcion">Descripción detallada *</label>
+              <textarea id="ticket-descripcion" required placeholder="Describí el problema, cuándo empezó, qué has probado, etc."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn--ghost" id="cancel-ticket">Cancelar</button>
+              <button type="submit" class="btn btn--navy">Enviar ticket</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="dfoot">
+      <div class="container">
+        <p>Desarrollado por <a href="https://apexcloudworkscompany.com" target="_blank" rel="noopener">Apex Cloud Work</a> — Cartago, CR</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+  // Cliente actual (se define desde la URL o localStorage)
+  const CLIENT_ID = (() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('client') || localStorage.getItem('atlantek-client-id') || 'c1';
+  })();
+
+  // Auth simple (compartida con admin)
+  (function(){
+    var HASH='YXRsYW50ZWsyMDI2';
+    var gate=document.getElementById('auth-gate');
+    var content=document.getElementById('client-content');
+    var pass=document.getElementById('auth-pass');
+    var btn=document.getElementById('auth-btn');
+    var err=document.getElementById('auth-err');
+    if(sessionStorage.getItem('atlantek-client-auth')){gate.classList.add('hidden');content.style.display='';return}
+    function check(){if(btoa(pass.value)===HASH){sessionStorage.setItem('atlantek-client-auth','1');gate.classList.add('hidden');content.style.display='';}else{err.textContent='Clave incorrecta';pass.value='';pass.focus();}}
+    btn.addEventListener('click',check);
+    pass.addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+  })();
+
+  // Tab switching
+  document.querySelectorAll('#client-nav a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = a.dataset.tab;
+      document.querySelectorAll('#client-nav a').forEach(x => x.classList.toggle('active', x === a));
+      document.getElementById('tab-servicios').hidden = tab !== 'servicios';
+      document.getElementById('tab-tickets').hidden = tab !== 'tickets';
+      window.location.hash = tab;
+    });
+  });
+
+  // Restore tab from hash
+  const initialTab = window.location.hash.slice(1) || 'servicios';
+  document.querySelectorAll('#client-nav a').forEach(a => {
+    if (a.dataset.tab === initialTab) a.click();
+  });
+  </script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/client-portal.js"></script>
+</body>
+</html>

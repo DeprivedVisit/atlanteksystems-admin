@@ -978,28 +978,6 @@ h1 em { font-style: normal; color: var(--navy-light); }
 
 .footer__credit a:hover { color: var(--navy-light); }
 
-.footer__admin {
-  font-family: var(--mono);
-  font-size: 10px !important;
-  letter-spacing: .4px;
-  color: var(--faint) !important;
-  margin-top: 12px;
-  opacity: 0.4;
-  transition: opacity .2s;
-}
-
-.footer__admin:hover {
-  opacity: 0.95;
-}
-
-.footer__admin a {
-  color: var(--muted);
-  text-decoration: none;
-  margin: 0 6px;
-}
-
-.footer__admin a:hover { color: var(--navy-light); }
-
 /* ═══════════ BOTONES FLOTANTES (WhatsApp · Formulario · Chat) ═══════════ */
 
 .wa-float,

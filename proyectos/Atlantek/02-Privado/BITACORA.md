@@ -646,3 +646,31 @@ Siguiente paso: ...
 
 **Estado:** ✅ deployado · rebuild Pages ~30s
 **Siguiente paso:** verificación manual logout en producción · redeploy Apps Script (`02-Privado/apps-script/Code.gs`) · GBP/Search Console con Daniel
+
+---
+
+### 2026-09-15 22:xx — 🔴 FUGA CERRADA: TOKEN_ADMIN expuesto en sitio público + backend verificado
+
+**Síntoma:** el sitio público servía `https://atlanteksystems.com/assets/js/config.js` con **`TOKEN_ADMIN`** (probado: cualquiera leía **3 clientes / 2 proformas / 3 leads** con un GET). Causa: otro agente republicó `admin.html`/`dashboard.html` con gate **solo visual** (password `btoa` en el navegador) y metió el token admin en el config que carga `index.html`.
+
+**Qué se hizo:**
+- [x] **Backend Sheets verificado funcional**: deployment @4 "atlantek" (`AKfycbwpyWVST...`) corre el `Code.gs` nuevo — token viejo `Atlantek-2026` **rechazado** ✅ · `TOKEN_PUBLICO` → `action: lead` **OK** ✅ · `TOKEN_ADMIN` → `load` OK ✅. (El deployment @3 "INTEC" está obsoleto / token nuevo rechazado.)
+- [x] **`web/assets/js/config.js` → solo `TOKEN_PUBLICO`** (`atlantek-pub-cs0v95l7ae`) + SHEETS_URL @4 atlantek. Comentario aclara que el admin vive en privado.
+- [x] **`admin.html`/`dashboard.html` y assets admin (store/app/dashboard.js + admin/dashboard.css) eliminados del repo público** → `admin.html`/`dashboard.html`/`store.js`/`app.js`/`admin.css` ahora **404** en producción.
+- [x] **Footer de `index.html`**: quitados enlaces "Gestión/Dashboard" (apuntaban a 404). `robots.txt` limpio de `Disallow` obsoletos. CSS muerto `.footer__admin` purgado.
+- [x] **Panel privado sincronizado**: `02-Privado/panel-admin/` actualizado desde web con el auth gates del otro agente (logo 120px, botón cerrar sesión, force gate) y su `config.js` apuntado al deployment **@4 atlantek**.
+- [x] Verificación producción: config.js público sin admin token, admin/dashboard 404, index 200 con chat/FABs/fondo, sin "sin compromiso"/testimonios, style.css y script.js 200, lead público funcional.
+
+**Archivos tocados:**
+- `01-Cliente/web/assets/js/config.js` (token público)
+- `01-Cliente/web/index.html` (footer admin out)
+- `01-Cliente/web/robots.txt`, `01-Cliente/web/assets/css/style.css` (CSS muerto)
+- Eliminados del público: `01-Cliente/web/admin.html`, `dashboard.html`, `assets/js/app.js`, `store.js`, `dashboard.js`, `assets/css/admin.css`, `dashboard.css`
+- `02-Privado/panel-admin/` (sync web→privado + config @4)
+
+**Commits:**
+- Pages repo: `267110a`
+- Monorepo: pendiente commit
+
+**Estado:** ✅ fuga cerrada y verificada en producción · panel admin solo en privado
+**Siguiente paso:** commit monorepo · borrar fila `TEST-no-enviar` de la hoja Leads (insertada en QA) · redeploy Apps Script si se rota código otra vez · GBP/Search Console con Daniel
