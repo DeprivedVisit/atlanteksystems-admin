@@ -1,4 +1,4 @@
-const WEBHOOK_URL = 'https://YOUR_WEBHOOK_URL/ecopollo-leads'; // pendiente: apuntar a Apps Script, no a N8N
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx1qqd3Z4-zmPxfCIAeRla493IrROxV_soAqMTyHOj139mewQ1d17QM2zdgRNesqu2n/exec';
 
 // ── Fondo rotativo ──────────────────────────────────────────────────────────
 (function () {
@@ -96,15 +96,15 @@ function updateProgress() {
 
 // ── PRODUCT PHOTO MAP ──
 const PROD_IMGS = {
-  'Pollo entero':       'fondo/prod-pollo-entero.jpg',
-  'Pollo limpio':       'fondo/prod-pollo-limpio.jpg',
-  'Pechuga con hueso':  'fondo/prod-pechuga-hueso.jpg',
-  'Pechuga deshuesada': 'fondo/prod-pechuga-deshuesada.jpg',
-  'Muslo entero':       'fondo/prod-muslo-entero.jpg',
-  'Cuarto de muslo':    'fondo/prod-cuarto-muslo.jpg',
-  'Muslito de muslo':   'fondo/prod-muslito-muslo.jpg',
-  'Ala entera':         'fondo/prod-ala-entera.jpg',
-  'Trocito corriente':  'fondo/prod-trocito.jpg'
+  'Pollo entero':       'fondo/pexels-hariprasad-ce-512756904-34797333.jpg',
+  'Pollo limpio':       'fondo/pollo-limpio.jpg',
+  'Pechuga con hueso':  'fondo/pechuga-hueso.jpg',
+  'Pechuga deshuesada': 'fondo/pexels-einfoto-2209439.jpg',
+  'Muslo entero':       'fondo/pexels-goumbik-616353.jpg',
+  'Cuarto de muslo':    'fondo/cuarto-muslo.jpg',
+  'Muslito de muslo':   'fondo/muslito-muslo.jpg',
+  'Ala entera':         'fondo/ala-entera.jpg',
+  'Trocito corriente':  'fondo/trocito-corriente.jpg'
 };
 
 function updateProdBanner(nombre, precio) {
