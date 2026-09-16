@@ -26,6 +26,60 @@ Siguiente paso: ...
 
 <!-- ════════ Entradas ↓ ════════ -->
 
+### 2026-09-16 02:30 — 🔐 Seguridad backend Apps Script + dominio admin en producción
+
+**Contexto:** cierre del bloque de seguridad: backend Apps Script nuevo controlado por cuenta Apex, fuga `intec-2026` cerrada en todos los deployments, y dominio `admin.atlanteksystems.com` funcionando en producción.
+
+**Qué se hizo:**
+
+**Backend Apps Script nuevo (cuenta Apex):**
+- [x] Apps Script API habilitado en cuenta `apexcloudworkscompany@gmail.com` (clasp create funcionando)
+- [x] Backend nuevo en hoja Apex: sheet `1UnKG3yFHBEAkoZbiwM7MIVGlElIKYVCFriV6slnq5n8` · proyecto AppScript `1h0-AAoVxIaKChq6ouGsyfjIUnAuQR7n-BqMUvCBybjokWcseEdZ40xL6`
+- [x] Deployment URL: `https://script.google.com/macros/s/AKfycbx3yS9Lmx8aL6wyiww_lcKMJLXPO9jRog7kKlSEwCw96wKeWzHowBQZyDM5ITTC5MSp/exec`
+- [x] QA: `intec-2026` → `token inválido` ✓ · admin `atlantek-adm-vemsw0y4ugh5r691` → `ok:true` ✓ · POST lead público → `ok:true` ✓
+- [x] `config.js` local (web pública `01-Cliente/web/assets/js/config.js` + panel `02-Privado/panel-admin/assets/js/config.js`) → URL nueva
+- [ ] Lead de QA `TEST_VERIFY` (id `lmu3dzbv7`) queda marcado "perdido" en la hoja Apex nueva — borrar
+
+**Fuga `intec-2026` cerrada (proyecto viejo `13nTgh1rjp...`):**
+- [x] Deployment @3-INTEC (`AKfycbzi7pA9lse...`) **eliminado** (`clasp undeploy`) → URL vieja → HTTP 404
+- [x] Código nuevo pusheado al proyecto viejo (`Código.js` + `appsscript.json`) → deployment `AKfycbz4n6oGe... @6`
+- [x] @4-atlantek `AKfycbwpyW...` (usado por sitios LIVE) rechaza `intec-2026` ✓ verificado
+- [x] Deployments viejos INTEC (`AKfycbwPRiAi4...`, `AKfycbyn54u...`) responden HTML de error, ya no muestran datos ✓
+
+**Dominio admin en producción:**
+- [x] Diagnóstico: `admin.atlanteksystems.com` daba 403 porque el dominio **no estaba adjuntado** al proyecto Pages `atlantek-admin` (el CNAME en DNS de Daniel ya existía)
+- [x] Dominio adjuntado vía API → status `active` (verificación HTTP OK)
+- [x] `https://admin.atlanteksystems.com/admin` → HTTP 200 · login `atlantek2026` → dashboard con datos reales (₡196,950, DOC 1, Clientes 1, Leads 5) · 0 errores consola
+- [x] `index.html` creado en `panel-admin/` → raíz `admin.atlanteksystems.com/` redirige a `/admin` (antes 404)
+- [x] Redeploy limpio a Pages `atlantek-admin` (sin mojibake, config de producción `AKfycbwpyW...` con datos reales)
+
+**Errores de consola Poppins/CSP en `atlanteksystems.com/admin.html`:**
+- [x] Causa: la página pública GitHub Pages cacheaba el admin **viejo** (era INTEC: Poppins + CSP `default-src 'none'`); el admin ya no vive en el sitio público desde `a282e87`
+- [x] Fix: `admin.html` **redirect** agregado al repo público → `https://admin.atlanteksystems.com/admin` (commit `b62006f`)
+- [x] Verificado: `atlanteksystems.com/admin.html` → 200 (redirect) → panel privado
+
+**Sincronización GitHub:**
+- [x] Repo local `Atlantek` estaba 2 commits adelante del remoto (`60b6cba`, `45c9d55`) + `BITACORA.md` e `index.html` sin commitear → todo pusheado a `apex-cloudworks` (`797603f..8ce0274`)
+- [x] Verificados: `apex-cloudworks`, `atlanteksystems-admin`, `admin`, `atlanteksystems` — todos existen y responden
+- [x] Repo público Pages: commit `b62006f` (redirect admin) pusheado · live en `atlanteksystems.com`
+
+**Archivos tocados:** `02-Privado/panel-admin/index.html` (nuevo), `02-Privado/BITACORA.md`, repo público `admin.html` (nuevo redirect)
+
+**Commits:** monorepo `60b6cba`, `45c9d55`, `8ce0274` · Pages repo `b62006f`
+
+**Bloqueantes pendientes:**
+- [ ] Migrar datos reales (clientes/docs/leads/nextNumber) de la hoja del cliente → hoja Apex nueva ANTES de repuntar producción al backend nuevo
+- [ ] Decidir si producción (web pública + panel) pasa al backend Apex `AKfycbx3yS9Lm...`; hoy ambos sitios LIVE usan `AKfycbwpyW...` (hoja del cliente)
+- [ ] Limpiar deployments viejos del proyecto `13nTgh1rjp` (@HEAD, @5 con acceso anómalo `AKfycbxLlFa...`, @6 de prueba)
+- [ ] Borrar lead `TEST_VERIFY` de la hoja Apex nueva
+- [ ] Borrar filas `TEST-no-enviar / 0000` de hoja Leads del Sheet del cliente (QA)
+- [ ] Cloudflare Access save final (UI bug, ver entrada 02:30 previa)
+- [ ] Search Console + GBP (Daniel) · unificar correo oficial / analítica
+- [ ] Demo a Daniel + firma + 50% adelanto ($350 setup + $50/mes)
+
+**Estado:** ✅ fuga cerrada total · backend Apex listo (datos pendientes de migrar) · dominio admin en producción funcionando · repos sincronizados
+**Siguiente paso:** confirmar con Garett migración de datos → repuntar producción al backend Apex → demo a Daniel
+
 ### 2026-09-15 10:10 — Inicio de bitácora
 
 **Baseline del proyecto:**
