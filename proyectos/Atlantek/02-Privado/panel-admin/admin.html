@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Atlantek Systems · Gestión de Clientes y Facturación</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg?v=4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -49,29 +49,51 @@
       </div>
 
       <nav class="sidebar__nav">
-        <a href="#/dashboard" class="nav-item" data-nav="dashboard">
-          <span class="nav-item__dot"></span> Dashboard
-        </a>
-        <a href="#/leads" class="nav-item" data-nav="leads">
-          <span class="nav-item__dot"></span> Leads del sitio
-          <span class="nav-badge" id="nav-badge-leads" hidden>0</span>
-        </a>
-        <a href="#/clientes" class="nav-item" data-nav="clientes">
-          <span class="nav-item__dot"></span> Clientes
-        </a>
-        <a href="#/catalogo" class="nav-item" data-nav="catalogo">
-          <span class="nav-item__dot"></span> Catálogo
-        </a>
-        <a href="#/documentos" class="nav-item" data-nav="documentos">
-          <span class="nav-item__dot"></span> Proformas / Facturas
-        </a>
-        <a href="dashboard.html" class="nav-item">
-          <span class="nav-item__dot"></span> Resumen del negocio
-        </a>
+        <div class="sidebar__section">
+          <span class="sidebar__section-title">GESTIÓN</span>
+          <a href="#/dashboard" class="nav-item" data-nav="dashboard">
+            <span class="nav-item__dot"></span> Dashboard
+          </a>
+          <a href="#/clientes" class="nav-item" data-nav="clientes">
+            <span class="nav-item__dot"></span> Clientes
+          </a>
+          <a href="#/servicios" class="nav-item" data-nav="servicios">
+            <span class="nav-item__dot"></span> Servicios Contratados
+          </a>
+          <a href="#/tickets" class="nav-item" data-nav="tickets">
+            <span class="nav-item__dot"></span> Tickets / Soporte
+            <span class="nav-badge" id="nav-badge-tickets" hidden>0</span>
+          </a>
+        </div>
+
+        <div class="sidebar__section">
+          <span class="sidebar__section-title">COMERCIAL</span>
+          <a href="#/leads" class="nav-item" data-nav="leads">
+            <span class="nav-item__dot"></span> Leads del sitio
+            <span class="nav-badge" id="nav-badge-leads" hidden>0</span>
+          </a>
+          <a href="#/catalogo" class="nav-item" data-nav="catalogo">
+            <span class="nav-item__dot"></span> Catálogo
+          </a>
+          <a href="#/documentos" class="nav-item" data-nav="documentos">
+            <span class="nav-item__dot"></span> Proformas / Facturas
+          </a>
+        </div>
+
+        <div class="sidebar__section">
+          <span class="sidebar__section-title">CLIENTE</span>
+          <a href="client-portal.html" class="nav-item" target="_blank">
+            <span class="nav-item__dot"></span> Portal del Cliente
+          </a>
+          <a href="dashboard.html" class="nav-item">
+            <span class="nav-item__dot"></span> Resumen del negocio
+          </a>
+        </div>
       </nav>
 
       <div class="sidebar__cta">
         <a href="#/editor" class="btn btn--red btn--block">+ Nueva proforma</a>
+        <a href="#/servicios/nuevo" class="btn btn--slate btn--block" style="margin-top:8px">+ Nuevo servicio</a>
       </div>
 
       <div class="sidebar__foot">

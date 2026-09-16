@@ -5,7 +5,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const Store = (() => {
-  const KEY = 'atlantek-gestion-v1';
+  const KEY = 'atlantek-gestion-v2';
 
   const GARANTIA_DEFAULT =
     'Garantía: Equipos con 12 meses de garantía por defectos de fábrica. ' +
@@ -20,7 +20,9 @@ const Store = (() => {
     email: 'soporte@atlanteksystems.com'
   };
 
-  /* ── Datos semilla: cliente y proforma 027 reales ── */
+  const TICKET_ESTADOS = ['abierto', 'en_proceso', 'resuelto', 'cerrado'];
+  const TICKET_PRIORIDADES = ['baja', 'media', 'alta', 'critica'];
+
   function seed() {
     return {
       nextNumber: 28,
@@ -56,12 +58,12 @@ const Store = (() => {
       docs: [
         {
           id: 'd27',
-          tipo: 'proforma',            // proforma | factura
+          tipo: 'proforma',
           numero: 27,
           clientId: 'c1',
           fechaEmision: '2026-07-11',
           fechaEntrega: '2026-07-11',
-          estado: 'enviada',           // borrador | enviada | pagada
+          estado: 'enviada',
           notas: GARANTIA_DEFAULT,
           items: [
             { desc: 'GRABADOR DVR DAHUA DH-XVR1B04-IT 1080/2MP', qty: 1, precio: 25000 },
@@ -75,6 +77,80 @@ const Store = (() => {
             { desc: 'INSTALACION/CABLEADO/CONFIGURACION', qty: 1, precio: 75000 },
             { desc: 'BANDEJA VENTILADA 25CM TEKLINK', qty: 1, precio: 11500 },
             { desc: 'CANALETA 200X10X5', qty: 1, precio: 5500 }
+          ]
+        }
+      ],
+      services: [
+        {
+          id: 's1',
+          clientId: 'c1',
+          nombre: 'Sistema CCTV 4 Cámaras',
+          descripcion: 'Monitoreo 24/7, grabación 30 días, acceso móvil',
+          tipo: 'cctv',
+          estado: 'activo',
+          fechaInicio: '2026-07-15',
+          fechaVencimiento: '2027-07-15',
+          valorMensual: 0,
+          itemsIncluidos: [
+            '4 Cámaras (2 Domo + 2 Bullet) Dahua 2MP',
+            'Grabador DVR 4 canales',
+            'Disco duro 1TB',
+            'Cableado y conectores',
+            'Instalación y configuración',
+            'Acceso remoto app móvil'
+          ],
+          notas: 'Garantía 12 meses equipos / 90 días mano de obra'
+        },
+        {
+          id: 's2',
+          clientId: 'c1',
+          nombre: 'Mantenimiento Preventivo Trimestral',
+          descripcion: 'Revisión trimestral de cámaras, limpieza, verificación de grabaciones',
+          tipo: 'mantenimiento',
+          estado: 'activo',
+          fechaInicio: '2026-07-15',
+          fechaVencimiento: '2027-07-15',
+          valorMensual: 15000,
+          itemsIncluidos: [
+            'Limpieza de lentes y carcasas',
+            'Verificación de grabación y almacenamiento',
+            'Prueba de acceso remoto',
+            'Reporte de estado por escrito'
+          ],
+          notas: 'Incluido en el primer año'
+        }
+      ],
+      tickets: [
+        {
+          id: 't1',
+          clientId: 'c1',
+          serviceId: 's1',
+          titulo: 'Cámara bullet entrada no graba por las noches',
+          descripcion: 'La cámara de la entrada principal deja de grabar en modo nocturno. Revisar IR y configuración de horario.',
+          prioridad: 'alta',
+          estado: 'en_proceso',
+          fechaCreacion: '2026-09-10T14:30:00',
+          fechaActualizacion: '2026-09-12T09:15:00',
+          asignadoA: 'Técnico Carlos',
+          historial: [
+            { fecha: '2026-09-10T14:30:00', autor: 'Cliente (Eco Clinic)', mensaje: 'Reportan que la cámara bullet de entrada no graba en horario nocturno desde ayer.' },
+            { fecha: '2026-09-11T10:00:00', autor: 'Técnico Carlos', mensaje: 'Revisión remota: IR funciona, posible conflicto de horario en DVR. Agendada visita para mañana.' },
+            { fecha: '2026-09-12T09:15:00', autor: 'Técnico Carlos', mensaje: 'En sitio: ajustado horario de grabación nocturna en DVR. Queda en observación 48h.' }
+          ]
+        },
+        {
+          id: 't2',
+          clientId: 'c1',
+          serviceId: null,
+          titulo: 'Solicitud: agregar cámara en área de estacionamiento',
+          descripcion: 'Cliente solicita cotización para añadir 1 cámara domo en estacionamiento trasero.',
+          prioridad: 'media',
+          estado: 'abierto',
+          fechaCreacion: '2026-09-13T11:20:00',
+          fechaActualizacion: '2026-09-13T11:20:00',
+          asignadoA: '',
+          historial: [
+            { fecha: '2026-09-13T11:20:00', autor: 'Cliente (Eco Clinic)', mensaje: 'Quieren cubrir el estacionamiento trasero. Necesitan cotización para 1 cámara domo adicional.' }
           ]
         }
       ]
@@ -297,19 +373,139 @@ const Store = (() => {
     return true;
   }
 
+  /* ═══════════ SERVICIOS CONTRATADOS ═══════════ */
+
+  const getServices = (clientId) => {
+    const list = data.services || [];
+    return clientId ? list.filter(s => s.clientId === clientId) : list.slice();
+  };
+
+  const getService = (id) => (data.services || []).find(s => s.id === id) || null;
+
+  function saveService(s) {
+    if (!data.services) data.services = [];
+    if (s.id) {
+      const i = data.services.findIndex(x => x.id === s.id);
+      if (i >= 0) data.services[i] = s;
+    } else {
+      s.id = uid();
+      data.services.push(s);
+    }
+    save();
+    return s;
+  }
+
+  function deleteService(id) {
+    data.services = (data.services || []).filter(s => s.id !== id);
+    // También eliminar tickets asociados a este servicio
+    data.tickets = (data.tickets || []).filter(t => t.serviceId !== id);
+    save();
+  }
+
+  /* ═══════════ TICKETS / SOPORTE ═══════════ */
+
+  const getTickets = (clientId) => {
+    const list = data.tickets || [];
+    return clientId ? list.filter(t => t.clientId === clientId) : list.slice();
+  };
+
+  const getTicket = (id) => (data.tickets || []).find(t => t.id === id) || null;
+
+  function saveTicket(t) {
+    if (!data.tickets) data.tickets = [];
+    if (t.id) {
+      const i = data.tickets.findIndex(x => x.id === t.id);
+      if (i >= 0) {
+        t.fechaActualizacion = new Date().toISOString();
+        data.tickets[i] = t;
+      }
+    } else {
+      t.id = uid();
+      t.fechaCreacion = new Date().toISOString();
+      t.fechaActualizacion = t.fechaCreacion;
+      t.historial = t.historial || [];
+      data.tickets.push(t);
+    }
+    save();
+    return t;
+  }
+
+  function addTicketMessage(ticketId, autor, mensaje) {
+    const t = getTicket(ticketId);
+    if (!t) return false;
+    t.historial = t.historial || [];
+    t.historial.push({ fecha: new Date().toISOString(), autor, mensaje });
+    t.fechaActualizacion = new Date().toISOString();
+    save();
+    return true;
+  }
+
+  function setTicketStatus(id, estado) {
+    const t = getTicket(id);
+    if (t && TICKET_ESTADOS.includes(estado)) {
+      t.estado = estado;
+      t.fechaActualizacion = new Date().toISOString();
+      save();
+      return true;
+    }
+    return false;
+  }
+
+  function setTicketPriority(id, prioridad) {
+    const t = getTicket(id);
+    if (t && TICKET_PRIORIDADES.includes(prioridad)) {
+      t.prioridad = prioridad;
+      t.fechaActualizacion = new Date().toISOString();
+      save();
+      return true;
+    }
+    return false;
+  }
+
+  function assignTicket(id, asignadoA) {
+    const t = getTicket(id);
+    if (t) {
+      t.asignadoA = asignadoA;
+      t.fechaActualizacion = new Date().toISOString();
+      save();
+      return true;
+    }
+    return false;
+  }
+
+  const ticketsAbiertos = (clientId) => {
+    const list = getTickets(clientId);
+    return list.filter(t => t.estado === 'abierto' || t.estado === 'en_proceso').length;
+  };
+
+  const ticketsCriticos = (clientId) => {
+    const list = getTickets(clientId);
+    return list.filter(t => t.prioridad === 'critica' && (t.estado === 'abierto' || t.estado === 'en_proceso')).length;
+  };
+
   /* ═══════════ CÁLCULOS ═══════════ */
 
   const docTotal = (d) => d.items.reduce((s, it) => s + (Number(it.qty) || 0) * (Number(it.precio) || 0), 0);
+
+  const serviceTotalMensual = (clientId) => {
+    const services = getServices(clientId);
+    return services
+      .filter(s => s.estado === 'activo' && s.valorMensual > 0)
+      .reduce((sum, s) => sum + Number(s.valorMensual || 0), 0);
+  };
 
   load();
   syncPull();
 
   return {
-    EMPRESA, GARANTIA_DEFAULT, LEAD_ESTADOS,
+    EMPRESA, GARANTIA_DEFAULT, LEAD_ESTADOS, TICKET_ESTADOS, TICKET_PRIORIDADES,
     getClients, getClient, saveClient, deleteClient,
     getDocs, getDoc, saveDoc, deleteDoc, setDocStatus,
     getLeads, getLead, leadsNuevos, setLeadStatus,
     getCatalogo, getCatalogoItem, saveCatalogoItem, deleteCatalogoItem,
+    getServices, getService, saveService, deleteService,
+    getTickets, getTicket, saveTicket, addTicketMessage, setTicketStatus, setTicketPriority, assignTicket,
+    ticketsAbiertos, ticketsCriticos, serviceTotalMensual,
     docTotal,
     nextNumber: () => data.nextNumber,
     sync: { pull: syncPull, enabled: hasSheets }

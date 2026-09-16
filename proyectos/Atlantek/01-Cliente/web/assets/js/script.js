@@ -207,7 +207,7 @@
   const FAQ = [
     {
       q: '¿Cuánto cuesta instalar cámaras?',
-      a: 'Depende de la cantidad de cámaras y el tipo de propiedad. Una casa típica con 4 cámaras cuesta entre <b>$350-$600 USD</b> todo incluido (equipos, cableado e instalación). Hacemos <b>valoración gratis</b> sin compromiso.'
+      a: 'Depende de la cantidad de cámaras y el tipo de propiedad. Una casa típica con 4 cámaras cuesta entre <b>$350-$600 USD</b> todo incluido (equipos, cableado e instalación). Coordinamos una <b>valoración técnica en sitio</b> para preparar su cotización.'
     },
     {
       q: '¿Qué garantía tienen los equipos?',
