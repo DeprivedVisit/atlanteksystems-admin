@@ -764,6 +764,42 @@ Siguiente paso: ...
 
 ---
 
+### 2026-09-15 23:10 — 💓 Heartbeat automático cada 10 min de silencio en chat
+
+**Qué se hizo:**
+- [x] **Script `chat-heartbeat.ps1`** en `F:\apex-cloudworks\Memoria\`:
+  - Corre como background job (`Start-Job`) durante la sesión opencode
+  - Cada **10 min** escribe heartbeat en `sesion-activa.md` con: timestamp, bloque activo, archivos tocados últimamente (15 min)
+  - Cada **3 heartbeats (30 min)** dispara `apex-memoria` para volcar a bitácora formal
+  - Log propio en `chat-heartbeat.log`
+- [x] **Helpers `chat-heartbeat-helpers.ps1`** con funciones:
+  - `Start-ChatHeartbeat` — inicia job
+  - `Stop-ChatHeartbeat` — detiene job(s)
+  - `Get-ChatHeartbeatStatus` — muestra log, contador y jobs activos
+- [x] **Test verificado**: escritura en `sesion-activa.md` funciona (emoji causa encoding issue menor, texto plano OK)
+
+**Uso en sesión opencode:**
+```powershell
+# Al iniciar sesión
+. F:\apex-cloudworks\Memoria\chat-heartbeat-helpers.ps1
+Start-ChatHeartbeat
+
+# Ver estado
+Get-ChatHeartbeatStatus
+
+# Al cerrar sesión
+Stop-ChatHeartbeat
+```
+
+**Archivos creados:**
+- `F:\apex-cloudworks\Memoria\chat-heartbeat.ps1`
+- `F:\apex-cloudworks\Memoria\chat-heartbeat-helpers.ps1`
+
+**Estado:** ✅ listo para usar en próximas sesiones
+**Siguiente paso:** integrar en rutina de inicio de sesión opencode (auto-cargar helpers) · probar flush a bitácora real a los 30 min
+
+---
+
 ### 2026-09-15 22:30 — 🎯 Radar de cobertura: barrido real + detección de distritos (JS rAF)
 
 **Qué se hizo:**
