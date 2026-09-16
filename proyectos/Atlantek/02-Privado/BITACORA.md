@@ -562,3 +562,30 @@ Siguiente paso: ...
 
 **Estado:** ✅ dominio oficial FUNCIONANDO · HTTPS · admin/dashboard accesibles
 **Siguiente paso:** verificación mobile 375px · redeploy Apps Script · GBP/Search Console con Daniel
+
+---
+
+### 2026-09-15 20:xx — 🎨 Auth gates: logo más grande + paleta navy unificada
+
+**Qué se hizo:**
+- [x] **Logo 60% más grande**: `height: 75px → 120px`, `max-width: 220px → 300px`
+- [x] **Paleta navy consistente** (coincide con sitio público):
+  - Border: `rgba(26,106,255,.25)` (navy-light con transparencia)
+  - Box-shadow: `inset 0 0 0 1px rgba(26,106,255,.15)` + `drop-shadow(0 8px 24px rgba(26,106,255,.35))` en logo
+  - Botón: `linear-gradient(135deg, #1a6aff 0%, #0d52cc 100%)` + shadow navy
+  - Input focus: `border-color: #1a6aff` + `box-shadow: 0 0 0 3px rgba(26,106,255,.25)`
+  - Border-radius: `12px → 16px` (box) / `8px → 10px` (inputs, button)
+  - Padding aumentado: `44px 36px → 56px 48px`
+  - Tipografía: `h2 20px→22px weight 800`, `input 14px→15px`, `button 14px→15px`
+- [x] Aplicado a **ambos gates**: `admin.html` y `dashboard.html`
+
+**Archivos tocados:**
+- `01-Cliente/web/admin.html` (estilos inline auth-gate)
+- `01-Cliente/web/dashboard.html` (estilos inline auth-gate)
+
+**Commits:**
+- Pages repo: `55016f0`
+- Monorepo: `8c8a055`
+
+**Estado:** ✅ deployado · esperar rebuild Pages (~30-60s)
+**Siguiente paso:** verificación visual en `https://atlanteksystems.com/admin.html` y `/dashboard.html` · mobile 375px · redeploy Apps Script
