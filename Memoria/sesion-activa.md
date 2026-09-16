@@ -35,10 +35,14 @@
 - [x] 🔴 **FUGA CERRADA**: el sitio público servía `config.js` con **TOKEN_ADMIN** (probado: leía 3 clientes/2 docs/3 leads) por admin/dashboard "públicos" con gate solo visual. Se pasó el sitio a **TOKEN_PUBLICO**, se eliminaron `admin.html`/`dashboard.html`/assets del repo público (404 en producción), footer "Gestión/Dashboard" fuera, `02-Privado/panel-admin/` sincronizado con auth gates + config @4 atlantek. Backend Sheets @4 verificado (token viejo muerto, lead público + load admin OK). Pages `267110a`
 - [x] QA producción final: FAQ/testimonios ausentes, kickers 01-04, chat responde + cierra, FABs 56px sin overlap, 0 errores consola
 
+### 🛑 Cierre (2026-09-15 ~23:00)
+- **Agentes cerrados** a pedido de Garett. **No tocar más Sheets/Apps Script** (backend @4 verificado y funcional; el "redeploy" pendiente de Atlantek quedó **RESUELTO**: token viejo `Atlantek-2026` rechazado → rotación completa).
+- Repos al día: Pages `cb276a6` + `267110a` · Monorepo `ec36b53` + `a282e87` (bitácora + memoria incluidos).
+- Hoja Leads del Sheet: 2 filas `TEST-no-enviar` por QA (borrado manual, no urgente).
+
 ### Pendiente
 - ⚠️ **Otro agente activo** force-pusheando al repo Pages `atlanteksystems` (auth gates: logo, cerrar sesión) desde un clon SIN mi worktree → **regla**: si ese agente toca auth gates, DEBE `git pull --rebase origin main` ANTES de force-push o pierde el landing limpio · **admin/dashboard ahora solo en `02-Privado/panel-admin/`** (repo público ya no los tiene)
 - 🧹 **Borrar en la hoja Leads del Sheet**: 2 filas `TEST-no-enviar / 0000` (QA de `action: lead`) — manual, no hay acción API de borrado
-- 🔴 **CRÍTICO (manual):** Redeploy `02-Privado/apps-script/Code.gs` en Google Apps Script (token viejo `intec-2026` sigue activo en backend)
 - **Search Console:** propiedad `https://atlanteksystems.com/` (Garett crea URL-prefix → trae meta tag → lo agrego → verifico)
 - **GBP (Daniel):** crear/reclamar, fotos, 7 distritos, web → atlantek, reseñas (PLAN-SEO-LOCAL.md Bloque 3)
 - **Revisión visual humana:** `Temp\opencode\bg-*.png` (fondo) + `fab-*.png` (FABs+chat) — el modelo no ve imágenes

@@ -608,11 +608,11 @@ Siguiente paso: ...
 - `01-Cliente/web/assets/js/script.js`
 
 **Commits:**
-- Pages repo: `f35039e` (tras reescrituras: `8ab54ab` + `f35039e`)
+- Pages repo: `cb276a6` (final tras 3 force-push del otro agente; `f35039e`/`8ab54ab` quedaron atrás en las reescrituras)
 - Monorepo: `ec36b53`
 
 **Estado:** ✅ LIVE en `https://atlanteksystems.com/` · FABs + chat + fondo OK · 0 errores
-**Siguiente paso:** revisión visual de screenshots (`qa-*.png`, `qa-pro-limpio.png`) · redeploy Apps Script (token viejo) · Search Console + GBP con Daniel
+**Siguiente paso:** revisión visual de screenshots (`qa-*.png`, `qa-pro-limpio.png`) · Search Console + GBP con Daniel
 
 ---
 
@@ -670,7 +670,32 @@ Siguiente paso: ...
 
 **Commits:**
 - Pages repo: `267110a`
-- Monorepo: pendiente commit
+- Monorepo: `a282e87`
 
 **Estado:** ✅ fuga cerrada y verificada en producción · panel admin solo en privado
-**Siguiente paso:** commit monorepo · borrar fila `TEST-no-enviar` de la hoja Leads (insertada en QA) · redeploy Apps Script si se rota código otra vez · GBP/Search Console con Daniel
+**Siguiente paso:** borrar fila `TEST-no-enviar` de la hoja Leads (insertada en QA) · GBP/Search Console con Daniel
+
+---
+
+### 2026-09-15 23:xx — 🛑 CIERRE: agentes cerrados · estado final del bloque
+
+**Cierre de sesión de agentes.** Hoja Leads / Apps Script **no se toca más** por pedido de Garett (backend Sheets ya verificado y funcional en @4).
+
+**Estado final consolidado:**
+- ✅ Landing `https://atlanteksystems.com/` LIVE limpio: sin FAQ, sin testimonios, copy profesional sin "sin compromiso", FABs 48px + chat, fondo `back.jpg`, fix chat max-height desktop.
+- ✅ Fuga TOKEN_ADMIN cerrada: sitio público solo con token público; admin/dashboard/assets admin **404** en producción; panel admin vive solo en `02-Privado/panel-admin/`.
+- ✅ Repos sincronizados:
+  - Pages repo `atlanteksystems` → `cb276a6` (landing) + `267110a` (seguridad)
+  - Monorepo Apex → `ec36b53` (landing) + `a282e87` (seguridad + panel)
+- ✅ QA final producción: 200 OK, chat 6 chips + responde + cierra, FABs 56px sin overlap (3 rows y), 0 errores de consola desktop/mobile.
+
+**Pendientes heredados (NO se trabajan hoy):**
+- [ ] Borrar 2 filas `TEST-no-enviar / 0000` en hoja Leads del Sheet (QA) — manual
+- [ ] Search Console: propiedad URL-prefix `https://atlanteksystems.com/` (Garett crea → meta tag → agregar → verificar)
+- [ ] GBP (Daniel): crear/reclamar, fotos, 7 distritos, web → atlantek, reseñas (PLAN-SEO-LOCAL.md)
+- [ ] Verificación visual screenshots (`qa-*.png`, `qa-pro-limpio.png`) — el modelo no ve imágenes
+- [ ] Probar chat + FABs a mano en iPhone real
+- [ ] Revisar `/Legal/` público (contrato/proforma/acta siguen servidos)
+- [ ] Unificar correo oficial + analítica de conversiones
+
+**Estado:** 🛑 agentes cerrados · worktree monorepo commiteado
