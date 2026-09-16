@@ -521,7 +521,115 @@ textarea.input { resize: vertical; min-height: 72px; line-height: 1.5; }
 .lead-wa { text-decoration: none; }
 .lead-wa:hover { color: var(--green); }
 
-/* ═══════════ EDITOR DE DOCUMENTO ═══════════ */
+/* ═══════════ SERVICIOS CONTRATADOS ═══════════ */
+
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.service-card.inactivo { opacity: .6; border-color: var(--faint); }
+
+.service-card__head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.service-card__title { font-size: 15px; font-weight: 700; color: var(--ink); }
+.service-card__type {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--navy-light); background: rgba(26,106,255,.1);
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+}
+.service-card__status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+}
+.service-card__status.activo   { color: var(--green);   background: rgba(51,209,122,.1); border: 1px solid rgba(51,209,122,.3); }
+.service-card__status.vencido  { color: var(--navy-light); background: rgba(26,106,255,.1); border: 1px solid rgba(26,106,255,.3); }
+.service-card__status.inactivo { color: var(--faint);   background: rgba(92,104,112,.1); border: 1px solid rgba(92,104,112,.3); }
+
+.service-card__desc { color: var(--muted); font-size: 13px; margin-bottom: 12px; line-height: 1.6; }
+
+.service-card__meta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px; margin-bottom: 16px; padding: 14px;
+  background: var(--bg); border-radius: 8px; border: 1px solid var(--line);
+}
+.service-card__meta-item { display: flex; flex-direction: column; gap: 4px; }
+.service-card__meta-label { font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); }
+.service-card__meta-value { font-size: 13px; font-weight: 600; color: var(--ink); }
+
+.service-card__items { border-top: 1px solid var(--line); padding-top: 14px; }
+.service-card__items-title { font-family: var(--mono); font-size: 9.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.service-card__items-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; }
+.service-card__items-list li { font-size: 12.5px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.service-card__items-list li::before { content: '✓'; color: var(--green); font-weight: 600; font-size: 11px; }
+
+.service-card__footer {
+  margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.service-card__monthly { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.service-card__monthly b { color: var(--navy-light); font-size: 14px; font-weight: 700; }
+.service-card__notes { font-size: 11.5px; font-style: italic; color: var(--faint); max-width: 400px; }
+
+/* ═══════════ TICKETS ═══════════ */
+
+.ticket-priority, .ticket-status {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+}
+.ticket-priority.critica { color: #fff; background: #ef4444; }
+.ticket-priority.alta    { color: #fff; background: var(--navy-light); }
+.ticket-priority.media   { color: #000; background: var(--amber); }
+.ticket-priority.baja    { color: #fff; background: var(--green); }
+
+.ticket-status.abierto      { color: var(--navy-light); background: rgba(26,106,255,.1); border: 1px solid rgba(26,106,255,.3); }
+.ticket-status.en_proceso   { color: var(--amber);      background: rgba(229,181,74,.1);  border: 1px solid rgba(229,181,74,.3); }
+.ticket-status.resuelto     { color: var(--green);      background: rgba(51,209,122,.1);  border: 1px solid rgba(51,209,122,.3); }
+.ticket-status.cerrado      { color: var(--faint);      background: rgba(92,104,112,.1);  border: 1px solid rgba(92,104,112,.3); }
+
+/* Ticket card en modal */
+.ticket-historial { max-height: 200px; overflow-y: auto; }
+.ticket-historial-item {
+  padding: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; margin-bottom: 8px;
+}
+.ticket-historial-item strong { color: var(--navy-light); }
+.ticket-historial-item .msg-time { font-family: var(--mono); font-size: 10px; color: var(--faint); margin-left: 8px; }
+
+/* Sidebar sections */
+.sidebar__section { margin-top: 16px; }
+.sidebar__section:first-child { margin-top: 0; }
+.sidebar__section-title {
+  display: block; padding: 0 12px 6px;
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint);
+}
+
+/* Client nav tabs */
+.client-nav {
+  display: flex; gap: 8px; margin-bottom: 24px;
+  padding: 8px; background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.client-nav a { flex: 1; text-align: center; padding: 10px 16px;
+  color: var(--muted); text-decoration: none; font-weight: 600; font-size: 13px;
+  border-radius: 6px; transition: all .15s; }
+.client-nav a:hover { background: var(--card); color: var(--ink); }
+.client-nav a.active { background: var(--navy-light); color: #fff; }
+
+/* Responsive for new components */
+@media (max-width: 680px) {
+  .service-card__meta { grid-template-columns: 1fr; }
+  .service-card__items-list { grid-template-columns: 1fr; }
+  .service-card__footer { flex-direction: column; align-items: flex-start; }
+  .ticket-priority, .ticket-status { font-size: 8px; padding: 2px 6px; }
+}
 
 .editor { display: flex; flex-direction: column; gap: 20px; }
 

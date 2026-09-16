@@ -527,6 +527,67 @@ Siguiente paso: ...
 - `proyectos/Atlantek/01-Cliente/web/index.html` (footer, email)
 - `proyectos/Atlantek/01-Cliente/web/admin.html` (nuevo)
 - `proyectos/Atlantek/01-Cliente/web/dashboard.html` (nuevo)
+
+---
+
+### 2026-09-16 00:30 — 🛠️ Panel Admin completo: Servicios Contratados + Tickets + Portal Cliente
+
+**Contexto:** reestructuración completa del panel privado (`02-Privado/panel-admin/`) para que Atlantek gestione todo su operación: clientes, proformas, **servicios contratados con MRR**, **tickets de soporte**, y **portal del cliente** para que vean sus servicios y abran tickets.
+
+**Qué se hizo:**
+
+**Store.js (v2 - `atlantek-gestion-v2`):**
+- [x] Modelo `services[]`: id, clientId, nombre, descripcion, tipo (cctv/mantenimiento/redes/acceso/otro), estado (activo/inactivo/vencido), fechaInicio, fechaVencimiento, valorMensual, itemsIncluidos[], notas
+- [x] Modelo `tickets[]`: id, clientId, serviceId, titulo, descripcion, prioridad (baja/media/alta/critica), estado (abierto/en_proceso/resuelto/cerrado), fechaCreacion, fechaActualizacion, asignadoA, historial[]
+- [x] Funciones CRUD: `getServices`, `saveService`, `deleteService`, `getTickets`, `saveTicket`, `addTicketMessage`, `setTicketStatus`, `setTicketPriority`, `assignTicket`
+- [x] Helpers: `ticketsAbiertos`, `ticketsCriticos`, `serviceTotalMensual` (MRR), `computeServiceStatus` (calcula vencido/activo)
+
+**Admin.html (panel privado):**
+- [x] Sidebar reorganizado en secciones: **GESTIÓN** (Dashboard, Clientes, Servicios Contratados, Tickets), **COMERCIAL** (Leads, Catálogo, Documentos), **CLIENTE** (Portal Cliente, Resumen negocio)
+- [x] Badges en sidebar: Leads nuevos + Tickets abiertos (globales)
+- [x] Auth gate compartido (sessionStorage `atlantek-auth`)
+
+**Client-portal.html (nuevo - portal del cliente):**
+- [x] Auth gate separada (sessionStorage `atlantek-client-auth`)
+- [x] Header con KPIs: servicios activos, tickets abiertos, MRR mensual
+- [x] Tabs: **Mis Servicios** (cards con estado, items incluidos, mensual, fechas) + **Tickets / Soporte** (lista con prioridad/estado, historial, formulario nuevo ticket)
+- [x] Formulario ticket: prioridad, servicio relacionado (dropdown dinámico por cliente), descripción
+- [x] Cliente ID vía URL `?client=c1` o localStorage
+
+**App.js (vistas admin):**
+- [x] `renderServicios()`: tabla con filtros (búsqueda, tipo, estado), modal crear/editar con items incluidos (líneas)
+- [x] `renderTickets()`: tabla con filtros (búsqueda, estado, prioridad), modal ver/editar con historial, agregar mensajes, cambio estado/prioridad/asignado
+- [x] Router actualizado: `/servicios`, `/tickets`, `/servicios/nuevo`
+
+**Dashboard.html / dashboard.js (resumen negocio):**
+- [x] KPIs ampliados: Clientes, Servicios activos, Tickets abiertos, MRR, Cobrado, Por cobrar, Leads nuevos
+- [x] Panel "Servicios activos" (últimos 6) + "Tickets abiertos" (últimos 6) en grid
+- [x] Botón "Portal Cliente" en nav superior (abre en nueva pestaña)
+- [x] `renderServices()`, `renderTickets()` leen `localStorage v2` directo (sin Sheets)
+
+**CSS (admin.css + dashboard.css):**
+- [x] `.service-card`: cards con header (título, tipo, badge estado), meta grid (inicio/vencimiento/mensual), items incluidos con checkmarks, footer (mensual + notas)
+- [x] `.ticket-priority` / `.ticket-status` badges mono (critica=rojo, alta=azul, media=ámbar, baja=verde)
+- [x] `.client-nav` tabs, `.ticket-card` con border-left por prioridad, historial expandible
+- [x] Responsive mobile para todos los nuevos componentes
+
+**Deploy:**
+- [x] Cloudflare Pages `atlantek-admin` actualizado → `https://atlantek-admin.pages.dev` (deploy `18d00bbf`)
+- [x] Archivos nuevos: `client-portal.html`, `assets/js/client-portal.js`, `dashboard.js` actualizado
+
+**Archivos tocados:**
+- `02-Privado/panel-admin/admin.html` (reescrito)
+- `02-Privado/panel-admin/client-portal.html` (nuevo)
+- `02-Privado/panel-admin/assets/js/store.js` (v2 completo)
+- `02-Privado/panel-admin/assets/js/app.js` (vistas servicios/tickets + router)
+- `02-Privado/panel-admin/assets/js/dashboard.js` (KPIs + servicios + tickets)
+- `02-Privado/panel-admin/assets/js/client-portal.js` (nuevo)
+- `02-Privado/panel-admin/assets/css/admin.css` (service-card, ticket badges, sidebar sections)
+- `02-Privado/panel-admin/assets/css/dashboard.css` (portal cliente, tickets, forms, responsive)
+- `02-Privado/panel-admin/dashboard.html` (KPIs + panels + portal link)
+
+**Estado:** ✅ Panel admin completo LIVE en `https://atlantek-admin.pages.dev` · Portal cliente en `https://atlantek-admin.pages.dev/client-portal.html?client=c1`
+**Pendiente:** redeploy Apps Script (tokens separados) → probar sync real · Cloudflare Access en `atlantek-admin.pages.dev` · DNS `admin.atlanteksystems.com` (cuenta Daniel)
 - `proyectos/Atlantek/01-Cliente/web/assets/css/style.css` (tokens, footer__admin)
 - `proyectos/Atlantek/01-Cliente/web/assets/css/` (admin.css, dashboard.css copiados)
 - `proyectos/Atlantek/01-Cliente/web/assets/js/` (config.js, store.js, app.js, dashboard.js copiados)

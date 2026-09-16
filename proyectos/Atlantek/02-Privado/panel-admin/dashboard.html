@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atlantek Systems · Dashboard</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg?v=3">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg?v=4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/dashboard.css">
-<style>
+  <style>
     .auth-gate{position:fixed;inset:0;z-index:999;background:#061828;display:flex;align-items:center;justify-content:center;padding:24px}
     .auth-gate.hidden{display:none}
     .auth-gate:not(.hidden){display:flex !important}
@@ -63,6 +63,7 @@
         <span class="sync-badge" id="sync-badge">● Cargando…</span>
         <a href="admin.html" class="btn btn--ghost btn--sm">Gestión</a>
         <a href="index.html" class="btn btn--ghost btn--sm">Sitio</a>
+        <a href="client-portal.html" class="btn btn--ghost btn--sm" target="_blank" rel="noopener">Portal Cliente</a>
         <button class="btn btn--ghost btn--sm btn--logout" id="btn-logout">Cerrar sesión</button>
       </div>
     </div>
@@ -117,6 +118,25 @@
       </section>
     </div>
 
+    <!-- Servicios activos + Tickets abiertos -->
+    <div class="dash__grid" style="margin-top: 22px;">
+      <section class="panel">
+        <div class="panel__head">
+          <h2>Servicios activos</h2>
+          <a href="admin.html#/servicios" class="panel__link">Ver todos →</a>
+        </div>
+        <ul class="leads" id="services-list"></ul>
+      </section>
+
+      <section class="panel">
+        <div class="panel__head">
+          <h2>Tickets abiertos</h2>
+          <a href="admin.html#/tickets" class="panel__link">Ver todos →</a>
+        </div>
+        <ul class="leads" id="tickets-list"></ul>
+      </section>
+    </div>
+
   </main>
 
   <footer class="dfoot">
@@ -144,6 +164,7 @@
   })();
   </script>
   <script src="assets/js/config.js"></script>
+  <script src="assets/js/store.js"></script>
   <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
