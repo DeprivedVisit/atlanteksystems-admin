@@ -589,3 +589,60 @@ Siguiente paso: ...
 
 **Estado:** ✅ deployado · esperar rebuild Pages (~30-60s)
 **Siguiente paso:** verificación visual en `https://atlanteksystems.com/admin.html` y `/dashboard.html` · mobile 375px · redeploy Apps Script
+
+---
+
+### 2026-09-15 21:xx — 🧹 FAQ + testimonios eliminados, copy profesional + fix chat max-height
+
+**Qué se hizo:**
+- [x] **Sección FAQ eliminada** del HTML (el chat flotante ya la cubre) junto con el bloque `FAQPage` del JSON-LD.
+- [x] **Sección testimonios eliminada** (`#testimonios`) + CSS muerto (`.quotes`, `.quote*`, `.faq*`) purgado.
+- [x] **Copy profesional**: sin "sin compromiso"/"gratis"/"sorpresas" en toda la página; nav CTA "Cotizar gratis"→"Solicitar cotización"; hero "WhatsApp gratis"→"Cotizar por WhatsApp"; trust items → "Valoración técnica en sitio / Respuesta el mismo día / Garantía de 12 meses"; paso 1 "Valoración técnica en sitio"; paso 2 "con precio final por escrito"; SEO local y CTA contacto ajustados; prefills wa.me actualizados. Kickers renumerados 01-04.
+- [x] **Fix chat max-height**: en desktop el panel crecía sin tope y el botón cerrar quedaba fuera del viewport (descubierto en QA). `max-height: calc(100dvh - 224px)` en `.chat-panel` + `max-height: none` removido; body absorbe scroll. Verificado 1280x800 / 1280x600 / 375x667: cerrar visible + body scrollable.
+- [x] **Conflicto fuerza mayor**: otro agente force-pusheó auth gates al repo Pages (2 veces) descartando mis commits → re-aplicado todo desde fuente local.
+- [x] QA producción final: FAQ/testimonios ausentes, kickers 01-04, chat 6 chips + responde, panel cierra, FABs 56px sin overlap, CTA form visible, 0 errores de consola.
+
+**Archivos tocados:**
+- `01-Cliente/web/index.html`
+- `01-Cliente/web/assets/css/style.css`
+- `01-Cliente/web/assets/js/script.js`
+
+**Commits:**
+- Pages repo: `f35039e` (tras reescrituras: `8ab54ab` + `f35039e`)
+- Monorepo: `ec36b53`
+
+**Estado:** ✅ LIVE en `https://atlanteksystems.com/` · FABs + chat + fondo OK · 0 errores
+**Siguiente paso:** revisión visual de screenshots (`qa-*.png`, `qa-pro-limpio.png`) · redeploy Apps Script (token viejo) · Search Console + GBP con Daniel
+
+---
+
+### 2026-09-15 22:xx — 🔐 Auth gates: botón cerrar sesión + fix display logout
+
+**Qué se hizo:**
+- [x] **Botón "Cerrar sesión"** añadido en ambos paneles:
+  - `admin.html`: sidebar footer (debajo de email/zona)
+  - `dashboard.html`: header nav (junto a "Gestión"/"Sitio")
+- [x] Lógica compartida: `sessionStorage.removeItem('atlantek-auth')` → muestra gate + limpia input + foco en password
+- [x] **Fix crítico display**: gate no reaparecía al logout
+  - `gate.style.display = 'flex'` forzado en JS `doLogout()`
+  - CSS fallback: `.auth-gate:not(.hidden){display:flex !important}`
+  - `padding: 24px` en `.auth-gate` para evitar clipping en mobile
+- [x] **Debug logging**: `console.log('Logout btn found'/'Logout clicked')` para troubleshooting
+- [x] Responsive logo mantenido (120px/90px/75px según breakpoint)
+
+**Archivos tocados:**
+- `01-Cliente/web/admin.html` (botón + script + CSS)
+- `01-Cliente/web/dashboard.html` (botón + script + CSS)
+
+**Commits:**
+- Pages repo: `31cae9a` (force push)
+- Monorepo: `3e0176f` → `ec36b53` (sync)
+
+**Verificación pendiente (manual):**
+- [ ] `admin.html` → entrar → click "Cerrar sesión" → gate reaparece + input limpio + foco
+- [ ] `dashboard.html` → mismo flujo
+- [ ] Console logs: "Logout btn found" al cargar, "Logout clicked" al clickear
+- [ ] Mobile 375px: gate centrado, logo escalado, sin scroll horizontal
+
+**Estado:** ✅ deployado · rebuild Pages ~30s
+**Siguiente paso:** verificación manual logout en producción · redeploy Apps Script (`02-Privado/apps-script/Code.gs`) · GBP/Search Console con Daniel
