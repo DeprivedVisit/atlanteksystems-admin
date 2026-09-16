@@ -8,8 +8,8 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const esc = (s) => String(s ?? '')
-    .replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
-    .replace(/"/g, '"').replace(/'/g, ''');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
   const fmtMoney = (n) => '₡' + (Number(n) || 0).toLocaleString('es-CR', {
     minimumFractionDigits: 0, maximumFractionDigits: 0

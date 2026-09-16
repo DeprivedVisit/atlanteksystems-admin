@@ -297,6 +297,73 @@ const Store = (() => {
     return true;
   }
 
+  /* ═══════════ SERVICIOS Y TICKETS (v2) ═══════════
+     Viven en localStorage 'atlantek-gestion-v2' (misma fuente que
+     dashboard.js). No viajan a Sheets todavía. */
+
+  const V2_KEY = 'atlantek-gestion-v2';
+
+  const getV2 = () => {
+    try {
+      const raw = localStorage.getItem(V2_KEY);
+      const v2 = raw ? JSON.parse(raw) : null;
+      return {
+        services: Array.isArray(v2.services) ? v2.services : [],
+        tickets: Array.isArray(v2.tickets) ? v2.tickets : []
+      };
+    } catch (e) {
+      return { services: [], tickets: [] };
+    }
+  };
+
+  const saveV2 = (v2) => {
+    localStorage.setItem(V2_KEY, JSON.stringify(v2));
+  };
+
+  const getServices = (clientId) => {
+    const all = getV2().services;
+    return clientId ? all.filter(s => s.clientId === clientId) : all;
+  };
+
+  const getService = (id) => getV2().services.find(s => s.id === id) || null;
+
+  const getTickets = (clientId) => {
+    const all = getV2().tickets;
+    return clientId ? all.filter(t => t.clientId === clientId) : all;
+  };
+
+  function saveTicket(t) {
+    const v2 = getV2();
+    const now = new Date().toISOString();
+    if (t.id) {
+      const i = v2.tickets.findIndex(x => x.id === t.id);
+      if (i >= 0) {
+        t.fechaActualizacion = now;
+        v2.tickets[i] = t;
+      } else {
+        t.id = uid();
+        t.fechaCreacion = now;
+        t.fechaActualizacion = now;
+        v2.tickets.push(t);
+      }
+    } else {
+      t.id = uid();
+      t.fechaCreacion = now;
+      t.fechaActualizacion = now;
+      if (!t.historial) t.historial = [];
+      v2.tickets.push(t);
+    }
+    saveV2(v2);
+    return t;
+  }
+
+  const serviceTotalMensual = (clientId) => {
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    return getServices(clientId)
+      .filter(s => s.estado === 'activo' && Number(s.valorMensual || 0) > 0 && new Date(s.fechaVencimiento) >= hoy)
+      .reduce((sum, s) => sum + Number(s.valorMensual || 0), 0);
+  };
+
   /* ═══════════ CÁLCULOS ═══════════ */
 
   const docTotal = (d) => d.items.reduce((s, it) => s + (Number(it.qty) || 0) * (Number(it.precio) || 0), 0);
@@ -310,6 +377,7 @@ const Store = (() => {
     getDocs, getDoc, saveDoc, deleteDoc, setDocStatus,
     getLeads, getLead, leadsNuevos, setLeadStatus,
     getCatalogo, getCatalogoItem, saveCatalogoItem, deleteCatalogoItem,
+    getServices, getService, getTickets, saveTicket, serviceTotalMensual,
     docTotal,
     nextNumber: () => data.nextNumber,
     sync: { pull: syncPull, enabled: hasSheets }
