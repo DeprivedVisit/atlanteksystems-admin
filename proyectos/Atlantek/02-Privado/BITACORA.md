@@ -764,6 +764,31 @@ Siguiente paso: ...
 
 ---
 
+### 2026-09-15 22:30 — 🎯 Radar de cobertura: barrido real + detección de distritos (JS rAF)
+
+**Qué se hizo:**
+- [x] **CSS radar** (`style.css`): anillos concéntricos (3), cruz N/S-E/O, grid diagonal 30°/150°, esquinas HUD, readouts RNG/LOCK, sweep con `conic-gradient` animado
+- [x] **JS radar** (`script.js`): control `requestAnimationFrame` del sweep (5.5s/vuelta) → calcula ángulo real, compara con `data-ang` de cada blip (tolerancia 16°), enciende `is-locked` al pasar (punto detectado)
+- [x] **Readouts dinámicos**: `RNG: 0°→360°` en vivo · `LOCK: 0/7 → 7/7` al barrer cada distrito
+- [x] **Accesibilidad**: `prefers-reduced-motion` → desactiva animación, muestra todos los distritos como "locked"
+- [x] **HTML**: 7 blips con `data-ang` (Guápiles 0°, Cariari 40°, Jiménez 140°, La Rita 320°, Roxana 30°, La Colonia 210°, Colorado 260°) + base label "BASE · GUÁPILES CENTRO — 70201 POCOCÍ"
+- [x] **Blip base** (Guápiles) siempre encendido, sin animación pulse
+- [x] **Sintaxis JS OK** (node --check exit=0), 7 blips detectados en HTML
+
+**Archivos tocados:**
+- `01-Cliente/web/assets/css/style.css` (bloque `.radar__*`, ~180 líneas)
+- `01-Cliente/web/assets/js/script.js` (módulo radar ~80 líneas insertado antes del chat)
+- `01-Cliente/web/index.html` (estructura `.radar__rings`, `.radar__cross`, `.radar__grid`, `.radar__corner`, `.radar__read`, `.radar__sweep`, 7× `.radar__blip[data-ang]`)
+
+**Commits:**
+- Pages repo: pendiente push
+- Monorepo: pendiente push
+
+**Estado:** ✅ código listo · sin errores consola · listo para deploy
+**Siguiente paso:** push a ambos repos → verificación visual en `https://atlanteksystems.com/#cobertura` (desktop + 375px) · redeploy Apps Script · GBP/Search Console
+
+---
+
 ### 2026-09-15 22:xx — 🔴 FUGA CERRADA: TOKEN_ADMIN expuesto en sitio público + backend verificado
 
 **Síntoma:** el sitio público servía `https://atlanteksystems.com/assets/js/config.js` con **`TOKEN_ADMIN`** (probado: cualquiera leía **3 clientes / 2 proformas / 3 leads** con un GET). Causa: otro agente republicó `admin.html`/`dashboard.html` con gate **solo visual** (password `btoa` en el navegador) y metió el token admin en el config que carga `index.html`.
