@@ -760,3 +760,75 @@ Siguiente paso: ...
 - [ ] Unificar correo oficial + analítica de conversiones
 
 **Estado:** 🛑 agentes cerrados · worktree monorepo commiteado
+
+---
+
+### 2026-09-16 02:30 — 🛠️ Panel Admin privado completo: Servicios + Tickets + Portal Cliente (reestructuración total)
+
+**Contexto:** reescritura completa de `02-Privado/panel-admin/` para separar panel admin del sitio público, agregar módulo **Servicios Contratados** (con MRR, vencimiento, items), **Tickets / Soporte** (prioridad, estado, historial, asignado) y **Portal del Cliente** (servicios + tickets con auth separada). Deploy a Cloudflare Pages project `atlantek-admin` (cuenta Apex).
+
+**Qué se hizo:**
+
+**Store.js v2 (`atlantek-gestion-v2`):**
+- [x] Modelo `services[]`: id, clientId, nombre, descripcion, tipo (cctv/mantenimiento/redes/acceso/otro), estado (activo/inactivo/vencido), fechaInicio, fechaVencimiento, valorMensual, itemsIncluidos[], notas
+- [x] Modelo `tickets[]`: id, clientId, serviceId, titulo, descripcion, prioridad (baja/media/alta/critica), estado (abierto/en_proceso/resuelto/cerrado), fechaCreacion, fechaActualizacion, asignadoA, historial[]
+- [x] CRUD: `getServices`, `saveService`, `deleteService`, `getTickets`, `saveTicket`, `addTicketMessage`, `setTicketStatus`, `setTicketPriority`, `assignTicket`
+- [x] Helpers: `ticketsAbiertos`, `ticketsCriticos`, `serviceTotalMensual` (MRR), `computeServiceStatus` (calcula vencido/activo)
+
+**Admin.html (panel privado):**
+- [x] Sidebar reorganizado 3 secciones: **GESTIÓN** (Dashboard, Clientes, Servicios, Tickets), **COMERCIAL** (Leads, Catálogo, Documentos), **CLIENTE** (Portal Cliente, Resumen negocio)
+- [x] Badges: Leads nuevos + Tickets abiertos (globales)
+- [x] Auth gate compartida (sessionStorage `atlantek-auth`)
+
+**Client-portal.html (nuevo):**
+- [x] Auth separada (sessionStorage `atlantek-client-auth`)
+- [x] Header KPIs: servicios activos, tickets abiertos, MRR
+- [x] Tabs: **Mis Servicios** (cards estado, items, mensual, fechas) + **Tickets** (lista + formulario nuevo ticket con prioridad y servicio relacionado)
+- [x] Cliente ID vía URL `?client=c1` o localStorage
+
+**App.js (vistas admin):**
+- [x] `renderServicios()`: tabla con filtros, modal crear/editar con items incluidos
+- [x] `renderTickets()`: tabla con filtros, modal ver/editar con historial, agregar mensajes, cambiar estado/prioridad/asignado
+- [x] Router: `/servicios`, `/tickets`, `/servicios/nuevo`
+
+**Dashboard.html / dashboard.js:**
+- [x] KPIs: Clientes, Servicios activos, Tickets abiertos, **MRR**, Cobrado, Por cobrar, Leads
+- [x] Paneles "Servicios activos" + "Tickets abiertos" en grid
+- [x] Botón "Portal Cliente" en nav superior
+
+**CSS (admin.css + dashboard.css):**
+- [x] `.service-card` completa (header, meta grid, items con checks, footer mensual)
+- [x] `.ticket-priority` / `.ticket-status` badges mono (crítica=rojo, alta=azul, media=ámbar, baja=verde)
+- [x] `.client-nav` tabs, `.ticket-card` border-left por prioridad, historial expandible
+- [x] Responsive mobile
+
+**Deploy Cloudflare Pages:**
+- [x] Project `atlantek-admin` (account Apex `187e470c5f26d96248f1fc7fb3cdc4fe`)
+- [x] LIVE: `https://atlantek-admin.pages.dev/admin/`, `/dashboard.html`, `/client-portal.html?client=c1`
+- [x] DNS `admin.atlanteksystems.com` → CNAME `atlantek-admin.pages.dev` (cuenta Daniel, proxy OFF)
+
+**Cloudflare Access (configurado via UI):**
+- [ ] Destination: `atlantek-admin.pages.dev/*`
+- [ ] Policy: Allow emails `soporte@atlanteksystems.com`, `apexcloudworkscompany@gmail.com`
+- [ ] Auth: One-time PIN (Cloudflare provider) + instant auth ON
+- [ ] **PENDIENTE:** Save application final (UI bug, no persistía)
+
+**Archivos tocados:**
+- `02-Privado/panel-admin/admin.html` (reescrito)
+- `02-Privado/panel-admin/client-portal.html` (nuevo)
+- `02-Privado/panel-admin/assets/js/store.js` (v2)
+- `02-Privado/panel-admin/assets/js/app.js` (vistas + router)
+- `02-Privado/panel-admin/assets/js/dashboard.js` (KPIs + services + tickets)
+- `02-Privado/panel-admin/assets/js/client-portal.js` (nuevo)
+- `02-Privado/panel-admin/assets/css/admin.css` (service-card, ticket badges, sidebar sections)
+- `02-Privado/panel-admin/assets/css/dashboard.css` (portal, tickets, forms, responsive)
+- `02-Privado/panel-admin/dashboard.html` (KPIs + panels + portal link)
+
+**Bloqueantes pendientes:**
+- [ ] **Redeploy Apps Script** (`02-Privado/apps-script/Code.gs`) con tokens separados (`TOKEN_PUBLICO` / `TOKEN_ADMIN`) — **otro agente en esto**
+- [ ] **Cloudflare Access Save** final (crear app nueva si persiste bug)
+- [ ] Borrar filas `TEST-no-enviar` en hoja Leads
+- [ ] Search Console + GBP (Daniel)
+
+**Estado:** ✅ Panel admin completo LIVE en `https://atlantek-admin.pages.dev` · Portal cliente funcional · ⏳ Access + Apps Script redeploy
+**Siguiente paso:** Redeploy Apps Script → test end-to-end (formulario → Sheets → panel) → demo Daniel → firma + 50% adelanto ($350 setup + $50/mes)
