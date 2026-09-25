@@ -259,6 +259,131 @@ function doPost(e) {
     return json_({ ok: false, error: 'lead no encontrado' });
   }
 
+  /* Enviar documento por email */
+  if (body.action === 'send-doc-email') {
+    if (!body.docId) return json_({ ok: false, error: 'docId requerido' });
+    if (!body.clientEmail) return json_({ ok: false, error: 'clientEmail requerido' });
+
+    var shD = sheet_(SHEET_DOCS, HEAD_DOCS);
+    var rowsD = shD.getDataRange().getValues();
+    var doc = null;
+    for (var j = 1; j < rowsD.length; j++) {
+      var d = rowsD[j];
+      if (!d[0]) continue;
+      if (String(d[0]) === String(body.docId)) {
+        var items = [];
+        try { items = JSON.parse(d[9] || '[]'); } catch (err) {}
+        doc = {
+          id: String(d[0]), numero: Number(d[1]), tipo: String(d[2]),
+          clientId: String(d[3]),
+          fechaEmision: isoDate_(d[5]), fechaEntrega: isoDate_(d[6]),
+          estado: String(d[7]), items: items, notas: String(d[10])
+        };
+        break;
+      }
+    }
+    if (!doc) return json_({ ok: false, error: 'documento no encontrado' });
+
+    var shC = sheet_(SHEET_CLIENTES, HEAD_CLIENTES);
+    var rowsC = shC.getDataRange().getValues();
+    var client = null;
+    for (var i = 1; i < rowsC.length; i++) {
+      var r = rowsC[i];
+      if (!r[0]) continue;
+      if (String(r[0]) === String(doc.clientId)) {
+        client = {
+          id: String(r[0]), nombre: String(r[1]), contacto: String(r[2]),
+          telefono: String(r[3]), email: String(r[4]),
+          direccion: String(r[5]), pais: String(r[6])
+        };
+        break;
+      }
+    }
+
+    var empresaNombre = 'Atlantek';
+    var empresaEmail = 'soporte@atlanteksystems.com';
+    var empresaTel = '7231-2225';
+
+    var total = doc.items.reduce(function(s, it) {
+      return s + (Number(it.qty) || 0) * (Number(it.precio) || 0);
+    }, 0);
+
+    var tipoLabel = doc.tipo === 'factura' ? 'Factura' : 'Proforma';
+    var asunto = '[' + empresaNombre + '] ' + tipoLabel + ' Nº ' + String(doc.numero).padStart(3, '0');
+
+    var htmlBody = 
+      '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">' +
+      '  <div style="background:#0a1628;color:#fff;padding:20px;border-radius:8px 8px 0 0;">' +
+      '    <h1 style="margin:0;font-size:24px;">' + empresaNombre + '</h1>' +
+      '    <p style="margin:5px 0 0;color:#8E9AA4;">Seguridad · CCTV · Redes</p>' +
+      '  </div>' +
+      '  <div style="background:#122338;color:#E9EDF0;padding:20px;border:1px solid #1a6aff;border-top:none;">' +
+      '    <h2 style="margin-top:0;">' + tipoLabel + ' Nº ' + String(doc.numero).padStart(3, '0') + '</h2>' +
+      '    <p><strong>Fecha emisión:</strong> ' + doc.fechaEmision + '</p>' +
+      '    <p><strong>Fecha entrega:</strong> ' + doc.fechaEntrega + '</p>' +
+      '    <p><strong>Estado:</strong> <span style="color:' + (doc.estado === 'pagada' ? '#10b981' : doc.estado === 'enviada' ? '#f59e0b' : '#64748b') + ';">' + doc.estado + '</span></p>' +
+      '  </div>' +
+      '  <div style="background:#fff;padding:20px;border:1px solid #e2e8f0;border-top:none;">' +
+      '    <p>Estimado/a ' + (client?.contacto || client?.nombre || 'cliente') + ',</p>' +
+      '    <p>Le compartimos el detalle de su ' + tipoLabel.toLowerCase() + '.</p>' +
+      '    <table style="width:100%;border-collapse:collapse;margin:16px 0;">' +
+      '      <thead><tr style="background:#f1f5f9;">' +
+      '        <th style="padding:8px;text-align:left;border:1px solid #e2e8f0;">Descripción</th>' +
+      '        <th style="padding:8px;text-align:right;border:1px solid #e2e8f0;">Cant.</th>' +
+      '        <th style="padding:8px;text-align:right;border:1px solid #e2e8f0;">Precio (₡)</th>' +
+      '        <th style="padding:8px;text-align:right;border:1px solid #e2e8f0;">Monto (₡)</th>' +
+      '      </tr></thead>' +
+      '      <tbody>' +
+      doc.items.map(function(it) {
+        return '<tr>' +
+          '<td style="padding:8px;border:1px solid #e2e8f0;">' + (it.desc || '') + '</td>' +
+          '<td style="padding:8px;border:1px solid #e2e8f0;text-align:right;">' + (Number(it.qty) || 0) + '</td>' +
+          '<td style="padding:8px;border:1px solid #e2e8f0;text-align:right;">₡' + (Number(it.precio) || 0).toLocaleString('es-CR') + '</td>' +
+          '<td style="padding:8px;border:1px solid #e2e8f0;text-align:right;">₡' + ((Number(it.qty) || 0) * (Number(it.precio) || 0)).toLocaleString('es-CR') + '</td>' +
+        '</tr>';
+      }).join('') +
+      '      </tbody>' +
+      '    </table>' +
+      '    <div style="text-align:right;font-size:18px;font-weight:bold;color:#1a6aff;">' +
+      '      Total: ₡' + total.toLocaleString('es-CR') +
+      '    </div>' +
+      '    <p style="color:#64748b;font-size:14px;">' + (doc.notas || 'Garantía: Equipos con 12 meses de garantía...') + '</p>' +
+      '  </div>' +
+      '  <div style="background:#0a1628;color:#8E9AA4;padding:16px;border-radius:0 0 8px 8px;text-align:center;font-size:13px;">' +
+      '    ' + empresaNombre + ' · ' + empresaEmail + ' · ' + empresaTel + '<br>' +
+      '    70201 Guápiles · Costa Rica' +
+      '  </div>' +
+      '</div>';
+
+    var textBody = 
+      empresaNombre + ' — ' + tipoLabel + ' Nº ' + String(doc.numero).padStart(3, '0') + '\n\n' +
+      'Fecha emisión: ' + doc.fechaEmision + '\n' +
+      'Fecha entrega: ' + doc.fechaEntrega + '\n' +
+      'Estado: ' + doc.estado + '\n\n' +
+      'Cliente: ' + (client?.nombre || '—') + '\n' +
+      (client?.direccion ? 'Dirección: ' + client.direccion + '\n' : '') +
+      '\n' +
+      'Detalle:\n' +
+      doc.items.map(function(it) {
+        return '  - ' + (it.desc || '') + ' x' + (Number(it.qty) || 0) + ' @ ₡' + (Number(it.precio) || 0).toLocaleString('es-CR') + ' = ₡' + ((Number(it.qty) || 0) * (Number(it.precio) || 0)).toLocaleString('es-CR');
+      }).join('\n') +
+      '\n\nTotal: ₡' + total.toLocaleString('es-CR') + '\n\n' +
+      (doc.notas || 'Garantía: Equipos con 12 meses de garantía...') + '\n\n' +
+      empresaNombre + ' · ' + empresaEmail + ' · ' + empresaTel;
+
+    try {
+      MailApp.sendEmail({
+        to: body.clientEmail,
+        subject: asunto,
+        htmlBody: htmlBody,
+        body: textBody
+      });
+      return json_({ ok: true, message: 'Email enviado a ' + body.clientEmail });
+    } catch (e) {
+      return json_({ ok: false, error: 'Error al enviar email: ' + e.toString() });
+    }
+  }
+
   if (body.action !== 'save' || !body.data) return json_({ ok: false, error: 'acción desconocida' });
 
   var lock = LockService.getScriptLock();

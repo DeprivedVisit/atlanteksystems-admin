@@ -1319,6 +1319,37 @@
       window.open(waHref(c.telefono, msg), '_blank');
     };
 
+    /* Enviar por Email — usa Apps Script backend */
+    $('#doc-email').onclick = async () => {
+      const btn = $('#doc-email');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '⏳ Enviando...';
+      
+      try {
+        const res = await fetch(CONFIG.SHEETS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            token: CONFIG.TOKEN,
+            action: 'send-doc-email',
+            docId: d.id,
+            clientEmail: c.email,
+            clientName: c.nombre
+          })
+        });
+        const out = await res.json();
+        if (!out.ok) throw new Error(out.error || 'Error al enviar email');
+        alert('✅ Email enviado correctamente');
+      } catch (err) {
+        console.error('Error sending email:', err);
+        alert(`❌ Error al enviar email: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    };
+
     docview.hidden = false;
     docview.scrollTop = 0;
   }
