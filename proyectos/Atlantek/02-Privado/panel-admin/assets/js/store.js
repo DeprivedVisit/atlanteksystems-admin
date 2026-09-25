@@ -224,6 +224,13 @@ const Store = (() => {
     } else {
       d.id = uid();
       d.numero = data.nextNumber++;
+      /* Cotización: PRF-XXX (proforma) / FAC-XXX (factura) */
+      if (!d.cotizacion) {
+        const prefix = d.tipo === 'factura' ? 'FAC' : 'PRF';
+        const existing = data.docs.filter(x => x.tipo === d.tipo);
+        const next = existing.length + 1;
+        d.cotizacion = `${prefix}-${String(next).padStart(3, '0')}`;
+      }
       data.docs.push(d);
     }
     save();

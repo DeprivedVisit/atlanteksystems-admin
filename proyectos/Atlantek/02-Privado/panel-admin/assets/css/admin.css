@@ -918,6 +918,20 @@ textarea.input { resize: vertical; min-height: 72px; line-height: 1.5; }
   text-transform: uppercase;
 }
 
+.status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+}
+.status-borrador { background: rgba(255,255,255,.15); color: #fff; }
+.status-enviada { background: rgba(59,130,246,.2); color: #93c5fd; }
+.status-pagada { background: rgba(16,185,129,.2); color: #6ee7b7; }
+
 /* FROM / TO / TOTAL */
 .sheet__parties {
   display: grid;

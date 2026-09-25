@@ -1,0 +1,9 @@
+# Cloudflare Pages headers
+# Legal documents - ensure they're served as static files
+/legal/*
+  Cache-Control: public, max-age=3600
+  X-Content-Type-Options: nosniff
+
+# Admin panel
+/*
+  Cache-Control: public, max-age=0, must-revalidate

@@ -1034,6 +1034,9 @@
     const clientOpts = clients.map(c =>
       `<option value="${c.id}" ${c.id === d.clientId ? 'selected' : ''}>${esc(c.nombre)}</option>`).join('');
 
+    const isFactura = d.tipo === 'factura';
+    const cotLabel = isFactura ? 'Factura Nº' : 'Cotización Nº';
+    const cotValue = existing ? (d.cotizacion || (isFactura ? `FAC-${String(d.numero).padStart(3, '0')}` : `PRF-${String(d.numero).padStart(3, '0')}`)) : '';
     const numeroLabel = existing ? `Nº ${numDoc(existing.numero)}` : `Nº ${numDoc(Store.nextNumber())} (auto)`;
 
     main.innerHTML = `
@@ -1059,6 +1062,10 @@
               <option value="proforma" ${d.tipo === 'proforma' ? 'selected' : ''}>Proforma</option>
               <option value="factura"  ${d.tipo === 'factura'  ? 'selected' : ''}>Factura</option>
             </select>
+          </div>
+          <div class="field">
+            <label class="field__label">${cotLabel}</label>
+            <input class="input" type="text" id="ed-cotizacion" value="${esc(cotValue)}" placeholder="Auto-generado al guardar" ${existing ? '' : 'readonly'}>
           </div>
           <div class="field">
             <label class="field__label">Fecha emisión</label>
@@ -1166,6 +1173,7 @@
         fechaEntrega: $('#ed-entrega').value,
         estado: d.estado,
         notas: $('#ed-notas').value.trim(),
+        cotizacion: $('#ed-cotizacion').value.trim() || undefined,
         items
       });
       location.hash = `#/doc/${saved.id}`;
@@ -1180,12 +1188,15 @@
   function renderDocView(docId) {
     const d = Store.getDoc(docId);
     if (!d) { location.hash = '#/documentos'; return; }
-    const c = Store.getClient(d.clientId) || { nombre: '—', direccion: '', pais: '' };
+    const c = Store.getClient(d.clientId) || { nombre: '—', direccion: '', pais: '', contacto: '', telefono: '' };
     const E = Store.EMPRESA;
     const total = Store.docTotal(d);
 
-    const titulo = d.tipo === 'factura' ? 'Factura' : 'Pro forma\ninvoice';
-    const labelNo = d.tipo === 'factura' ? 'INVOICE NO.' : 'PRO FORMA INVOICE NO.';
+    const isFactura = d.tipo === 'factura';
+    const titulo = isFactura ? 'Factura' : 'Pro forma\ninvoice';
+    const labelNo = isFactura ? 'INVOICE NO.' : 'PRO FORMA INVOICE NO.';
+    const cotLabel = isFactura ? 'FACTURA NO.' : 'COTIZACIÓN NO.';
+    const cotNumero = d.cotizacion || (isFactura ? `FAC-${String(d.numero).padStart(3, '0')}` : `PRF-${String(d.numero).padStart(3, '0')}`);
 
     const rows = d.items.map(it => `
       <tr>
@@ -1208,9 +1219,11 @@
       </div>
 
       <div class="sheet__meta">
+        <div class="sheet__meta-item"><b>${cotLabel}</b> ${cotNumero}</div>
         <div class="sheet__meta-item"><b>${labelNo}</b> ${numDoc(d.numero)}</div>
         <div class="sheet__meta-item"><b>Issue date</b> ${fmtDate(d.fechaEmision)}</div>
         <div class="sheet__meta-item"><b>Delivery date</b> ${fmtDate(d.fechaEntrega)}</div>
+        <div class="sheet__meta-item"><b>Estado</b> <span class="status-badge status-${d.estado}">${d.estado.toUpperCase()}</span></div>
       </div>
 
       <div class="sheet__parties">
