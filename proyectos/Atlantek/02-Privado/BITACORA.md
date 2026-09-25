@@ -26,6 +26,66 @@ Siguiente paso: ...
 
 <!-- ════════ Entradas ↓ ════════ -->
 
+### 2026-09-25 23:15 — 🧪 Proforma Test Live + PRF/FAC System Panel + Scroll System + Legal Docs Private + Radar Profesional
+
+**Contexto:** Cierre de sesión completa: proforma demo pública live, sistema PRF/FAC en panel admin, scrollbars profesionales, radar con coordenadas reales, documentos legales movidos a panel privado.
+
+**Qué se hizo:**
+
+**1. Proforma Test Pública (GitHub Pages)**
+- [x] `proforma-test.html` creado con PRF-001, diseño system unificado (Plus Jakarta Sans + JetBrains Mono, navy palette)
+- [x] 4 items: Sitio web ₡1.2M + CCTV 8 cámaras ₡2.8M + Cableado Cat6 ₡650K + WiFi 6 ₡480K = ₡5.13M total
+- [x] Botones Imprimir/PDF + WhatsApp, badge animado "Pendiente de pago"
+- [x] Deploy a `atlanteksystems` → `https://atlanteksystems.com/proforma-test.html` (200 OK)
+
+**2. Sistema PRF/FAC en Panel Admin (Cloudflare Pages)**
+- [x] `store.js`: `saveDoc()` auto-genera `cotizacion` = `PRF-XXX` / `FAC-XXX` por tipo + contador independiente
+- [x] `app.js` `renderEditor`: campo **"Cotización Nº"** / **"Factura Nº"** (readonly al crear, editable al editar)
+- [x] `app.js` `renderDocView`: header muestra `COTIZACIÓN NO. PRF-001` + `INVOICE NO. 028` + **status badge** profesional
+- [x] `admin.css`: `.status-badge` (borrador/enviada/pagada) con colores semánticos
+- [x] Deploy a `atlanteksystems-admin` (commit `727a2f8`) → deploy en curso
+
+**3. Sistema Scroll Profesional**
+- [x] Scrollbars globales: Firefox (`scrollbar-width/color`) + WebKit (track transparente, thumb 8px, hover/active)
+- [x] Scrollbars delgadas paneles (`.scroll-thin` 6px)
+- [x] Nav Progress Bar: `scaleX` según % scroll, gradiente navy→green, `transition: 0.1s linear`
+- [x] Smooth scroll condicional: `@media (prefers-reduced-motion: no-preference)` / `reduce`
+- [x] Touch scrolling: `-webkit-overflow-scrolling: touch`, passive listeners
+
+**4. Radar Profesional (Coordenadas Reales)**
+- [x] 4 anillos (5/10/15/20 km), cruces cardinales, 10 targets con `--bearing`/`--distance` CSS vars
+- [x] 7 distritos Pococí + 3 extendidas (Guácimo, Siquirres, Corredor Norte) con SLA real
+- [x] Panel lateral: readouts (RANGO/OBJETIVOS/BASE) + lista interactiva → focus en radar
+- [x] Lista cobertura: generada dinámicamente desde mismos datos
+
+**5. Documentos Legales → Panel Privado (Seguridad)**
+- [x] Eliminados 5 archivos `/Legal/*` del repo público → 404 en producción
+- [x] Creados en `02-Privado/panel-admin/legal/` + nav sidebar admin + `renderLegal()`
+- [x] sitemap.xml actualizado (solo `/`)
+
+**Archivos tocados (público):**
+- `01-Cliente/web/proforma-test.html` (nuevo)
+- `01-Cliente/web/index.html` (radar + nav__progress)
+- `01-Cliente/web/assets/css/style.css` (radar + scrollbars + nav progress)
+- `01-Cliente/web/assets/js/script.js` (radar + onScroll progress)
+- `01-Cliente/web/sitemap.xml` (legal removido)
+
+**Archivos tocados (privado):**
+- `02-Privado/panel-admin/assets/js/store.js` (saveDoc cotizacion)
+- `02-Privado/panel-admin/assets/js/app.js` (editor + docview cotizacion + status)
+- `02-Privado/panel-admin/assets/css/admin.css` (status-badge)
+- `02-Privado/panel-admin/legal/*.html` (5 docs)
+- `02-Privado/panel-admin/admin.html` (nav legal)
+
+**Commits:**
+- Público: `0a3a567` (radar), `9b919c2` (layout), `06bb1d1` (scroll), `6982fd7` (proforma-test)
+- Privado: `e3e1b54` (legal), `f7ac043` (PRF/FAC), `727a2f8` (force rebuild)
+- Monorepo: `727a2f8`
+
+**Estado:** ✅ Público live · 🔄 Panel admin deploy en curso (Cloudflare Pages free tier ~5-15 min)
+
+**Siguiente paso:** Verificar panel admin nuevo deploy → migrar datos hoja cliente → switch backend Apex → Cloudflare Access → demo Daniel
+
 ### 2026-09-25 22:30 — 📝 Formulario Web: Campos Visualización + Ubicación
 
 **Contexto:** Mejora al formulario de contacto público (`atlanteksystems.com/#contacto`) para captar más señales de calificación del lead.
