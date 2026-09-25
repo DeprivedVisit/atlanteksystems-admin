@@ -348,7 +348,10 @@
           <span class="view-head__kicker">Atlantek · Gestión</span>
           <h1>Clientes</h1>
         </div>
-        <button class="btn btn--red" id="btn-new-client">+ Nuevo cliente</button>
+        <div class="view-head__actions">
+          <button class="btn btn--slate" id="btn-export-clientes" title="Exportar a Excel">📤 Exportar</button>
+          <button class="btn btn--red" id="btn-new-client">+ Nuevo cliente</button>
+        </div>
       </div>
 
       <div class="panel">
@@ -367,6 +370,11 @@
     `;
 
     $('#btn-new-client').addEventListener('click', () => openClientModal(null));
+    $('#btn-export-clientes').addEventListener('click', () => {
+      const filename = Store.exportClientesToExcel();
+      if (!filename) { alert('No hay clientes para exportar'); return; }
+      alert(`Clientes exportados: ${filename}`);
+    });
     $$('[data-edit-client]').forEach(b =>
       b.addEventListener('click', () => openClientModal(b.dataset.editClient)));
     $$('[data-del-client]').forEach(b =>
@@ -532,7 +540,10 @@
           <span class="view-head__kicker">Atlantek · Gestión</span>
           <h1>Proformas / Facturas</h1>
         </div>
-        <a href="#/editor" class="btn btn--red">+ Nuevo documento</a>
+        <div class="view-head__actions">
+          <button class="btn btn--slate" id="btn-export-documentos" title="Exportar a Excel">📤 Exportar</button>
+          <a href="#/editor" class="btn btn--red">+ Nuevo documento</a>
+        </div>
       </div>
       <div class="filters">
         <input class="input" id="f-q" type="search" placeholder="Buscar por cliente o número…">
@@ -571,6 +582,12 @@
     };
     ['f-q', 'f-tipo', 'f-estado'].forEach(id =>
       $('#' + id).addEventListener('input', applyFilters));
+
+    $('#btn-export-documentos').addEventListener('click', () => {
+      const filename = Store.exportDocumentosToExcel();
+      if (!filename) { alert('No hay documentos para exportar'); return; }
+      alert(`Documentos exportados: ${filename}`);
+    });
   }
 
   /* ═══════════ LEADS DEL SITIO ═══════════ */
@@ -609,7 +626,10 @@
           <span class="view-head__kicker">Atlantek · Gestión</span>
           <h1>Leads del sitio</h1>
         </div>
-        <span class="lead-count">${Store.leadsNuevos()} nuevos · ${leads.length} en total</span>
+        <div class="view-head__actions">
+          <button class="btn btn--slate" id="btn-export-leads" title="Exportar a Excel">📤 Exportar</button>
+          <span class="lead-count">${Store.leadsNuevos()} nuevos · ${leads.length} en total</span>
+        </div>
       </div>
 
       <div class="panel">
@@ -641,6 +661,12 @@
           renderLeads();
         });
       }));
+
+    $('#btn-export-leads').addEventListener('click', () => {
+      const filename = Store.exportLeadsToExcel();
+      if (!filename) { alert('No hay leads para exportar'); return; }
+      alert(`Leads exportados: ${filename}`);
+    });
   }
 
   /* ═══════════ CATÁLOGO ═══════════ */

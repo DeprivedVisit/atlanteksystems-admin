@@ -505,6 +505,151 @@ const Store = (() => {
 
   const docTotal = (d) => d.items.reduce((s, it) => s + (Number(it.qty) || 0) * (Number(it.precio) || 0), 0);
 
+  /* ═══════════ EXCEL EXPORT: LEADS, CLIENTES, DOCUMENTOS ═══════════ */
+
+  function exportLeadsToExcel() {
+    const leads = getLeads();
+    if (!leads.length) return null;
+
+    const wsData = [
+      ['ID', 'Fecha', 'Nombre', 'Teléfono', 'Distrito', 'Servicio', 'Tipo', 'Estado', 'Mensaje']
+    ];
+
+    leads.forEach(l => {
+      wsData.push([
+        l.id || '',
+        String(l.fecha || '').slice(0, 19).replace('T', ' '),
+        l.nombre || '',
+        l.telefono || '',
+        l.distrito || '',
+        l.servicio || '',
+        l.tipo || '',
+        l.estado || 'nuevo',
+        l.mensaje || ''
+      ]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = [
+      { wch: 12 },  // ID
+      { wch: 20 },  // Fecha
+      { wch: 30 },  // Nombre
+      { wch: 16 },  // Teléfono
+      { wch: 20 },  // Distrito
+      { wch: 20 },  // Servicio
+      { wch: 16 },  // Tipo
+      { wch: 14 },  // Estado
+      { wch: 40 }   // Mensaje
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Leads');
+
+    const filename = `leads-atlantek-${new Date().toISOString().slice(0,10)}.xlsx`;
+    XLSX.writeFile(wb, filename);
+    return filename;
+  }
+
+  function exportClientesToExcel() {
+    const clients = getClients();
+    const docs = getDocs();
+    if (!clients.length) return null;
+
+    const wsData = [
+      ['ID', 'Nombre', 'Contacto', 'Teléfono', 'Email', 'Dirección', 'País', 'Estado', 'Productos/Servicios', 'Total Docs', 'Total Facturación (₡)']
+    ];
+
+    clients.forEach(c => {
+      const cDocs = docs.filter(d => d.clientId === c.id);
+      const total = cDocs.reduce((s, d) => s + docTotal(d), 0);
+      const productos = (c.productos || []).join('; ');
+      wsData.push([
+        c.id || '',
+        c.nombre || '',
+        c.contacto || '',
+        c.telefono || '',
+        c.email || '',
+        c.direccion || '',
+        c.pais || 'Costa Rica',
+        c.estado || 'activo',
+        productos,
+        cDocs.length,
+        total
+      ]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = [
+      { wch: 12 },  // ID
+      { wch: 35 },  // Nombre
+      { wch: 25 },  // Contacto
+      { wch: 16 },  // Teléfono
+      { wch: 30 },  // Email
+      { wch: 30 },  // Dirección
+      { wch: 16 },  // País
+      { wch: 12 },  // Estado
+      { wch: 40 },  // Productos
+      { wch: 12 },  // Total Docs
+      { wch: 22 }   // Total Facturación
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Clientes');
+
+    const filename = `clientes-atlantek-${new Date().toISOString().slice(0,10)}.xlsx`;
+    XLSX.writeFile(wb, filename);
+    return filename;
+  }
+
+  function exportDocumentosToExcel() {
+    const docs = getDocs();
+    const clients = getClients();
+    if (!docs.length) return null;
+
+    const clientMap = {};
+    clients.forEach(c => { clientMap[c.id] = c.nombre; });
+
+    const wsData = [
+      ['ID', 'Número', 'Tipo', 'Cliente', 'Fecha Emisión', 'Fecha Entrega', 'Estado', 'Total (₡)', 'Items']
+    ];
+
+    docs.forEach(d => {
+      const cliente = clientMap[d.clientId] || '—';
+      const itemsText = (d.items || []).map(it => `${it.desc} (x${it.qty} @ ₡${it.precio})`).join('; ');
+      wsData.push([
+        d.id || '',
+        String(d.numero || '').padStart(3, '0'),
+        d.tipo || '',
+        cliente,
+        d.fechaEmision || '',
+        d.fechaEntrega || '',
+        d.estado || '',
+        docTotal(d),
+        itemsText
+      ]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = [
+      { wch: 12 },  // ID
+      { wch: 10 },  // Número
+      { wch: 12 },  // Tipo
+      { wch: 30 },  // Cliente
+      { wch: 14 },  // Fecha Emisión
+      { wch: 14 },  // Fecha Entrega
+      { wch: 12 },  // Estado
+      { wch: 18 },  // Total
+      { wch: 60 }   // Items
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Documentos');
+
+    const filename = `documentos-atlantek-${new Date().toISOString().slice(0,10)}.xlsx`;
+    XLSX.writeFile(wb, filename);
+    return filename;
+  }
+
   load();
   syncPull();
 
@@ -515,6 +660,7 @@ const Store = (() => {
     getLeads, getLead, leadsNuevos, setLeadStatus,
     getCatalogo, getCatalogoItem, saveCatalogoItem, deleteCatalogoItem,
     exportCatalogoToExcel, importCatalogoFromExcel,
+    exportLeadsToExcel, exportClientesToExcel, exportDocumentosToExcel,
     getServices, getService, getTickets, saveTicket, serviceTotalMensual,
     docTotal,
     nextNumber: () => data.nextNumber,
