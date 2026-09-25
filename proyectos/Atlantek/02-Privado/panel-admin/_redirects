@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects
+# Legal documents - serve directly (disable SPA fallback)
+/legal/* /legal/:splat 200
+
+# Admin panel - SPA behavior
+/* /admin 200
