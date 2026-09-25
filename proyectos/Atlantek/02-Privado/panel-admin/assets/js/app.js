@@ -84,6 +84,7 @@
     if (view === 'clientes')        renderClientes();
     else if (view === 'catalogo')   renderCatalogo();
     else if (view === 'documentos') renderDocumentos();
+    else if (view === 'legal')      renderLegal();
     else if (view === 'leads')      renderLeads();
     else if (view === 'editor')     renderEditor(param || null);
     else if (view === 'doc' && param) renderDocView(param);
@@ -704,6 +705,58 @@
     });
 
     $$('[data-close]', modalPanel).forEach(b => b.addEventListener('click', closeModal));
+  }
+
+  /* ═══════════ DOCUMENTOS LEGALES ═══════════ */
+
+  function renderLegal() {
+    const docs = [
+      { file: 'terminos.html', label: 'Términos de Servicio', desc: 'Condiciones generales de servicio, garantías, pagos y limitación de responsabilidad', updated: '12/07/2026' },
+      { file: 'politica-privacidad.html', label: 'Política de Privacidad', desc: 'Tratamiento de datos personales conforme a la Ley N.° 8968 de Costa Rica', updated: '12/07/2026' },
+      { file: 'contrato-servicio.html', label: 'Contrato de Servicio CTR-2026-INT-001', desc: 'Contrato personal Garett Barrantes / Atlantek — desarrollo web + panel + dominio', updated: '12/07/2026' },
+      { file: 'proforma.html', label: 'Proforma PRF-2026-INT-001', desc: 'Proforma de cobro: sitio web + panel + documentos legales + dominio .com', updated: '12/07/2026' },
+      { file: 'acta-entrega.html', label: 'Acta de Entrega ACT-2026-INT-001', desc: 'Entrega formal de sitio, panel, base de datos, accesos y garantía 30 días', updated: '[DD/MM/AAAA]' }
+    ];
+
+    const rows = docs.map(d => `
+      <tr class="row-link" data-open-legal="${d.file}">
+        <td><b>${esc(d.label)}</b></td>
+        <td style="color:var(--muted);font-size:12.5px">${esc(d.desc)}</td>
+        <td class="mono-cell">${d.updated}</td>
+        <td class="num">
+          <a class="btn btn--icon btn--sm" href="legal/${d.file}" target="_blank" rel="noopener">Abrir</a>
+        </td>
+      </tr>`).join('');
+
+    main.innerHTML = `
+      <div class="view-head">
+        <div>
+          <span class="view-head__kicker">Atlantek · Gestión</span>
+          <h1>Documentos Legales</h1>
+        </div>
+        <p style="color:var(--muted);font-size:13px;margin-top:4px">Documentos internos — acceso restringido al panel de gestión</p>
+      </div>
+
+      <div class="panel">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Descripción</th>
+              <th class="mono-cell">Última actualización</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+
+    $$('[data-open-legal]').forEach(tr =>
+      tr.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        window.open('legal/' + tr.dataset.openLegal, '_blank', 'noopener');
+      }));
   }
 
   /* ═══════════ EDITOR ═══════════ */
