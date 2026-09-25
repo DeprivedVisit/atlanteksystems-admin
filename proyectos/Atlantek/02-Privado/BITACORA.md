@@ -26,6 +26,116 @@ Siguiente paso: ...
 
 <!-- ════════ Entradas ↓ ════════ -->
 
+### 2026-09-25 18:45 — 🎯 Radar Profesional + Scroll System + Legal Docs Private
+
+**Contexto:** Rediseño completo del radar de cobertura con coordenadas reales, sistema de scroll profesional, y migración de documentos legales al panel privado.
+
+**Qué se hizo:**
+
+**1. Radar Profesional (coordenadas reales + panel lateral)**
+- [x] HTML: Radar con 4 anillos (5/10/15/20 km), cruces cardinales, 10 targets con `--bearing`/`--distance` CSS variables
+- [x] Targets: 7 distritos Pococí + 3 zonas extendidas (Guácimo, Siquirres, Corredor Norte) con SLA real
+- [x] Panel lateral: readouts (RANGO/OBJETIVOS/BASE) + lista interactiva clickeable → focus en radar
+- [x] Lista cobertura: generada dinámicamente desde mismos datos del radar
+- [x] CSS: Animaciones profesionales (barrido 6s, pulsos targets, anillos expansivos, reduced-motion)
+- [x] JS: Hover/focus sync radar↔panel, click en panel → scrollIntoView target
+
+**2. Sistema Scroll Profesional**
+- [x] Scrollbars globales: Firefox (`scrollbar-width/color`) + WebKit (track transparente, thumb 8px, hover/active states)
+- [x] Scrollbars delgadas para paneles (`.scroll-thin` 6px)
+- [x] Nav Progress Bar: `<div class="nav__progress">` con scaleX según % scroll, gradiente navy→green
+- [x] Smooth scroll condicional: `@media (prefers-reduced-motion: no-preference)` / `reduce`
+- [x] Touch scrolling optimizado: `-webkit-overflow-scrolling: touch`, passive listeners
+
+**3. Documentos Legales → Panel Privado (Seguridad)**
+- [x] Eliminados 5 archivos `/Legal/*` del repo público (`atlanteksystems`): contrato, proforma, acta, términos, privacidad
+- [x] Creados en `02-Privado/panel-admin/legal/` con navegación en sidebar admin
+- [x] Vista `renderLegal()` en `app.js` con tabla + enlaces target=_blank
+- [x] Deploy a `atlanteksystems-admin` (Cloudflare Pages) → 200 OK en panel, 404 en público
+- [x] sitemap.xml actualizado (solo `/`)
+
+**Archivos tocados:**
+- `01-Cliente/web/index.html` (radar HTML + nav__progress)
+- `01-Cliente/web/assets/css/style.css` (radar CSS + scrollbars + nav progress)
+- `01-Cliente/web/assets/js/script.js` (radar JS + onScroll progress)
+- `01-Cliente/web/sitemap.xml` (legal removido)
+- `02-Privado/panel-admin/legal/*.html` (5 docs nuevos)
+- `02-Privado/panel-admin/admin.html` (nav legal)
+- `02-Privado/panel-admin/assets/js/app.js` (renderLegal)
+
+**Commits:**
+- Público: `0a3a567` (radar), `9b919c2` (layout), `06bb1d1` (scroll)
+- Privado: `e3e1b54` (legal docs + nav)
+
+**Estado:** ✅ listo · todo en producción (GitHub Pages + Cloudflare Pages)
+
+**Siguiente paso:** Migrar datos hoja cliente → hoja Apex + switch backend producción + Cloudflare Access panel + demo Daniel
+
+### 2026-09-25 14:30 — 🚀 Panel Admin: Dashboard Charts + Export Excel + Imágenes + Email + Auth JWT
+
+**Contexto:** 5 mejoras prioritarias al panel admin `admin.atlanteksystems.com` en un solo bloque BUILD.
+
+**Qué se hizo:**
+
+**1. Dashboard con gráficos (Chart.js)**
+- [x] CDN Chart.js 4.4.1 agregado en `admin.html`
+- [x] 4 charts en `renderDashboardCharts()`: ventas mensuales (bar), top 5 clientes (doughnut), estado docs (doughnut), leads por estado (horizontal bar)
+- [x] Paleta Atlantek (`#1a6aff`, `#10b981`, `#f59e0b`, `#ef4444`, `#64748b`)
+- [x] CSS `.dashboard-charts`, `.chart-row`, `.chart-wrapper` responsive (1 col ≤900px)
+- [x] `destroyCharts()` en `route()` para limpieza al navegar
+
+**2. Export Excel universal (Leads, Clientes, Documentos, Catálogo)**
+- [x] `store.js`: `exportLeadsToExcel()`, `exportClientesToExcel()`, `exportDocumentosToExcel()`
+- [x] `app.js`: botones 📤 Exportar en view-head de cada sección
+- [x] Columnas completas por entidad, filename `tipo-atlantek-YYYY-MM-DD.xlsx`
+- [x] Catálogo ya tenía export/import (reutilizado patrón)
+
+**3. Imágenes en Catálogo**
+- [x] Modal `openCatalogoModal()`: input file hidden + preview + botón "Subir/Cambiar imagen"
+- [x] Base64 en localStorage (límite 500KB), thumbnail 40x40 en tabla
+- [x] Botón ✕ Quitar imagen, campo `imagen` en Excel export
+
+**4. Email automático de documentos**
+- [x] Botón 📧 Email en `docview__bar-right` (`admin.html`)
+- [x] `app.js`: `doc-email` → POST `send-doc-email` a Apps Script
+- [x] `apps-script/Code.gs`: acción `send-doc-email` con MailApp (HTML + texto)
+- [x] Incluye: datos empresa, cliente, items, totales, notas, branding Atlantek
+
+**5. Auth JWT + HttpOnly cookies + Roles**
+- [x] Worker nuevo: `02-Privado/panel-admin/worker/` (wrangler.toml, package.json, src/index.js)
+  - Endpoints: `/login`, `/logout`, `/me`, `/refresh`
+  - JWT HS256 8h, cookie HttpOnly Secure SameSite=Lax
+  - KV para revocación de sesiones
+  - Roles: admin / vendedor / cliente con permisos granulares
+- [x] Frontend `assets/js/auth.js`: API client con fallback local (dev)
+  - Auto-refresh 5 min antes de expiración
+  - `Auth.getUser()`, `hasRole()`, `hasPermission()`, `requireAuth()`
+- [x] `admin.html`: login gate usa `Auth.login()`, muestra `user-info` en sidebar
+- [x] `app.js`: `route()` protege vistas, `Auth.requireAuth()` en navegación
+- [x] CSS fix: `.auth-gate.hidden { pointer-events: none }`
+
+**Archivos tocados:**
+- `admin.html` (CDN Chart.js, botón email, user-info, pointer-events)
+- `assets/css/admin.css` (dashboard-charts styles)
+- `assets/js/app.js` (charts, exports, email btn, route protection)
+- `assets/js/store.js` (3 export functions)
+- `assets/js/auth.js` (nuevo - 162 líneas)
+- `apps-script/Code.gs` (acción send-doc-email)
+- `worker/` (nuevo - wrangler.toml, package.json, src/index.js)
+
+**Commits:**
+- `89a15ff` feat: dashboard charts
+- `c64a69f` feat: export Excel Leads/Clientes/Documentos
+- `5b1a72d` feat: imágenes en catálogo
+- `33976f4` feat: email documentos
+- `eed2e51` feat: auth JWT + roles
+
+**Estado:** ✅ Todo commiteado y pusheado a `main` → Cloudflare Pages auto-deploy
+
+**Siguiente paso:** Verificar en `https://admin.atlanteksystems.com/admin` (build ~2 min) · Deploy Worker aparte con `wrangler deploy` (requiere KV namespace + secrets JWT_SECRET, ADMIN_PASSWORD_HASH) · Demo a Daniel
+
+---
+
 ### 2026-09-16 02:30 — 🔐 Seguridad backend Apps Script + dominio admin en producción
 
 **Contexto:** cierre del bloque de seguridad: backend Apps Script nuevo controlado por cuenta Apex, fuga `intec-2026` cerrada en todos los deployments, y dominio `admin.atlanteksystems.com` funcionando en producción.
