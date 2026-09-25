@@ -312,6 +312,14 @@ textarea.input { resize: vertical; min-height: 72px; line-height: 1.5; }
   line-height: 1.1;
 }
 
+.view-head__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.view-head__actions .btn { white-space: nowrap; }
+
 /* ═══════════ DASHBOARD ═══════════ */
 
 .stats {

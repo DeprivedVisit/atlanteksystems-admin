@@ -516,7 +516,14 @@
           <span class="view-head__kicker">Atlantek · Gestión</span>
           <h1>Catálogo de Productos</h1>
         </div>
-        <button class="btn btn--red" id="btn-new-item">+ Nuevo producto</button>
+        <div class="view-head__actions">
+          <button class="btn btn--slate" id="btn-export-catalogo" title="Exportar a Excel">📤 Exportar</button>
+          <label class="btn btn--slate" id="btn-import-catalogo-label" title="Importar desde Excel">
+            📥 Importar
+            <input type="file" id="btn-import-catalogo" accept=".xlsx,.xls" hidden>
+          </label>
+          <button class="btn btn--red" id="btn-new-item">+ Nuevo producto</button>
+        </div>
       </div>
 
       <div class="filters">
@@ -542,6 +549,26 @@
     `;
 
     $('#btn-new-item').addEventListener('click', () => openCatalogoModal(null));
+    $('#btn-export-catalogo').addEventListener('click', () => {
+      const filename = Store.exportCatalogoToExcel();
+      if (!filename) { alert('El catálogo está vacío'); return; }
+      alert(`Catálogo exportado: ${filename}`);
+    });
+    $('#btn-import-catalogo').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const result = await Store.importCatalogoFromExcel(file);
+        let msg = `Importación completada: ${result.creados} creados, ${result.actualizados} actualizados`;
+        if (result.errores?.length) msg += `\nErrores: ${result.errores.join('; ')}`;
+        alert(msg);
+        renderCatalogo();
+      } catch (err) {
+        alert(`Error al importar: ${err.message}`);
+      } finally {
+        e.target.value = '';
+      }
+    });
     $$('[data-edit-item]').forEach(b =>
       b.addEventListener('click', () => openCatalogoModal(b.dataset.editItem)));
     $$('[data-del-item]').forEach(b =>

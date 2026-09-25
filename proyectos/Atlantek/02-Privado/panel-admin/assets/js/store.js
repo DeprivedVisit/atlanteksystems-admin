@@ -274,6 +274,143 @@ const Store = (() => {
     save();
   }
 
+  /* ═══════════ EXCEL IMPORT/EXPORT CATÁLOGO ═══════════ */
+
+  function exportCatalogoToExcel() {
+    const items = getCatalogo();
+    if (!items.length) return null;
+
+    const wsData = [
+      ['ID', 'Nombre', 'Categoría', 'Precio (₡)', 'Unidad', 'Estado', 'Descripción', 'Imagen']
+    ];
+
+    items.forEach(p => {
+      wsData.push([
+        p.id || '',
+        p.nombre || '',
+        p.categoria || '',
+        p.precio || 0,
+        p.unidad || 'pieza',
+        p.estado || 'disponible',
+        p.descripcion || '',
+        p.imagen || ''
+      ]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+    const colWidths = [
+      { wch: 12 },  // ID
+      { wch: 40 },  // Nombre
+      { wch: 20 },  // Categoría
+      { wch: 16 },  // Precio
+      { wch: 12 },  // Unidad
+      { wch: 12 },  // Estado
+      { wch: 50 },  // Descripción
+      { wch: 40 }   // Imagen
+    ];
+    ws['!cols'] = colWidths;
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Catálogo');
+
+    const filename = `catalogo-atlantek-${new Date().toISOString().slice(0,10)}.xlsx`;
+    XLSX.writeFile(wb, filename);
+    return filename;
+  }
+
+  function importCatalogoFromExcel(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const wb = XLSX.read(data, { type: 'array' });
+          const ws = wb.Sheets[wb.SheetNames[0]];
+          const json = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+          if (json.length < 2) {
+            reject(new Error('El archivo está vacío o solo tiene encabezados'));
+            return;
+          }
+
+          const headers = json[0].map(h => String(h).trim().toLowerCase());
+          const expected = ['id', 'nombre', 'categoria', 'precio', 'unidad', 'estado', 'descripcion', 'imagen'];
+
+          const idx = {
+            id: headers.indexOf('id'),
+            nombre: headers.indexOf('nombre'),
+            categoria: headers.indexOf('categoria'),
+            precio: headers.indexOf('precio'),
+            precio: headers.indexOf('precio (₡)') >= 0 ? headers.indexOf('precio (₡)') : headers.indexOf('precio'),
+            unidad: headers.indexOf('unidad'),
+            estado: headers.indexOf('estado'),
+            descripcion: headers.indexOf('descripcion'),
+            descripcion: headers.indexOf('descripción') >= 0 ? headers.indexOf('descripción') : headers.indexOf('descripcion'),
+            imagen: headers.indexOf('imagen')
+          };
+
+          const imported = [];
+          const errors = [];
+
+          for (let r = 1; r < json.length; r++) {
+            const row = json[r];
+            if (!row || row.every(c => c === '' || c === null || c === undefined)) continue;
+
+            const nombre = String(row[idx.nombre] || '').trim();
+            if (!nombre) {
+              errors.push(`Fila ${r + 1}: falta nombre`);
+              continue;
+            }
+
+            const precio = Number(row[idx.precio]) || 0;
+            const item = {
+              id: idx.id >= 0 && row[idx.id] ? String(row[idx.id]).trim() : uid(),
+              nombre,
+              categoria: idx.categoria >= 0 ? String(row[idx.categoria] || '').trim() : 'Otros',
+              precio,
+              unidad: idx.unidad >= 0 ? String(row[idx.unidad] || '').trim() : 'pieza',
+              estado: idx.estado >= 0 ? String(row[idx.estado] || '').trim() : 'disponible',
+              descripcion: idx.descripcion >= 0 ? String(row[idx.descripcion] || '').trim() : '',
+              imagen: idx.imagen >= 0 ? String(row[idx.imagen] || '').trim() : ''
+            };
+
+            if (!['disponible', 'agotado'].includes(item.estado)) item.estado = 'disponible';
+            if (!['pieza', 'metro', 'servicio', 'kit'].includes(item.unidad)) item.unidad = 'pieza';
+
+            imported.push(item);
+          }
+
+          if (!imported.length && !errors.length) {
+            reject(new Error('No se importaron productos válidos'));
+            return;
+          }
+
+          if (!data.catalogo) data.catalogo = [];
+
+          let creados = 0, actualizados = 0;
+          imported.forEach(imp => {
+            const existingIdx = data.catalogo.findIndex(p => p.id === imp.id);
+            if (existingIdx >= 0) {
+              data.catalogo[existingIdx] = imp;
+              actualizados++;
+            } else {
+              data.catalogo.push(imp);
+              creados++;
+            }
+          });
+
+          save();
+          resolve({ creados, actualizados, errores: errors });
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.onerror = () => reject(new Error('Error al leer el archivo'));
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
   async function setLeadStatus(id, estado) {
     const l = getLead(id);
     if (!l || !LEAD_ESTADOS.includes(estado)) return false;
@@ -377,6 +514,7 @@ const Store = (() => {
     getDocs, getDoc, saveDoc, deleteDoc, setDocStatus,
     getLeads, getLead, leadsNuevos, setLeadStatus,
     getCatalogo, getCatalogoItem, saveCatalogoItem, deleteCatalogoItem,
+    exportCatalogoToExcel, importCatalogoFromExcel,
     getServices, getService, getTickets, saveTicket, serviceTotalMensual,
     docTotal,
     nextNumber: () => data.nextNumber,
