@@ -26,6 +26,30 @@ Siguiente paso: ...
 
 <!-- ════════ Entradas ↓ ════════ -->
 
+### 2026-09-25 22:30 — 📝 Formulario Web: Campos Visualización + Ubicación
+
+**Contexto:** Mejora al formulario de contacto público (`atlanteksystems.com/#contacto`) para captar más señales de calificación del lead.
+
+**Qué se hizo:**
+- [x] **Campo "Tipo de visualización"** (select): Frente, Esquina, Lateral, Potrero, Trasera, Interior, Otro
+- [x] **Campo "Ubicación específica"** (select): Calle principal, Calle secundaria, Acceso privado, Carretera, Condominio, Centro comercial, Zona industrial, Otro
+- [x] `index.html`: Agregados en `lead-form__row` nuevo (líneas 592-616)
+- [x] `script.js`: Payload extendido con `visualizacion` y `ubicacion` (líneas 152-158)
+- [x] Apps Script backend recibe 8 campos totales (nombre, teléfono, distrito, tipo, visualizacion, ubicacion, servicio, mensaje)
+- [x] Push a `main` → GitHub Pages auto-deploy
+
+**Archivos tocados:**
+- `01-Cliente/web/index.html` (formulario + 2 selects)
+- `01-Cliente/web/assets/js/script.js` (lead payload)
+
+**Commit:** `e4c4801`
+
+**Estado:** ✅ pusheado → GitHub Pages auto-deploy (~2 min)
+
+**Siguiente paso:** Verificar en `https://atlanteksystems.com/#contacto`
+
+---
+
 ### 2026-09-25 18:45 — 🎯 Radar Profesional + Scroll System + Legal Docs Private
 
 **Contexto:** Rediseño completo del radar de cobertura con coordenadas reales, sistema de scroll profesional, y migración de documentos legales al panel privado.
@@ -623,6 +647,51 @@ Siguiente paso: ...
 
 **Estado:** ✅ auditoría sincronizada con producción; ⚠️ documentos internos públicos y redeploy de Apps Script siguen pendientes.
 **Siguiente paso:** confirmar si `/Legal/` debe retirarse del repo público y unificar el correo oficial antes del próximo deploy.
+
+---
+
+### 2026-09-25 16:30 — 📝 Copy profesional y gramática — web, propuesta, presentación, panel admin
+
+**Contexto:** mejora de redacción en todos los entregables de cara al cliente para tono más profesional, directo y orientado a conversión.
+
+**Qué se hizo:**
+
+**1. Web pública (`01-Cliente/web/index.html`):**
+- [x] Meta tags: description reforzada con garantías ("Garantía 12 meses equipos / 90 días instalación"), OG/Twitter sincronizados
+- [x] Hero: CTA principal "Solicitar valoración" (antes "Cotizar por WhatsApp"), WhatsApp pre-llenado con "sin compromiso"
+- [x] Servicios: copy más preciso — "diseñados según los puntos ciegos de su propiedad, no por catálogo", "cobertura real en toda la propiedad", "locales comerciales"
+- [x] SEO local (`#guapiles`): "valoración técnica en sitio **sin compromiso**" en lead
+- [x] Contacto: "Solicite su valoración técnica en sitio **sin compromiso**"
+- [x] Footer: marca completa "Atlantek Systems" + "Pococí" en zona
+
+**2. Propuesta comercial (`01-Cliente/propuesta/index.html`):**
+- [x] Fecha formato largo: "13 de julio 2026"
+- [x] Dominio ejemplo real: "atlanteksystems.com"
+- [x] "Control total" en datos propios
+
+**3. Presentación ejecutiva (`01-Cliente/Presentacion/index.html`):**
+- [x] Cobertura: "Guápiles y Pococí" (no solo "zona de Guápiles")
+
+**4. Panel Admin (`02-Privado/panel-admin/`):**
+- [x] Dashboard auth gate: "Ingrese la clave para acceder" (formal)
+- [x] Nav: "Sitio público" / "Portal cliente" / "Soporte por WhatsApp"
+- [x] Dashboard: "Actualizar datos", "Última actualización"
+- [x] Client Portal: tabs "Mis servicios" / "Tickets y soporte", placeholders formales ("Describa el problema...")
+
+**Archivos tocados:**
+- `01-Cliente/web/index.html`
+- `01-Cliente/propuesta/index.html`
+- `01-Cliente/Presentacion/index.html`
+- `02-Privado/panel-admin/dashboard.html`
+- `02-Privado/panel-admin/client-portal.html`
+- `02-Privado/BITACORA.md` (esta entrada)
+
+**Commits:**
+- Monorepo `apex-cloudworks`: `db21758` "copy: mejorar gramática y profesionalidad en web pública, propuesta, presentación y panel admin"
+- Repo Pages `atlanteksystems`: ya actualizado (HEAD `06bb1d1` incluía cambios previos)
+
+**Estado:** ✅ todo en producción (GitHub Pages `atlanteksystems.com` + Cloudflare Pages `atlantek-admin.pages.dev`) · monorepo sincronizado
+**Siguiente paso:** deploy Worker Cloudflare (auth JWT) + demo a Daniel + firma
 
 ---
 

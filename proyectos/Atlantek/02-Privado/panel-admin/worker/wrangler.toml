@@ -1,6 +1,7 @@
 name = "atlantek-auth"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+account_id = "187e470c5f26d96248f1fc7fb3cdc4fe"
 
 [vars]
 JWT_SECRET = "your-super-secret-jwt-key-change-in-production"
@@ -10,8 +11,8 @@ ADMIN_PASSWORD_HASH = "YXRsYW50ZWsyMDI2"  # base64('atlantek2026')
 
 [[kv_namespaces]]
 binding = "AUTH_KV"
-id = "your-kv-namespace-id"
-preview_id = "your-preview-kv-namespace-id"
+id = "c939720b3382475d885fd417d9f236e2"
+preview_id = "25a2bb7c778b4830be29cfe32bbb735a"
 
 [triggers]
 crons = ["0 * * * *"]  # Cleanup expired sessions hourly

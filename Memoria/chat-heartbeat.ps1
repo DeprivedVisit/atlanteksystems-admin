@@ -14,7 +14,7 @@
 $ErrorActionPreference = 'Stop'
 
 $IntervalMin       = 10
-$FlushEvery        = 3        # cada N heartbeats -> flush a bitácora
+$FlushEvery        = 3
 $BufferPath        = 'F:\apex-cloudworks\Memoria\sesion-activa.md'
 $MemoriaDir        = 'F:\apex-cloudworks\Memoria'
 $WorkDir           = 'F:\apex-cloudworks'
@@ -23,17 +23,21 @@ $CounterPath       = Join-Path $MemoriaDir '.heartbeat-counter'
 
 function Write-HBLog($msg) {
     $line = "{0}  {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg
-    try { Add-Content -LiteralPath $LogPath -Value $line } catch {}
+    try { Add-Content -LiteralPath $LogPath -Value $line -Encoding UTF8 } catch {}
 }
+
 function Get-Counter {
-    if (Test-Path $CounterPath) { try { return [int](Get-Content $CounterPath) } catch { return 0 } }
+    if (Test-Path $CounterPath) { try { return [int](Get-Content $CounterPath -Encoding UTF8) } catch { return 0 } }
     return 0
 }
-function Set-Counter($n) { Set-Content -LiteralPath $CounterPath -Value $n -Encoding UTF8 }
+
+function Set-Counter($n) { 
+    Set-Content -LiteralPath $CounterPath -Value $n -Encoding UTF8 
+}
 
 function Write-Heartbeat {
     $now = Get-Date -Format 'yyyy-MM-dd HH:mm'
-    $raw = Get-Content $BufferPath -Raw
+    $raw = Get-Content $BufferPath -Raw -Encoding UTF8
     $block = if ($raw -match '(?s)Bloque:\s*(.+?)\n') { $matches[1].Trim() } else { 'Sin bloque activo' }
     $recentFiles = Get-ChildItem "$WorkDir\proyectos" -Recurse -File -ErrorAction SilentlyContinue |
         Where-Object { $_.LastWriteTime -gt (Get-Date).AddMinutes(-15) } |
@@ -42,7 +46,7 @@ function Write-Heartbeat {
     $recentFiles = if ($recentFiles) { $recentFiles } else { 'ninguno reciente' }
 
     $entry = @"
-### 💓 Heartbeat automático — $now
+### Heartbeat automatico — $now
 - Intervalo: ${IntervalMin} min
 - Bloque activo: $block
 - Archivos recientes (15 min): $recentFiles
