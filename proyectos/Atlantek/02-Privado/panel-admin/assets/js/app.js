@@ -76,6 +76,8 @@
     const hash = location.hash || '#/dashboard';
     const [, view, param] = hash.split('/');
 
+    destroyCharts();
+
     docview.hidden = true;
     closeModal();
 
@@ -143,6 +145,41 @@
         </a>
       </div>
 
+      <div class="dashboard-charts">
+        <div class="chart-row">
+          <div class="chart-wrapper">
+            <div class="chart-header">
+              <span class="chart-title">Ventas mensuales</span>
+              <span class="chart-subtitle">Últimos 6 meses</span>
+            </div>
+            <canvas id="chart-ventas-mensuales" height="200"></canvas>
+          </div>
+          <div class="chart-wrapper">
+            <div class="chart-header">
+              <span class="chart-title">Top 5 clientes</span>
+              <span class="chart-subtitle">Por facturación total</span>
+            </div>
+            <canvas id="chart-top-clientes" height="200"></canvas>
+          </div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-wrapper">
+            <div class="chart-header">
+              <span class="chart-title">Estado de documentos</span>
+              <span class="chart-subtitle">Distribución actual</span>
+            </div>
+            <canvas id="chart-estado-docs" height="200"></canvas>
+          </div>
+          <div class="chart-wrapper">
+            <div class="chart-header">
+              <span class="chart-title">Leads por estado</span>
+              <span class="chart-subtitle">Embudo de conversión</span>
+            </div>
+            <canvas id="chart-leads-estado" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+
       <div class="panel">
         <div class="panel__head">
           <span class="panel__title">Documentos recientes</span>
@@ -152,6 +189,126 @@
       </div>
     `;
     bindDocRows();
+    renderDashboardCharts(docs, clients);
+  }
+
+  /* ═══════════ DASHBOARD CHARTS ═══════════ */
+
+  const chartInstances = {};
+
+  function destroyCharts() {
+    Object.values(chartInstances).forEach(chart => chart.destroy());
+    Object.keys(chartInstances).forEach(k => delete chartInstances[k]);
+  }
+
+  // Expose for debugging
+  window.chartInstances = chartInstances;
+
+  function renderDashboardCharts(docs, clients) {
+    destroyCharts();
+
+    const { Chart } = window;
+    if (!Chart) return;
+
+    /* --- Colores Atlantek --- */
+    const colors = {
+      primary: '#1a6aff',
+      primaryLight: 'rgba(26,106,255,0.15)',
+      success: '#10b981',
+      successLight: 'rgba(16,185,129,0.15)',
+      warning: '#f59e0b',
+      warningLight: 'rgba(245,158,11,0.15)',
+      danger: '#ef4444',
+      dangerLight: 'rgba(239,68,68,0.15)',
+      muted: '#64748b',
+      grid: 'rgba(148,163,184,0.15)',
+      text: '#94a3b8'
+    };
+
+    const commonOpts = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0f172a',
+          titleColor: '#f1f5f9',
+          bodyColor: '#cbd5e1',
+          borderColor: 'rgba(148,163,184,0.2)',
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: false
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: colors.text, font: { size: 11 } } },
+        y: { grid: { color: colors.grid }, ticks: { color: colors.text, font: { size: 11 }, callback: v => '₡' + Number(v).toLocaleString('es-CR') } }
+      }
+    };
+
+    /* 1. Ventas mensuales (últimos 6 meses) */
+    const byMonth = {};
+    docs.filter(d => d.estado !== 'borrador').forEach(d => {
+      const key = String(d.fechaEmision || '').slice(0, 7);
+      if (!/^\d{4}-\d{2}$/.test(key)) return;
+      byMonth[key] = (byMonth[key] || 0) + Store.docTotal(d);
+    });
+    const meses = Object.keys(byMonth).sort().slice(-6);
+    const labelsMeses = meses.map(m => {
+      const [y, mm] = m.split('-');
+      const n = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+      return `${n[Number(mm)-1]} ${y.slice(2)}`;
+    });
+    const dataMeses = meses.map(m => byMonth[m]);
+
+    chartInstances.ventasMensuales = window.chartInstances.ventasMensuales = new Chart(document.getElementById('chart-ventas-mensuales'), {
+      type: 'bar',
+      data: { labels: labelsMeses, datasets: [{ label: 'Ventas (₡)', data: dataMeses, backgroundColor: colors.primaryLight, borderColor: colors.primary, borderWidth: 2, borderRadius: 6, borderSkipped: false }] },
+      options: { ...commonOpts, plugins: { ...commonOpts.plugins, tooltip: { ...commonOpts.plugins.tooltip, callbacks: { label: ctx => `₡${ctx.parsed.y.toLocaleString('es-CR')}` } } } }
+    });
+
+    /* 2. Top 5 clientes por facturación */
+    const clientTotals = clients.map(c => {
+      const cDocs = docs.filter(d => d.clientId === c.id && d.estado !== 'borrador');
+      const total = cDocs.reduce((s, d) => s + Store.docTotal(d), 0);
+      return { nombre: c.nombre, total };
+    }).filter(c => c.total > 0).sort((a,b) => b.total - a.total).slice(0,5);
+
+    if (clientTotals.length) {
+      chartInstances.topClientes = window.chartInstances.topClientes = new Chart(document.getElementById('chart-top-clientes'), {
+        type: 'doughnut',
+        data: { labels: clientTotals.map(c => c.nombre), datasets: [{ data: clientTotals.map(c => c.total), backgroundColor: [colors.primary, colors.success, colors.warning, colors.danger, colors.muted].slice(0, clientTotals.length), borderWidth: 0, hoverOffset: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { ...commonOpts.plugins, legend: { display: true, position: 'right', labels: { color: colors.text, font: { size: 11 }, padding: 12, usePointStyle: true, pointStyle: 'circle' } }, tooltip: { ...commonOpts.plugins.tooltip, callbacks: { label: ctx => `${ctx.label}: ₡${ctx.parsed.toLocaleString('es-CR')}` } } } }
+      });
+    }
+
+    /* 3. Estado de documentos */
+    const estados = ['borrador', 'enviada', 'pagada'];
+    const estadoLabels = { borrador: 'Borrador', enviada: 'Enviada', pagada: 'Pagada' };
+    const estadoCounts = estados.map(e => docs.filter(d => d.estado === e).length);
+    const estadoColors = { borrador: colors.muted, enviada: colors.warning, pagada: colors.success };
+    const estadoBg = estados.map(e => estadoColors[e] + '33');
+    const estadoBorder = estados.map(e => estadoColors[e]);
+
+    chartInstances.estadoDocs = window.chartInstances.estadoDocs = new Chart(document.getElementById('chart-estado-docs'), {
+      type: 'doughnut',
+      data: { labels: estados.map(e => estadoLabels[e]), datasets: [{ data: estadoCounts, backgroundColor: estadoBg, borderColor: estadoBorder, borderWidth: 2, hoverOffset: 8 }] },
+      options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { ...commonOpts.plugins, legend: { display: true, position: 'right', labels: { color: colors.text, font: { size: 11 }, padding: 12, usePointStyle: true, pointStyle: 'circle' } }, tooltip: { ...commonOpts.plugins.tooltip, callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed}` } } } }
+    });
+
+    /* 4. Leads por estado */
+    const leads = Store.getLeads() || [];
+    const leadEstados = Store.LEAD_ESTADOS || ['nuevo','contactado','cotizado','ganado','perdido'];
+    const leadLabels = leadEstados.map(e => e.charAt(0).toUpperCase() + e.slice(1));
+    const leadCounts = leadEstados.map(e => leads.filter(l => (l.estado || 'nuevo') === e).length);
+    const leadColors = ['#ef4444', '#f59e0b', '#3b82f6', '#10b981', '#64748b'];
+
+    chartInstances.leadsEstado = window.chartInstances.leadsEstado = new Chart(document.getElementById('chart-leads-estado'), {
+      type: 'bar',
+      data: { labels: leadLabels, datasets: [{ label: 'Leads', data: leadCounts, backgroundColor: leadColors.map(c => c + '33'), borderColor: leadColors, borderWidth: 2, borderRadius: 6, indexAxis: 'y' }] },
+      options: { ...commonOpts, indexAxis: 'y', scales: { x: { ...commonOpts.scales.x, grid: { color: colors.grid }, ticks: { color: colors.text, font: { size: 11 }, callback: v => v } }, y: { ...commonOpts.scales.y, grid: { display: false } } }, plugins: { ...commonOpts.plugins, tooltip: { ...commonOpts.plugins.tooltip, callbacks: { label: ctx => `${ctx.parsed.x} leads` } } } }
+    });
   }
 
   /* ═══════════ CLIENTES ═══════════ */
