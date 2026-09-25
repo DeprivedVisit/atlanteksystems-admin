@@ -76,6 +76,17 @@
     const hash = location.hash || '#/dashboard';
     const [, view, param] = hash.split('/');
 
+    // Check authentication for protected views
+    const protectedViews = ['dashboard', 'clientes', 'catalogo', 'documentos', 'legal', 'leads', 'editor', 'doc'];
+    if (protectedViews.includes(view)) {
+      const user = Auth.getUser();
+      if (!user) {
+        // Redirect to login by clearing hash
+        location.hash = '#/dashboard';
+        return;
+      }
+    }
+
     destroyCharts();
 
     docview.hidden = true;

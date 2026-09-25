@@ -1,0 +1,17 @@
+name = "atlantek-auth"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+JWT_SECRET = "your-super-secret-jwt-key-change-in-production"
+JWT_EXPIRY_HOURS = "8"
+COOKIE_NAME = "atlantek_auth"
+ADMIN_PASSWORD_HASH = "YXRsYW50ZWsyMDI2"  # base64('atlantek2026')
+
+[[kv_namespaces]]
+binding = "AUTH_KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+[triggers]
+crons = ["0 * * * *"]  # Cleanup expired sessions hourly
