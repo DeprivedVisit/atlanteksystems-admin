@@ -680,9 +680,17 @@
       const chip = estado === 'disponible'
         ? '<span class="chip chip--pagada">disponible</span>'
         : '<span class="chip chip--borrador">agotado</span>';
+      const imgHtml = p.imagen
+        ? `<img src="${esc(p.imagen)}" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--line)">`
+        : '<span style="color:var(--faint);font-size:11px">Sin imagen</span>';
       return `
         <tr>
-          <td><b>${esc(p.nombre)}</b></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:10px">
+              ${imgHtml}
+              <b>${esc(p.nombre)}</b>
+            </div>
+          </td>
           <td><span class="chip chip--proforma">${esc(p.categoria)}</span></td>
           <td class="num money">${fmt(p.precio)}</td>
           <td>${chip}</td>
@@ -789,9 +797,17 @@
               const chip = estado === 'disponible'
                 ? '<span class="chip chip--pagada">disponible</span>'
                 : '<span class="chip chip--borrador">agotado</span>';
+              const imgHtml = p.imagen
+                ? `<img src="${esc(p.imagen)}" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--line)">`
+                : '<span style="color:var(--faint);font-size:11px">Sin imagen</span>';
               return `
                 <tr>
-                  <td><b>${esc(p.nombre)}</b></td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      ${imgHtml}
+                      <b>${esc(p.nombre)}</b>
+                    </div>
+                  </td>
                   <td><span class="chip chip--proforma">${esc(p.categoria)}</span></td>
                   <td class="num money">${fmt(p.precio)}</td>
                   <td>${chip}</td>
@@ -821,7 +837,7 @@
   function openCatalogoModal(id) {
     const p = id
       ? Store.getCatalogoItem(id)
-      : { nombre: '', categoria: '', precio: 0, descripcion: '', unidad: 'pieza', estado: 'disponible' };
+      : { nombre: '', categoria: '', precio: 0, descripcion: '', unidad: 'pieza', estado: 'disponible', imagen: '' };
 
     const categorias = ['Cámaras', 'Grabadores', 'Almacenamiento', 'Accesorios', 'Cableado', 'Redes', 'Acceso', 'Servicios', 'Otros'];
 
@@ -860,6 +876,20 @@
           </select>
         </div>
         <div class="field">
+          <label class="field__label">Imagen del producto</label>
+          <div class="image-upload">
+            <input type="file" name="imagen" id="item-imagen" accept="image/*" hidden>
+            <label for="item-imagen" class="btn btn--slate btn--block" id="btn-select-image">
+              ${p.imagen ? '🔄 Cambiar imagen' : '📷 Subir imagen'}
+            </label>
+            <div class="image-preview" id="image-preview" style="${p.imagen ? '' : 'display:none'}">
+              <img src="${esc(p.imagen)}" alt="Preview" style="max-width:100%;max-height:150px;border-radius:8px;border:1px solid var(--line)">
+              <button type="button" class="btn btn--ghost btn--sm" id="btn-remove-image" style="margin-top:8px">✕ Quitar imagen</button>
+            </div>
+            <small style="color:var(--muted);margin-top:4px;display:block">Formatos: JPG, PNG, WebP · Máx. 500KB</small>
+          </div>
+        </div>
+        <div class="field">
           <label class="field__label">Descripción</label>
           <textarea class="input" name="descripcion" placeholder="Especificaciones, notas…">${esc(p.descripcion)}</textarea>
         </div>
@@ -871,6 +901,37 @@
     `;
     modal.hidden = false;
 
+    // Image upload handling
+    const imagenInput = $('#item-imagen');
+    const previewDiv = $('#image-preview');
+    const btnRemove = $('#btn-remove-image');
+    let imagenBase64 = p.imagen || '';
+
+    imagenInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 500 * 1024) {
+        alert('La imagen supera 500KB. Reducí el tamaño.');
+        imagenInput.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        imagenBase64 = ev.target.result;
+        previewDiv.querySelector('img').src = imagenBase64;
+        previewDiv.style.display = 'block';
+        $('#btn-select-image').textContent = '🔄 Cambiar imagen';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    btnRemove?.addEventListener('click', () => {
+      imagenBase64 = '';
+      imagenInput.value = '';
+      previewDiv.style.display = 'none';
+      $('#btn-select-image').textContent = '📷 Subir imagen';
+    });
+
     $('#item-form').addEventListener('submit', (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
@@ -881,7 +942,8 @@
         precio: Number(fd.get('precio')) || 0,
         unidad: fd.get('unidad'),
         estado: fd.get('estado'),
-        descripcion: fd.get('descripcion').trim()
+        descripcion: fd.get('descripcion').trim(),
+        imagen: imagenBase64
       });
       closeModal();
       renderCatalogo();
