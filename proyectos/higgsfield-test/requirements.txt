@@ -1,0 +1,9 @@
+# Higgsfield test requirements
+# Ejecutar: pip install -r requirements.txt
+
+higgsfield==0.0.3
+torch>=2.0
+deepspeed>=0.10
+accelerate>=0.20
+transformers>=4.30
+datasets>=2.10
