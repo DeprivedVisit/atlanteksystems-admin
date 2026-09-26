@@ -111,6 +111,21 @@
     updateLeadsBadge();
   }
 
+  // Lazy-load Chart.js only when needed
+  function ensureChartJS() {
+    return new Promise((resolve) => {
+      if (window.Chart) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+      script.onload = () => resolve();
+      script.onerror = () => resolve(); // fail silently
+      document.head.appendChild(script);
+    });
+  }
+
   window.addEventListener('hashchange', route);
 
   /* ═══════════ DASHBOARD ═══════════ */
@@ -192,6 +207,8 @@
               <span class="chart-subtitle">Embudo de conversión</span>
             </div>
             <canvas id="chart-leads-estado" height="200"></canvas>
+
+(Showing lines 133-209 of 1440. Use offset=210 to continue.)
           </div>
         </div>
       </div>
@@ -205,7 +222,10 @@
       </div>
     `;
     bindDocRows();
-    renderDashboardCharts(docs, clients);
+    // Defer chart loading to next tick - non-blocking
+    requestAnimationFrame(() => {
+      ensureChartJS().then(() => renderDashboardCharts(docs, clients));
+    });
   }
 
   /* ═══════════ DASHBOARD CHARTS ═══════════ */
@@ -223,8 +243,7 @@
   function renderDashboardCharts(docs, clients) {
     destroyCharts();
 
-    const { Chart } = window;
-    if (!Chart) return;
+    if (!window.Chart) return;
 
     /* --- Colores Atlantek --- */
     const colors = {
