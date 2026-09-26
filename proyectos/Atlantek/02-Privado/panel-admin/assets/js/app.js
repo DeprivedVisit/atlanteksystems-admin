@@ -72,6 +72,8 @@
 
   /* ═══════════ ROUTER ═══════════ */
 
+  let currentView = null;
+
   function route() {
     const hash = location.hash || '#/dashboard';
     const [, view, param] = hash.split('/');
@@ -81,13 +83,15 @@
     if (protectedViews.includes(view)) {
       const user = Auth.getUser();
       if (!user) {
-        // Redirect to login by clearing hash
         location.hash = '#/dashboard';
         return;
       }
     }
 
-    destroyCharts();
+    // Only destroy charts when LEAVING dashboard
+    if (currentView === 'dashboard' && view !== 'dashboard') {
+      destroyCharts();
+    }
 
     docview.hidden = true;
     closeModal();
@@ -103,6 +107,7 @@
     else if (view === 'doc' && param) renderDocView(param);
     else renderDashboard();
 
+    currentView = view;
     updateLeadsBadge();
   }
 

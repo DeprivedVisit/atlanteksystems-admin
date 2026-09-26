@@ -99,6 +99,7 @@ const Store = (() => {
 
   function save() {
     saveLocal();
+    // Fire and forget - don't await
     syncPush();
   }
 
@@ -125,9 +126,7 @@ const Store = (() => {
       se sube el estado local (primer uso). */
   async function syncPull() {
     if (!hasSheets()) { emit('local'); return; }
-    emit('syncing');
     try {
-      // Usar AbortController para timeout de 5s
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
       
@@ -144,8 +143,6 @@ const Store = (() => {
       const remoteVacio = !remote.clients.length && !remote.docs.length;
 
       if (remoteVacio) {
-        /* Sheets sin clientes/docs: se sube el estado local, pero los
-           leads del sitio (si hay) sí se adoptan — el push no los toca. */
         data.leads = Array.isArray(remote.leads) ? remote.leads : [];
         saveLocal();
         await pushNow();
@@ -153,8 +150,6 @@ const Store = (() => {
       } else {
         data = remote;
         if (!Array.isArray(data.leads)) data.leads = [];
-        /* Google Sheets devuelve las fechas como Date largo
-           ("Sat Jul 11 2026 00:00:00 GMT-0600...") — normalizar a yyyy-mm-dd */
         data.docs.forEach(d => {
           d.fechaEmision = isoDate(d.fechaEmision);
           d.fechaEntrega = isoDate(d.fechaEntrega);
@@ -165,7 +160,6 @@ const Store = (() => {
       emit('ok');
     } catch (e) {
       console.warn('Sheets sync (pull):', e);
-      // Si falla por red/CORS/timeout, seguir en modo local
       emit('local');
     }
   }
@@ -176,33 +170,26 @@ const Store = (() => {
   function syncPush() {
     if (!hasSheets()) return;
     clearTimeout(pushTimer);
-    pushTimer = setTimeout(pushNow, 900);
+    pushTimer = setTimeout(() => pushNow(), 900);
   }
 
-  async function pushNow() {
+  function pushNow() {
     if (!hasSheets()) return;
-    emit('syncing');
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
-      /* text/plain evita el preflight CORS que Apps Script no responde */
-      const res = await fetch(CONFIG.SHEETS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ token: CONFIG.TOKEN, action: 'save', data }),
-        signal: controller.signal,
-        redirect: 'follow'
+    // Fire and forget - no emit('syncing') to avoid UI flicker
+    fetch(CONFIG.SHEETS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ token: CONFIG.TOKEN, action: 'save', data }),
+      redirect: 'follow'
+    }).then(res => res.json())
+      .then(out => {
+        if (!out.ok) throw new Error(out.error || 'error remoto');
+        emit('ok');
+      })
+      .catch(e => {
+        console.warn('Sheets sync (push):', e);
+        emit('error', { message: String(e) });
       });
-      clearTimeout(timeoutId);
-      
-      const out = await res.json();
-      if (!out.ok) throw new Error(out.error || 'error remoto');
-      emit('ok');
-    } catch (e) {
-      console.warn('Sheets sync (push):', e);
-      emit('error', { message: String(e) });
-    }
   }
 
   /* ═══════════ CLIENTES ═══════════ */
@@ -441,7 +428,6 @@ const Store = (() => {
     l.estado = estado;
     saveLocal();
     if (!hasSheets()) return true;
-    emit('syncing');
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
