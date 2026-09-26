@@ -1,0 +1,17 @@
+{
+  "name": "atlantek-admin-pages",
+  "version": "1.0.0",
+  "description": "Atlantek Admin Panel - Cloudflare Pages",
+  "main": "functions/api/auth/path.js",
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler pages deploy . --project-name=atlantek-admin",
+    "dev": "wrangler pages dev ."
+  },
+  "dependencies": {
+    "jose": "^5.2.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.132.0"
+  }
+}

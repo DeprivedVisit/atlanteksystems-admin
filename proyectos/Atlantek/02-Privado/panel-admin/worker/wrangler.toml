@@ -7,7 +7,7 @@ account_id = "187e470c5f26d96248f1fc7fb3cdc4fe"
 JWT_SECRET = "your-super-secret-jwt-key-change-in-production"
 JWT_EXPIRY_HOURS = "8"
 COOKIE_NAME = "atlantek_auth"
-ADMIN_PASSWORD_HASH = "YXRsYW50ZWsyMDI2"  # base64('atlantek2026')
+ADMIN_PASSWORD_HASH = "90283688d6ffa15f24f1c8296639040db3afb9c9870907e64e317649eb82b20a"  # sha256('atlantek2026')
 
 [[kv_namespaces]]
 binding = "AUTH_KV"

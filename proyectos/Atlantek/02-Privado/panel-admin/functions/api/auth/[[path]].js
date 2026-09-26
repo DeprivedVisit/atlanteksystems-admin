@@ -87,13 +87,47 @@ export async function onRequest(context) {
     });
   }
 
+  // Test endpoint - no jose
+  if (path === '/api/auth/test' && method === 'GET') {
+    return new Response(JSON.stringify({ ok: true, test: 'Function works', env: Object.keys(env) }), {
+      headers: { ...corsHeaders(), 'Content-Type': 'application/json' }
+    });
+  }
+
+  // Test password verification - no jose
+  if (path === '/api/auth/test-password' && method === 'POST') {
+    try {
+      const { password } = await request.json();
+      const hash = '90283688d6ffa15f24f1c8296639040db3afb9c9870907e64e317649eb82b20a';
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const computedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return new Response(JSON.stringify({ 
+        ok: true, 
+        input: password,
+        computedHash: computedHash,
+        expectedHash: hash,
+        match: computedHash === hash
+      }), {
+        headers: { ...corsHeaders(), 'Content-Type': 'application/json' }
+      });
+    } catch (e) {
+      return new Response(JSON.stringify({ ok: false, error: e.message }), {
+        status: 500,
+        headers: { ...corsHeaders(), 'Content-Type': 'application/json' }
+      });
+    }
+  }
+
   // CORS preflight
   if (method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders() });
   }
 
   const JWT_SECRET = env.JWT_SECRET || 'dev-secret-change-me';
-  const ADMIN_PASSWORD_HASH = env.ADMIN_PASSWORD_HASH || 'YXRsYW50ZWsyMDI2';
+  const ADMIN_PASSWORD_HASH = env.ADMIN_PASSWORD_HASH || '90283688d6ffa15f24f1c8296639040db3afb9c9870907e64e317649eb82b20a';
 
   // Login
   if (path === '/api/auth/login' && method === 'POST') {
@@ -138,7 +172,7 @@ export async function onRequest(context) {
       
       return setAuthCookie(res, token);
     } catch (e) {
-      return new Response(JSON.stringify({ ok: false, error: 'Error interno' }), {
+      return new Response(JSON.stringify({ ok: false, error: 'Error interno', details: e.message }), {
         status: 500,
         headers: { ...corsHeaders(), 'Content-Type': 'application/json' }
       });
