@@ -10,5 +10,6 @@
 | 2026-09-25 | ~2 h | AT / Atlantek Admin | 5 features en 1 BUILD: Dashboard Charts (Chart.js), Export Excel (Leads/Clientes/Docs/Catálogo), Imágenes Catálogo (preview base64), Email Documentos (Apps Script MailApp), Auth JWT + HttpOnly + Roles (Worker + frontend fallback) | `sesiones/2026-09-25_1430.md` |
 | 2026-09-25 | ~30 min | AT / Atlantek Web | Formulario contacto: agregados campos "Tipo de visualización" (Frente/Esquina/Lateral/Potrero/...) y "Ubicación específica" (Calle principal/Acceso privado/Condominio/...) — payload 8 campos a Apps Script | `sesiones/2026-09-25_2230.md` |
 | 2026-09-25 | ~45 min | AT / Atlantek Web + Admin | Copy profesional y gramática en web pública, propuesta, presentación, panel admin y portal cliente — tono directo, orientado a conversión, "sin compromiso" reforzado, marca "Atlantek Systems" completa | `sesiones/2026-09-25_1635.md` |
+| 2026-09-25 | ~60 min | AT / Atlantek Web | Hardening seguridad: _headers CSP + security headers, rate limit 3/h (localStorage), sanitización inputs (escapa HTML), validación teléfono CR (pattern 8 dígitos 2-8), field-hint UX — deploy GitHub Pages | `sesiones/2026-09-25_1800.md` |
 
 (End of file)
