@@ -14,7 +14,7 @@ const Auth = (() => {
   // Check if we're in local development
   const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   const LOCAL_STORAGE_KEY = 'atlantek-auth-jwt';
-  const LOCAL_HASH = 'YXRsYW50ZWsyMDI2'; // base64('atlantek2026')
+  const LOCAL_HASH = '90283688d6ffa15f24f1c8296639040db3afb9c9870907e64e317649eb82b20a'; // sha256('atlantek2026')
   const LOCAL_USER = {
     id: 'admin-1',
     nombre: 'Administrador',
@@ -67,8 +67,14 @@ const Auth = (() => {
       }
       throw new Error(data.error);
     } catch (e) {
-      // Local fallback
-      if (btoa(password) === LOCAL_HASH) {
+      // Local fallback - use SHA-256
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      
+      if (passwordHash === LOCAL_HASH) {
         currentUser = LOCAL_USER;
         localStorage.setItem(LOCAL_STORAGE_KEY, '1');
         scheduleRefresh();

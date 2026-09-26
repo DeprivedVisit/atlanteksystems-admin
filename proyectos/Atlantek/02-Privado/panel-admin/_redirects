@@ -1,4 +1,8 @@
 # Cloudflare Pages redirects
+# Static assets - serve directly (no SPA fallback)
+/assets/* /assets/:splat 200
+/favicon.svg /favicon.svg 200
+
 # Legal documents - serve directly (disable SPA fallback)
 /legal/* /legal/:splat 200
 
