@@ -36,9 +36,9 @@ var TOKEN_ADMIN   = 'atlantek-adm-vemsw0y4ugh5r691'; // load / save / lead-statu
      el apikey → pegarlo en CALLMEBOT_KEY. Si queda vacío, solo email. */
 var NOTIFY = {
   NOMBRE: 'Daniel Pérez Jiménez',
-  EMAIL: 'soporteintec.cr@gmail.com', // ← cambiar por el correo personal de Daniel
-  CEL: '50672312225',                 // ← cambiar por el celular de Daniel (con 506)
-  CALLMEBOT_KEY: ''                   // ← apikey de CallMeBot (opcional)
+  EMAIL: 'soporte@atlanteksystems.com',
+  CEL: '50672312225',
+  CALLMEBOT_KEY: ''
 };
 
 function notify_(asunto, lineas) {
