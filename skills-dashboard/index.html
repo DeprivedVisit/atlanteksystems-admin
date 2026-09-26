@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Cloud Work — Skills & Agents Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="logo" aria-label="Apex Cloud Work Dashboard">
+                <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <path d="M16 2L4 8v16l12 6 12-6V8L16 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M16 8v16M4 8l12 6M28 8l-12 6" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                </svg>
+                <span class="logo-text">Apex Cloud Work</span>
+            </a>
+            <div class="header-stats">
+                <span class="stat"><span id="totalSkills">0</span> Skills</span>
+                <span class="stat-divider"></span>
+                <span class="stat"><span id="totalAgents">0</span> Agents</span>
+                <span class="stat-divider"></span>
+                <span class="stat"><span id="totalProjects">0</span> Proyectos</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h1 class="hero-title">Catálogo de <span class="highlight">Skills & Agents</span></h1>
+                <p class="hero-subtitle">Escaneo completo del ecosistema de desarrollo — opencode + Apex Cloud Work</p>
+                <div class="hero-meta">
+                    <span class="badge badge--source">F:\apex-cloudworks</span>
+                    <span class="badge badge--source">C:\Users\garet\.agents\skills</span>
+                    <span class="badge badge--source">C:\Users\garet\.config\opencode</span>
+                    <span class="badge badge--source">F:\.claude\skills</span>
+                </div>
+            </section>
+
+            <div class="toolbar">
+                <div class="search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="search" id="searchInput" class="search-input" placeholder="Buscar skill, agent, categoría..." aria-label="Buscar">
+                    <kbd class="search-shortcut">⌘K</kbd>
+                </div>
+                <div class="filters">
+                    <select id="categoryFilter" class="filter-select" aria-label="Filtrar por categoría">
+                        <option value="all">Todas las categorías</option>
+                        <option value="opencode-core">opencode Core Skills</option>
+                        <option value="apex-custom">Apex Custom Skills</option>
+                        <option value="claude-local">F:\.claude Skills</option>
+                        <option value="agents">Agents</option>
+                        <option value="projects">Proyectos</option>
+                    </select>
+                    <select id="sourceFilter" class="filter-select" aria-label="Filtrar por origen">
+                        <option value="all">Todos los orígenes</option>
+                        <option value="agents-folder">C:\Users\garet\.agents\skills</option>
+                        <option value="apex-cloudworks">F:\apex-cloudworks\.claude\skills</option>
+                        <option value="claude-root">F:\.claude\skills</option>
+                        <option value="opencode-config">C:\Users\garet\.config\opencode</option>
+                        <option value="proyectos">F:\apex-cloudworks\proyectos</option>
+                        <option value="personal">F:\Garett-Barrantes-Benavides\03-Proyectos</option>
+                    </select>
+                </div>
+            </div>
+
+            <section class="categories" aria-label="Categorías de skills">
+                <div class="category-pills" id="categoryPills" role="tablist"></div>
+            </section>
+
+            <section class="grid-section" aria-label="Lista de skills y agents">
+                <div class="cards-grid" id="cardsGrid" role="list"></div>
+                <div class="empty-state" id="emptyState" hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                        <path d="M9 9l6 6M15 9l-6 6" stroke-width="2"/>
+                    </svg>
+                    <p>No se encontraron resultados</p>
+                    <span>Intenta ajustar los filtros o la búsqueda</span>
+                </div>
+            </section>
+
+            <section class="sources-section" aria-label="Resumen por origen">
+                <h2 class="section-title">Desglose por Origen</h2>
+                <div class="sources-grid" id="sourcesGrid"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p class="footer-brand">Desarrollado por Apex Cloud Work — Cartago, CR</p>
+            <div class="footer-links">
+                <a href="https://wa.me/50663144171" target="_blank" rel="noopener" class="footer-link" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.454.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.472.099-.174.05-.369-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.369-.01-.52-.01-.174 0-.369.01-.52.01-.198.01-.413.098-.644.382-.242.297-.945.808-1.17 1.174-.242.369-.348.566-.473.669-.125.098-.273.212-.398.301-.124.098-.274.213-.4.286-.133.074-.209.09-.298.074-.149-.027-.487-.197-.898-.72l-.715-.916c-.134-.174-.198-.298-.323-.423-.124-.124-.262-.239-.398-.301-.134-.062-.273-.09-.398-.074-.125.017-.239.08-.298.2-.058.124-.197.3-.25.399-.063.099-.125.198-.198.262-.098.074-.198.125-.285.125-.074 0-.188-.01-.286-.037l-.239-.062-.239.212c-.125.112-.198.149-.301.134-.125-.017-.301-.09-.512-.323l-.242-.262c-.173-.198-.5-.798-1.123-1.51-.499-.558-.92-1.186-1.243-1.776-.323-.579-.57-.999-.744-1.297-.186-.312-.33-.58-.473-.745-.149-.173-.285-.347-.446-.52-.16-.16-.348-.298-.535-.423-.173-.113-.37-.224-.558-.312-.186-.098-.383-.16-.57-.134-.186.026-.398.125-.596.337-.243.243-.499.636-.644 1.004-.149.369-.297.72-.398 1.064-.098.33-.197.68-.298 1.014-.098.347-.05.68.075 1.004.112.301.286.68.586 1.039.3.369.704.945 1.115 1.485.38.499.664.946.883 1.33.212.382.348.744.473 1.076.124.33.198.669.248 1.014.049.33-.025.623-.149.883l-.25.535c-.112.242-.174.454-.212.669-.025.148-.025.285-.025.423 0 .186.037.37.099.543.074.212.239.487.473.71.212.212.487.398.82.644.312.212.68.37 1.099.51.38.134.82.224 1.33.262.569.037 1.174.01 1.734-.125.543-.125 1.086-.323 1.57-.68.499-.369.915-.808 1.255-1.33.347-.52.599-1.099.75-1.717.149-.613.125-1.253-.05-1.876l-.3-.72c-.125-.313-.374-.808-.57-1.145-.197-.347-.446-.704-.698-1.004-.25-.3-.524-.56-.82-.774-.312-.212-.623-.386-.94-.5-.323-.124-.698-.25-1.058-.35-.37-.1-1.004-.2-1.666-.2-2.07 0-3.105 1.045-3.105 2.94 0 .797.285 1.52.82 2.11.473.52.945 1.058 1.43 1.57.499.52.999.98 1.556 1.38.543.38 1.115.674 1.745.848.636.186 1.313.198 1.958.124.66-.074 1.3-.224 1.898-.51.613-.3 1.197-.675 1.734-1.134.535-.463 1.004-.98 1.395-1.475.38-.498.644-.999.818-1.52.198-.558.286-1.145.262-1.677-.012-.324-.134-.644-.337-.883l-.374-.57c-.16-.243-.301-.463-.413-.613z"/></svg>
+                </a>
+                <a href="mailto:apexcloudworkscompany@gmail.com" class="footer-link" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </a>
+                <a href="https://github.com/apexcloudworkscompany" target="_blank" rel="noopener" class="footer-link" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="modal-header">
+                <span class="modal-badge" id="modalBadge"></span>
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <span class="modal-source" id="modalSource"></span>
+                <button class="btn btn--primary" id="modalAction">Ver Skill</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/script.js"></script>
+</body>
+</html>

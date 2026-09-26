@@ -710,6 +710,56 @@ Siguiente paso: ...
 
 ---
 
+### 2026-09-25 18:00 — 🔒 Hardening seguridad — CSP headers, rate limit, sanitización, validación teléfono
+
+**Contexto:** auditoría de seguridad post-copy. Implementación de capas de defensa en cliente + headers.
+
+**Qué se hizo:**
+
+**1. Security Headers (_headers para GitHub Pages):**
+- [x] `X-Frame-Options: DENY` — anti-clickjacking
+- [x] `X-Content-Type-Options: nosniff` — MIME sniffing
+- [x] `Referrer-Policy: strict-origin-when-cross-origin`
+- [x] `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()`
+- [x] `X-XSS-Protection: 1; mode=block`
+- [x] `Content-Security-Policy` restrictivo (self + fonts.googleapis.com + script.google.com + wa.me)
+- [x] Cache agresivo assets (1 año immutable), HTML no cache (must-revalidate)
+
+**2. Rate Limit cliente (localStorage):**
+- [x] `checkRateLimit()` — máx 3 envíos/hora por IP/navegador
+- [x] Bloqueo UI con mensaje "use WhatsApp directo" si excede
+- [x] Persistente entre recargas
+
+**3. Sanitización inputs:**
+- [x] `sanitize(str)` — escapa `< > " ' &` a entidades HTML
+- [x] Aplicado a todos los campos del lead antes de POST
+
+**4. Validación teléfono Costa Rica:**
+- [x] `validatePhoneCR()` — 8 dígitos, inicia 2-8 (formato móvil CR)
+- [x] Pattern HTML5 `[2-8][0-9]{3}-?[0-9]{4}` en input
+- [x] Helper text "8 dígitos, ej: 8888-8888"
+- [x] Validación JS + server-side (pattern) dual
+
+**5. Formulario existente reforzado:**
+- [x] Honeypot `website` (ya existía)
+- [x] Token público rotado `atlantek-pub-cs0v95l7ae`
+- [x] POST `text/plain` evita preflight CORS
+
+**Archivos tocados:**
+- `01-Cliente/web/_headers` (nuevo)
+- `01-Cliente/web/assets/js/script.js` (rate limit, sanitize, validatePhoneCR, form submit)
+- `01-Cliente/web/assets/css/style.css` (`.field-hint`)
+- `01-Cliente/web/index.html` (pattern + field-hint en teléfono)
+
+**Commits:**
+- `f2de050` "security: CSP headers, rate limit, input sanitization, phone validation"
+
+**Estado:** ✅ Deployado GitHub Pages `atlanteksystems.com` — HSTS activo (auto), rate limit/sanitización/validación funcionando en cliente
+
+**Siguiente paso:** Deploy Worker JWT (panel admin) + Cloudflare Access + demo Daniel
+
+---
+
 ### 2026-09-25 16:30 — 📝 Copy profesional y gramática — web, propuesta, presentación, panel admin
 
 **Contexto:** mejora de redacción en todos los entregables de cara al cliente para tono más profesional, directo y orientado a conversión.
