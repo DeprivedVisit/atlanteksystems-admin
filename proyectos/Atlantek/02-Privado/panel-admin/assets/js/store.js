@@ -121,13 +121,22 @@ const Store = (() => {
     document.dispatchEvent(new CustomEvent('store:sync', { detail: { status, ...extra } }));
   }
 
-  /* Pull inicial: lo que hay en Sheets manda; si Sheets está vacío,
-     se sube el estado local (primer uso). */
+/* Pull inicial: lo que hay en Sheets manda; si Sheets está vacío,
+      se sube el estado local (primer uso). */
   async function syncPull() {
     if (!hasSheets()) { emit('local'); return; }
     emit('syncing');
     try {
-      const res = await fetch(`${CONFIG.SHEETS_URL}?action=load&token=${encodeURIComponent(CONFIG.TOKEN)}`);
+      // Usar AbortController para timeout de 5s
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
+      const res = await fetch(`${CONFIG.SHEETS_URL}?action=load&token=${encodeURIComponent(CONFIG.TOKEN)}`, {
+        signal: controller.signal,
+        redirect: 'follow'
+      });
+      clearTimeout(timeoutId);
+      
       const out = await res.json();
       if (!out.ok) throw new Error(out.error || 'error remoto');
 
@@ -156,7 +165,8 @@ const Store = (() => {
       emit('ok');
     } catch (e) {
       console.warn('Sheets sync (pull):', e);
-      emit('error', { message: String(e) });
+      // Si falla por red/CORS/timeout, seguir en modo local
+      emit('local');
     }
   }
 
@@ -173,12 +183,19 @@ const Store = (() => {
     if (!hasSheets()) return;
     emit('syncing');
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
       /* text/plain evita el preflight CORS que Apps Script no responde */
       const res = await fetch(CONFIG.SHEETS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ token: CONFIG.TOKEN, action: 'save', data })
+        body: JSON.stringify({ token: CONFIG.TOKEN, action: 'save', data }),
+        signal: controller.signal,
+        redirect: 'follow'
       });
+      clearTimeout(timeoutId);
+      
       const out = await res.json();
       if (!out.ok) throw new Error(out.error || 'error remoto');
       emit('ok');
@@ -426,11 +443,18 @@ const Store = (() => {
     if (!hasSheets()) return true;
     emit('syncing');
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
       const res = await fetch(CONFIG.SHEETS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ token: CONFIG.TOKEN, action: 'lead-status', id, estado })
+        body: JSON.stringify({ token: CONFIG.TOKEN, action: 'lead-status', id, estado }),
+        signal: controller.signal,
+        redirect: 'follow'
       });
+      clearTimeout(timeoutId);
+      
       const out = await res.json();
       if (!out.ok) throw new Error(out.error || 'error remoto');
       emit('ok');
@@ -658,7 +682,8 @@ const Store = (() => {
   }
 
   load();
-  syncPull();
+  // Sync en background, no bloquea renderizado
+  setTimeout(syncPull, 100);
 
   return {
     EMPRESA, GARANTIA_DEFAULT, LEAD_ESTADOS,
