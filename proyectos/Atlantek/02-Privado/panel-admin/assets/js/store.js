@@ -56,12 +56,12 @@ const Store = (() => {
       docs: [
         {
           id: 'd27',
-          tipo: 'proforma',            // proforma | factura
+          tipo: 'proforma',
           numero: 27,
           clientId: 'c1',
           fechaEmision: '2026-07-11',
           fechaEntrega: '2026-07-11',
-          estado: 'enviada',           // borrador | enviada | pagada
+          estado: 'enviada',
           notas: GARANTIA_DEFAULT,
           items: [
             { desc: 'GRABADOR DVR DAHUA DH-XVR1B04-IT 1080/2MP', qty: 1, precio: 25000 },
@@ -99,7 +99,6 @@ const Store = (() => {
 
   function save() {
     saveLocal();
-    // Fire and forget - don't await
     syncPush();
   }
 
@@ -122,20 +121,20 @@ const Store = (() => {
     document.dispatchEvent(new CustomEvent('store:sync', { detail: { status, ...extra } }));
   }
 
-/* Pull inicial: lo que hay en Sheets manda; si Sheets está vacío,
-      se sube el estado local (primer uso). */
+  /* Pull inicial: lo que hay en Sheets manda; si Sheets está vacío,
+     se sube el estado local (primer uso). */
   async function syncPull() {
     if (!hasSheets()) { emit('local'); return; }
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
+
       const res = await fetch(`${CONFIG.SHEETS_URL}?action=load&token=${encodeURIComponent(CONFIG.TOKEN)}`, {
         signal: controller.signal,
         redirect: 'follow'
       });
       clearTimeout(timeoutId);
-      
+
       const out = await res.json();
       if (!out.ok) throw new Error(out.error || 'error remoto');
 
@@ -175,7 +174,6 @@ const Store = (() => {
 
   function pushNow() {
     if (!hasSheets()) return;
-    // Fire and forget - no emit('syncing') to avoid UI flicker
     fetch(CONFIG.SHEETS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -210,7 +208,7 @@ const Store = (() => {
   }
 
   function deleteClient(id) {
-    if (data.docs.some(d => d.clientId === id)) return false; // tiene documentos
+    if (data.docs.some(d => d.clientId === id)) return false;
     data.clients = data.clients.filter(c => c.id !== id);
     save();
     return true;
@@ -228,7 +226,6 @@ const Store = (() => {
     } else {
       d.id = uid();
       d.numero = data.nextNumber++;
-      /* Cotización: PRF-XXX (proforma) / FAC-XXX (factura) */
       if (!d.cotizacion) {
         const prefix = d.tipo === 'factura' ? 'FAC' : 'PRF';
         const existing = data.docs.filter(x => x.tipo === d.tipo);
@@ -251,10 +248,7 @@ const Store = (() => {
     if (d) { d.estado = estado; save(); }
   }
 
-  /* ═══════════ LEADS DEL SITIO ═══════════
-     Los leads NO viajan en action:'save' (el backend los ignora a
-     propósito para no pisar leads nuevos del sitio). El estado se
-     actualiza fila por fila con action:'lead-status'. */
+  /* ═══════════ LEADS DEL SITIO ═══════════ */
 
   const LEAD_ESTADOS = ['nuevo', 'contactado', 'cotizado', 'ganado', 'perdido'];
 
@@ -431,7 +425,7 @@ const Store = (() => {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
+
       const res = await fetch(CONFIG.SHEETS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -440,7 +434,7 @@ const Store = (() => {
         redirect: 'follow'
       });
       clearTimeout(timeoutId);
-      
+
       const out = await res.json();
       if (!out.ok) throw new Error(out.error || 'error remoto');
       emit('ok');
@@ -451,9 +445,7 @@ const Store = (() => {
     return true;
   }
 
-  /* ═══════════ SERVICIOS Y TICKETS (v2) ═══════════
-     Viven en localStorage 'atlantek-gestion-v2' (misma fuente que
-     dashboard.js). No viajan a Sheets todavía. */
+  /* ═══════════ SERVICIOS Y TICKETS (v2) ═══════════ */
 
   const V2_KEY = 'atlantek-gestion-v2';
 
@@ -668,7 +660,6 @@ const Store = (() => {
   }
 
   load();
-  // Sync en background, no bloquea renderizado
   setTimeout(syncPull, 100);
 
   return {

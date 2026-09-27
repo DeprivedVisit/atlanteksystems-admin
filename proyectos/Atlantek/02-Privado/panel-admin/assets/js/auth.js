@@ -26,30 +26,29 @@ const Auth = (() => {
     if (useLocalFallback) {
       throw new Error('Using local fallback');
     }
-    
+
     const url = `${API_BASE}${endpoint}`;
     const response = await fetch(url, {
-      credentials: 'include', // Include HttpOnly cookies
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
       },
       ...options,
     });
-    
-    // If API not available (404, 501, etc.), switch to local fallback
+
     if (response.status === 404 || response.status === 501) {
       useLocalFallback = true;
       console.log('Auth API not available, switching to local fallback');
       throw new Error('Using local fallback');
     }
-    
+
     const data = await response.json().catch(() => ({}));
-    
+
     if (!response.ok) {
       throw new Error(data.error || `HTTP ${response.status}`);
     }
-    
+
     return data;
   }
 
@@ -59,7 +58,7 @@ const Auth = (() => {
         method: 'POST',
         body: JSON.stringify({ password }),
       });
-      
+
       if (data.ok) {
         currentUser = data.user;
         scheduleRefresh();
@@ -67,13 +66,12 @@ const Auth = (() => {
       }
       throw new Error(data.error);
     } catch (e) {
-      // Local fallback - use SHA-256
       const encoder = new TextEncoder();
       const data = encoder.encode(password);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      
+
       if (passwordHash === LOCAL_HASH) {
         currentUser = LOCAL_USER;
         localStorage.setItem(LOCAL_STORAGE_KEY, '1');
@@ -90,7 +88,6 @@ const Auth = (() => {
     } catch (e) {
       console.warn('Logout error:', e);
     }
-    // Local fallback cleanup
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     currentUser = null;
     clearRefreshTimer();
@@ -105,7 +102,6 @@ const Auth = (() => {
         return { ok: true, user: data.user };
       }
     } catch (e) {
-      // Local fallback
       if (localStorage.getItem(LOCAL_STORAGE_KEY)) {
         currentUser = LOCAL_USER;
         scheduleRefresh();
@@ -127,12 +123,10 @@ const Auth = (() => {
 
   function scheduleRefresh() {
     clearRefreshTimer();
-    // Refresh 5 minutes before expiry (8h - 5m = 7h55m)
     refreshTimer = setTimeout(async () => {
       const ok = await refresh();
       if (!ok) {
         currentUser = null;
-        // Redirect to login
         if (window.location.pathname.includes('/admin')) {
           window.location.reload();
         }
@@ -153,14 +147,13 @@ const Auth = (() => {
 
   function hasRole(...roles) {
     if (!currentUser) return false;
-    if (currentUser.role === 'admin') return true; // Admin has all permissions
+    if (currentUser.role === 'admin') return true;
     return roles.includes(currentUser.role);
   }
 
   function hasPermission(permission) {
     if (!currentUser) return false;
     if (currentUser.role === 'admin') return true;
-    // Check role permissions
     const ROLE_PERMISSIONS = {
       admin: ['*'],
       vendedor: ['leads:read', 'leads:write', 'clientes:read', 'clientes:write', 'documentos:read', 'catalogo:read'],
@@ -180,7 +173,6 @@ const Auth = (() => {
     return true;
   }
 
-  // Initialize on load
   let initPromise = null;
   function init() {
     if (!initPromise) {
@@ -202,10 +194,8 @@ const Auth = (() => {
   };
 })();
 
-// Auto-initialize
 document.addEventListener('DOMContentLoaded', () => {
   Auth.init();
 });
 
-// Export for global access
 window.Auth = Auth;
