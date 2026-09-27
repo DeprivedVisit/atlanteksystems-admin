@@ -2,9 +2,8 @@
  * Atlantek Auth — Cloudflare Pages Function
  * Endpoints: /api/auth/login, /api/auth/me, /api/auth/logout, /api/auth/refresh
  * Uses KV binding AUTH_KV (configured in Pages project settings)
+ * No external dependencies — uses native Web Crypto API
  */
-
-import { SignJWT, jwtVerify } from 'jose';
 
 const COOKIE_NAME = 'atlantek_auth';
 const COOKIE_OPTIONS = {
@@ -35,17 +34,69 @@ async function verifyPassword(password, hash) {
   return passwordHash === hash;
 }
 
-function createSessionToken(payload, secret) {
-  return new SignJWT({ ...payload })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setExpirationTime('8h')
-    .sign(new TextEncoder().encode(secret));
+// Base64URL encoding (no padding)
+function base64urlEncode(data) {
+  return btoa(String.fromCharCode(...new Uint8Array(data)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
 }
 
+function base64urlDecode(str) {
+  str = str.replace(/-/g, '+').replace(/_/g, '/');
+  const pad = str.length % 4;
+  if (pad) str += '='.repeat(4 - pad);
+  const binary = atob(str);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+// HMAC-SHA256 signing
+async function hmacSha256Sign(key, data) {
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(key),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', cryptoKey, new TextEncoder().encode(data));
+  return base64urlEncode(signature);
+}
+
+async function hmacSha256Verify(key, data, signature) {
+  const expected = await hmacSha256Sign(key, data);
+  return expected === signature;
+}
+
+// Create JWT token (HS256)
+async function createSessionToken(payload, secret) {
+  const header = { alg: 'HS256', typ: 'JWT' };
+  const now = Math.floor(Date.now() / 1000);
+  const claims = {
+    ...payload,
+    iat: now,
+    exp: now + 8 * 3600, // 8 hours
+  };
+  const headerB64 = base64urlEncode(new TextEncoder().encode(JSON.stringify(header)));
+  const payloadB64 = base64urlEncode(new TextEncoder().encode(JSON.stringify(claims)));
+  const unsigned = `${headerB64}.${payloadB64}`;
+  const signature = await hmacSha256Sign(secret, unsigned);
+  return `${unsigned}.${signature}`;
+}
+
+// Verify JWT token (HS256)
 async function verifySessionToken(token, secret) {
   try {
-    const { payload } = await jwtVerify(token, new TextEncoder().encode(secret));
+    const parts = token.split('.');
+    if (parts.length !== 3) return null;
+    const [headerB64, payloadB64, signature] = parts;
+    const unsigned = `${parts[0]}.${parts[1]}`;
+    const valid = await hmacSha256Verify(secret, unsigned, signature);
+    if (!valid) return null;
+    const payload = JSON.parse(new TextDecoder().decode(base64urlDecode(payloadB64)));
+    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return null;
     return payload;
   } catch (e) {
     return null;
@@ -87,14 +138,14 @@ export async function onRequest(context) {
     });
   }
 
-  // Test endpoint - no jose
+  // Test endpoint
   if (path === '/api/auth/test' && method === 'GET') {
     return new Response(JSON.stringify({ ok: true, test: 'Function works', env: Object.keys(env) }), {
       headers: { ...corsHeaders(), 'Content-Type': 'application/json' }
     });
   }
 
-  // Test password verification - no jose
+  // Test password verification
   if (path === '/api/auth/test-password' && method === 'POST') {
     try {
       const { password } = await request.json();
