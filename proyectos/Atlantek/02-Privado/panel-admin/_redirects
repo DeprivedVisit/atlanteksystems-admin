@@ -4,6 +4,9 @@
 /admin/assets/* /assets/:splat 200
 /favicon.svg /favicon.svg 200
 
+# API Functions - serve directly (no SPA fallback)
+/api/* /api/:splat 200
+
 # Legal documents - serve directly (disable SPA fallback)
 /legal/* /legal/:splat 200
 
